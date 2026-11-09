@@ -1,0 +1,417 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="StarOffice/5.1 (Linux)">
+	<META NAME="AUTHOR" CONTENT="Rick Brownrigg">
+	<META NAME="CREATED" CONTENT="19991112;1123200">
+	<META NAME="CHANGEDBY" CONTENT="Rick Brownrigg">
+	<META NAME="CHANGED" CONTENT="19991112;1123200">
+	<STYLE>
+	<!--
+		@page { size: 8.5in 10.96in; margin-left: 1.25in; margin-right: 1.25in; margin-top: 1in; margin-bottom: 1in }
+		P { margin-bottom: 0.08in }
+		H2 { margin-bottom: 0.08in; font-family: "helvetica", sans-serif; font-size: 14pt; font-style: italic }
+		H6 { margin-bottom: 0.08in; font-family: "helvetica", sans-serif; font-size: 10pt }
+		P.text-body-indent { margin-left: 0.2in }
+	-->
+	</STYLE>
+</HEAD>
+<BODY>
+<H2 ALIGN=CENTER>Notes On The Partitioning Of GUI and &quot;Core&quot;
+Functionalities in TerraVision</H2>
+<P ALIGN=CENTER><BR><BR>
+</P>
+<P ALIGN=CENTER><SDFIELD TYPE=DATETIME SDVAL="36475.9480729167" SDNUM="1033;0;M/D/YY">11/11/99</SDFIELD></P>
+<H2><BR><BR>
+</H2>
+<H2>Background</H2>
+<P ALIGN=LEFT>As TerraVision was originally developed, its core
+functionality was tightly integrated with the Motif-based user
+interface. While this was suitable for the initial development, it
+later became apparent a cleaner separation of functions was needed to
+accommodate further development plans, such as a truly portable GUI
+and a browser-based plugin. Work is underway towards that goal,
+having begun in the summer of 1999. This document is a progress
+summary. To help focus future effort, an enumeration also is given of
+those functions that make up the interface to the application's
+&quot;core&quot; features. 
+</P>
+<H2>The Approach to Partitioning</H2>
+<P ALIGN=LEFT>The overall strategy can by summarized as a physical
+partitioning of the code.  Previously there existed structures that
+contained variables related solely to the Motif GUI, along with
+variables required by the intrinsic application features - the
+so-called &quot;core&quot; functionality. All the C-functions that
+operated upon these structs were typically lumped into one source
+code module, regardless of the specific role they served.</P>
+<P ALIGN=LEFT><BR><BR>
+</P>
+<P ALIGN=LEFT>The program's core features were identified as the
+querying and rendering of the multi-resolution heirarchical
+databases. Codes related to the GUI were obviously anything that
+directly employed the Motif or X11 APIs.  (There is another layer
+that serves as a sort of &quot;middleware&quot;, providing features
+on top of the core capabilities. For purposes here, these will be
+discussed as core functions).  All data related to core features was
+removed from the existing structs, placed into new ones, in new
+source code modules along with the functions that operate directly on
+them.</P>
+<P ALIGN=LEFT><BR><BR>
+</P>
+<P ALIGN=LEFT>The largest instance of this was the <FONT FACE="courier, monospace">ThreeDWidget
+<FONT FACE="times, serif">struct. This was a rather large struct that
+contained most of the Motif widgets employed for the major
+application windows, plus much of </FONT></FONT><FONT FACE="times, serif">the
+state data associated with the core functionality. A new struct named
+<FONT FACE="courier, monospace">ThreeDCore</FONT> was created, and
+all core data and functions were moved into new source code files. 
+In the process, several variables contained in the structs
+<FONT FACE="courier, monospace">ThreeDPanel</FONT> and <FONT FACE="courier, monospace">ThreeDControl</FONT>
+were also removed and placed into <FONT FACE="courier, monospace">ThreeDCore</FONT>.
+The original <FONT FACE="courier, monospace">ThreeDWidget</FONT>
+struct contained a sub-structure named <FONT FACE="courier, monospace">SharedWidgetInfo</FONT>,
+which was deemed obsolete in purpose.  This substruct was eliminated,
+with its variables dispersed into <FONT FACE="courier, monospace">ThreeDWidget</FONT>
+or <FONT FACE="courier, monospace">ThreeDCore</FONT> as appropriate. 
+The net result is a series of source code files that contain most of
+the GUI codes associated with the main window and the &quot;3D View&quot;
+window:</FONT></P>
+<P CLASS="text-body-indent">ThreeDWidget.h</P>
+<P CLASS="text-body-indent">ThreeDWidgetI.h</P>
+<P CLASS="text-body-indent">ThreeDWidget.c</P>
+<P ALIGN=LEFT><FONT FACE="times, serif">and a set of files that
+contain the core features of rendering and querying the databases,
+broken up roughly by subfunction to make the source files more
+manageable in size:</FONT></P>
+<P CLASS="text-body-indent">ThreeDCore.h	</P>
+<P CLASS="text-body-indent">ThreeDCoreI.h</P>
+<P CLASS="text-body-indent">ThreeDCore.c	// ctor, dtor, miscellaneous
+codes</P>
+<P CLASS="text-body-indent">ThreeDDraw.c	// codes primarly for
+rendering database tiles</P>
+<P CLASS="text-body-indent">ThreeDVis.c		// codes for visibility
+tests/calculations.</P>
+<P CLASS="text-body-indent">ThreeDNav.c		// codes for view navigation
+and management</P>
+<P ALIGN=LEFT><BR><BR>
+</P>
+<P ALIGN=LEFT><FONT FACE="times, serif">Similar partitioning was
+performed for codes related to the &quot;Paths&quot; functionality:</FONT></P>
+<P CLASS="text-body-indent">Paths.*:		// the core &quot;Paths&quot;
+functions</P>
+<P CLASS="text-body-indent">PathsFE.*		// the GUI codes related to
+&quot;Paths&quot;</P>
+<P ALIGN=LEFT><BR><BR>
+</P>
+<P ALIGN=LEFT><FONT FACE="times, serif">for the &quot;Features&quot;
+functionality:</FONT></P>
+<P CLASS="text-body-indent">Features.*:		// core &quot;Features&quot;
+functions and data</P>
+<P CLASS="text-body-indent">FeaturesFE.*:		// GUI codes related to
+&quot;Features&quot;</P>
+<P ALIGN=LEFT><FONT FACE="times, serif">	</FONT></P>
+<P ALIGN=LEFT><FONT FACE="times, serif">and for network logging:</FONT></P>
+<P CLASS="text-body-indent">NetLogCore.*	// core data and functions
+for logging 
+</P>
+<P CLASS="text-body-indent"><FONT FACE="times, serif">NetLo</FONT>gger.*		//
+GUI codes for logging</P>
+<P ALIGN=LEFT><BR><BR>
+</P>
+<H2>Future Work</H2>
+<P>At this point, there is a reasonably clean separation of codes for
+the Motif  GUI and those for the core TerraVision functions. While
+the GUI necessarily is dependent upon core functions to effect
+program behavior, there is little or no backwards dependencies of
+core features upon the GUI codes.</P>
+<P><BR><BR>
+</P>
+<P>At present, the variables inside the core structs are visible to
+the GUI codes, and often are manipulated directly. Future efforts
+will be to design and create a set of &quot;external&quot; interfaces
+for the core features, through which any setting or querying of core
+state by outside agents (such as a GUI) may be performed. This
+object-oriented approach would expose only minimal details of the
+core features, and hide all of the internal workings from clients of
+the code codes.</P>
+<P><BR><BR>
+</P>
+<H2>Listing of Core Functions By Feature:</H2>
+<P><BR><BR>
+</P>
+<P ALIGN=LEFT>For the purpose of assisting future work, the various
+C-functions belonging to core features are listed here, along with a
+brief synopsis. Most of these functions constitute the existing
+external interfaces. It is intended that this inventory will provide
+an overview of the services provided by core features, and help to
+define the extent of the minimal interfaces.</P>
+<H6><U>ThreeDCore/ThreeDVis/ThreeDDraw:</U></H6>
+<P STYLE="margin-top: 0.17in; font-weight: medium; page-break-after: avoid">
+<FONT FACE="helvetica, sans-serif"><FONT SIZE=2 STYLE="font-size: 10pt"><I>Constructors,
+destructors, initialization:</I></FONT></FONT></P>
+<P CLASS="text-body-indent">void ThreeDCoreDestroy(ThreeDCore *core);</P>
+<P CLASS="text-body-indent">void
+ThreeDCoreInitializeGraphics(ThreeDCore *core, tvGLXContext *tvGLX);</P>
+<P CLASS="text-body-indent">void ThreeDCoreStart(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent">void ThreeDCoreStop(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent">TsGeoPyramid *ThreeDCoreTop(ThreeDCore
+*threeDCore);</P>
+<P CLASS="text-body-indent"><BR><BR>
+</P>
+<P><I>View management / refresh notification:</I></P>
+<P CLASS="text-body-indent">void ThreeDCoreGetView(ThreeDCore
+*threeDCore, View *view);</P>
+<P CLASS="text-body-indent">View *ThreeDCoreView(ThreeDCore const
+*threeDCore);</P>
+<P CLASS="text-body-indent">void ThreeDCoreRedoVisibleList(ThreeDCore
+*threeDCore, int locked);</P>
+<P CLASS="text-body-indent">void ThreeDCorePostRedraw(ThreeDCore
+*threeDCore, int locked);</P>
+<P CLASS="text-body-indent">void ThreeDCoreGLViewpointLVCS(View const
+*view, double const geoOrigin[3], float const geoOrient[4]);</P>
+<P CLASS="text-body-indent">TsGeoPyramid *ThreeDCoreGetGeo(ThreeDCore
+*threeDCore, char const *geoname);</P>
+<P CLASS="text-body-indent">void ThreeDCoreUpdateView(ThreeDCore
+*threeDCore, int locked);</P>
+<P CLASS="text-body-indent">void ThreeDCoreSetFrozenView(ThreeDCore
+*threeDCore);</P>
+<P CLASS="text-body-indent">float ThreeDCorePointAltitude(ThreeDCore
+*threeDCore, double eye[3]);</P>
+<P CLASS="text-body-indent">void ThreeDCoreInitView(ThreeDCore
+*threeDCore, TsGeoPyramid const *geo);</P>
+<P CLASS="text-body-indent">void ThreeDCoreCentralView(ThreeDCore
+*threeDCore, TsGeoPyramid const *geo);</P>
+<P CLASS="text-body-indent"><BR><BR>
+</P>
+<P><I>external support for picking:</I></P>
+<P CLASS="text-body-indent">void ThreeDCoreFlyToPickPoint(ThreeDCore
+*threeDCore, int res, int tx, int ty, double p[], void *data);</P>
+<P CLASS="text-body-indent">void ThreeDCoreRegisterPickCB(ThreeDCore
+*threeDCore, int x, int y, PickCB cb, void *data);</P>
+<P CLASS="text-body-indent">void ThreeDCoreDrawProcessPick(ThreeDCore
+*threeDCore, int x, int y, double pick[3]);</P>
+<P CLASS="text-body-indent"><BR><BR>
+</P>
+<P><I>thread-safety, thread management:</I></P>
+<P CLASS="text-body-indent">void ThreeDCoreBusy(ThreeDCore *threeD,
+char const *fmt, ...);</P>
+<P><BR><BR>
+</P>
+<P><I>error handling:</I></P>
+<P CLASS="text-body-indent">void ThreeDCoreError(ThreeDCore *threeD,
+char const *fmt, ...);</P>
+<P CLASS="text-body-indent"><BR><BR>
+</P>
+<P><I>Miscellaneous</I>:</P>
+<P CLASS="text-body-indent">void ThreeDCoreAnimator(ThreeDCore
+*threeD, int msecs);</P>
+<P CLASS="text-body-indent">void ThreeDCoreScaleChanged(ThreeDCore
+*threeDCore, float val);</P>
+<P CLASS="text-body-indent">void
+ThreeDCoreResAdjustChanged(ThreeDCore *threeDCore, float val);</P>
+<P CLASS="text-body-indent">void ThreeDCoreChangeFog(ThreeDCore
+*threeDCore, float val);</P>
+<P CLASS="text-body-indent">void ThreeDCoreChangeTimeOfDay(ThreeDCore
+*threeDCore, int val);</P>
+<P CLASS="text-body-indent"><BR><BR>
+</P>
+<P><I>Internal functions (not presently called outside of ThreeDCore
+realm):</I></P>
+<P CLASS="text-body-indent">void ThreeDCoreRunnable(ThreeDCore
+*threeD, int runnable);</P>
+<P CLASS="text-body-indent">void ThreeDCoreStartThreads(ThreeDCore
+*threeDCore);</P>
+<P CLASS="text-body-indent">void ThreeDCoreStopThreads(ThreeDCore
+*threeDCore);</P>
+<P CLASS="text-body-indent">void ThreeDCoreNextDrawList(ThreeDCore
+*threeDCore);</P>
+<P CLASS="text-body-indent">void ThreeDCoreRedoVisibility(ThreeDCore
+*threeDCore, int locked);</P>
+<P CLASS="text-body-indent">int ThreeDCoreGrabDrawList(ThreeDCore
+*threeDCore);</P>
+<P CLASS="text-body-indent">void ThreeDCoreProcessPick(ThreeDCore
+*threeDCore, int hits, unsigned int selectBuf[]);</P>
+<P CLASS="text-body-indent">void ThreeDCoreCacheCB(TsCache const
+*cache, void *arg, void *closure);</P>
+<P CLASS="text-body-indent">void ThreeDCoreFrameGrab(ThreeDCore
+*threeDCore, unsigned long *imageBuffer);</P>
+<P CLASS="text-body-indent">float ThreeDCoreAltitude(ThreeDCore
+*threeDCore);</P>
+<P CLASS="text-body-indent">void ThreeDCoreGetView_nolock(ThreeDCore
+*threeDCore, View *view);</P>
+<P CLASS="text-body-indent">void ThreeDCoreSetView_nolock(ThreeDCore
+*threeDCore, View const *view);</P>
+<P CLASS="text-body-indent">void ThreeDCoreSetView(ThreeDCore
+*threeDCore, View const *view);</P>
+<P CLASS="text-body-indent">void ThreeDCoreViewMatrix(ThreeDCore
+*threeDCore, GLmatrix M, GLmatrix P);</P>
+<P CLASS="text-body-indent">void ThreeDCoreGeoViewMatrix(ThreeDCore
+*threeDCore, TsGeoPyramid const *geo, GLmatrix M, GLmatrix P,
+GLmatrix PM);</P>
+<P CLASS="text-body-indent">void
+ThreeDCoreDrawTileBoundsCB(ThreeDCore *threeDCore);</P>
+<P CLASS="text-body-indent">void ThreeDCoreEnableVArray(void);</P>
+<P CLASS="text-body-indent">RenderPrimitiveCache
+*RenderPrimitiveCacheCreate(void);</P>
+<P CLASS="text-body-indent">void ThreeDCoreClearCache(ThreeDCore
+*threeDCore);</P>
+<P CLASS="text-body-indent">int
+ThreeDCoreDrawPrimitiveSlow(VisibleStruct const *visible,
+VisiblePoppingStra</P>
+<P CLASS="text-body-indent">tegy poppingStrategy, Boolean selecting);</P>
+<P CLASS="text-body-indent">void ClearWorkList(ThreeDCore
+*threeDCore, VisibleList *list);</P>
+<P CLASS="text-body-indent">void ThreeDCoreReset(ThreeDCore
+*threeDCore);</P>
+<P CLASS="text-body-indent">ThreeDCoreVisibleThread(void *generic);</P>
+<P><BR><BR>
+</P>
+<P><I>New interface functions(?):</I></P>
+<P CLASS="text-body-indent">ThreeDCore **tvWindows(int *np);</P>
+<P CLASS="text-body-indent">void tvForallWindows(void (*f)(ThreeDCore
+*, void *), void *closure);</P>
+<P CLASS="text-body-indent">ThreeDCore *tvFindWindow(int
+(*f)(ThreeDCore *, void *), void *closure);</P>
+<P CLASS="text-body-indent">char const *tvName(ThreeDCore const
+*threeD);</P>
+<P CLASS="text-body-indent">Path *tvGetPath(ThreeDCore const
+*threeD);</P>
+<P CLASS="text-body-indent">int tvAddLink(ThreeDCore *from,
+tvLinkType sel, ThreeDCore *to);</P>
+<P CLASS="text-body-indent">int tvRemoveLink(ThreeDCore *from,
+tvLinkType sel, ThreeDCore *to);</P>
+<P CLASS="text-body-indent">void tvSetAnimator(ThreeDCore *threeD,
+void (*f)(void *, int), void *closure);</P>
+<P CLASS="text-body-indent">void tvSetErrorHandler(ThreeDCore
+*threeD, void (*f)(void *, char const *, va_list ap), void *closure);</P>
+<P CLASS="text-body-indent">void tvSetBusyHandler(ThreeDCore *threeD,
+void (*f)(void *, char const *, va_list ap), void *closure);</P>
+<P CLASS="text-body-indent">void tvAddDataset(ThreeDCore *threeDCore,
+TsGeoPyramid *geo);</P>
+<P CLASS="text-body-indent">void tvRemoveDataset(ThreeDCore
+*threeDCore, TsGeoPyramid *geo);</P>
+<P CLASS="text-body-indent">void trace_matrix(int trace_level, char
+const *funcName, char const *name, const_GLmatrix m);</P>
+<P CLASS="text-body-indent">int tvAdjustView(ThreeDCore *threeDCore,
+View *view, double forward, double righ</P>
+<P CLASS="text-body-indent">t, double up);</P>
+<P CLASS="text-body-indent">void tvCurrentView(ThreeDCore *threeD,
+View *viewp);</P>
+<P CLASS="text-body-indent">void tvDeltaView(ThreeDCore *threeD,
+double forw, double right, double up, View 
+</P>
+<P CLASS="text-body-indent">*viewp);</P>
+<P CLASS="text-body-indent">void tvSetView(ThreeDCore *threeD, View
+const *view);</P>
+<P CLASS="text-body-indent">void tvSetView3d(ThreeDCore *threeD,
+double x, double y, double z, double yaw, d</P>
+<P CLASS="text-body-indent">ouble pitch, double roll);</P>
+<P CLASS="text-body-indent">void tvSetViewGDC3d(ThreeDCore *threeD,
+double lat, double lon, double elev, dou</P>
+<P CLASS="text-body-indent">ble yaw, double pitch, double roll);</P>
+<P CLASS="text-body-indent">void tvGetView3d(ThreeDCore *threeD,
+double *x, double *y, double *z, double *ya</P>
+<P CLASS="text-body-indent">w, double *pitch, double *roll);</P>
+<P CLASS="text-body-indent">void tvGetViewGDC3d(ThreeDCore *threeD,
+double *lat, double *lon, double *elev);</P>
+<P><BR><BR>
+</P>
+<H6><U>Features:</U></H6>
+<P><BR><BR>
+</P>
+<P><I>Feature management</I></P>
+<P CLASS="text-body-indent">void FeatureInit(void);</P>
+<P CLASS="text-body-indent">int FeatureAddToWidget(ThreeDCore
+*threeDCore, int id);</P>
+<P CLASS="text-body-indent">int FeatureRemoveFromWidget(ThreeDCore
+*threeDCore, int id);</P>
+<P CLASS="text-body-indent">FeatureItem *FeatureGetItem(int id);</P>
+<P CLASS="text-body-indent">int FeatureParseMetadata(FeatureItem
+*item);</P>
+<P CLASS="text-body-indent">int FeatureUnload(ThreeDCore *threeD,
+char *url);</P>
+<P CLASS="text-body-indent">FeatureItem *GetFeatureFromUrl(char const
+*url);</P>
+<P><BR><BR>
+</P>
+<P><I>Internal functions (but called by other Core modules):</I></P>
+<P CLASS="text-body-indent">void FeatureFreeInstances(ThreeDCore
+*threeD);</P>
+<P CLASS="text-body-indent">int FeatureDisplay(ThreeDCore *threeD,
+TsGeoPyramid *geo);</P>
+<P CLASS="text-body-indent"><BR><BR>
+</P>
+<H6><U>Paths</U>:</H6>
+<P><BR><BR>
+</P>
+<P><I>Path management:</I></P>
+<P CLASS="text-body-indent">int PathLoadFile(ThreeDCore *threeD,
+TsGeoPyramid *geo, char const *filename);</P>
+<P CLASS="text-body-indent">void PathSaveFile(ThreeDCore *threeD,
+char const *filename);</P>
+<P CLASS="text-body-indent">void PathNew(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent">void PathSetName(ThreeDCore *threeD, char
+const *name);</P>
+<P CLASS="text-body-indent">int PathAdd(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent">int PathDelete(ThreeDCore *threeD, int
+selected);</P>
+<P CLASS="text-body-indent">void PathUpdate(ThreeDCore *threeD, int
+selected);</P>
+<P CLASS="text-body-indent">int PathDuplicate(ThreeDCore *threeD, int
+selected);</P>
+<P><BR><BR>
+</P>
+<P><I>Path playback:</I></P>
+<P CLASS="text-body-indent">void PathSetInterpolate(ThreeDCore
+*threeD, PathInterpType interp);</P>
+<P CLASS="text-body-indent">int PathUp(ThreeDCore *threeD, int
+selected);</P>
+<P CLASS="text-body-indent">int PathDown(ThreeDCore *threeD, int
+selected);</P>
+<P CLASS="text-body-indent">void PathStartAnimation(ThreeDCore
+*threeD);</P>
+<P CLASS="text-body-indent">int PathUpdateAnimation(ThreeDCore
+*threeD);</P>
+<P CLASS="text-body-indent">void PathGoto(ThreeDCore *threeD, int i);</P>
+<P CLASS="text-body-indent">void PathGotoStart(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent">void PathGotoNext(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent">void PathGotoPrev(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent">void PathGotoEnd(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent">void PathPlay(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent">void PathStop(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent">void PathPause(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent">void PathReset(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent">int PathIsPlaying(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent">int PathIsActive(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent"><BR><BR>
+</P>
+<P><I>Internal functions (not called outside of Paths realm):</I></P>
+<P CLASS="text-body-indent">void PathUpgradeItem(PathItem *item, int
+from_version);</P>
+<P CLASS="text-body-indent"><BR><BR>
+</P>
+<P><I>Internal functions (but called by other Core modules):</I></P>
+<P CLASS="text-body-indent">void PathCoreInit(ThreeDCore *threeD);</P>
+<P CLASS="text-body-indent">double PathGetTimeIndex(ThreeDCore
+*threeD);</P>
+<P CLASS="text-body-indent">void PathDraw2D(Path *path, TsGeoPyramid
+*geo);</P>
+<P CLASS="text-body-indent">void PathDraw3D(Path *path, View
+*fromView);</P>
+<P CLASS="text-body-indent">void FlyToLocation(ThreeDCore *threeD,
+double x, double y, double z, double yaw,</P>
+<P CLASS="text-body-indent"> double pitch, double roll);</P>
+<H6><U>Logging:</U></H6>
+<P><BR><BR>
+</P>
+<P CLASS="text-body-indent"><SPAN STYLE="text-decoration: none">void
+NetLogTile(TsCache const *cache, TsTileId const *tile, char const
+*event);</SPAN></P>
+<P CLASS="text-body-indent" STYLE="text-decoration: none">void
+NetLogConnection( TsmConnection connect, int status );</P>
+<P CLASS="text-body-indent">void NetLogClean(void);</P>
+<P CLASS="text-body-indent"><BR><BR>
+</P>
+</BODY>
+</HTML>

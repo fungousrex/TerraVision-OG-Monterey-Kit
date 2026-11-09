@@ -1,0 +1,81 @@
+#  TerraVision: A 3D terrain visualization system.
+#
+#  Copyright SRI International (1993-1998)
+#
+#  All rights reserved.
+
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(glt.c)
+
+CPPFLAGS="-I${srcdir}/.. $CPPFLAGS"
+
+AM_INIT_AUTOMAKE(glt, 0.2)
+AM_CONFIG_HEADER(config.h)
+AM_MAINTAINER_MODE
+
+AC_ARG_ENABLE(tracing, 
+[  --enable-tracing        Enable tracing output.],
+	AC_DEFINE(TRACING))
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_RANLIB
+
+AC_PATH_PROG(AR, ar,, $PATH:/usr/ccs/bin)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_INLINE
+if test "$ac_cv_c_inline" != no; then
+  AC_DEFINE(HAVE_INLINE)
+fi
+
+dnl Checks for library functions.
+AC_FUNC_ALLOCA
+AC_CHECK_FUNCS(strstr)
+
+dnl Checks for libraries.
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS(unistd.h)
+
+AC_PATH_X
+if test "$no_x" != yes; then
+  AC_DEFINE(HAVE_X11)
+fi
+AM_CONDITIONAL(HAVE_X11, test "$no_x" != yes)
+
+AC_CHECK_HEADERS(windows.h)
+AM_CONDITIONAL(HAVE_WINDOWS, test "$ac_cv_header_windows_h" = yes)
+
+dnl Determine the name of the Tcl/Tk library and include/libs
+TV_TCL(..)
+
+dnl Use nspr libraries
+TV_NSPR(../nsprnew)
+
+dnl This allows a number of <foo/foo.h> includes to work properly.
+CPPFLAGS="-I.. -I$srcdir/.. $CPPFLAGS"
+
+AC_ARG_WITH(opengl, [
+  --with-opengl=dir	Provide a hint as to where to look for OpenGL lib], [
+  if test -d $withval; then
+    CPPFLAGS="$CPPFLAGS -I$withval/include"
+    LDFLAGS="$LDFLAGS -L$withval/lib"
+  else
+    echo Argument --with-opengl=$withval must point to directory.
+  fi
+])
+
+dnl Now check for the thread utilities library.
+if test -d ../pthr; then
+  CPPFLAGS="-I../pthr $CPPFLAGS"
+  LDFLAGS="-L../pthr $LDFLAGS"
+  LIBS="-lpthrutil $LIBS"
+  DEPS="../pthr/libpthrutil.a $DEPS"
+fi
+
+AC_OUTPUT(Makefile, [test -z "$CONFIG_HEADERS" || echo timestamp > stamp-h])

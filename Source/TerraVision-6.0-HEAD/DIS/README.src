@@ -1,0 +1,98 @@
+This is version 3.0 of the DIS Network Library for SGIs from the Computer
+Science Department of the Naval Postgraduate School. The design of this
+all-new version was Paul Barham's; John Locke implemented the design. Email
+addresses are:
+
+	barham@cs.nps.navy.mil
+	jxxl@cs.nps.navy.mil
+
+The library uses twin circular buffers to hold incoming PDUs. The net read
+process puts new PDUs into one buffer; the application process reads PDUs
+from the other. When the application has exhausted its buffer, it forces a
+buffer swap, limiting resource contention to the brief time required to switch
+buffer state. Following is greater detail in how each process operates.
+
+[Note: test_it.c includes a sample application interface to the lib.]
+
+THE NET READ PROCESS
+
+The net read process is created by a sproc() call made in the application
+call net_open(). The entire functionality of the net reader is contained in
+the receiver_process(). The net reader reads each new PDU into a temporary
+buffer, acquires the semaphore, and copies the PDU into the first available
+slot in the current buffer. (Note that the new PDU cannot be read directly
+into the current buffer. The recvfrom() blocks indefinitely awaiting a new
+PDU to arrive. If none arrived *and* the application exhausted its buffer,
+the entire application would deadlock until a new PDU arrived. Therefore,
+the recvfrom() must be outside of the semaphore bracketed code.) This is
+the basic procedure:
+
+    Loop infinitely
+
+	Perform blocked read on broadcast socket into temporary buffer
+	Reject broadcast from self (performed by net_write() in app)
+	Reject any PDU types not on receive list (set in app)
+
+	Acquire semaphore
+	If buffer swap requested by application switch buffer state
+	Copy PDU from temporary buffer into first available slot in
+	  current buffer
+	Save buffer state in case buffers swapped while awaiting next PDU
+	Update buffer state in anticipation of next read
+	Release semaphore
+
+THE APPLICATION PROCESS
+
+The application process consists of net_open(), net_read(), net_write(),
+net_close() and the application itself. Sole responsibility for swapping
+buffers resides in net_read(). Network functionality is initialized with
+net_open():
+
+    net_open()
+
+	Initialize shared memory arena
+	Open one socket each for sending and receiving broadcasts
+	Spawn (sproc()) the receiving process
+
+	Note: the second arg to net_open() sets the size (in PDUs) of
+	  the PDU buffers. If the application consumes PDUs at the rate
+	  the net produces them, buffer size is not critical. If there
+	  are periods of non-consumption, the net read buffer will fill
+	  and begin to overwrite the oldest PDUs which are irretrievably
+	  lost. Larger buffers will help if the application has the
+	  ability to catch up to the rate of inflowing PDUs.
+
+    net_read()
+
+	If swap buffer flag set, swap buffers
+	If application PDU buffer empty, swap buffers
+	  Else, return ptr to oldest PDU and update buffer state
+	If application PDU buffer still empty, return NULL ptr
+	  Else, return ptr to oldest PDU and update buffer state
+
+	Note: net_read() takes a ptr to:
+
+	  struct readstat {
+	     PDUType      rs_type;
+	     int          rs_wasted;
+	     int          rs_swap_buffers_flag;
+	  };
+
+	  rs_type: PDU type
+	  rs_wasted: number of overwritten PDUs when this buffer was
+	    under control of the net read process; this number will not
+	    change until buffers are swapped again
+	  rs_swap_buffers_flag: if set to TRUE by application, swap
+	    buffers before checking for PDUs; this results in any
+	    additional PDUs in buffer controlled by app to be lost
+
+    net_write()
+
+	Fill in PDU header, including validating length
+	Broadcast PDU
+
+    net_close()
+
+	Close socket descriptors
+	Kill receiver process
+---

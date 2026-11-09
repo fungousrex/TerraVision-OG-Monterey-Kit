@@ -1,0 +1,89 @@
+#
+# Makefile.noauto - Martin Reddy <reddy@ai.sri.com>,  19 March 1999
+#
+# This is a quick and dirty Makefile in order to compile up the tiff
+# libraries of the libtiff distribution under a Windows environment.
+#
+# *** THIS FILE IS NOT PART OF THE STANDARD LIBTIFF DISTRIBUTION ***
+#
+# The configure script does not appear to work under the Nutcraker
+# unix environment on WinNT - normally we just regenerate this from the 
+# configure.in script with autoconf; however, this file is not
+# supplied with the libtiff distribution. Therefore, this Makefile
+# was written in order to compile up the libtiff.a library.
+#
+# usage:
+#    make -f Makefile.noauto [all]     - generate libtiff.a
+#    make -f Makefile.noauto clean     - remove all library & obj files
+#    make -f Makefile.noauto install   - currently does nothing
+#    
+# $Id: Makefile.noauto,v 1.1 1999/03/21 23:27:10 reddy Exp $
+#
+
+CC        = cc 
+INCLUDE   = -I. -I../../jpeg -I../../zlib
+CFLAGS    = -DJPEG_SUPPORT -DZIP_SUPPORT -g
+NUTCFLAGS =  -W/w -WNC_WIN95 -WNC_LIB_STRICT
+LIBRARY   = libtiff.a
+COMPILE    = $(CC) $(INCLUDE) $(CFLAGS) $(NUTCFLAGS)
+
+RM        = rm -f
+AR        = ar rc
+
+OBJS = \
+	tif_aux.o \
+	tif_close.o \
+	tif_codec.o \
+	tif_compress.o \
+	tif_dir.o \
+	tif_dirinfo.o \
+	tif_dirread.o \
+	tif_dirwrite.o \
+	tif_dumpmode.o \
+	tif_error.o \
+	tif_fax3.o \
+	tif_fax3sm.o \
+	tif_getimage.o \
+	tif_jpeg.o \
+	tif_flush.o \
+	tif_luv.o \
+	tif_lzw.o \
+	tif_next.o \
+	tif_open.o \
+	tif_packbits.o \
+	tif_pixarlog.o \
+	tif_predict.o \
+	tif_print.o \
+	tif_read.o \
+	tif_swab.o \
+	tif_strip.o \
+	tif_thunder.o \
+	tif_tile.o \
+	tif_unix.o \
+	tif_version.o \
+	tif_warning.o \
+	tif_write.o \
+	tif_zip.o
+
+.c.o:
+	$(COMPILE) -c $<
+
+all: $(LIBRARY)
+
+$(LIBRARY): version.h tif_fax3sm.c $(OBJS)
+	$(AR) $(LIBRARY) $(OBJS)
+
+version.h:
+	$(COMPILE) mkversion.c -o mkversion.exe
+	$(RM) version.h
+	./mkversion.exe -v ../VERSION -a ../dist/tiff.alpha version.h
+
+tif_fax3sm.c:
+	$(COMPILE) -o mkg3states.exe mkg3states.c
+	$(RM) tif_fax3sm.c
+	./mkg3states.exe -c const tif_fax3sm.c
+
+clean:
+	$(RM) $(OBJS) $(LIBRARY) version.h tif_fax3sm.c core
+
+install:

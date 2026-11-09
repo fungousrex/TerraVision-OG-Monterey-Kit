@@ -1,0 +1,44 @@
+TERRAVISION 6.0 — INVENTARIO DELLO SNAPSHOT HEAD
+
+Archivio CVS originale dell'utente: terravision.zip
+SHA-256 osservato: a890f3c461b3745fe47a5e7f068c98a6e4c3b357267af7e24f5d60ef68e2e810
+Esito unzip -t: OK
+
+Ricostruzione RCS HEAD:
+  Archivi RCS analizzati: 3.705
+  File di lavoro scritti: 3.705
+  Byte di contenuto: 56.845.622
+  Errori di parsing: 0
+  Revisioni HEAD: 3.617 x 1.1; 84 x 1.2; 3 x 1.3; 1 x 1.7
+  Directory principali: 30
+
+Directory:
+  DIS, PluginTV, TclTV, TerraVision, XmTV, conversions, docs, etc, ghttp,
+  glt, installer, jpeg, libTogl, libgeotiff, libpng, libungif, libxml,
+  nsprnew, nsprwin, plugin, pthr, thread, tiff, tsm, tsmUtils, tvutils,
+  vrml2, winbuild, xpm, zlib.
+
+RILASCIO:
+  RELEASE: TERRAVISION_RELEASE "6.0"
+  Data RCS riportata: 2002/10/31 05:42:11
+
+NOTE:
+  - terravision.zip resta l'archivio storico originale con CVSROOT e file RCS ,v.
+  - Source/TerraVision-6.0-HEAD è una working tree snapshot dei contenuti HEAD.
+  - Non sono stati trovati dataset .oi/.dem/.wrl nel sorgente.
+  - Sono stati trovati 38 JPG e 3 PNG, appartenenti a documentazione, screenshot e test.
+
+Nel kit finale:
+  Source/original-archives/terravision-cvs-original.zip  = ZIP CVS/RCS originale, byte per byte.
+  Source/TerraVision-6.0-HEAD/                           = snapshot HEAD navigabile e compilabile.
+  docs/SOURCE-FILELIST.tsv                               = elenco di tutti i file snapshot e dimensioni.
+  docs/ARCHITETTURA-THREADING.md                         = mappa dei call site pthr/NSPR.
+  scripts/99-build-original.sh                           = pipeline di build completa.
+  scripts/05-check-original-build.sh                     = controllo ELF32 e dipendenze prima dell'avvio.
+
+MODALITA' CLOUD (aggiunta per macOS Monterey Intel):
+  .devcontainer/                  = ambiente GitHub Codespaces Debian Bookworm x86_64 + multilib
+  scripts/98-cloud-desktop.sh     = desktop X11 virtuale, VNC su loopback e noVNC port 6080
+  scripts/97-cloud-launch-terravision.sh = lancio del TclTV originale nel desktop remoto
+  README-CLOUD-NO-DEBIAN.md       = procedura Mac via GitHub Desktop/Codespaces, senza ISO Debian/UTM locale
+  BUILD-STATUS-CLOUD.txt          = limiti e verifiche non ancora eseguite

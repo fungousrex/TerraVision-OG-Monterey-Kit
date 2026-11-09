@@ -1,0 +1,713 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "dem_to_pgm"=..\tsmUtils\winbuild\dem_to_pgm.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "get_tile"=..\tsmUtils\winbuild\get_tile.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "get_tspec"=..\tsmUtils\winbuild\get_tspec.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name get_tile
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "get_url"=..\tsmUtils\winbuild\get_url.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name get_tile
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name get_tspec
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "libgeotiff"=..\libgeotiff\winbuild\libgeotiff.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libghttp"=..\GHTTP\WINBUILD\libghttp.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libjpg"=..\jpeg\winbuild\libjpg.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libpng"=..\libpng\winbuild\libpng.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libpthr"=..\pthr\winbuild\libpthr.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libtiff"=..\tiff\winbuild\libtiff.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libtsm"=..\tsm\winbuild\libtsm.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libungif"=..\libungif\winbuild\libungif.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libvrml2"=..\vrml2\winbuild\libvrml2.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libxml"=..\libxml\winbuild\libxml.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libz"=..\zlib\winbuild\libz.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "make_dem"=..\tsmUtils\winbuild\make_dem.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "make_geovrml"=..\tsmUtils\winbuild\make_geovrml.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "make_oi"=..\tsmUtils\winbuild\make_oi.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "modTerraVision"=..\TSMUTILS\WINBUILD\modTerraVision.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "modWMS"=..\tsmUtils\winbuild\modWMS.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "text2geovrml"=..\tsmUtils\winbuild\text2geovrml.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name get_tile
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name get_tspec
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name get_url
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "time_tiles"=..\tsmUtils\winbuild\time_tiles.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "untile"=..\tsmUtils\winbuild\untile.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name get_tile
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name get_tspec
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+

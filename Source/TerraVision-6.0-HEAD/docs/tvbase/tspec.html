@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Tileset/Geoset Specification</title>
+</head>
+
+<body>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"> 
+<h1>Tileset/Geoset Specification</h1>
+
+<p>
+Geographical datasets in TerraVision are managed with a higher order construct, referred to as a <i>GeoPyramid</i>.  Although this interface hides much of the details of (remotely) accessing tilesets, some familiarity with the <code>tsmAPI</code> library is required;  see:
+
+<blockquote>
+<a href="http://www.ai.sri.com/tsmApi/api-new.html">http://www.ai.sri.com/tsmApi/api-new.html</a>
+</blockquote>
+
+<p>
+<code>GeoPyramid</code>s are created with calls to 
+<a href="api/TsGeoCreate.html">TsGeoCreate()</a>.
+The client code specifies the URLs of the image and DEM tilesets, along with 
+a packet of various connection-oriented parameters (constructed through the tsmAPI interface).
+
+<p>
+A rendering thread maintains a list of <code>GeoPyramid</code>s from which to draw a scene. <code>GeoPyramid</code>s are added to the list via calls to
+<a href="api/tvAddDataset.html">tvAddDataset()</a>, and likewise removed from
+the list with 
+<a href="api/tvRemoveDataset.html">tvRemoveDataset()</a>. A convenience function
+exists that will apply a user-provided function to all <code>GeoPyramid</code>s associated with a rendering thread: 
+<a href="api/tvForallDatasets.html">tvForallDatasets()</a>.
+
+
+
+<p>
+Three coordinate systems are directly supported to provide convenient spaces for operations on geographical data. The Geodetic Coordinate system (GDC) identifies points with the tuple (longitude, latitude, elevation).  Points in the Geocentric Coordinate system (GCC) are identified with (x,y,z) offsets from the planet's center. The Local Vertical Coordinate system (LVCS) is a local Cartesian coordinate system (x,y,z), with the Z axis in the <i>up</i> direction.
+Conversion routines exist to transform from one space to another: 
+<a href="api/TsGCCtoGDC.html">TsGCCtoGDC()</a>, 
+<a href="api/TsGeoLVCStoGCC.html">TsGeoLVCStoGCC()</a>, 
+<a href="api/TsGeoGCCtoLVCS.html">TsGeoGCCtoLVCS()</a>.
+
+
+<hr>
+<p><IMG SRC="img/back.gif" ALT="Back to" HEIGHT=21 WIDTH=20>
+<A HREF="api-desc.html">API</A>
+<p>
+<address><a href="mailto:brownrig@erg.sri.com">Rick Brownrigg</a></address>
+<!-- Created: Mon Jan 10 22:43:31 CET 2000 -->
+<!-- hhmts start -->
+Last modified: Tue Jan 25 13:17:09 CET 2000
+<!-- hhmts end -->
+</body>
+</html>

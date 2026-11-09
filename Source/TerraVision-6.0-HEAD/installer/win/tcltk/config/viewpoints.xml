@@ -1,0 +1,444 @@
+<?xml version="1.0"?>
+<Viewpoints version="4.95" created="Sat Nov 18 21:02:07 2000">
+  <viewpoint>
+    <name>test</name>
+    <dataset>Ft Irwin (2scene)</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2355963.774" y="-4662265.388" z="3662100.289"/>
+    <orientation yaw="-1.18445" pitch="-0.327317" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>runway</name>
+    <dataset>Ft Benning</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="491171.6312" y="-5370922.943" z="3396916.486"/>
+    <orientation yaw="-1.39512" pitch="-0.500302" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>vp1</name>
+    <dataset>Camp Pendleton</dataset>
+    <coordsys>lvcs</coordsys>
+    <location x="52533.11599" y="-88000.04295" z="45334.79248"/>
+    <orientation yaw="0.0857559" pitch="-0.443569" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>vp2</name>
+    <dataset>Camp Pendleton</dataset>
+    <coordsys>lvcs</coordsys>
+    <location x="52442.95631" y="-20923.86194" z="15198.3897"/>
+    <orientation yaw="0.0848263" pitch="-0.375226" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>vp3</name>
+    <dataset>Camp Pendleton</dataset>
+    <coordsys>lvcs</coordsys>
+    <location x="48173.00176" y="7634.684493" z="7778.046216"/>
+    <orientation yaw="0.313648" pitch="-0.186065" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>vp4</name>
+    <dataset>Camp Pendleton</dataset>
+    <coordsys>lvcs</coordsys>
+    <location x="37953.37359" y="24260.74039" z="5242.0434"/>
+    <orientation yaw="0.578585" pitch="-0.139549" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>vp5</name>
+    <dataset>Camp Pendleton</dataset>
+    <coordsys>lvcs</coordsys>
+    <location x="30436.79039" y="46676.03725" z="40634.72945"/>
+    <orientation yaw="1.46412" pitch="-0.983731" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Green</name>
+    <dataset>Yosemite</dataset>
+    <coordsys>lvcs</coordsys>
+    <location x="17109.13448" y="16943.89049" z="2004.837902"/>
+    <orientation yaw="-0.966601" pitch="-0.316017" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>over mckenna mout</name>
+    <dataset>Ft Benning</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="494371.0605" y="-5369000.334" z="3396211.782"/>
+    <orientation yaw="-0.686744" pitch="-0.398678" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>overhead view</name>
+    <dataset>Ft Benning</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="492518.5122" y="-5375579.949" z="3398928.348"/>
+    <orientation yaw="-0.881496" pitch="-1.23945" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Close up of the MOUT area</name>
+    <dataset>Ft Benning</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="494197.768" y="-5369125.424" z="3396273.258"/>
+    <orientation yaw="-1.27035" pitch="-0.566787" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Ft Irwin (2scene)</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2339897.596" y="-4659001.879" z="3663770.57"/>
+    <orientation yaw="-1.54681" pitch="-0.131267" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Us_boundaries</dataset>
+    <coordsys>lvcs</coordsys>
+    <location x="2223.646012" y="-2606.056268" z="5228.638673"/>
+    <orientation yaw="0.00920312" pitch="-0.930404" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Yosemite</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2530573.159" y="-4397879.095" z="3891237.595"/>
+    <orientation yaw="-1.37023" pitch="-0.7544" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Valley Entrance</name>
+    <dataset>Yosemite</dataset>
+    <coordsys>lvcs</coordsys>
+    <location x="7220.10785" y="9782.740289" z="1619.487458"/>
+    <orientation yaw="-1.39148" pitch="-0.161762" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Ft Benning</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="493032.9531" y="-5371011.596" z="3395140.294"/>
+    <orientation yaw="-0.568917" pitch="-0.408585" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Colorado</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-1463478.916" y="-4727281.323" z="4046420.647"/>
+    <orientation yaw="-1.09716" pitch="-0.170353" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin-2</name>
+    <dataset>Laguna Beach</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2570207.649" y="-4747209.594" z="3468132.561"/>
+    <orientation yaw="-0.752468" pitch="-0.431186" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Pendleton</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2564568.954" y="-4762512.317" z="3429909.146"/>
+    <orientation yaw="-0.521925" pitch="-0.317255" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>SF Bay Area</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2885150.452" y="-4343479.996" z="3809458.219"/>
+    <orientation yaw="-0.692787" pitch="-0.47863" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>SRI</name>
+    <dataset>SF Bay Area</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2708703.695" y="-4292341.464" z="3856376.924"/>
+    <orientation yaw="-0.949496" pitch="-0.439699" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>SFO</name>
+    <dataset>SF Bay Area</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2715157.779" y="-4268689.506" z="3879664.56"/>
+    <orientation yaw="-2.27074" pitch="-0.526384" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Santa Cruz</name>
+    <dataset>SF Bay Area</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2711069.015" y="-4323485.995" z="3848462.572"/>
+    <orientation yaw="-2.78198" pitch="-0.660437" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Golden Gate</name>
+    <dataset>SF Bay Area</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2710779.634" y="-4266206.172" z="3883816.002"/>
+    <orientation yaw="0.349346" pitch="-0.382887" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>San Francisco</name>
+    <dataset>SF Bay Area</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2728115.374" y="-4286408.862" z="3873943.486"/>
+    <orientation yaw="-0.0502904" pitch="-0.640546" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Camp Pendleton (1 Deg)</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2572412.152" y="-4755259.068" z="3431304.785"/>
+    <orientation yaw="-0.686233" pitch="-0.241947" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>US Boundaries (lat/long)</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-9128901.251" y="-8907929.984" z="3549848.175"/>
+    <orientation yaw="-0.67281" pitch="-1.13953" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Palo Alto</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2731743.473" y="-4313666.971" z="3851904.976"/>
+    <orientation yaw="-0.465964" pitch="-0.751846" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>SRI Campus</name>
+    <dataset>Palo Alto</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2701011.746" y="-4291603.587" z="3857502.639"/>
+    <orientation yaw="-0.653604" pitch="-0.65657" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>My House</name>
+    <dataset>Palo Alto</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2699055.518" y="-4291177.714" z="3858242.612"/>
+    <orientation yaw="-0.590019" pitch="-0.668722" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>The US</name>
+    <dataset>Gtopo30</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="33757.48918" y="-24822441.45" z="23782600.23"/>
+    <orientation yaw="-0.137209" pitch="-1.56979" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Gtopo30</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="20983299.43" y="-25430452.44" z="12039725.35"/>
+    <orientation yaw="-0.0343483" pitch="-1.58302" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Martin's Mummy</name>
+    <dataset>Gtopo30</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="3964853.91" y="-180071.6923" z="5923100.207"/>
+    <orientation yaw="0.0533522" pitch="-1.39891" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>folded corners</name>
+    <dataset>camp_pend_rgb_row1</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2493308.365" y="-4829787.351" z="3578350.908"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>camp_pend_rgb_row1</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2515294.957" y="-4872377.575" z="3610113.867"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>top of dataset missing</name>
+    <dataset>Camp Pendleton (1 Deg)</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2539201.161" y="-4787222.532" z="3516024.237"/>
+    <orientation yaw="-0.00181045" pitch="-0.833577" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>National Mall</name>
+    <dataset>Gtopo30</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="1115471.604" y="-4850898.033" z="3988141.747"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Scott Huddle's house</name>
+    <dataset>Gtopo30</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="1114873.081" y="-4844399.261" z="3985252.38"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Watergate Hotel</name>
+    <dataset>Gtopo30</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="1113650.868" y="-4845158.182" z="3984186.946"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Woods Hole</name>
+    <dataset>Gtopo30</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="1582447.055" y="-4514544.617" z="4205872.292"/>
+    <orientation yaw="-0.447742" pitch="-1.04402" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>My View</name>
+    <dataset>Ft Irwin (2scene)</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2349399.104" y="-4660876.896" z="3661237.012"/>
+    <orientation yaw="-1.04568" pitch="-0.330672" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>World Gone!</name>
+    <dataset>Gtopo30</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2865495.334" y="-4425500.985" z="3751626.039"/>
+    <orientation yaw="-0.377649" pitch="-0.336448" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Mojave</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-3005419.647" y="-6200724.986" z="4040669.391"/>
+    <orientation yaw="-0.0202194" pitch="-1.26585" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Circle in top-left</name>
+    <dataset>Ft Irwin (2scene)</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2340884.829" y="-4660264.526" z="3663247.422"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>WashingtonWestDC</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="1124617.118" y="-4898846.422" z="4014432.777"/>
+    <orientation yaw="0.0148276" pitch="-1.34302" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Ft Irwin (30scene)</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2351416.939" y="-4706219.818" z="3642878.046"/>
+    <orientation yaw="-0.044713" pitch="-0.596973" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Laguna Beach</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2507869.649" y="-4708070.869" z="3491701.738"/>
+    <orientation yaw="-0.823767" pitch="-0.0952713" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Moon</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-33714085.2" y="-10384341.18" z="-3337684.029"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Mars</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="2485889.369" y="-38933592.85" z="-3837684.671"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>103 out of 106 tiles</name>
+    <dataset>Ft Benning</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="494017.2809" y="-5369057.03" z="3396491.284"/>
+    <orientation yaw="-1.90391" pitch="-0.423776" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Lothian, Scotland</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="3607686.069" y="-197756.3185" z="5259073.66"/>
+    <orientation yaw="-0.183044" pitch="-0.625209" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Small Earth</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="36985066.65" y="-2196648.129" z="16796941.77"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>swimming</name>
+    <dataset>Laguna Beach</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2487827.654" y="-4706592.787" z="3501345.609"/>
+    <orientation yaw="-1.01544" pitch="-0.380852" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>edge test</name>
+    <dataset>Ft Irwin (2scene)</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2335393.962" y="-4660988.815" z="3668184.947"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Drop!!</name>
+    <dataset>Ft Irwin (2scene)</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2331655.968" y="-4662141.893" z="3665992.804"/>
+    <orientation yaw="1.36943" pitch="-0.28716" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Monterey Bay</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-2831434.541" y="-4309067.878" z="3824153.916"/>
+    <orientation yaw="-1.58329" pitch="-0.461476" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Earth (Gtopo30)</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-1800919.574" y="-30460240.74" z="20478543.77"/>
+    <orientation yaw="-0.0161437" pitch="-1.55629" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Overhead</name>
+    <dataset>Scotland</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="3850415.551" y="-275508.18" z="5990928.674"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Lossiemouth</name>
+    <dataset>Scotland</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="3416675.976" y="-196766.6798" z="5381889.057"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Atlanta</name>
+    <dataset>Earth (Gtopo30)</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="577030.8221" y="-5877391.484" z="3917772.319"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Origin</name>
+    <dataset>Philippines</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="-8585973.827" y="15405510.1" z="2638897.698"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>Blue Explode</name>
+    <dataset>Earth (Gtopo30)</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="39279723.27" y="5264357.444" z="25934732.63"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+  <viewpoint>
+    <name>About to hit 0 elev in space</name>
+    <dataset>Earth (Gtopo30)</dataset>
+    <coordsys>gcc</coordsys>
+    <location x="72252452.91" y="9597160.432" z="48636212.7"/>
+    <orientation yaw="0" pitch="-1.5708" roll="0"/>
+  </viewpoint>
+</Viewpoints>

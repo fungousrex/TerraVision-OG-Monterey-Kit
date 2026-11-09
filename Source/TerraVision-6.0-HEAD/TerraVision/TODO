@@ -1,0 +1,80 @@
+************
+*** TsCache:
+
+o Implement a hash table mapping dataset name to TsCache.  This would
+  allow us to reuse a single TsCache connection between multiple
+  GeoPyramids (also requires translating between OI and DEM UV
+  coordinate systems).
+o Automatically initialize TsCache memory size based on system memory
+  size.
+? Fixup potential race conditions in reference counting.
+o Figure out how to do request lists properly with multiple
+  connections to a TsCache.
+o Revamp tile requesting mechanism using double-buffered
+  single-threaded request lists.  Include ability to check for a
+  "completed" request list.
+
+*****************
+*** TsGeoPyramid:
+
+****************
+*** ThreeDWidget:
+
+o Look
+o Calculate the ratio of "tiles displayed this frame" to "tiles needed
+  for this frame" for logging output.
+o Recalculate near/far planes when GenVisibleList() is redone if
+  near or far tiles were unprepared.
+o Fix the distance threshold calculations for resolution selection.
+o Determine best resolution by pixel size (scaled by elevation range).
+
+************
+*** Texture:
+
+o Automatically adjust O2 texture memory tuning to system memory size.
+
+***************
+*** ScannedMap:
+
+o Make the map Link to any selected 3D Viewer to display its 
+  frustum, tiles, and/or path.
+o Extend digital map support for multiple datasets - have a GUI to
+  select between all available maps for all loaded datasets.
+o Use the BusyDialog routines to pop up a busy dialog while we
+  are loading a map image - this could be crawling over http.
+
+************
+*** Dataset:
+
+
+********
+*** OAA:
+
+o Make OAA code ThreeDWidget specific. Currently the screen doodle
+  coords are global across all widgets.
+o Look into specifying particular TerraVision instances/widgets
+  to control via the OAA, instead of just everything.
+
+*********
+*** VRML:
+
+o Look into the lighting problem where the models are rendered bright
+  on the first frame, then darker after that. Looks like some OGL state
+  is leaking through. We see this when display path frustums too.
+o Use newly redesigned texture cache for handling URL->TextureHandle
+  caching.
+
+*********
+*** Info:
+
+
+*************
+*** Features:
+
+o Support UTM, GDC, and GCC coordinate systems in the VRML model files
+  Metadata node. Currently we can only specify an (x,y,z) offset from
+  the origin of the associated dataset.
+o Opening a second viewer, those VRML sets that are already loaded
+  are checked in the Feature Selection widget but not displayed by
+  default.
+

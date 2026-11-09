@@ -1,0 +1,16 @@
+TERRAVISION 6.0 — MODALITA CLOUD NO-DEBIAN-LOCALE
+
+Predisposti in questo kit:
+- Devcontainer Debian Bookworm x86_64 con multilib i386.
+- Dipendenze build originali e desktop X11/noVNC.
+- Script di avvio Xvfb + x11vnc + websockify + Xfce.
+- Launcher separato per eseguire TclTV nel display remoto.
+- Guida GitHub Desktop / Codespaces.
+
+Non verificato in questa sessione:
+- Build effettiva nel servizio GitHub Codespaces.
+- Rendering OpenGL del TclTV in Xvfb/Mesa nel Codespace.
+- Disponibilita' degli endpoint storici per dataset .oi/.dem.
+
+Questa modalità evita Debian/UTM sul Mac, ma usa un container Linux remoto (Debian Bookworm) e richiede GitHub Codespaces.
+Non è una app macOS nativa. Il binario originale TclTV resta Linux ELF i386.

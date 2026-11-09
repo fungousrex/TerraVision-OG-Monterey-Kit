@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+  <title>Initialization and Control of Visualization Threads</title>
+</head>
+
+<body>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"> 
+<h1>Initialization and Control of Visualization Threads</h1>
+
+<P>
+The state embodied by a visualization thread (also refered as a
+<i>rendering thread</i>) is represented as an instance of an opaque
+structure, <b><code>tvBase</code></b>. Many of the functions of
+the API require a pointer (or <i>handle</i>) to this structure. A
+distinct instance of this structure is created for each rendering
+thread desired by the client code, via <a href="api/tvBaseCreate.html">tvBaseCreate()</a>.
+
+<p>
+Creation of a <code>tvBase</code> structure allocates memory and performs certain 
+initializations, but does not spawn the associated thread. Thread creation 
+and termination are handled separately via calls to 
+<a href="api/tvBaseStart.html">tvBaseStart()</a>
+, 
+<a href="api/tvBaseStop.html">tvBaseStop()</a>
+ respectively.  Additionally, as certain graphics initializations are not safe/possible to perform until the associated window is visible, the client code should call 
+<a href="api/tvBaseInitializeGraphics.html">tvBaseInitializeGraphics()</a>
+once early on, typically as part of the processing 
+to field an Xt Widget "realized" callback.
+
+<p>
+Clients may associate callbacks with a rendering thread, permitting them to 
+capture messages eminating from the rendering thread
+[<a href="api/tvSetMessageHandler.html">tvSetMessageHandler()</a>]
+, and update events
+[<a href="api/tvSetUpdateHandler.html">tvSetUpdateHandler()</a>]. 
+Additionally, clients <b>must</b> register callbacks to handle adding and deleting 
+timers on behalf of the render thread: 
+<a href="api/tvSetAddTimerHandler.html">tvSetAddTimerHandler()</a>, 
+<a href="api/tvSetDelTimerHandler.html">tvSetDelTimerHandler()</a>. 
+Presumably the client forwards these 
+requests to native application facilities, such as Xt timers in a Motif-based 
+application. 
+
+<p>
+Geographical datasets may be dynamically added and removed from a thread's 
+rendering lists via a pair of functions: 
+<a href="api/tvAddDataset.html">tvAddDataset()</a>, 
+<a href="api/tvRemoveDataset.html">tvRemoveDataset()</a>.
+
+<p>
+General purpose accessors/setters provide a mechanism to set state variables 
+inside the render thread; see the 
+<a href="rendering.html">Rendering Options</a> and the discussion on the data type 
+<a href="api/tvVariable.html">tvVariable</a> for details. 
+All of these functions follow the same form. "Set" functions specify the 
+handle to the render thread, the name of the state variable to set, and the 
+value. "Get" functions likewise specify the thread handle, the state variable 
+name, and return the value. There is a pair of functions for each of the 
+basic data types: 
+<a href="api/tvGetBoolean.html">tvGetBoolean()</a>/
+<a href="api/tvSetBoolean.html">tvSetBoolean()</a>, 
+<a href="api/tvGetFloat.html">tvGetFloat()</a>/
+<a href="api/tvSetFloat.html">tvSetFloat()</a>, 
+<a href="api/tvGetFloatv.html">tvGetFloatv()</a>/
+<a href="api/tvSetFloatv.html">tvSetFloatv()</a>, 
+<a href="api/tvGetInteger.html">tvGetInteger()</a>/
+<a href="api/tvSetInteger.html">tvSetInteger()</a>, 
+<a href="api/tvGetIntegerv.html">tvGetIntegerv()</a>/
+<a href="api/tvSetIntegerv.html">tvSetIntegerv()</a>, 
+<a href="api/tvGetDouble.html">tvGetDouble()</a>/
+<a href="api/tvSetDouble.html">tvSetDouble()</a>, 
+<a href="api/tvGetDoublev.html">tvGetDoublev()</a>/
+<a href="api/tvSetDoublev.html">tvSetDoublev()</a>.
+
+<p>
+A pair of functions support pick operations in a render thread's window: 
+<a href="api/tvBaseRegisterPickCB.html">tvBaseRegisterPickCB()</a>, 
+<a href="api/tvBaseFlyToPickPoint.html">tvBaseFlyToPickPoint()</a>.
+
+<p>
+Several functions force the render thread to immediately take actions it 
+normally does as needed.  
+<a href="api/tvBaseRedoVisibleList.html">tvBaseRedoVisibleList()</a> 
+should be called anytime the geosets associated with the thread change, through
+additions or removal.  
+<a href="api/tvBasePostRedraw.html">tvBasePostRedraw()</a> 
+is called to force immediate redrawing of the scene.
+
+<p>
+Finally, the resources used by a rendering thread may be reclaimed by calling 
+<a href="api/tvBaseDestroy.html">tvBaseDestroy()</a>. 
+This function should be called only after 
+<a href="api/tvBaseStop.html">tvBaseStop()</a> 
+has been invoked to kill the thread execution; any further reference to the thread handle will shurely be disasterous.
+
+<p><b>
+(ISSUE: what roles do the functions tvForallWindows() and tvForallDatasets()
+play?)</b>
+
+
+<hr>
+<p><IMG SRC="img/back.gif" ALT="Back to" HEIGHT=21 WIDTH=20>
+<A HREF="api-desc.html">API</A>
+<p>
+<address><a href="mailto:brownrig@erg.sri.com">Rick Brownrigg</a></address>
+<!-- Created: Mon Jan 10 20:34:59 CET 2000 -->
+<!-- hhmts start -->
+Last modified: Fri Jun  2 14:53:06 CDT 2000
+<!-- hhmts end -->
+  </body>
+</html>

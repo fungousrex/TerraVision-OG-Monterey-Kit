@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>View Specification and Navigation</title>
+</head>
+
+<body>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"> 
+<h1>View Specification and Navigation</h1>
+
+<p>
+The functions described here are the means by which arbitrary views into a scene can be established, and provide support for animated navigation.
+
+<p>
+There are three views that may be associated with a rendering thread.  First,
+there is always the notion of a <i>current</i> view, which is the view being
+rendered at any instant in time.  There is the notion of an <i>initial</i> 
+view, which is retained as part of the rendering state. One use for the 
+initial view is to give the user a means to return to a well-defined view, 
+in an interactive application where the user may potentially get disoriented 
+or lost in the scene.  Lastly, there is a <i>frozen</i> view which may be 
+set by the client-code (<b>ISSUE</b>:  not clear what the use of this is...).
+
+<p>
+Viewing parameters may be set by either of one of two means. Many of the functions accept or return a 
+<a href="api/tvViewpoint.html"><code>tvViewpoint</code></a> 
+data structure, which encapsulates various details about a view. Alternatively,
+a view is established by a reference point and roll/pitch/yaw angles about a 
+current view.  
+<br>(<b>ISSUE</b>:  what are these angles relative to?  Pitch seems
+straigforward;  are roll and yaw about some geographical coord. system? Lat/Long?).
+<br>(<b>ISSUE:</b> not clear how one <i>creates new</i> View structs? For example,
+where does a user specified "initial" view come from -- manually constructed?)
+
+<p>
+The viewing system should be initialized with a call to 
+<a href="api/tvBaseInitView.html">tvBaseInitView()</a>. This sets up
+reasonable defaults: either the (SW?) corner of a scene, or directly over the 
+center of the geographical extent in the case of a 2D-contrained view, or to 
+an initial view set previously by the client-code with
+<a href="api/tvSetInitialView.html">tvSetInitialView()</a>.
+(<b>Issue</b>:  Huh?  again, how does one get the View struct, and is this an
+exception to a rule that ThreeDCoreInitView() must be the first viewing function
+called?  <i>Is</i> this a rule?)
+
+<p>
+<a href="api/tvSetView.html">tvSetView()</a> and
+<a href="api/tvSetView3d.html">tvSetView3d()</a>
+provide a means to set the current view, in an absolute sense.
+<a href="api/tvAdjustView.html">tvAdjustView()</a>
+permits setting the view in a viewer-based fashion, as offsets left, forward
+and up relative to the current view.  A convenience function
+<a href="api/tvBaseCentralView.html">tvBaseCentralView()</a>
+sets the current view to the center of the available geographic extent, looking
+straight down (what altitude?).
+
+<p>
+The current view of a thread may be retrieved from calling 
+<a href="api/tvBaseGetView.html">tvBaseGetView()</a>, or
+<a href="api/tvBaseView.html">tvBaseView()</a> (redundant -- prefer
+one over the other?).
+
+
+<p>
+The Viewing API also supports animated fly-throughs of a scene.  Animation is 
+set in motion by calling
+<a href="api/tvStartMovement.html">tvStartMovement()</a>.
+The speed of the fly through is affected with calls to
+<a href="api/tvStartAccelerate.html">tvStartAccelerate()</a>
+and
+<a href="api/tvStartDeccelerate.html">tvStartDeccelerate()</a>.
+All motion is halted with 
+<a href="api/tvStopMovement.html">tvStopMovement()</a>.
+Motion is
+generally along a vector in the "forward" facing direction of the view.  
+However, it may be skewed up/down or left/right with calls to 
+<a href="api/tvBaseSetAttitudeDelta.html">tvBaseSetAttitudeDelta()</a>
+and
+<a href="api/tvBaseSetSlideDelta.html">tvBaseSetSlideDelta()</a>,
+respectively.
+
+<p>
+Finally, 
+<a href="api/tvBaseSetFrozenView.html">tvBaseSetFrozenView()</a> 
+establishes the <i>frozen</i> view associated with a thread.  
+<a href="api/tvBasePointAltitude.html">tvBasePointAltitude()</a>
+is a convenience function for calculating the altitude of a given point with
+respect to the underlying terrain.
+
+
+
+<hr>
+<p><IMG SRC="img/back.gif" ALT="Back to" HEIGHT=21 WIDTH=20>
+<A HREF="api-desc.html">API</A>
+<p>
+<address><a href="mailto:brownrig@erg.sri.com">Rick Brownrigg</a></address>
+<!-- Created: Mon Jan 10 23:39:03 CET 2000 -->
+<!-- hhmts start -->
+Last modified: Fri Jun 30 10:16:43 CDT 2000
+<!-- hhmts end -->
+</body>
+</html>

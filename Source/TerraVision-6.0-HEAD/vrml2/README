@@ -1,0 +1,17 @@
+VRML97 parser
+-------------
+
+This directory contains a fully re-entrant VRML97 parser library
+written by Lee Iverson at SRI International. VRML97 (Virtual Reality
+Modeling Language) is an ISO standard for representing 3-D graphics
+that may be distributed over the Web. For further details on VRML,
+please refer to the Web3D Consortium home page at:
+
+   http://www.web3d.org/
+
+This library is included as part of the Open Source tsmApi library,
+released by SRI International and available from:
+
+   http://www.tsmApi.com/
+
+

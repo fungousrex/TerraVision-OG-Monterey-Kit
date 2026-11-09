@@ -1,0 +1,615 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+
+<HEAD>
+<TITLE>TerraVision User Guide</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<CENTER>
+<IMG SRC="../guide.gif" ALT="TerraVision User Guide">
+</CENTER>
+
+<H2>9. TerraVision's OAA API</H2>
+
+<H3>OAA Overview</H3>
+
+SRI's Open Agent Architecture (OAA) is a framework for integrating a
+community of heterogeneous software agents in a distributed
+environment. An OAA agent is a software process that performs some
+task and can register its services with a specialized agent called the
+facilitator agent.  The facilitator agent manages all agent
+interactions in order to solve a query. It makes decisions about which
+agents are available, what their capabilities are, and manages the use
+of these agents to solve the query.
+
+<p><IMG SRC="oaa_monitor2.gif" ALIGN="right">
+
+The figure on the right shows a monitor program (which is actually an
+agent itself). This monitor shows the facilitator that it is connected
+to, along with the set of all agents that are connected to that agent
+(4 in this instance). All of these agents can be running on different,
+heterogenous platforms and communicate with the facilitator using
+TCP/IP over a network.  One powerful feature of the OAA is that agents
+can connect and disconnect from the OAA at will - the facilitator is
+constantly aware of all available agents and if one agent disconnects
+then this service is simply not available at that time.
+
+<p>The TerraVision terrain visualization system has been 
+instrumented to become an OAA agent. It can connect to a
+facilitator and advertise various capabilities for controlling
+itself. This means that any agent could request that TerraVision
+perform some function, such as fly to a particular location.
+This query is sent to the facilitator which checks to see if
+there is a TerraVision agent that can handle the request. If
+this is the case, then the request is sent to TerraVision and
+it will perform the operation.
+
+<p>For further information on the OAA, please refer to the 
+<a href="http://www.ai.sri.com/~oaa">OAA Home Page</A>.
+
+<H3>API Description</H3>
+
+All agents communicate with the facilitator using the Interagent
+Communication Language (ICL). This is a prolog-like declarative
+language that is capable of representing natural language
+expressions. Whenever an agent connects to a facilitator it must
+advertise the various solvables (functions) that can be requested of
+it and the parameters that these solvables can accept.  In order to
+control an agent, you must know this information.  The rest of this
+page therefore defines the API that the TerraVision OAA agent offers.
+
+<p>All TerraVision solvables take the form, <i>terrain3d(&lt;func&gt;,
+&lt;options&gt;)</I>. That is, TerraVision only advertises one
+solvable: terrain3d. The first parameter is used to give the name of a
+function and all of its parameters for TerraVision to perform, for
+example, <i>message("Hello World")</I>. The second parameter is used
+to pass any option parameters for that function - this will often be
+empty.
+
+<p>This approach of using a single advertised solvable (rather than
+advertising a separate solvable for each function) was chosen to
+better align with existing OAA methodologies.  TerraVision is
+providing a capability to control 3-D terrain and so this is the
+solvable that it exports.  It is feasible that another terrain
+visualization program could be instrumented as an OAA agent and
+support the terrain3d solvable also. This capability is not
+TerraVision specific.
+
+<H3>API Specification</H3>
+
+The following functions are documented in the following API
+specification. These functions constitute version 1.0 of
+the TerraVision ICL interface.
+
+<blockquote><table>
+<tr><td><A href="#flyto">flyto</A> </td><td> :
+fly to a geocentric location</td></tr>
+<tr><td><A href="#getview">getview</A> </td><td> :
+return the current geocentric location</td></tr>
+<tr><td><A href="#getview_gdc">getview_gdc</A> </td><td> :
+return the current geodetic location</td></tr>
+<tr><td><A href="#loadmodel">loadmodel</A> </td><td> :
+load a new VRML/GeoVRML model over the terrain</td></tr>
+<tr><td><A href="#loadterrain">loadterrain</A> </td><td> :
+load a new terrain imagery/elevation dataset</td></tr>
+<tr><td><A href="#message">message</A> </td><td> :
+display a message dialog in TerraVision</td></tr>
+<tr><td><A href="#move">move</A> </td><td> :
+move relative to the current orientation</td></tr>
+<tr><td><A href="#pathload">pathload</A> </td><td> :
+load a flight path file</td></tr>
+<tr><td><A href="#pathreset">pathreset</A> </td><td> :
+unloads the current flight path from memory</td></tr>
+<tr><td><A href="#pathplay">pathplay</A> </td><td> :
+play the currently loaded flight path</td></tr>
+<tr><td><A href="#pathstop">pathstop</A> </td><td> :
+stop any currently playing flight path</td></tr>
+<tr><td><A href="#pathpause">pathpause</A> </td><td> :
+pause the playback of the current flight path</td></tr>
+<tr><td><A href="#refresh">refresh</A> </td><td> :
+refresh the display</td></tr>
+<tr><td><A href="#resetview">resetview</A> </td><td> :
+return to the initial viewpoint</td></tr>
+<tr><td><A href="#rotate">rotate</A> </td><td> :
+rotate the view relative to the current
+      orientation</td></tr>
+<tr><td><A href="#set">set</A> </td><td> :
+change a TerraVision setting or behavior</td></tr>
+<tr><td><A href="#setview">setview</A> </td><td> :
+set the current geocentric location</td></tr>
+<tr><td><A href="#setview_gdc">setview_gdc</A> </td><td> :
+set the current geodetic location</td></tr>
+<tr><td><A href="#stopmotion">stopmotion</A> </td><td> :
+set current velocity to zero</td></tr>
+<tr><td><A href="#translate">translate</A> </td><td> :
+move relative to current position
+      in geocentric coordinates </td></tr>
+<tr><td><A href="#unloadmodel">unloadmodel</A> </td><td> :
+unload an existing VRML/GeoVRML model</td></tr>
+<tr><td><A href="#unloadterrain">unloadterrain</A> </td><td> :
+unload an existing terrain imagery/elevation dataset</td></tr>
+</table></blockquote>
+
+<A NAME="getview"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : getview( X, Y, Z, Yaw, Pitch, Roll )
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : This function will return the current
+viewpoint position and orientation for the 3-D viewer.  Upon
+successful completion, the (X, Y, Z) tuple will be instantiated with
+the geocentric coordinate of the current viewpoint, while
+the (Yaw, Pitch, Roll) tuple will be instantiated with the
+yaw, pitch, and roll orientation values in units of radians.
+
+<p><B>Example</b> : terrain3d( getview( X, Y, Z, Yaw, Pitch, Roll ), [] )
+
+<p><B>See Also</b> : 
+<A href="#getview_gdc">getview_gdc</A>,
+<A href="#setview">setview</A>
+
+<A NAME="flyto"><P><HR NOSHADE></a>
+
+<p><B>Function</B> : flyto( X, Y, Z, Yaw, Pitch, Roll )
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : The flyto function instructs TerraVision to
+fly to a specific geocentric coordinate and orientation. A geocentric
+coordinate is a point in 3-space that represents an (x, y, z) offset
+from the center of the planet in units of meters. Orientation is
+specified in terms of a (yaw, pitch, roll) tuple in units of radians.
+
+<p><B>Example</b> : terrain3d( flyto( 345961.1, -125476.3, 20450715.2,
+    0, -1.57, 0), [] )
+
+<p><B>See Also</b> : 
+<A href="#setview">setview</A>,
+<A href="#setview_gdc">setview_gdc</A>
+
+<A NAME="getview"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : getview( X, Y, Z, Yaw, Pitch, Roll )
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : This function will return the current
+viewpoint position and orientation for the 3-D viewer.  Upon
+successful completion, the (X, Y, Z) tuple will be instantiated with
+the geocentric coordinate of the current viewpoint, while
+the (Yaw, Pitch, Roll) tuple will be instantiated with the
+yaw, pitch, and roll orientation values in units of radians.
+
+<p><B>Example</b> : terrain3d( getview( X, Y, Z, Yaw, Pitch, Roll ), [] )
+
+<p><B>See Also</b> : 
+<A href="#getview_gdc">getview_gdc</A>,
+<A href="#setview">setview</A>
+
+<A NAME="getview_gdc"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : getview_gdc( Lat, Long, Elev )
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : The getview_gdc function will return the
+current viewpoint location in geodetic (lat/long) coordinates.
+Upon successful completion, the (Lat, Long) pair will be 
+instantiated with the latitude and longitude location in units
+of degrees, while the Elev value will be instantiated with
+the elevation of the viewpoint above the ellipsoid
+in units of meters.
+
+<p><B>Example</b> : terrain3d( getview_gdc( Lat, Long, Elev ), [] )
+
+<p><B>See Also</b> : 
+<A href="#getview_gdc">getview_gdc</A>,
+<A href="#setview">setview</A>
+
+<A NAME="loadmodel"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : loadmodel( Url )
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : This function will load and display a new
+VRML or GeoVRML model. The Url parameter points to the .wrl file
+to be loaded. This can be an http URL or a localhost pathname.
+
+<p><B>Example</b> : terrain3d( loadmodel(
+"http://www.tvgeo.com/TileSets/Pyramids/benning.mout.model/model.wrl" ), [] )
+
+<p><B>See Also</b> : 
+<A href="#unloadmodel">unloadmodel</A>,
+<A href="#loadterrain">loadterrain</A>
+
+<A NAME="loadterrain"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : loadterrain( Imagery, Elevation )
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : This function will load and display a new
+terrain model. The Imagery and Elevation parameters are URLs to the
+TerraVision orthorectified image (OI) and elevation (DEM) datasets,
+and the Geoname parameter is the GeoSet name for the terrain, which
+should be the same as the string in the geo-name field of the imagery
+dataset's tiles.tspec file.
+
+<p><B>Example</b> : terrain3d( loadterrain(
+      "http://www.tvgeo.com/TileSets/Pyramids/sfbay.oi",
+      "http://www.tvgeo.com/TileSets/Pyramids/sfbay.dem" ), [] )
+
+<p><B>See Also</b> : 
+<A href="#unloadterrain">unloadterrain</A>
+<A href="#loadmodel">loadmodel</A>
+
+<A NAME="message"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : message( Text )
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : This function will display a textual message
+inside a dialog window. This dialog window is a child of the 3-D
+viewer, i.e. it is iconified when the 3-D viewer is iconified, etc. You
+can include escape sequences such as \n in the message string to
+format your text.
+
+<p><B>Example</b> : terrain3d( message( "Hello TerraVision\nHow Are You?" ), [] )
+
+<p><B>See Also</b> : 
+
+<A NAME="move"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : move( Forward, Right, Up)
+
+<P><B>Optional Parameters</B> : [noanim]
+
+<p><B>Description</b> : Moves the current viewpoint in a viewer-based
+direction. This means moving forward/backward along the path that the
+viewer is facing, sliding left/right and up/down in a direction
+perpendicular to the forward direction. All values are in units of
+meters. By default, the viewpoint will fly to the new location.  If
+you specify the optional parameter, noanim, then the viewpoint will
+simply jump to the new location.
+
+<p><B>Example</b> : terrain3d( move( -100, 0, 0 ), [noanim] )
+
+<p><B>See Also</b> : 
+<A href="#translate">translate</A>,
+<A href="#setview">setview</A>
+
+<A NAME="refresh"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : refresh
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : Refreshes TerraVision's display. This function
+is generally not required as TerraVision will update the display
+whenever appropriate. This function was originally included 
+primarily as a simple function to test the operation of the OAA API.
+
+<p><B>Example</b> : terrain3d( refresh, [] )
+
+<p><B>See Also</b> : 
+
+<A NAME="pathload"><P><HR NOSHADE></A>
+
+<p><B>Function</B> :  pathload( Url )
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : Loads a flight path from the given file,
+replacing any already loaded path. The path can then be played
+by calling the pathplay command. A flight path file can be created
+from the full TerraVision application via the Paths menu.
+
+<p><B>Example</b> : terrain3d( pathload('C:/paths/space2sri.path'), [] )
+
+<p><B>See Also</b> : 
+<A href="#pathreset">pathreset</A>,
+<A href="#pathplay">pathplay</A>,
+<A href="#pathstop">pathstop</A>,
+<A href="#pathpause">pathpause</A>
+
+<A NAME="pathreset"><P><HR NOSHADE></A>
+
+<p><B>Function</B> :  pathreset
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : Unloads any currently loaded flight path,
+frees all flight path memory, and deletes any animation timers. Use
+this call to unload a flight path.
+
+<p><B>Example</b> : terrain3d( pathreset, [] )
+
+<p><B>See Also</b> : 
+<A href="#pathload">pathload</A>,
+<A href="#pathplay">pathplay</A>,
+<A href="#pathstop">pathstop</A>,
+<A href="#pathpause">pathpause</A>
+
+<A NAME="pathplay"><P><HR NOSHADE></A>
+
+<p><B>Function</B> :  pathplay
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : Plays the currently loaded flight path, as
+loaded via the pathload call. Playback begins at the start of the
+flight path or, if the path was previously paused with the pathpause 
+command, then playback begins at the paused point.
+
+<p><B>Example</b> : terrain3d( pathplay, [] )
+
+<p><B>See Also</b> : 
+<A href="#pathload">pathload</A>,
+<A href="#pathreset">pathreset</A>,
+<A href="#pathstop">pathstop</A>,
+<A href="#pathpause">pathpause</A>
+
+<A NAME="pathstop"><P><HR NOSHADE></A>
+
+<p><B>Function</B> :  pathstop
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : Stops any currently playing path. Any subsequent
+call to pathplay will start playback from the start of the flight path.
+
+<p><B>Example</b> : terrain3d( pathstop, [] )
+
+<p><B>See Also</b> : 
+<A href="#pathload">pathload</A>,
+<A href="#pathreset">pathreset</A>,
+<A href="#pathplay">pathplay</A>,
+<A href="#pathpause">pathpause</A>
+
+<A NAME="pathpause"><P><HR NOSHADE></A>
+
+<p><B>Function</B> :  pathpause
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : Stops any currently playing path. Any
+subsequent call to pathplay will start playback from the point at
+which the flight path was paused.
+
+<p><B>Example</b> : terrain3d( pathpause, [] )
+
+<p><B>See Also</b> : 
+<A href="#pathload">pathload</A>,
+<A href="#pathreset">pathreset</A>,
+<A href="#pathplay">pathplay</A>,
+<A href="#pathstop">pathstop</A>
+
+<A NAME="resetview"><P><HR NOSHADE></A>
+
+<p><B>Function</B> :  resetview
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : Returns the user to the initial viewpoint.
+That is, the viewpoint that the user was placed at when they first
+opened the 3-D viewer. With respect to multiple datasets, the origin
+of the lowest priority (i.e. lowest resolution) dataset is used.
+
+<p><B>Example</b> : terrain3d( resetview, [] )
+
+<p><B>See Also</b> : 
+<A href="#setview">setview</A>
+
+<A NAME="rotate"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : rotate(Yaw,Pitch,Roll)
+
+<P><B>Optional Parameters</B> : [noanim]
+
+<p><B>Description</b> : This function will rotate the viewpoint in the
+3-D viewer. This is a relative rotation, i.e. you rotate (Yaw, Pitch,
+Roll) relative to the viewer's current orientation. All angles are
+given in units of radians.  By default, the viewpoint will be animated
+to the new orientation.  If you specify the optional parameter,
+noanim, then the viewpoint will simply jump to the new orientation.
+
+<p><B>Example</b> : terrain3d( rotate( 3.1415, 0, 0 ), [] )
+
+<p><B>See Also</b> : 
+<A href="#setview">setview</A>
+
+<A NAME="set"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : set( Option, Value1, [Value2, [Value3] ] )
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : This function is used to change a number of
+TerraVision's internal settings, including rendering options,
+navigation options, and behaviors. The basic model is that you
+specify the option you want to change, and then supply a value.
+The number of value parameters depends upon the option. Below
+is a table of currently supported options along with the number
+and type of arguments they accept.
+
+<p>The Boolean type can be either '0', 'F', or 'FALSE' to
+represent a false state, or '1', 'T', 'TRUE' to represent 
+a true state.
+
+<p><center><table border="2" cellpadding="3">
+<tr><th>Option name</th> <th>Arguments</th> <th>Argument Type(s)</th></tr>
+
+<tr><td>SHOW_LIGHTING</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>SHOW_HEADS_UP</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>SHOW_WIREFRAME</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>SHOW_TEXTURES</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>SHOW_SKY</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>SHOW_GROUND</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>SHOW_FRUSTUMS</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>SHOW_TILES</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>SHOW_PATHS</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>SHOW_LOGO</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>SHOW_CROSSHAIR</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>SHOW_MODELS</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>FEATURES_WIREFRAME</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>FEATURES_TEXTURED</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>FEATURES_LIGHTING</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>FEATURES_LOAD_TEXTURES</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>FEATURES_BACKFACE_CULL</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>BACKFACE_CULL</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>HORIZON CULL</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>USE_ZBUFFER_HACK</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>FREEZE_TILES</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>SHOW_TILE_DEBUG</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>STEREO</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>SCALE_IPD</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>TWOD_CONSTRAIN</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>MIPMAP_TEXTURES</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>HEIGHT_BASED_NAVIGATION</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>DOODLE_ON_TERRAIN</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>DIS_SEND</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>DIS_MONITOR</td> <td>1</td> <td>Boolean</td></tr>
+<tr><td>DIS_SITE_ID</td> <td>1</td> <td>Integer</td></tr>
+<tr><td>DIS_ENTITY_ID</td> <td>1</td> <td>Integer</td></tr>
+<tr><td>DIS_ID</td> <td>3</td> <td>Integer</td></tr>
+<tr><td>CROSSHAIR</td> <td>2</td> <td>Integer</td></tr>
+<tr><td>VISIBLE_CYCLE</td> <td>2</td> <td>Integer</td></tr>
+<tr><td>TIME_OF_DAY</td> <td>1</td> <td>Float</td></tr>
+<tr><td>RESOLUTION_ADJUST</td> <td>1</td> <td>Float</td></tr>
+<tr><td>ABSOLUTE_IPD</td> <td>1</td> <td>Float</td></tr>
+<tr><td>ELEVATION_SCALE</td> <td>1</td> <td>Float</td></tr>
+<tr><td>MOTION_THRESHOLD</td> <td>1</td> <td>Float</td></tr>
+</table></center></p>
+
+<p><B>Example</b> : terrain3d( set( 'SHOW_LIGHTING', 'TRUE' ), [] )
+
+<p><B>See Also</b> : 
+<A href="#setview_gdc">setview_gdc</A>,
+<A href="#getview">getview</A>
+
+<A NAME="setview"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : setview( X, Y, Z, Yaw, Pitch, Roll )
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : This function will set the current viewpoint
+for the 3-D viewer.  You pass in the location using geocentric
+coordinates, an (X, Y, Z) coordinate where the units are
+meters. Orientation is specified using a (Yaw, Pitch, Roll)
+tuple where all units are in radians. 
+
+<p><B>Example</b> : terrain3d( setview( 1115471 -4850898 3988141, 0,
+      -1.57, 0 ), [] )
+
+<p><B>See Also</b> : 
+<A href="#setview_gdc">setview_gdc</A>,
+<A href="#getview">getview</A>
+
+<A NAME="setview_gdc"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : setview_gdc( Lat, Long, Elev, Yaw, Pitch, Roll )
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : This function will set the current viewpoint
+for the 3-D viewer using geodetic (latitude/longitude)
+coordinates. You pass in values for the (Lat, Long, Elev) coordinate,
+where Lat and Long are in degrees and Elev is elevation above the
+ellipsoid in meters.  The (Yaw, Pitch, Roll) orientation is specified
+in units of radians.  It is defined to be relative to the local
+reference plane at the specified location, i.e. a value of (0,0,0)
+will always orient you so that you are upright and facing due north;
+and a value of (0,-PI/2,0) will always orient you so that you are
+facing straight down.
+
+<p><B>Example</b> : terrain3d( setview_gdc( 57.7174 -3.286119 200000,
+   0,  -1.57, 0), [] )
+
+<p><B>See Also</b> : 
+<A href="#setview">setview</A>,
+<A href="#getview">getview</A>
+
+<A NAME="stopmotion"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : stopmotion 
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : The stopmotion function will stop any current
+camera animation that is currently playing in the 3-D viewer. The user
+can use the mouse buttons to induce forward and backward momentum -
+this function nulls that momentum and stops the viewpoint from moving.
+
+<p><B>Example</b> : terrain3d( stopmotion, [] )
+
+<p><B>See Also</b> : 
+
+<A NAME="translate"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : translate( X, Y, Z )
+
+<P><B>Optional Parameters</B> : [noanim]
+
+<p><B>Description</b> : This function will move the viewpoint in the
+3-D viewer. This is a relative move in geocentric coordinate space,
+i.e. you move (X, Y, Z) from the current geocentric viewpoint
+position.  By default, the viewpoint will be animated to the new
+location.  If you specify the optional parameter, noanim, then the
+viewpoint will simply jump to the new location.
+
+<p><B>Example</b> : terrain3d( translate( 1000, 0, 200 ), [noanim] )
+
+<p><B>See Also</b> : 
+<A href="#rotate">rotate</A>,
+<A href="#move">move</A>
+
+<A NAME="unloadmodel"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : unloadmodel( Url )
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : This function will unload a currently loaded
+VRML/GeoVRML model from the viewer.  The Url parameter should be the
+same as that used in order to load the model in the first place via
+the loadmodel command.
+
+<p><B>Examples</b> : terrain3d( unloadterrain( "http://www.tvgeo.com/TileSets/Pyramids/benning.mout.model/model.wrl" ), [] )
+
+<p><B>See Also</b> : 
+<A href="#loadmodel">loadmodel</A>,
+<A href="#loadterrain">loadterrain</A>
+
+<A NAME="unloadterrain"><P><HR NOSHADE></A>
+
+<p><B>Function</B> : unloadterrain( Geoname )
+
+<P><B>Optional Parameters</B> : none
+
+<p><B>Description</b> : This function will unload a current terrain
+model from the viewer.  The Geoname parameter can be one of two
+things. It can be the URL that you specified for the OI dataset in the
+call to loadterrain(), or it can be the GeoSet name for the terrain
+you wish to unload. The GeoSet name is found under the geo-name field
+in the tiles.tspec file of the OI dataset.
+
+<p><B>Examples</b> : terrain3d( unloadterrain( "SF Bay Area" ), [] )<br>
+terrain3d( unloadterrain( "http://www.tvgeo.com/TileSets/Pyramids/sfbay.oi" ), [] )
+
+<p><B>See Also</b> : 
+<A href="#loadterrain">loadterrain</A>,
+<A href="#loadmodel">loadmodel</A>
+
+<P><BR><HR NOSHADE>
+
+<A HREF="../index.html">User Guide Contents</A> /
+<A HREF="http://www.ai.sri.com/TerraVision" TARGET="_top">TerraVision Home Page</A>
+
+</BODY>
+</HTML>

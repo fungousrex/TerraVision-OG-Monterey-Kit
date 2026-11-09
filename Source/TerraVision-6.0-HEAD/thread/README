@@ -1,0 +1,2 @@
+This directory contains an SGI sproc-based version of a (currently
+incomplete) POSIX threads (pthreads) library.

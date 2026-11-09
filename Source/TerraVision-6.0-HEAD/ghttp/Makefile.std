@@ -1,0 +1,31 @@
+SHARED_OBJS=http_hdrs.o http_uri.o http_trans.o http_req.o \
+	http_resp.o http_date.o ghttp.o http_base64.o \
+	http_date.o
+#
+OBJS=
+#
+CFLAGS=-g -Wall -I.
+#
+LIBS=libghttp.a
+#
+CFLAGS=-I.
+
+all: .deps $(SHARED_OBJS) $(OBJS) $(LIBS)
+
+test: test_client test_post_client test_server
+
+$(OBJS):
+
+$(SHARED_OBJS):
+
+clean:
+	rm -f $(OBJS) $(SHARED_OBJS) $(LIBS) *~ core test_client test_post_client test_server .deps
+
+libghttp.a: $(SHARED_OBJS)
+	$(AR) $(ARFLAGS) libghttp.a $(SHARED_OBJS)
+	ranlib libghttp.a
+
+.deps:
+	gcc -M *.c > .deps
+
+-include .deps

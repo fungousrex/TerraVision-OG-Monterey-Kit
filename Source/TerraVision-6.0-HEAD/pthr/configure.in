@@ -1,0 +1,131 @@
+#  pthrutil: A library of pthread-safe basic functions
+#
+#  Copyright SRI International (1993-1998)
+#
+#  All rights reserved.
+
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(report.c)
+
+# Determine the host, build, and target systems
+AC_CANONICAL_SYSTEM
+
+AM_INIT_AUTOMAKE(pthr, 0.0)
+AM_CONFIG_HEADER(config.h)
+AM_MAINTAINER_MODE
+
+AC_ARG_ENABLE(tracing, 
+[  --enable-tracing        Enable tracing output.],
+        AC_DEFINE(TRACING))
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_RANLIB
+
+AC_PATH_PROG(AR, ar,, $PATH:/usr/ccs/bin)
+
+dnl Checks for library functions.
+AC_CHECK_FUNCS(setlinebuf)
+AC_FUNC_ALLOCA
+
+dnl
+dnl See if -pthread is supported.
+dnl
+rm -f conftest*
+ac_cv_have_dash_pthread=no
+AC_MSG_CHECKING(whether ${CC-cc} accepts -pthread)
+echo 'int main() { return 0; }' | cat > conftest.c
+${CC-cc} -pthread -o conftest conftest.c > conftest.out 2>&1
+if test $? -eq 0; then
+	if test -z "`egrep -i '(unrecognize|unknown)' conftest.out | grep pthread`" && test -z "`egrep -i '(error|incorrect)' conftest.out`" ; then
+		ac_cv_have_dash_pthread=yes
+		CFLAGS="$CFLAGS -pthread"
+		CXXFLAGS="$CXXFLAGS -pthread"
+	fi
+fi
+rm -f conftest*
+
+case "$target" in
+    *-*-solaris*) 
+		AC_DEFINE(_REENTRANT) 
+		;;
+
+    *-*-linux*) 
+		AC_DEFINE(_REENTRANT) 
+		;;
+
+    alpha*-*-osf*)
+		AC_DEFINE(_REENTRANT)
+dnl		if test ! "$GNU_CC"; then
+dnl			CFLAGS="$CFLAGS -pthread" 
+dnl			CXXFLAGS="$CXXFLAGS -pthread" 
+dnl		fi
+		;;
+
+    *-*-freebsd*)
+		AC_DEFINE(_REENTRANT)
+		AC_DEFINE(_THREAD_SAFE)
+dnl		CFLAGS="$CFLAGS -pthread"
+dnl		CXXFLAGS="$CXXFLAGS -pthread"
+		dnl -pthread links in -lc_r, so don't specify it explicitly.
+		if test "$ac_cv_have_dash_pthread" = "yes"; then
+			PTHREAD_LDFLAGS=""
+		else
+			PTHREAD_LDFLAGS="-lc_r"
+		fi
+		;;
+esac
+AC_MSG_RESULT($ac_cv_have_dash_pthread)
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_HEADER_SYS_WAIT
+AC_CHECK_HEADERS(unistd.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_TYPE_PID_T
+AC_TYPE_SIZE_T
+
+AC_C_INLINE
+if test "$ac_cv_c_inline" != no; then
+  AC_DEFINE(HAVE_INLINE)
+fi
+
+dnl Determine whether the compiler can instantiation vars with stdout/err
+AC_TRY_COMPILE([#include <stdio.h>], [static FILE *handle = stderr;],
+  [AC_DEFINE(HAVE_STATIC_INIT)] )
+
+dnl Use nspr libraries
+TV_NSPR(../nsprnew)
+
+dnl Update the LDFLAGS with an RPATH
+for i in $LDFLAGS; do
+  case $i in
+  -L*) 
+    dir=`echo $i | sed -e 's/-L//'`
+    if test -d $dir; then
+      case $dir in
+      /*) ;;
+      *) dir=`(cd $dir; pwd)`;;
+      esac
+      # Test for existence of a shared object file
+      so=`cd $dir; eval echo \*.so 2>/dev/null`
+      if test "$so" != '*.so'; then
+        RPATH="$RPATH:$dir"
+      fi
+    fi
+    ;;
+  *) ;;
+  esac
+done
+if test -n "$RPATH"; then
+  LDFLAGS="$LDFLAGS -Wl,-rpath,"`echo $RPATH | sed -e s/://`
+fi
+
+AC_OUTPUT(Makefile, [
+  test -z "$CONFIG_HEADERS" || echo timestamp > stamp-h])
+

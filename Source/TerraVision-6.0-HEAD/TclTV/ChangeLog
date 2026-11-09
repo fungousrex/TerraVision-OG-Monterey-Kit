@@ -1,0 +1,1083 @@
+2002-11-10    <reddy@ALBA>
+
+	* util.tcl: make the automated listbox widget name be "lbox_%d"
+	and not just "%d" as this can interfere with any children widgets
+	with numbers in a toplevel.
+    
+	* mainwin.tcl: removed the GeoWeb menu entries and also added a
+	File/Servers main entry to go straight to the Servers dialog
+
+2002-07-30    <Martin Reddy@HEATHER>
+
+	* mainwin.tcl (tvLicense): change the license window so that it
+	displays the Apache license for TerraVision.
+
+	* TerraVision.tcl: don't display the license on start up - no real
+	need any more now that TerraVision is open source under the Apache
+	license
+
+2002-03-27    <Martin Reddy@HEATHER>
+
+	* mainwin.tcl (aboutTV): update the date on the TerraVision about
+	window to say 1993-2002.
+
+2002-02-15  Lee Iverson  <leei@ece.ubc.ca>
+
+	* tvBaseCmds.c (tvMsgListAdd): Add const modifiers to strings.
+	(tvConsoleMsg): Add const modifier to fmt.
+	* tvBaseCmds.h: Include <togl.h>
+	(tvMsgListAdd): Add const modifiers to string args.
+	(tvConsoleMsg): Add const modifier to fmt.
+
+	* Makefile.in: Regen with automake 1.5
+	* aclocal.m4: Ditto
+	* config.h.in: Ditto
+
+	* configure.in: Use TV_TCL(..)
+	* configure: Regen with autoconf 2.52
+	
+2002-01-08    <Martin Reddy@HEATHER>
+
+	* tsmDatabaseCmds.c (serverCommand): give an error message if
+	there is an error reading a TerraVision server - don't just crash
+	out.
+
+	* datasetDialogs.tcl (closeAllDatasets): fixed a bug in the Close
+	All function - we previously removed a geoset from the viewer, but
+	this is done when we call the tvRemoveDataset() function
+
+2002-01-07    <Martin Reddy@HEATHER>
+
+	* tsGeoPyramidCmds.c (tsGeoPyramidProc): check to see if the user
+	has selected to load the same local disk DEM again under
+	Windows. Unfortunately, we cannot do that right now so we detect
+	the situation and give an error message. (otherwise the user will
+	get a barrage of TIFF error windows).
+
+2001-12-19    <Martin Reddy@HEATHER>
+
+	* TerraVision.tcl: make the default view mode be 2D instead of 3D.
+
+Fri Dec 14 14:24:41 2001    <reddy@MAGNOLIA>
+
+	* dotgeo.tcl: remove the Hierarchy functionality - this is now
+ 	removed from the latest dotgeo libraries
+
+	* datasetDialogs.tcl: new functions postConsole, createConsole,
+ 	clearConsole, and addToConsole that manage the new dataset console
+ 	window. Also added a loadedGeoset function that is called whenever
+ 	a terrain dataset has finished loading (via the TERRAIN_LOADED
+ 	message)
+
+	* tvBaseCmds.c (tvConsoleMsg): new function for outputting
+ 	messages to the new datasets console
+	(tvSignalTerrainLoaded): new message "TERRAIN_LOADED" which is
+ 	used by the terrain loading thread to notify the Tcl/Tk interface
+ 	that the terrain model has been successfully loaded.
+
+	* tsGeoPyramidCmds.c (tvLoadTerrainThread): put the terrain
+ 	loading in a separate thread - include console message output
+	(tsGeoPyramidProc): instead of trying to load the terrain there
+ 	and then, fire off a new thread to do the dataset loading
+
+Thu Dec 13 11:25:24 2001    <reddy@MAGNOLIA>
+
+	* tvBaseCmds.c (tvlibMessageHandler): add handler to field
+ 	TV_CONSOLE_MSG messages from the core
+
+	* featureoptions.tcl: add check for whether a VRML model exists
+	when we load it.
+
+Thu Nov 08 15:29:43 2001    <reddy@MAGNOLIA>
+
+	* featureoptions.tcl: add a URL text entry string at the bottom of
+ 	the dialog to allow any arbitrary 3D model URL to be entered.
+
+Tue Nov 20 10:55:05 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* configure.in (DEPS): only add the -W compile line flags if we
+	are not compiling under Solaris
+
+Mon Oct 29 15:11:20 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* viewoptions.tcl: add a GUI to let user's jump to a feature using
+	the ADL Gazetteer
+
+	* tvBaseCmds.c (tvutilsADL): [new func] adds support for
+	interfacing Tcl/Tk with the new ADL Gazetteer query routines
+
+Wed Sep 19 12:00:47 2001    <reddy@MAGNOLIA>
+
+	* mainwin.tcl (aboutTV): use the TVU_TV_VERSION string from
+ 	tvutils to find out the TerraVision version number instead of
+ 	hardcoding it in the about window string.
+ 	(mainWinBindings) set up a handler for the case when the user
+ 	closes the window by clicking on the close window button rather
+ 	than selecting the File/Exit option
+
+Wed Sep 19 11:37:00 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* tvBaseCmds.c (tvlibMessageHandler): don't use the horrible hack
+ 	before to call directly into Tcl/Tk. This was unstable and
+ 	unpredictable. Now we store all messages up in a list for the Tcl
+	idle process to query every now and then.
+	(tvutilsInterface): implement the "tvutils msg" command so that
+	Tcl can query the C interface about any pending messages.
+
+	* mainwin.tcl (showWebPage): new function that will find the
+	default web browser under Windows and use netscape under Unix
+	(mainWinBindings): start the idle timer callback
+	(idleCallback): implement the idle timer callback. Checks to see
+	if any messages are queued up from the C side, e.g. a call to
+	display an error message or notify about loading a dataset.
+
+2001-08-08  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* tsGeoPyramidCmds.c (tsGeoPyramidProc): Call TsGeoCreate_OIDEM
+	  instead of TsGeoCreate.
+
+Wed Jul 18 15:57:05 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* tsGeoPyramidCmds.c (tsInfoSubCommand): add tile size to the
+	description of a dataset in the Properties menu
+
+	* mainwin.tcl (makeFileMenu): reorder the File menu so that there
+	is one Open and one Close menu, with sub menu entries for Terrain,
+	3D Model, and .geo.
+
+	* renderoptions.tcl (makeWindow): fix Render Settings GUI for the
+	Popping Strategy radio buttons - read initial state of these
+	setting and set the new state correctly on selection.
+
+Thu Jul 12 14:26:09 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* featureoptions.tcl (postOpenFeaturesDialog): add a button to the
+	Load Model dialog called "Model Settings" that pops up the 3D
+	Model Settings window.
+
+Wed Jun 20 14:45:44 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* datasetDialogs.tcl (readServerStatus): add a status dialog for
+	when we are reading a server
+	(addServerCB): make the Add Server window a little more friendly,
+	with example server URLs, initial focus set to the entry widget,
+	and pressing RETURN to accept the string.
+	(changeDatabase): persist the user's change of database filename
+	into the config.xml file
+	(postOpenDSDialog): add a "..." button after the database entry
+	widget to let the user select a database file with a file requester
+	(selectDBase): [new func] lets the user select a database file
+	with a file requester.
+
+Mon Jun  4 12:57:33 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* tsGeoPyramidCmds.c (tsInfoSubCommand): correct the potential
+ 	overflow errors when calculating dataset size for very large
+ 	datasets. Also change all %g to %1.10g formats for printing large
+	floating point values.
+
+	* viewoptions.tcl (makeGazetteerWindow): add a "Street" field to
+	the Goto Address option - can now search down to Street level
+	instead of just city level
+
+Fri Jun  1 18:13:47 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* tvPathCmds.c (tvPathCommand): read the arguments correctly for
+ 	the path record function. The second parameter (ysize) was being
+ 	ignored.
+
+Mon May 14 17:37:04 2001    <reddy@MAGNOLIA>
+
+	* datasetDialogs.tcl: fix problem reading a TerraVision server
+ 	where the URL has a space in it
+
+	* mainwin.tcl: set the default splash screen message that appears
+ 	when no datasets are loaded to "Please Select A Terrain Model..."
+	as the "Waiting for Datasets" might imply that the user should
+	wait.
+ 
+Sun May 13 13:46:57 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* viewoptions.tcl (makeControlsWindow): make the 'viewer position'
+	viewpoint controller be the default - much more intuitive than
+	navigating in GCC space by default.
+
+	* mainwin.tcl (mainWinBindings): fix the cursor key bindings so
+ 	that these now work intuitively at any altitude - now gives a
+	viable and useful keyboard interface for navigation.
+
+	* tvBaseCmds.c (tvlibMessageHandler): deal with NULL format
+ 	strings. This caused a crash when jumping to a bookmark with
+	Animate turned on.
+
+	* viewbookmarks.tcl (postBookmarksDialog): allow double-click over
+	a bookmark to jump to that bookmark.
+
+Fri Apr 27 17:06:14 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* mainwin.tcl (Button1Down): check for clicking on a hyperlink
+	(ButtonMotion): check for mousing over a hyperlink
+	(ButtonUp): check for releasing a mouse click over a hyperlink
+
+	* tvBaseCmds.c (tvAnchorCommand): add a new "anchor" command for
+	each TV TCL/TK instance. This manages the highlighting and
+	following of hyperlinks in the scene.
+
+Fri Apr 20 11:01:22 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* tsGeoPyramidCmds.c (printDeg): [new func] takes a decimal degree
+	value and prints it as a (degree, minutes, seconds) tuple.
+	(tsInfoSubCommand): describe the resolution of lat/long datasets
+	using (deg,min,sec) notation not decimal degrees.
+
+Mon Mar 26 15:19:50 2001    <reddy@MAGNOLIA>
+
+	* oaa.tcl: update the OAA ID String when the user hits return
+	over the ID String field of the connect dialog
+	Prepend "Message from $id" to all messages sent to a viewer
+
+Mon Mar 26 12:31:05 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* oaa.tcl: [new file] implements a set of OAA interface dialogs,
+ 	including connecting/disconnecting to a facilitator, listing all
+	connected TerraVision clients, sending a text message to a client,
+	and sending a full OAA command to any client.
+
+Tue Mar 20 13:56:47 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* tvBaseCmds.c (tvGetCommand): implement TV_STRING support for
+ 	tvGetCommand() - needed to read the TV_OAA_ID string, among
+ 	others.
+	(tvOAACommand): added "get", "set", "connect", "disconnect",
+	"getconnected", and "solve" commands to the OAA Tcl/Tk interface
+
+Sat Mar 10 12:18:28 2001    <reddy@MAGNOLIA>
+
+	* featureoptions.tcl: add the Show Models checkbox to the 3D Model
+ 	Settings dialog
+
+	* renderoptions.tcl: convert error report from puts to
+ 	tk_messageBox as puts fails under Windows (no console)
+	remove the Show Models checkbox from the Rendering Settings
+
+Mon Mar 05 10:20:09 2001    <reddy@MAGNOLIA>
+
+	* dotgeo.tcl: remember the current schema and hierarchy strings
+ 	when we close the Open DotGeo dialog
+
+	* datasetDialogs.tcl: change the cursor to a busy cursor while
+ 	loading a terrain dataset.
+
+	* tvBaseCmds.c (tvFeatureCommand): do the model loading in a
+ 	separate thread so that we don't hang the GUI
+	(tvLoadModelThread): the thread that does the loading of models
+
+Mon Mar 05 10:20:09 2001    <reddy@MAGNOLIA>
+
+	* mainwin.tcl: added an "Open DotGeo..." option to the File menu
+
+	* dotgeo.tcl: [new file] implements all of the DotGeo interface
+ 	dialogs for TerraVision. This includes a new dialog for connecting
+ 	to and disconnecting from a DotGeo schema.
+
+	* mainwin.tcl: update the Help URLs for new User Guide layout
+
+	* tvBaseCmds.c (tvSetCommand): implement support for TV_STRING
+ 	variables in the $id.tvbase set function.
+
+Sat Mar 03 13:45:44 2001    <reddy@MAGNOLIA>
+
+	* mainwin.tcl (makeFileMenu): added "Open 3D Model" and "Close 3D
+ 	Model" options to the File menu
+	(makeSettingsMenu): added "3D Model Settings" option.
+
+	* featureoptions.tcl: [new file] Implements the Open and Close 3D
+ 	Model options, as well as the 3D Model Settings dialog.
+
+Fri Mar 02 00:11:12 2001    <reddy@MAGNOLIA>
+
+	* tsGeoPyramidCmds.c (tsInfoSubCommand): output the description
+ 	string to the "Properties" (Dataset Info) list so that we can
+	display any copyright or source information.
+
+	* tvBaseCmds.c (tvFeatureCommand): implement the Togl "feature"
+ 	command with subcommands of "load" "unload" and "list".
+	(MakeModelList): go through a list of models in a dataset and add
+ 	each one to the global list
+	(AddToModelList): add a single model instance to the global list
+
+Thu Mar 01 23:35:40 2001    <reddy@MAGNOLIA>
+
+	* tsmDatabaseCmds.c (getDBase): returns the database structure
+ 	maintained by this module so that we can access it from other
+ 	modules.
+
+2001-02-13  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* annotateoptions.tcl: i) fix bug encountered when dismissing with
+ 	doodle-mode turned off.  ii) make doodle-mode off by default.
+
+	* mainwin.tcl:  Move menu item Settings/Debug_settings to "Debug" menu.
+	Rearrange location of Settings/Doodle.
+
+	* debugoptions.tcl: Moved active code in "globals.tcl" to
+ 	this module, to combine all functions represented by the "Debug"
+ 	menu.
+
+	* TerraVision.tcl: remove source-statement for globals.tcl
+
+	* globals.tcl:  Obsolete -- removed  from the repository.
+	
+Tue Feb 13 11:16:10 2001    <reddy@MAGNOLIA>
+
+	* tsGeoPyramidCmds.c (tsGeoPyramidProc): don't do the TsGeoDestroy
+ 	call on closedown only under MSVC. Appears to work fine under
+ 	other platforms.
+
+	* tvBaseCmds.c (tvlibMessageHandler): don't seem to have vsnprintf
+ 	under MSVC, so can only use vsprintf, which opens up to a
+ 	potential crash if the message is greater than 1K. Hopefully, this
+ 	is not too common!
+
+2001-02-12  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* tvBaseCmds.[h,c], main.c: implemented "tvbase stroke"
+ 	subcommands, to provide interface to annotation/doodling
+ 	functions.
+
+	* annotateoptions.tcl, TerraVision.tcl: new module to implement
+ 	GUI for various annotation/doodling options.
+
+	* mainwin.tcl:  wired up button callbacks to be aware of "doodle" mode.
+
+	* mainwin.tcl (makeSettingsMenu): wired up "doodle" options to menubar.
+
+	* renderoptions.tcl (makeWindow): added scale controller for
+ 	TV_MOTION_THRESHOLD.  Changed packing on sliders to "-expand 0"
+ 	for better layout of the two columns of 4 and 3 sliders.
+
+	* viewbookmarks.tcl (setCB): set status bar with bookmark name
+	
+	* viewoptions.tcl:  set status bar on goto by lat/long or gazette
+	entry. 	
+	
+	* viewoptions.tcl (calcMovementFactor): fix bug in calculation of
+ 	movement when height-based scaling was *not* active.
+
+	* paths.tcl (playStopContPauseCmd): set/clear status bar when path
+	playback in progress.
+
+	* mainwin.tcl: clear status bar when navigation commences.
+
+Sat Feb 10 10:32:56 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* viewoptions.tcl (configGazButtons): sets the text of the label
+ 	at the bottom of the Goto Address window and the Goto button state
+	(makeGazetteerWindow): creats the Goto Address dialog
+	(gotoAddressCB): callback used when user clicks on "Goto Address"
+ 	button
+
+	* tvBaseCmds.c (tvutilsGaz): added a TCL interface to the new
+ 	gazetteer services of tvutils.
+
+	* mainwin.tcl (makeViewMenu): added a "Goto Address" menu entry
+
+2001-02-08  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* renderoptions.tcl (makeWindow): In spite of the fact the sliders
+ 	for "elevation scale" and "time of day" are disabled, they still
+ 	generate callbacks if the slider knob is clicked upon, even though
+ 	they can't be manipulated. Commented out the callback registration
+ 	for these two.
+
+	* tvBaseCmds.c (tvlibMessageHandler): added callback registered
+ 	with tvSetMessageHandler() to field messages originating from the
+ 	library at runtime.  On errors, we post an alert dialog with the
+ 	text.  Status messages get posted to the status bar of the
+ 	appropriate viewer.
+
+Thu Feb  8 13:00:47 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* globals.tcl (makeGlobalsMenu): set the default selected Debug
+	Level menu item based upon what pthr thinks is the current,
+	i.e. reference the user-supplied value from -debug.
+
+	* pthrCmds.c (traceCommand): added a "getlevel" command to pthr so
+ 	that we can discover any command line setting for debug level
+
+	* globals.tcl: change all references to stdout to be stderr
+	(postDebugMaskDialog): consult tvutils in order to find out if the
+ 	user specified a -debug_file option. Set the radiobutton values
+ 	appropriately
+	(debugMaskApplyCB): use the tvutils set function to change between
+ 	debug to file and stderr as this deals with closing things down
+ 	properly and setting debug state correctly.
+	(postDebugMaskDialog): set the state of each debug mask checkbox
+	based upon the value of the -debug command line option
+
+	* TerraVision.tcl: implement the -oi and -dem command line options
+	to load an initial set of datasets
+
+	* tvBaseCmds.c (tvBaseCmdsInit): initialise the features module at
+	this point so that any models discovered via .geo will work.
+
+	* mainwin.tcl (newViewWindow): add support for any -cmd command
+	line options after we open the window
+
+	* tvBaseCmds.c (tvutilsInterface): implement support for
+ 	TV_STRINGV command line options such as -cmd, -oi, and -dem.
+	(tvOAACommand): implement the tvOAACommand function - support a
+	"interpret" command
+
+	* mainwin.tcl (setTVDefaults): support the -droptowireframe option
+	by setting the TV_MOTION_THRESHOLD appropriately.
+
+	* TerraVision.tcl: implement the -view command line option to
+	specify whether the default viewer is 2D or 3D
+
+Mon Feb  5 15:50:57 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* mainwin.tcl (mainWinBindings): implemented the space bar key
+	to stop all movement.
+
+Mon Feb 05 15:10:54 2001    <reddy@MAGNOLIA>
+
+	* tsGeoPyramidCmds.c (tsGeoPyramidProc): commented out the bit
+ 	that does the TsGeoDestroy(). This was causing a crash under
+ 	Windows. It seems there is something not quite bug-free about
+ 	closing a dataset (in XmTV and PluginTV too).
+
+2001-02-05  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* util.tcl (makeListBox, getListBoxParent, populateListBox): new
+ 	utility procs for creating and populating listbox widgets, with
+ 	h/v scrollbars thgat are managed automatically as needed.
+
+	* datasetDialogs.tcl: rewired listbox creation to reflect new
+ 	mechanisms cited above.
+	* viewbookmarks.tcl:  Ditto.
+	* datasetoptions.tcl: Ditto.
+	* paths.tcl:  Ditto.
+	
+Fri Feb  2 10:45:08 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* mainwin.tcl (makeViewMenu): added a "Goto Origin" menu entry to
+	the "View" menu bar.
+
+Thu Feb  1 15:04:25 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* mainwin.tcl (mainWinBindings): do a "view origin" when O is
+ 	pressed in order to return to the origin
+	(ButtonMotion): add some debug testing to try and catch a couple
+	of floating point errors I've seen every now and then
+	(mainWinBindings): use SHIFT+H to toggle the Debug HUD
+
+	* tvViewCmds.c (tvViewCommand): added an "origin" subcommand to
+	the view command - jumps to the origin
+
+Thu Feb 01 14:03:01 2001    <reddy@MAGNOLIA>
+
+	* mainwin.tcl: added a "View/Goto lat/Long" menu item
+
+	* viewoptions.tcl (makeGotoWindow): [new func] implements a Goto
+ 	Lat/Long window
+	(gotoLatLongCB): [new func] implements the Goto Lat/Long button
+	(setOrientCB): [new func] implements the Set Orientation button
+
+	* tvViewCmds.c (tvViewCommand): added setgdc and getgdc to the
+ 	view command
+	(setGDCCommand): [new func] implements view setgdc
+	(getGDCCommand): [new func] implements view getgdc
+
+2001-02-01  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* mainwin.tcl: added Settings/Window cascading menu items to
+ 	toggle the menubar/statusbar/logo.  Rewired keyboard accelerators
+ 	to make use of the new callbacks implemented for the menus.
+
+	* globals.tcl (makeGlobalsMenu): removed duplicated "Debug
+ 	Settings" item from global "Debug" menu. (debug settings is a
+ 	per-viewer dialog, and appears under the "Settings" menu)
+
+	* navoptions.tcl, renderoptions.tcl, viewoptions.tcl,
+ 	viewbookmarks.tcl: slight GUI tweak; put viewer number in window
+ 	title for viewer-specific dialogs.  For example if multiple
+ 	viewers are instantiated, and user has posted the "Rendering
+ 	Options" dialog for each, the window title should reflect which
+ 	dialog belongs to what viewer.
+
+2001-01-31  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* main.c, tvBaseCmds.h, tvBaseCmds.c: implemented the "tvbase
+ 	destroy" Tcl command, for cleaner behavior during
+ 	close-view/program-exit.
+
+	* tvBaseCmds.c (tvToglDestroyCB): removed call to tvBaseStop()
+ 	prior to tvBaseDestroy(); was causing problems related to paths
+ 	(program would core dump on exit if a path had been in effect),
+ 	and is also superfluous as a tvBaseStop() is ultimately invoked in
+ 	tvBaseDestroy().
+
+	* mainwin.tcl (setTVDefaults): change default value of
+ 	TV_SHOW_TILES to true; this fixes the bug where Link/Show_Tiles
+ 	didn't work.
+
+2001-01-30  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* tvViewCmds.c (tvViewCommand): implemented "setFrozen" subcommand
+ 	for the "view" command.
+
+	* debugoptions.tcl (postDebugOptionsDialog): new module to
+ 	implement the "Debug Options" dialog.
+
+	* TerraVision.tcl, mainwin.tcl: wired up "Debug Options" dialog.
+
+	* util.tcl (instnum): added new utility proc to pull out the
+ 	sequence number from a instance-id.  Used in title creation for
+ 	dialog windows, where we want to label the dialog as being
+ 	associated with a particular viewer.
+
+	* main.c (TclTVInit): Rather than load the program scripts via the
+ 	implicit "tcl_rcFileName" mechanism, we explicitly load it via
+ 	Tcl_EvalFile(). We need some better mechanism for capturing errors
+ 	in the program scripts, and this is an attempt to get a handle on
+ 	it.
+
+Mon Jan 29 15:28:23 2001    <reddy@MAGNOLIA>
+
+	* datasetDialogs.tcl: create a new TerraVision database if we
+ 	don't have one loaded - use the default name for tvutils.
+	
+	* tsmDatabaseCmds.c (tsmDatabaseCommand): add a tsmDatabase
+ 	command called "exist" to test whether we have a loaded database.
+	(serverCommand): return error message if database not loaded
+
+2001-01-29  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* util.tcl (populateListBox): Fixed long standing bug in this
+ 	utility; added code to preserve a list widget's ordering among its
+ 	siblings. Most noticeable manifestation of the bug was when a
+ 	geoset was selected in the "Open Geosets" dialog, the "Dem
+ 	Servers" label would relocate to underneath the "Image Servers"
+ 	label.
+
+2001-01-23  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* datasetDialogs.tcl: added interface and mechanism to register
+	"Observers" for changes in set of opened geosets.  Used by dialogs
+	the need to update themselves on open/close events.
+
+	* viewbookmarks.tcl:  register as an observer of dataset-change events.
+
+	* datasetoptions.tcl: register as an observer of dataset-change events.
+	Created a proper dismiss-callback to clean up variables, registrations,
+	etc.
+
+	* datasetDialogs.tcl: register as an observer of dataset-change events
+	for the "Dataset Settings" and "Properties" dialogs.
+
+Mon Jan 22 14:03:30 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* tsGeoPyramidCmds.c (InfoMakeSize): [new func] takes a number in
+	bytes and creates a string, converting the number into an
+	appropriate unit of GB, MB, KB, or bytes.
+	(tsInfoSubCommand): use the InfoMakeSize() call to display any
+	byte sizes in the Properties window.
+
+	* viewoptions.tcl (makeViewStatusWindow): add the description
+ 	"(Geocentric)" to the View Information window.
+
+	* links.tcl (makeSubMenus): remove the Select Window options from
+ 	the Links menu. This is not implemented yet and may not be
+ 	possible in Tcl/Tk? Anyway, we generate a list of all available
+	windows in the menu bar for the user to select from.
+
+	* globals.tcl (makeGlobalsMenu): remove the logging menu items in
+	the Debug menu until we decide to do something with them.
+
+	* datasetDialogs.tcl (postInfoDSDialog): always display the
+ 	Aggregate report in the Properties window when we have any
+ 	datasets loaded.
+
+	* datasetoptions.tcl (refreshGeoList): [new proc] refreshes the
+ 	list of available datasets in the Dataset Settings window
+	(getSelectedGeo): [new proc] returns the name of the currently
+ 	selected dataset in the Dataset Settings window
+	(priority): correctly implement the dataset priority function
+	(mergeAndAnnotateLists): build the list of geosets so that those
+ 	in the current viewer are shown first and in the order used by
+ 	TerraVision, followed by any other non-visible global datasets.
+
+Fri Jan 19 10:02:43 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* tvBaseCmds.c (tvGeosetCommand): implement the "priority" part
+	of the geoset Tcl command. 
+
+	* datasetoptions.tcl (priority): cleaned up the priority selection
+	code - still doesn't work though! Seems like just one simple thing
+	to work out - see comments in file.
+
+	* mainwin.tcl (tvLicense): rearranged the window focus and grab
+	settings so that we don't pop up the window before it is sized.
+
+	* tvBaseCmds.c: updated Tcl's lookup table with the latest set of
+ 	TV_* tokens for the tvGet/Set functions.
+
+	* datasetoptions.tcl (postDatasetOptionsDialog): added an "Auto
+ 	Pop to Front" button to toggle this behaviour when loading a new
+ 	dataset.
+
+Thu Jan 18 17:50:37 2001    <reddy@MAGNOLIA>
+
+	* TerraVision.tcl: pop up the TerraVision license on start up if
+ 	this is a new version of TerraVision or if -license given
+
+	* mainwin.tcl (tvLicense): new Tcl function to display the
+ 	TerraVision license agreement and update the config file based
+ 	upon the users response.
+
+	* tvBaseCmds.c (tvutilsInterface): new Tcl command interface
+ 	(refer to as tvutils in Tcl) that provides access to all tvutils
+ 	functionality (currently get/set/config/bookmarks).
+
+	* main.c (TclTVInit): subsumed the previous tvBookmarks Tcl
+ 	command into the new tvutils command
+
+	* tvBaseCmds.c (tvuSetCommand): removed
+	(tvuGetCommand): removed
+
+Tue Jan 16 12:21:10 2001    <reddy@MAGNOLIA>
+
+	* mainwin.tcl: added an About procedure for the Help/About window
+
+Mon Jan 15 11:47:07 2001    <reddy@MAGNOLIA>
+
+	* tsmDatabaseCmds.c (geosetCommand): if the database is not
+ 	loaded, then return TCL_OK with an empty list, not TCL_ERROR.
+
+	* paths.tcl: update the location of the underline for the Path
+	menu Pause/Continue when it changes.
+
+	* datasetDialogs.tcl: check for an error when loading a dataset
+ 	instead of just dying. Now returns an error message and continues
+	gracefully.
+
+	* tsGeoPyramidCmds.c (tsGeoPyramidProc): don't fail with TCL_ERROR
+ 	if cannot find a dataset - set return object to an empty string and
+	return TCL_OK. Otherwise, we get a Tcl error message.
+
+	* mainwin.tcl (quitCD): added title for the Quit dialog
+	(dummyCB): added title for Feature Not Implemented Yet dialog
+	(mainWinBindings): Windows Tcl does not seem to support the
+	KP_ key symbols, e.g. KP_Right not available. Removed these.
+
+Sun Jan 14 17:48:46 2001    <reddy@MAGNOLIA>
+
+	* main.c (main): add a WinMain section for compiling under Win32.
+
+	* tvBaseCmds.c (tvGetCommand): replace all references to int
+ 	args[tvVarsData[index].numArgs] with a hardwired array limit
+ 	because you cannot set an array size with a variable under MSVC.
+	(genericErrorMessage): dynamically allocate buff using malloc
+ 	because cannot set array size with a varibale under MSVC
+
+2001-01-12  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* mainwin.tcl (ButtonMotion): fixed bug -- motion events where not
+ 	processed unless a modifier key (ctrl/shift/alt) was also pressed.
+
+Fri Jan 12 12:54:25 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* mainwin.tcl (newViewWindow): use the new tvuGet command in order
+	to implement the -width and -height command line options.
+
+	* main.c (TclTVInit): install the new Tcl command "tvuGet" which
+	calls the C function GetTvuSetting
+
+	* tvBaseCmds.c (GetTvuSetting): [new function] allows access to
+	the tvuGet function of tvutils without requiring a Togl widget to
+	have been created.
+
+	* renderoptions.tcl (makeWindow): change resolution adjustment
+	range to be from -0.5 to 2.0
+	remove the "Show Clouds" option completely
+	(makeWindow): comment out the MipMap option
+
+	* mainwin.tcl (newViewWindow): move the "Globals" menu to the end
+ 	of the menu strip and call it "Debug" instead - it contains all
+ 	debug mask and logging related functions.
+	(makeSettingsMenu): add NavOptions:: namespace to the call to
+ 	postNavOptionsDialog so that it can find the function.
+
+	* globals.tcl (makeGlobalsMenu): add "Debug Settings" to the new
+	Debug menu.
+
+2001-01-11  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* mainwin.tcl (quitCB): Nicer shutdown (cleanup and free resources
+ 	instead of just bailing)
+
+2001-01-09  Rick Brownrigg  <brownrig@erg.sri.com>
+	
+	* "*.tcl": work regarding the handling of IDs:  
+	- Renamed the ".tv" widget to ".tvbase" to emphasize the special
+ 	role of that widget as the command interface to libtv2.
+	- Cleaned up mess with the instance IDs; sometimes the ID was
+ 	passed as an argument, other times it was the "$id.tvbase" widget
+ 	that was passed. The convention we are striving for is that the ID
+ 	is *always* the indentifier used as an argument. If a proc needs
+ 	the togl widget, it is responsible for constructing its name.
+
+2000-12-12  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* mainwin.tcl (NewViewWindow): altered passing of instance ID's to 
+	some menu/dialog constructors, for greater consistency.
+
+	* paths.tcl (newPathCmd): reflect change above as to how ID is
+ 	passed to this module.
+
+	* mainwin.tcl: implemented CTRL+ shortcuts for Path operations.
+
+2000-12-11  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* renderoptions.tcl (makeWindow): "greyed" out sliders for
+ 	elevScale and timeOfDay, to represent this are not implemented
+ 	under libtv2.
+
+Thu Dec 14 13:40:39 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* mainwin.tcl (makeHelpMenu): update the URLs for the Help menu
+	and add a link to the new TerraVision FAQ.
+
+Mon Dec 11 15:59:39 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* main.c (main): initialise the tvutils library with the new
+ 	TVU_TCLTK token to indicate this is a Tcl/Tk application (only
+ 	used currently to decide whether to display -tcldir option in the
+ 	-help text).
+	(TclTVInit): call tvuGetString( TVU_TCL_FILENAME ) to get the
+ 	filename for the TerraVision.tcl file. This will also update the
+ 	pwd so that all Tcl source commands work. This works by first
+	checking the -tcldir directory (if specified), then the current
+	directory, then the $TVHOME/tcl directory.
+
+2000-12-09  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* paths.tcl:
+	- cause NewPath command to also open EditPath dialog
+	- (re)added missing variable to EditPath commands
+	- corrected numerous places where it was written "Tk_messageBox",
+	  rather than "tk_messageBox".
+	- most tk_messageBox commands had invalid "-type yes"; corrected to
+	  "-type ok".
+
+	* renderoptions.tcl (scaleCB): Had tried to implement exact
+ 	behavior for sliders as is observed in XmTV, but botched the
+ 	implementation due to confusion on how Motif vs. Tk's sliders
+ 	behave.  Corrected this.
+
+	* TerraVision.tcl: override "option" specs for messageBoxes,
+ 	controlling font and wrapLength (defaults are too clunky
+ 	appearing).
+
+2000-12-08  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* mainwin.tcl (dummyCB): callback for unimplemented features now
+ 	presents a messageBox informing user of such; formerly dumped a
+ 	note to stdout.
+
+	* globals.tcl (makeGlobalsMenu): removed DPSS options from globals
+ 	menu.
+
+	* mainwin.tcl (helpCB): wired up help menu commands (excluding
+ 	About and License).
+
+	* TerraVision.tcl: renamed the variable storing installation
+ 	directory from MAGICHOME to gInstallDirectory, consistent with
+ 	global variable naming scheme.  This is now used by the
+ 	help-commands to determine if help files are locally available.
+
+	* Added new file tsmUtilCmds.c, to implement the tsmUtil Tcl command.
+	
+	* tsmDatabaseCmds.h renamed to tsmCmds.h.  Now holds externals for
+	all tsm* Tcl commands.
+	
+	* Makefile.am: added tsmUtilCmds.c to build list.
+
+2000-12-07  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* viewbookmarks.tcl: fixed bug introduced on 12-02 regarding
+ 	$ids. IDs were then used inconsistently within this module,
+ 	causing available bookmarks not to be displayed.
+
+Tue Dec  5 15:02:38 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* tvBaseCmds.c (tvToglCreateCB): connect to .geo schema if
+	requested and set the Z-Buffer hack to be on by default
+
+	* mainwin.tcl (quitCB): remove spurious '*' symbol at start of line
+
+2000-12-04  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* tvViewCmds.c (setViewCmd): added support for "FlyToPick" operations.
+
+	* tvViewCmds.c (setViewRelativeCmd): added support for "rotate"
+ 	and "move" commands, which modify viewpoint by viewer-centric,
+ 	relative displacements.
+
+2000-12-02  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* mainwin.tcl (fileMenuCloseViewerCB): closing last window
+ 	degenerates into a Quit action, with associated confirm dialog.
+
+	* datasetoptions.tcl, viewbookmarks.tcl: $id as passed to the
+ 	postDialogs was inconsistent with usage elsewhere.
+
+	* TerraVision.tcl: introduced additional globals for maintaining
+ 	state not kept by tvBase instances, such as flight modes,
+ 	flight-control modes, etc.
+
+	* navoptions.tcl (makeWindow): wired up UI controls to affect
+ 	flight modes
+
+	* mainwin.tcl (mainWinBindings): restructured window bindings,
+ 	added many keyboard-event bindings, and public procs for modifying
+ 	the status bar. Documented key commands that remain to be
+ 	implemented, as determined from examining XmTV/ThreeDWidget.c
+
+2000-12-01  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* mainwin.tcl (NewViewWindow): Applied work-around to fix an
+ 	annoying bug in Tcl/Tk that causes top-level keyboard shortcuts
+ 	(e.g., Alt+F to post the File menu) to generate a grab error.
+  	Spent mucho amounts of time tracking this one down, and have been
+ 	in contact with the Tk development team at sourceforge on this.
+
+	* mainwin.tcl, globals.tcl, paths.tcl, links.tcl: added
+ 	second-tier keyboard shortcuts and accelerators to menus.
+
+Mon Nov 27 10:08:07 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* viewbookmarks.tcl (saveBookmarks): use the tvutils function
+	(removeCB): also remove the bookmark from the tvutils list
+	(addCB): also add the bookmark to the tvutils list
+	(renameCB): also rename the bookmark entry in the tvutils list
+
+	* tvBaseCmds.c (tvBookmarks): return entire bookmark as a compound
+	list, instead of individual calls to return each string.
+
+Wed Nov 22 14:03:19 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* viewbookmarks.tcl (loadBookmarks): update to use the
+ 	tvuLoadViewpoints function and then copy the contents into TCL
+ 	structures.
+	(makeViewRec): removed - subsumed into tvutils
+
+	* main.c (TclTVInit): add a new TCL entry-point (bookmarks) to a C
+ 	function (tvBookmarks). Lets TCL load and save viewpoint bookmarks.
+
+	* TerraVision.tcl: remove the platform-specific code and use the
+	new get function support to retrieve these values from the tvutils
+	library
+
+	* util.tcl (parseInitFile): removed (use get TVU_DATABASE_URL)
+
+	* tvBaseCmds.c (tvuSetCommand): [new func] sets a tvutils value
+	(tvSetCommand): if setting a TVU_ variable, use the tvutils set
+	(tvuGetCommand): [new func] gets a tvutils value
+	(tvGetCommand): if getting a TVU_ variable, use the tvutils get
+
+	* main.c (main): initialise tvutils library first and do all the
+	command line parsing and configuration file loading.
+
+	* tsmDatabaseCmds.c (openCommand): convert fprintf to TSMTRACE
+	(serverCommand): convert fprintf to TSMTRACE
+
+	* tvBaseCmds.c (tvToglCreateCB): convert fprintf to TSMTRACE
+	(tvToglDisplayCB): convert fprintf to TSMTRACE
+	(tvToglReshapeCB): convert fprintf to TSMTRACE
+
+Tue Nov 21 13:30:33 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* tvBaseCmds.c (tvToglCreateCB): use the tvutils call tvuGetString
+	to find out the install dir ($MAGICHOME)
+	(tvBaseCmdsInit): initialise the tvutils library
+
+	* Makefile.am (TclTV_LDADD): add tvutils to link line
+
+	* configure.in: replace Tcl/Tk config with call to TV_TCL
+
+Tue Nov 21 09:23:32 2000    <reddy@MAGNOLIA>
+
+	* pthrCmds.c: removed all goto statements
+	(traceCommand): don't use setlinebuf - not avail under mingwin32
+
+	* tsmDatabaseCmds.c: removed all goto statements
+
+	* tvViewCmds.c: removed all goto statements
+
+	* tvViewCmds.c (tvTclError): new function
+
+	* tvBaseCmds.c: change INT -> TV_INT, FLOAT -> TV_FLOAT, etc. as
+ 	the previous definitions clash under Windows
+
+	* configure.in: don't assume that the tkConfig.sh and tclConfig.sh
+ 	scripts exist. These only exist under unix.
+
+	* tvBaseCmds.c (tvTclError): new function
+	(tvTclGeoError): new function
+	(tvTclGeoUsage): new function
+
+	* tvBaseCmds.c: remove all goto statements.
+
+	* tsGeoPyramidCmds.c: remove all goto statements. mingwin32 didn't
+ 	seem to like them anyway.
+
+2000-11-16  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* renderoptions.tcl: 
+	  - reworked checkbutton and slider layouts for better aesthetics 
+	    (less crowded, better behavior under resizes, easier to 
+	    accomodate future new widgets, etc).
+	  - wired controls for affecting popping strategy in the 
+	    "Rendering Options" dialog.
+	  - wired controls for "IPD distance" slider.
+	  - wired "Resolution Adjustment" slider.
+	  - added scale factors to quantities returned from sliders, as per
+	    existing practice in XmTV.
+
+2000-11-13  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Replace ../libGeo reference with ../libGeo_Core and
+	  ../libGeo_DiscClient.
+	* configure: Regen
+
+2000-11-09  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Reference libGeo instead of libhs.
+	  AC_DEFINE(HAVE_LIBGEO)
+	* configure: Regen
+
+2000-11-07  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (AC_ARG_WITH(tcl)): Add default check of
+	  /usr/lib/tclConfig.sh and /usr/local/lib/tclConfig.sh
+	* configure: Regen
+
+2000-10-31  Rick Brownrigg  <brownrig@erg.sri.com>
+
+
+	* TerraVision.tcl, util.tcl: added framework for platform-specific
+ 	discovery of paths/sources of supporting
+ 	files/directories. Implementation filled out for Unix platform
+ 	only; stubs for windows and the Mac.
+
+	* tvBaseCmds.c (tvToglCreateCB): reworked one-time initialization
+ 	code to make use of $MAGICHOME Tcl-variable, as discovered by
+ 	above platform-independent codes, for use in initialization such
+ 	as setting the texture path.
+
+	* tvViewCmds.c: added support for "flyto" and "set3D" view
+ 	operations.  
+
+	* viewbookmarks.tcl: reworked internal datastructures for
+ 	bookmarks to better support add/del/set operations for bookmarks.
+
+2000-10-27  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* tsGeoPyramidCmds.c: added Tcl subcommands to support coordinate
+ 	conversions.
+
+2000-10-24  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* viewbookmarks.tcl, mainwin.tcl, TerraVision.tcl: introduced new
+	files and support for a "View Bookmarks" GUI.
+	
+	* mainwin.tcl (makeFileMenu): Implemented a proper "Quit" action.
+
+	* tsGeoPyramidCmds.c, datasetDialogs.tcl: added support and GUI
+ 	components for implementing the "properties" summary reports on
+ 	geosets.
+
+2000-10-23  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* tsGeoPyramidCmds.c: added support for a "tsGeoPyramid destroy"
+ 	Tcl command.  
+
+	* datasetDialogs.tcl, mainwin.tcl: added GUI and scripts to close
+ 	an opened geoset.
+
+2000-10-20  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* tvBaseCmds.[h,c], main.c (tvDatasetCommand): Renamed the tvbase
+ 	"dataset" subcommand to "geoset", for consistency and AR's sake.
+
+	* tvBaseCmds.c: added "list" and "remove" subcommands to the "geoset"
+	command.
+
+	* tsGeoPyramidCmds.c, datasetDialogs.tcl: Reworked the
+ 	behavior of the tsGeoPyramid command in Tcl to return the unique
+ 	"name" field of the internal structure, rather than a
+ 	program-generated name. Creating new tsGeoPyramids now requires
+ 	the "create" subcommand. Added a "list" subcommand to provide
+ 	visibility into libTV2's global "geoList" list of all geo pyramids
+ 	opened during a session (to support dataset priority and visibility
+	operations from the GUI). 
+
+2000-10-16  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* renderoptions.tcl (makeWindow): reworked packing of the sliders in 
+	the "Render Options" dialog, for better look and feel.
+
+2000-10-13  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* tvLinkCmds.c, tvLinkCmds.h, links.tcl: Code to support the "Link"
+	features of TerraVision.
+
+2000-10-12  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* tvPthrCmds.c, globals.tcl:  Introduced codes to support debugging
+	masks and levels.
+
+2000-10-10  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* renderoptions.tcl (checkboxCB): Reworked pesky callbacks for
+ 	checkboxes; previous versions did not properly operate as distinct
+ 	instances when multiple viewers were present (i.e., toggling the
+	buttons for one viewer caused the buttons in the other view to toggle;
+	nicht gut!).
+
+	* tsmDatabaseCmds.c, datasetDialogs.tcl: added code to cause the 
+	database file to be rewritten upon addition/removal/reread of a 
+	server.
+
+	* tsmDatabaseCmds.c, datasetDialogs.tcl: code to change a database,
+	including creation of a new one.
+	
+2000-10-04  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (CXXLINK): Add.
+	(LINK): Use CXXLINK
+	* Makefile.in: Regen.
+	* configure.in (AC_PROG_CXX): Add
+	(HAVE_LIBHS): Define if ../libhs was configured.
+	* configure: Regen
+	* acconfig.h: Add undef HAVE_LIBHS
+	* config.h.in: Regen
+
+2000-10-02  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (TclTV_SOURCES): Add tsmDatabaseCmds.c
+	(EXTRA_HEADERS): Add tsmDatabaseCmds.h
+	* Makefile.in: Regen
+
+	* configure.in (LIBS): Don't include -lXm -lXt or -lGLw
+	* configure: Regen
+
+2000-08-23  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* tsGeoPyramidCmds.c (tsGeoPyramidProc): Use avila datasets by
+	  default.
+	
+	* tvBaseCmds.c (tvToglCreateCB): Add GLT_MASK to list.
+

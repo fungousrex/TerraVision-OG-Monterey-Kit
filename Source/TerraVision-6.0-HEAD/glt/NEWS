@@ -1,0 +1,8 @@
+Aug 9, 2000:
+
+Major refactoring of the glm layer into a Interface/Implementation
+split in order to improve the flexibility if the OpenGL/Window-system
+layer.
+
+Still in C, so the implementation is slightly cumbersome, with an
+explicit virtual function table.  Shouldn't be too bad.

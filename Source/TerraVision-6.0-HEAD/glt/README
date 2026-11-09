@@ -1,0 +1,4 @@
+This is an attempt at a generally useful slightly higher-level API for
+running multi-threaded OpenGL applications in Motif/Xt applications.
+
+Lee Iverson <leei@ai.sri.com>

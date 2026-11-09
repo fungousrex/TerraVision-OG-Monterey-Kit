@@ -1,0 +1,51 @@
+#
+# Makefile.noauto - Martin Reddy <reddy@ai.sri.com>,  21 March 1999
+#
+# This is a quick and dirty Makefile in order to compile up the SEDRIS
+# conversions libraries without any autoconf/automake stuff.
+#
+# *** THIS FILE IS NOT PART OF THE STANDARD SEDRIS DISTRIBUTION ***
+#
+# usage:
+#    make -f Makefile.noauto [all]     - generate libse_conv.a
+#    make -f Makefile.noauto clean     - remove all library & obj files
+#    make -f Makefile.noauto install   - currently does nothing
+#    
+# $Id: Makefile.noauto,v 1.1 1999/03/21 23:27:57 reddy Exp $
+#
+
+CC        = cc
+INCLUDE   = -I.
+CFLAGS    = -DHAVE_CONFIG_H -DJPEG_SUPPORT -DZIP_SUPPORT -g
+NUTCFLAGS =  -W/w -WNC_WIN95 -WNC_LIB_STRICT
+LIBRARY   = libse_conv.a
+COMPILE    = $(CC) $(INCLUDE) $(CFLAGS) $(NUTCFLAGS)
+
+RM        = rm -f
+AR        = ar rc
+
+OBJS = \
+	se_conv.o \
+	se_conv_print.o \
+	se_conv_util.o \
+	se_conv_valid.o \
+	se_coord_conv.o \
+	se_datums.o \
+	se_stds.o
+# N.B. Currently can't compile se_conv_io.o under WinNT/NuTCracker
+# cannot initialize globals using stderr/stdout with MS compiler
+#	se_conv_io.o
+
+.c.o:
+	$(COMPILE) -c $<
+
+all: $(LIBRARY)
+
+$(LIBRARY): $(OBJS)
+	$(RM) $(LIBRARY)
+	$(AR) $(LIBRARY) $(OBJS)
+
+clean:
+	rm -f $(OBJS) $(LIBRARY)
+
+install:

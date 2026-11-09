@@ -1,0 +1,112 @@
+<HTML>
+<head>
+<title>TerraVision Plugin Test Page</title>
+
+<script language="JavaScript">
+<!--
+function GotoGDC() {
+  var cmdstr = "setview_gdc('" + document.form1.latitude.value + "', '" 
+	                     + document.form1.longitude.value + "', '"
+		             + document.form1.elev.value * 1000 + "', '"
+			     + "0.0', '-1.57', '0.0')";
+  document.simple1.cmd( cmdstr );
+}
+function Toggle(opt,val) {
+  var cmdstr = "set(" + opt + "," + val + ")";
+  document.simple1.cmd( cmdstr );
+}
+//-->
+</script>
+
+</head>
+<body bgcolor="#FFFFFF" text="#000000">
+<center>
+<H1> TerraVision Plugin Test Page</H1>
+</center>
+
+<p align="justify">This page is used to test the development of the
+TerraVision Netscape plugin. You should see the plugin below and a
+number of controls that let you talk to the plugin via LiveConnect.
+This example shows a plugin rendering with native OpenGL that can be
+controlled via JavaScript on an HTML page and that can communicate
+with Java (illustrated here by output to the Java Console). The
+plugin can also detect various events such as mouse clicks.
+
+<p><HR noshade><p><center>
+
+<!-- Embed the plugin here -->
+
+<EMBED type="application/x-terravision" name="simple1" width="350" height="350"
+  oi="http://crazypete.ai.sri.com/TileSets/Pyramids/gtopo30.oi"
+  dem="http://crazypete.ai.sri.com/TileSets/Pyramids/gtopo30.dem"
+  geo="Gtopo30"
+  oi="http://crazypete.ai.sri.com/TileSets/Pyramids/sfbay.oi"
+  dem="http://crazypete.ai.sri.com/TileSets/Pyramids/sfbay.dem"
+  geo="SF Bay Area"
+>
+
+<!--
+-->
+
+<!--
+  oi="/home/crazy2/magic/TileSets/Pyramids/gtopo30.oi"
+  dem="/home/crazy2/magic/TileSets/Pyramids/gtopo30.dem"
+  geo="Gtopo30"
+  oi="/home/crazy2/magic/TileSets/Pyramids/sfbay.oi"
+  dem="/home/crazy2/magic/TileSets/Pyramids/sfbay.dem"
+  geo="SF Bay Area"
+-->
+
+<!-- Setup some forms with JavaScript to control the plugin via LiveConnect -->
+
+<table bgcolor="#CCFFCC" cellpadding="5" border="1"><tr><td>
+<form name="form1"><p><br>
+
+<input type="checkbox" name="wireframe"
+onclick="Toggle('SHOW_WIREFRAME',document.form1.wireframe.checked)">
+Wireframe
+
+<input type="checkbox" name="lighting"
+onclick="Toggle('SHOW_LIGHTING',document.form1.lighting.checked)">
+Lighting
+
+<input type="checkbox" name="hud" checked
+onclick="Toggle('SHOW_HEADS_UP',document.form1.hud.checked)">
+HUD
+
+<input type="checkbox" name="textures" checked
+onclick="Toggle('SHOW_TEXTURES',document.form1.textures.checked)">
+Textures
+
+<input type="checkbox" name="outlines"
+onclick="Toggle('SHOW_DATASETS',document.form1.outlines.checked)">
+Outlines
+
+<input type="checkbox" name="twod"
+onclick="Toggle('TWOD_CONSTRAIN',document.form1.twod.checked)">
+2D Mode
+
+<p>
+
+Lat:  <input type="text" size="5" name="latitude" value="0">
+Long: <input type="text" size="5" name="longitude" value="0">
+Elev: <input type="text" size="7" name="elev" value="10000">
+
+<input type="button" value="Go To" onclick="GotoGDC()">
+
+<!--  onclick="document.simple1.cmd('document.form1.str.value')" -->
+
+<input type="button" value="Origin" 
+       onclick="document.simple1.cmd('resetview')">
+
+</form></table>
+
+<h4>Open the Java Console (under the Communicator/Tools menu)
+    to see plugin messages!</h4>
+
+</center>
+
+<HR noshade>
+
+</body>
+</HTML>

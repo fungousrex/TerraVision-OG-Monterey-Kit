@@ -1,0 +1,20 @@
+8/2000
+
+Several modifications to the base Togl-1.6 distribution have been made to 
+adapt it for purposes here:
+
+- autoconf/automake infrastructure added
+
+- Internal headers for tk8.3.1 added
+  Internal headers for tk8.2.2 added 
+
+- Makefile modified to generate shared library as default target (rather than
+  the demo programs).  Also added appropriate command to library target to 
+  create a generate link (ex: libtogl.so).
+
+- Needed to expose more Togl internals.  Created auxilliary include file
+  "toglinternals.h" to reflect the additional public access, and "toglinlines.h"
+  to hold the implementations.  This later file is then appended to the end of 
+  the "togl.c" file.
+
+

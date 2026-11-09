@@ -1,0 +1,89 @@
+#
+# Minimal makefile to generate the TerraVision plugin wrapper.
+# This file can be used by gmake under IRIX.
+# 
+# Martin Reddy <reddy@ai.sri.com>, SRI International 1999.
+#
+
+# NPNAME is the name of the plugin, NPCLASS is the name of the
+# class file that is associated with the plugin.
+
+NPNAME  = nptervis
+NPCLASS = nptervis
+
+#
+# The following targets are used to compile up the plugin DLL
+#
+
+CC       = cc -n32
+LD       = ld -n32
+RM       = rm -f
+
+CPPFLAGS = -I../irix6.3-cl/nsprnew/dist/include 
+LDFLAGS = -L../irix6.3-cl/nsprnew/dist/lib  -L/usr/local/lib
+LIBS = -lnspr4 -lm
+
+#CFLAGS = -O -DXP_UNIX -DPLUGIN_TRACE
+CFLAGS  = -g -DXP_UNIX -I. $(CPPFLAGS)
+INCS    = -Iinclude -Icommon -Isrc/_gen -Isrc/_stubs -Isrc
+LDFLAGS += -no_unresolved -shared -update_registry build/so_locations \
+           -soname $(NPNAME).so
+
+OBJECTS = build/stubs.o build/$(NPNAME).o build/$(NPNAME)_unix.o
+
+default: all
+
+all: $(NPNAME).so
+
+build/stubs.o: $(NPCLASS).class src/stubs.c
+	$(CC) $(CFLAGS) $(INCS) $(DEFS) -c src/stubs.c \
+        -o build/stubs.o
+
+build/$(NPNAME).o: $(NPCLASS).class src/$(NPNAME).c
+	$(CC) $(CFLAGS) $(INCS) $(DEFS) -c src/$(NPNAME).c \
+        -o build/$(NPNAME).o
+
+build/$(NPNAME)_unix.o: $(NPCLASS).class src/$(NPNAME)_unix.c
+	$(CC) $(CFLAGS) $(INCS) $(DEFS) -c src/$(NPNAME)_unix.c \
+	-o build/$(NPNAME)_unix.o
+
+$(NPNAME).so: $(OBJECTS)
+	$(LD) $(LDFLAGS) -o $(NPNAME).so build/$(NPNAME).o \
+	build/$(NPNAME)_unix.o build/stubs.o $(LIBS)
+
+#
+# The following targets build the associated Java class file that
+# is required to do any LiveConnect communications with the plugin
+# 
+
+JAVA_HOME = /opt/jdk/jdk-1.1.5
+
+JAVAC     = $(JAVA_HOME)/bin/javac
+JAVAH     = bin/irix/javah
+SYSJAR    = $(JAVA_HOME)/lib/classes.zip
+MOZJAR    = classes/moz3_0.zip
+CLASSPATH = -classpath $(SYSJAR):$(MOZJAR):.
+SHELL     = csh
+
+$(NPCLASS).class: src/$(NPCLASS).java
+	$(JAVAC) $(CLASSPATH) -d . src/$(NPCLASS).java
+	$(JAVAH) -jri $(CLASSPATH) -o src/_gen/$(NPCLASS).h $(NPCLASS)
+	$(JAVAH) -jri -stubs $(CLASSPATH) -o src/_stubs/$(NPCLASS).c $(NPCLASS)
+
+#
+# The following targets are generic Makefile operations
+#
+
+clean:
+	$(RM) build/*.o core* src/*~ $(NPNAME).so $(NPCLASS).class \
+	      build/so_locations
+
+MYPLUGINS = ~/.netscape/plugins
+
+install: all
+	cp $(NPNAME).so $(MYPLUGINS)
+	cp $(NPCLASS).class $(MYPLUGINS)
+
+test: install
+	netscape test/test.html &
+

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Linking Views</title>
+</head>
+
+<body>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"> 
+<h1>Linking Views</h1>
+
+
+<p>
+Rendering threads generally operate independently of any other rendering 
+thread.  However, a thread (the source) may be <i>linked</i> to another 
+(the target) to depict certain properties of the target.  Specifically, there 
+are four different types of link that may be established. The source thread may
+control the view of a target thread, or it may depict the target's 
+view-frustum, its tile boundaries, or its path trajectory (if any).
+
+<p>
+Links are established by calling
+<a href="api/tvAddLink.html">tvAddLink()</a>
+, which takes as arguments the source and
+target thread handles, plus the type of link to be established.  The link 
+remains in effect until broken with a call to
+<a href="api/tvRemoveLink.html">tvRemoveLink()</a>.
+
+<p>
+Any links associated with a rendering thread may be queried by calling 
+<a href="api/tvGetLinks.html">tvGetLinks()</a>,
+which returns a list of handles to the linked threads.
+
+
+
+<hr>
+<p><IMG SRC="img/back.gif" ALT="Back to" HEIGHT=21 WIDTH=20>
+<A HREF="api-desc.html">API</A>
+<p>
+<address><a href="mailto:brownrig@erg.sri.com">Rick Brownrigg</a></address>
+<!-- Created: Mon Jan 10 23:41:32 CET 2000 -->
+<!-- hhmts start -->
+Last modified: Thu Jan 13 04:04:56 CET 2000
+<!-- hhmts end -->
+</body>
+</html>

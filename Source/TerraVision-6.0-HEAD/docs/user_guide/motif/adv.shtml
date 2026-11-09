@@ -1,0 +1,83 @@
+<html><!-- #BeginTemplate "/Templates/User Guide.dwt" -->
+<head>
+<title>Digital Earth: TerraVision: User Guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="http://www.ai.sri.com/digitalearth/styles.css">
+<script language="JavaScript" src="http://www.ai.sri.com/digitalearth/common.js"></script>
+</head>
+
+<!--#include virtual="../bodytag.inc"-->
+<!--#include virtual="../header.inc" -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="10" valign="top" align="left">&nbsp;</td>
+    <td width="121" valign="top" align="left" background="../images/bg_sidebar.gif"> 
+<!--#include virtual="sidebar.inc" -->
+      
+    </td>
+    <td width="10">&nbsp;</td>
+    <td valign="top"> 
+      <p><img src="../images/user_guide_title.gif" width="470" height="70"> </p>
+      <p><a href="http://www.ai.sri.com/digitalearth/" target="_top"><span class="history_link">Digital 
+        Earth</span></a> <span class="history_link">&gt; <a href="http://www.tvgeo.com/">Terravision<sup><font size="-2">TM</font></sup></a> 
+        &gt; <a href="../welcome.shtml">User Guide</a> &gt; 
+        <a href="welcome.shtml">X/Motif</a> &gt; 
+        <a href="chapter_file.shtml">&quot;File&quot; 
+        Menu</a> &gt; The &quot;File/Open TV&quot; Menu Option </span></p>
+      <!-- #BeginEditable "content" --> 
+      <h2> The "File/Open TV" Menu Option</h2>
+      <p> 
+        <center>
+          <img src="../images/menu2.gif" width="348" height="252"> 
+        </center>
+      <p> 
+      <h3>Advanced Connection Options</h3>
+      <p>The Advanced Connection Options dialog lets you control the way that 
+        TerraVision<sup><font size="-2">TM</font></sup>  selects the most appropriate dataset to connect to for 
+        either the Image or the DEM dataset. It is accessed by clicking on one 
+        of the "Advanced..." button of the <b>File/Open TV</b> menu. 
+      <p> 
+        <center>
+          <img src="../images/adv.gif" alt="Advanced Connection Options window" width="554" height="320"> 
+        </center>
+      <p> The Image Format options let you specify if you want to use a dataset 
+        instance that is stored as a raw bitmap, JPEG compressed, or LZW compressed. 
+        By default, setting this option is a <b>hint</b> only. If the dataset 
+        does not exist in the requested image format, then TerraVision<sup><font size="-2">TM</font></sup>  will 
+        try to find another image format to use. However, if you check the option 
+        "Fail if above options are not available", then TerraVision<sup><font size="-2">TM</font></sup>  will fail 
+        to connect to the dataset if the requested image format is not available. 
+      <p>The Local Tile Format options let you specify if you want to use a dataset 
+        instance that is stored as a tiled TIFF files or raw tile files. The TIFF 
+        file representation stores all tiles for a single pyramid level in one 
+        tiled file. The raw tile files consist of a separate file for every tile 
+        in the entire pyramid. Raw tile files only exist in the raw image format 
+        (not JPEG or LZW). By default, setting this option is a <b>hint</b> only. 
+        If the dataset does not exist in the requested tile format, then TerraVision<sup><font size="-2">TM</font></sup>  
+        will try to find another tile format to use. However, if you check the 
+        option "Fail if above options are not available", then TerraVision<sup><font size="-2">TM</font></sup>  will 
+        fail to connect to the dataset if the requested tile format is not available. 
+      <p>The DPSS tspecs options let you specify where TerraVision<sup><font size="-2">TM</font></sup>  should 
+        look for the tspec files for a DPSS dataset. Tspec files contain all of 
+        the metadata describing a dataset. For a DPSS dataset, these can reside 
+        on the DPSS itself, or on some separate (http or localdisk) server that 
+        the DPSS records in a list of Metadata URLs. By default, TerraVision<sup><font size="-2">TM</font></sup>  
+        will check to see if the tspec file exists on the DPSS. If it does, then 
+        it will use that metadata file. 
+      <p>Finally, the "Validate tspec file on load" option tells TerraVision<sup><font size="-2">TM</font></sup>  
+        to perform a number of consistency checks on the metadata that it reads 
+        in from the tspec file. For details on what checks this actually performs, 
+        refer to the documentation for the <a href="http://www.ai.sri.com/TerraVision/tsmApi/api/tsmValidateTspec.html"> 
+        tsmValidateTspec</a> function. It is generally a good idea to keep this 
+        option checked. 
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p align="center" class="description">
+        <!--#include virtual="../footer.inc" --><br>
+        Last updated: <!--#echo var="LAST_MODIFIED" -->.</p>
+      <!-- #EndEditable --></td>
+    <td width="20">&nbsp;</td>
+  </tr>
+</table>
+</body>
+<!-- #EndTemplate --></html>

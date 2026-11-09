@@ -1,0 +1,456 @@
+2002-03-17    <Martin Reddy@HEATHER>
+
+	* untile.c (main): use "wb" instead of "w" to open binary files so
+	that this works under Windows
+
+	* mod_wms.c (wms_output_tmpfile): ditto
+
+	* get_tile.c (main): ditto
+
+	* dem_to_pgm.c (main): ditto
+
+2002-02-15  Lee Iverson  <leei@ece.ubc.ca>
+
+	* Makefile.in: Regen with automake 1.5
+	* aclocal.m4: Ditto
+	* config.h.in: Ditto
+	* install-sh, missing, mkinstalldirs: Update to automake 1.5 version.
+
+	* configure.in: Find and use libpng library
+	* configure: Regen with autoconf 2.52
+	
+Fri Sep 14 14:22:04 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* get_url.c (main): add support for specifyin a proxy server
+
+2001-09-11  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_oi.c (main): use fabs() instead of abs() for southern zone
+	negation. 
+
+	* make_dem.c (main): ditto
+
+2001-08-17  Lee Iverson  <leei@AI.SRI.COM>
+
+	* make_oi.c (main): Sky sets should be at 10000m, one-sided and
+	  viewed from below only.
+
+2001-08-17  Lee Iverson  <leei@AI.SRI.COM>
+
+	* Makefile.am (bin_PROGRAMS): Remove terraserver
+	* Makefile.in: Regen
+	
+	* make_oi.c (usage): Update for new args.
+	(main): Handle new parameters: -altitude, -sky, -twosided, and 
+	  -frombelow.
+	
+Thu Jul 19 15:54:53 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_dem.c (main): remove the explicit pthr_trace_* settings as
+	these now get down correctly inside of tsmApi
+
+	* time_tiles.c (main): ditto
+
+	* mod_wms.c: add tsmWMS.h to #include list
+
+Thu Jul 12 11:41:23 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* mod_wms.c (wms_map): Remove the test for a WMS request being
+	within a dataset's bounding box. This is overly constraining the
+	client and not required by the spec.
+
+Mon Jul  9 13:04:24 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* test_wms.c: [new file] test program for Web Map Server support
+
+Fri Jun 29 16:53:03 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* get_tspec.c (main): do a tsmDisconnect when done with the
+ 	connection
+
+	* mod_wms.c (wms_geovrml_header): new parameter - an optional
+ 	texture map URL to apply to the geometry
+	(wms_output_geovrml): if creating a GeoVRML DEM, then check to see
+	if there is a second layer specified. If so, then make a GetMap
+	URL for that layer and use it as the texture map for the DEM.
+
+Thu Jun 28 13:28:17 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* terraserver.c (get_terraserver_tile): use floor instead of
+	ffloor as the latter is not available under Solaris
+	(get_terraserver_tile): use pow instead of powf
+
+	* mod_wms.c (wms_resample_map): ditto
+
+	* mod_wms.c (wms_output_geovrml): correct the GeoVRML coordinate
+	ordering.
+	(wms_capabilities_1_1): return XML Capabilities for version 1.1.0
+	instead of 1.0.8.
+
+Wed Jun 27 14:54:24 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* mod_wms.c (wms_cache_check): only test cache entry if it has a
+ 	valid tile buffer in it.
+	(wms_get_tile): remember to add the tile to the cache!!
+	(wms_init): work out the name of the server - don't assume it is
+ 	lomond.ai.sri.com.
+	(wms_resample_map): optimize the resampling routine a bit
+
+Tue Jun 26 14:50:36 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* mod_wms.c (wms_exception): implement the WMS Service Exception
+	XML for all server errors
+	(wms_optimized): deal with bbox rounding errors better
+
+	* mod_terravision.c: use the new terraserver.h header
+
+	* terraserver.c (ts_debug): [new func] improved debugging for the
+	terraserver module
+	(ts_set_debug): [new func] exported function to turn the
+	TerraServer module debugging on or off.
+
+	* terraserver.h: [new file] header file for the TerraServer module
+
+	* Makefile.am: compile the terraserver module into a library. If
+ 	you try to link it into the Apache .so file directly as a .o then
+ 	bad things happen if you have another .so file that does the same
+ 	thing!
+
+Wed Jun 20 16:55:39 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* mod_wms.c (wms_get_tile): add TerraServer support to
+	mod_wms. Add caching of tiles.
+
+Mon Jun 11 11:20:58 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* mod_wms.c (wms_map): allow the FORMATS parameter to be either
+ 	the symbolic name or MIME type, e.g. GIF or image/gif.
+	(wms_exception): output errors using the appropriate Service
+ 	Exception XML
+	(wms_unescape_url): function to unescape URLs (expand %xx and +
+ 	strings)
+
+Mon Jun  4 18:08:39 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* terraserver.c (ts_init): initialise the TerraServer module,
+	including the cache and http connection structure.
+	(ts_cleanup): free the cache and http connection
+	(ts_cache_add): add a TerraServer tile to the cache
+	(ts_cache_check): check the cache for a TerraServer tile
+
+Fri Jun  1 15:34:04 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* terraserver.c: [new file] implements an interface to TerraServer
+ 	using standard TerraVision semantics. Can be linked into another
+ 	program or compiled as a standalone program for testing
+
+Thu Apr 12 10:54:21 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* log_info.c (FrameEvents): calculate average frame rate and image
+	quality - report these to stdout too.
+
+Wed Apr 11 11:20:01 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* log_info.c (ParseEvent): NetLogger seconds only seem to go from
+ 	0..60 for some reason!! Added check for rollover and add 60 each
+ 	time to the seconds value.
+
+Mon Apr  9 11:48:35 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* log_info.c (LoadLogFile): remove the PRTime stuff - didn't
+	work. Just use doubles for calculating timestamp differences.
+	(ParseEvent): test for a TV_FRAME event
+
+Fri Jan 19 09:10:48 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_oi.c (main): add -tilesize option to make_oi
+
+Wed Jan 17 14:52:14 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_dem.c (main): add a -southern_hemi command line option to
+	specify that a UTM coordinate is in the southern hemisphere.
+
+	* make_oi.c (main): add a -southern_hemi command line option to
+	specify that a UTM coordinate is in the southern hemisphere.
+
+Tue Dec 12 18:27:42 2000    <reddy@MAGNOLIA>
+
+	* tvlaunch.c (PathToNetscape): try to find a copy of Netscape 6 if
+ 	we can't find a copy of Netscape 4.x
+
+Mon Dec 11 22:22:31 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* mod_terravision.c (tvmod_get_connection): remove the "if
+	(!params)" requirement for doing a tsmInitParams on this
+	variable. params was never initialized and we always want to
+	initialize it anyway.
+
+Thu Dec  7 17:05:33 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* text2geovrml.c (geovrmlAdd): make all %g formats be %1.10g
+	(main): add -viewoffset and -target command line options
+
+Mon Dec  4 10:30:14 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* text2geovrml.c: [new file] - based on AeroJet utility to convert
+	simple ASCII descriptions into GeoVRML
+	(readModelColumn): don't skip over empty "" strings
+	(geovrmlAdd): don't output an Anchor node if not specified
+
+Thu Nov 30 21:48:51 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* tv2geo.c: don't output an XML entry for a model if we don't know
+	it's bounding box (we currently can only work this out if it is
+	associated with a terrain dataset).
+
+Tue Nov 28 12:00:02 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* tvlaunch.c: [new file]
+
+Mon Nov 27 15:55:31 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* tv2geo.c: [new file] loads a TerraVision dataset database file
+ 	and produces a file that can be used as input to the .geo
+ 	publishing utilities.
+
+2000-11-03  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* make_dem.c: Include "config.h"
+	(main): Add tracing boilerplate (disabled).
+
+2000-10-03  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (EXTRA_PROGRAMS): Add test_req.
+	* Makefile.in: Regen
+
+	* test_req.c: New file for testing new request infrastructure.
+	
+	* get_tile.c: Include "config.h"
+	(main): Reduce TSM_PARAM_READ_MULTI to 1.
+	
+	* mod_terravision.c (MAX_CONNECTS): Increase to 16.
+	(tvmod_get_connection): Reduce TSM_PARAM_READ_MULTI to 1.
+	
+	* time_tiles.c (usage): Describe -multi argument.
+	(main): Don't free tileHeader until after reporting stall.
+
+2000-09-20  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* time_tiles.c (main): Change trace level to 1.
+	  Change to request an entire level at a time.
+	  Use tsmAllocReadNextTile for speed.
+	  Robustify printing of timing and results.
+
+2000-09-08  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am: Add test_req.c as optional target.
+	* Makefile.in: Regen
+	* test_req.c: New file.
+
+Mon Aug 28 14:56:30 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_oi.c (main): remove error check for creating 1-component
+ 	JPEG tilesets. This is now possible.
+
+Sat Aug 26 18:47:23 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_dem.c (main): add -outbytespercomp option to specify the
+	number of bytes per component for DEMs, e.g. support 16-bit DEMs.
+
+	* make_oi.c (main): produce error message if try to create JPEG
+	tileset from greyscale data (need RGB data) - in future, we should
+	automatically resample from grey to RGB.
+
+Thu Aug 24 12:54:16 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_oi.c (main): produce an error report if the user does not
+	specify any georeference information or it could not be gleaned
+	from the file format.
+	(usage): remove the -leaveimages, -gaussian, and -pointsample
+	options as these are no longer applicable in the new scheme
+	(usage): add .tiff to list of support image formats
+
+	* make_dem.c (main): produce an error report if the user does not
+	specify any georeference information or it could not be gleaned
+	from the file format.
+	(usage): remove the -leaveimages, -gaussian, and -pointsample
+	options as these are no longer applicable in the new scheme
+
+Wed Aug 23 17:36:10 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_oi.c (usage): list new supported make_oi formats
+
+	* make_dem.c (usage): list new supported make_dem formats
+
+Thu Aug 17 17:13:53 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_dem.c (main): don't create those PyramidUrls files any more
+	- tsm/TerraVision has not needed them for ages.
+
+	* make_oi.c (main): don't create those PyramidUrls files any more
+	- tsm/TerraVision has not needed them for ages.
+
+Thu Aug 10 14:40:28 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* untile.c (main): explicitly calculate the tile max values
+	to tightly enclose the valid pixel rectangle. This is normally the
+	case, but was not the case for the Ft Irwin DEM.
+
+2000-08-04  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* test_inmem3.c (RowClosure_new): Downsampling leads to image
+	  sizes w1 = (w0+1)/2 not w = w/2.
+	(RowClosure_destroy): Free memory for imageSizes by level.
+
+Fri Jul 21 11:42:32 2000  Yong Tze Chi  <chi@Lomond.AI.SRI.COM>
+
+	* make_geovrml.c: [new file] creates a GeoLOD hierarchy from a
+ 	TerraVision OI and DEM
+
+Mon Jul 10 16:34:23 2000    <reddy@MAGNOLIA>
+
+	* get_url.c (main): use "wb" access mode for writing the output
+ 	file, not "w", otherwise binary files won't be written correctly
+ 	under windows. Also added a count of the number of bytes written.
+
+Thu Jun 29 10:13:20 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_dem.c (main): added an -lvcs parameter to declare a dataset
+	to be a local vertical coordinate system, in units of meters, with
+	a lat/long origin.
+
+	* make_oi.c (main): added an -lvcs parameter to declare a dataset
+	to be a local vertical coordinate system, in units of meters, with
+	a lat/long origin.
+
+	* make_dem.c (main): remove the option to create Gaussian filtered
+	DEMs - we should always point sample these
+
+Wed Jun 28 15:42:29 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* untile.c: fixed a modulo rounding error that thought the number
+ 	of pixels in the left-edge tile was 0 if the image width was an
+ 	exact multiple of the tile size.
+
+Sat Jun 17 11:08:13 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_dem.c (main): only check that we have used all command line
+	arguments after we have called tsmParseConnectArgs.
+
+	* make_oi.c (main): ditto
+
+Wed Jun 14 16:25:31 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* get_url.c: fix so that it doesn't output an extra character at
+	the end of the saved file
+
+Wed May  3 16:24:23 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* configure.in: added a --with-apache option to configure to
+	supply the path to the apache distribution - needed for the
+	include files when compiling the mod_terravision.so apache mod.
+
+	* Makefile.am (bin_PROGRAMS): don't hardcode the apache
+	distribution directory in the Makefile
+
+2000-05-01  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* time_tiles.c (main): Print out tiles/sec.
+
+	* html_database.c (main): Replace 100% with 100%% in fprintf
+	  format arg.
+
+Sun Apr 23 22:07:44 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_dem.c (usage): describe the default tile size as being 128
+	x 128 in the program usage text
+
+2000-04-13  Michael A. Eriksen  <eriksen@ai.sri.com>
+
+        * Added MSVC project for time_tiles
+
+2000-04-13  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in, configure: Make sure that DEPS refers to libxml.a
+	  and libghttp.a libraries.
+
+	* log_info.c (CountEvents, TimeEvents, list_remove_tile,
+	  StatEvents, DPSSEvents): Update list_next() and list_delete()
+	
+	* time_tiles.c (timeEvent): Return elapsed time as double.
+	(main): Optionally enable pthr_trace().
+	  Walk from low-res to high-res levels.
+	  Notify when reading each level.
+	  Check for stalls and notify.
+	  Print time, bytes and throughput measurements.
+
+Wed Apr  5 15:54:26 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_dem.c (main): updated to add new -tilesize and -tileoverlap
+	command line arguments.
+
+	* get_http_tile.c (OutputTimestamp): [new func] debug output with
+	a timestamp so we can see how long the CGI script took to do
+	various things
+
+2000-03-21  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Restore ghttp and remove duplicate addition of libxml.
+	* configure: Regen.
+
+Thu Mar  2 16:50:13 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* configure.in (CPPFLAGS): remove ghttp and add libxml to command
+	line for nanohttp routines
+
+Fri Feb 25 14:36:17 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* configure.in: replace the libwww libraries with ghttp on the
+ 	compile and link lines.
+
+2000-02-10  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (LDFLAGS): Don't include /usr/local/lub by default.
+	  Don't use pthread directly.
+	* configure, config.h.in: Regen.
+
+Thu Jan 27 17:09:35 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* configure.in (CPPFLAGS): added libwww to the compile and link line
+
+Mon Nov  8 15:27:59 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* configure.in (CPPFLAGS): add libxml to the link line
+
+	* database.c (main): remove reference to old
+	tsmPrintDatabase. Everything should use tsmWriteDatabase now.
+
+Fri Nov  5 11:38:36 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_oi.c (main): made the -geoname option mandatory when
+	creating OI datasets.
+
+1999-10-01  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* log_info.c: Include <prlong.h> to assemble times.
+	(struct LogEvent): Use PRTime as stamp.
+	(elapsedTime): New.  Internal function to calculate difference
+	  between PRTime values (as a double).
+	(ParseEvent): Assemble stamp from (sec, usec) pair.
+	(TimeEvents, DPSSEvents): Use elapsedTime().
+	
+	* time_tiles.c (timeEvent): Convert to use NSPR PRIntervalTime
+	  values.
+
+1999-09-27  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (*_DEPENDENCIES): Add dependencies
+	* Makefile.in: Regen
+
+1999-09-23  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* log_info.c: Include config.h for time_t defs.
+	(CountEvents, list_remove_tile, StatEvents, DPSSEvents): Update
+	  list_next() for two arg version.
+	* tsmUtils/time_tiles.c: Include config.h for time_t defs.
+

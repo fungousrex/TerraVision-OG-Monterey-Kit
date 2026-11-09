@@ -1,0 +1,370 @@
+Thu Jul 18 10:38:34 2002  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ADL.c (adl_get_parts): grow the "parts" array dynamically -
+	don't assume a static allocation will work.
+
+2002-04-10  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ADL.c (adl_debug): [new func] only outputs debug messages if the
+	mode type is TVU_NO_GUI and ADL_DEBUG is defined
+	(tvuADLQuery): parse out the ADL ID from each result
+	(adl_get_parts): take an ADL ID and return the list of things that
+	it is a part of. This is done by doing another call to the ADL
+	gazetteer to get the full metadata entry which include PartOf info
+	(adl_free_parts): free the PartOf results
+	(adl_test_unify): check whether a result unifies against the
+	original solvable
+	(tvuADLCallback): support the new PLACE_TO_LATLONG_PARTOF and the
+	PLACE_TO_LATLONG_PARTOF_BOUNDS
+
+	* test_adl.c (main): initialise tvuInit with TVU_NO_GUI
+
+	* Init.c (tvuInit): add a new mode type for the tvutils init
+	function, TVU_NO_GUI. This is used to only add the ADL place to
+	lat/long solvables if being run as a command line agent, otherwise
+	the TV agent can conflict with the test_adl agent.
+
+2002-03-15    <Martin Reddy@HEATHER>
+
+	* Init.c (tvuInitCore): add a default splash screen message that
+	asks the user to select a dataset to load
+
+2002-02-15  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* Args.c (tvuUsage): Move usage strings into static variables.
+
+	* Makefile.in: Regen with automake 1.5
+	* aclocal.m4: Ditto
+	* config.h.in: Ditto
+	* configure: Regen with autoconf 2.52
+	
+2002-01-08    <Martin Reddy@HEATHER>
+
+	* Args.c (tvuUsage): support a -model command argument to load a
+	3D model
+
+2001-12-20    <Martin Reddy@HEATHER>
+
+	* Args.c: change all of the hierarchy support to provide profile
+	loading support
+
+Tue Nov 27 14:12:17 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ADL.c (tvuADLQuery): enforce the feature type to be lower case
+	as the ADL middleware is case sensitive
+	(tvuADLCallback): check that the place name is not a variable, and
+	if the type name is a variabe equate this to "any"
+
+Tue Nov 20 10:49:25 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Graphics.c (tvuGetContext): pass the -listvisuals and -visualid
+	options through into the GLX visual selection routines.
+
+	* Args.c (tvuUsage): add support for two new command line
+	arguments under Unix: -listvisuals and -visualid N.
+
+Tue Nov 13 10:28:45 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Args.c (tvuParseArgArray): allow -oi options with a matching
+	-dem - this will create an OI without a corresponding DEM.
+
+	* Config.c (tvuSetTclFilename): remember the Tcl directory as
+	loaded through the config file.
+	(tvuSaveTclPathname): set the Tcl/Tk directory and save it in the
+	config file for use next time round if needed
+
+Fri Nov  2 14:34:29 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Gazetteer.c (tvuGazCallback): callback for the OAA solvable that
+	implements address_to_latlong
+
+	* Init.c (tvuInit): add an address_to_latlong solvable
+
+Fri Oct 26 17:35:43 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Gazetteer.c (tvuGazetteer): when using the address gazetteer if
+ 	the MapBlast gazetteer fails, try using the WhereOnEarth one as a
+ 	fallback - MapBlast have changed their web structure again!
+
+Thu Oct 25 13:49:20 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ADL.c (tvuADLCallback): support both the place_to_latlong and
+	the place_to_latlong_bounds solvables
+	(tvuADLQuery): support the specification of a lat/long bounding
+	box to spatially constrain the gazetteer query
+	(adl_query): add a <spatial-constraint> tag to the ADL query if a
+	lat/long bounding area has been specified
+	(tvuADLQuery): correctly extract regions (<box> tags) as well as
+	point sources (<location> tags)
+
+Tue Oct 23 14:20:38 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* test_adl.c: a test program for the ADL Gazetteer that acts as an
+	OAA agent fielding requests to resolve feature names.
+
+	* tvutils.h: add the new ADL support routines to the interface
+
+	* ADL.c: [new file] provides routines for querying the Alexandria
+	Digital Library Gazetteer at UCSB. 
+
+Fri Sep 14 14:20:09 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Gazetteer.c (tvuRetryGazetteer): [new func] used to retry a
+ 	gazetteer query using the state from a previous query. This is
+ 	necessary for whereonearth.com as we need to know numerically
+ 	which of a list of alternatives to chose from in the case of
+	multiple hits.
+
+Sun Sep  9 18:27:32 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* test_gaz.c: [new file] a command line gazetteer 
+
+	* Gazetteer.c (tvuGazetteer_mapblast): search for the Lat: and
+	Lon: strings in the MapBlast returned text rather than their
+	hidden tags because these seem to change a lot.
+	(tvuGazetteer): fix logic for chosing between MapBlast or
+	WhereOnEarth gazetteers
+
+Mon Jun  4 12:55:56 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Gazetteer.c (tvuGazetteer_mapblast): [new func] Uses the
+ 	MapBlast service to resolve a street address to a lat/long
+ 	coordinate.
+	(tvuGazetteer): if a street address is specified, use the MapBlast
+	service, otherwise, use the WhereOnEarth gazetteer.
+
+Tue Mar 20 01:34:10 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Args.c (tvuParseArgArray): added a -oaaid command line option to
+	specify the OAA ID string for the default viewer.
+
+Tue Mar  6 12:33:16 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Args.c: change license_accepted to be a (char *) not a float.
+	The license should be always stored and compared in its string
+	form - if we start converting to float, then we get a host of
+	rounding problems.
+
+Sat Feb 10 14:55:09 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Gazetteer.c: [new file] implements a gazetteer service by taking
+	a query and doing a lookup at whereonearth.com. Current resolution
+	is city-level, but on a world-wide basis. The interface has been
+	designed to be extensible and support the use of other gazetteers.
+
+Thu Feb  8 13:29:08 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Values.c (tvuSetString): handle setting a TVU_TRACE_FILE with a
+	name "stderr" (as well as NULL) to set tracing to stderr.
+
+	* Args.c (tvuParseArgArray): update the args_parsed value by 2,
+	not 1, when reading a -debug_ts, otherwise it is not recognized
+	(tvuUsage): -log option only available under X/Motif version
+
+Wed Jan 31 09:30:05 2001    <reddy@MAGNOLIA>
+
+	* Config.c (tvuGetInstallDir): use different Registry keys under
+ 	Windows to find the install dir for the plugin and for the Tcl/Tk
+	GUI. This allows us to install these in different places.
+
+Tue Jan  9 11:01:57 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Args.c (tvuUsage): remove the "-debugTexture" option - no longer
+	supported.
+
+Sun Jan 07 13:20:53 2001    <reddy@MAGNOLIA>
+
+	* Init.c (tvuInit): set the default directory for flight path
+ 	files to be the user's configuration directory.
+
+Thu Dec 14 14:53:27 2000    <reddy@MAGNOLIA>
+
+	* Config.c (tvuGetSchemaUrl): return the directory as a
+ 	fully-qualified URL because the libGeo libraries can only handle
+ 	localhost filenames of the form file://localhost/<dir>
+	(tvuGetHierarchyUrl): return directory as a fully-qualified URL
+ 	because the libGeo libraries can only handle localhost filenames
+ 	of the form file://localhost/<dir>
+
+2000-12-13  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.in: Regen w/automake 1.2d
+
+Tue Dec 12 15:54:07 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Config.c (tvuGetSchemaUrl): return the .geo schema URL, prepend
+ 	the user's config directory if the URL was relative
+	(tvuGetHierarchyUrl): return the .geo hierarchy URL, prepend
+ 	the user's config directory if the URL was relative
+
+Tue Dec 12 13:53:04 2000    <reddy@MAGNOLIA>
+
+	* Graphics.c: [new file] contains graphics related functions
+
+	* Config.c (tvuSaveConfig): add support for saving a <visual
+ 	id=""/> tag to the config.xml file.
+	(tvuLoadConfig): add support for reading a <visual id=""/> tag
+ 	from the config.xml file.
+
+	* Values.c (tvuGetInt): support the new TVU_VISUAL_ID token
+	(tvuSetInt): support the new TVU_VISUAL_ID token
+
+	* Args.c (tvuParseArgArray): add a -visualid parameter to specify
+ 	the pixel format ID to select.
+
+Mon Dec 11 15:26:59 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Config.c (tvuGetTclFilename): checks for and returns the name of
+ 	the TerraVision.tcl file. NULL is returned if no TerraVision.tcl
+ 	file could be found. The process is to first check the -tcldir
+ 	directory, then the current directory, then the $TVHOME/tcl
+ 	directory.
+
+	* Values.c (tvuSetString): support the TVU_TCL_FILENAME token
+	(tvuGetString): support the new TVU_TCL_FILENAME token
+
+	* Args.c (tvuUsage): add the -tcl option to the -help text output
+	(tvuParseArgArray): support a -tcl command line option
+
+	* tvutils.h: add a TVU_TCL_FILENAME token for setting/getting the
+	filename of the root TerraVision.tcl file to run. Also added a
+	TVU_TCLTK mode for passing to the tvuInit() call.
+
+Wed Dec  6 16:01:13 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Init.c (tvuInit): only call PR_Init if it has not been called
+	already 
+
+Tue Dec  5 14:51:07 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Init.c (tvuDotGeoInit): output a "loading" message if not
+ 	connecting to .geo but have selected one or more datasets on the
+ 	command line
+
+	* Args.c (tvuParseArgArray): update the -dotgeo option to load the
+	TileSets/Schema/schema.xml schema from avila by default.
+
+	* Init.c (tvuDotGeoInit): new convenience function which deals
+	with setting up the connection to a .geo schema file and
+	(optionally) a hierarchy file.
+
+	* Values.c (tvuSetString): set a new hierarchy url
+	(tvuGetString): return the current hierarchy url
+
+	* Args.c (tvuParseArgArray): add a new -hierarchy command line
+ 	argument
+
+	* tvutils.h (TVU_HIERARCHY_URL): add new define for specifying a
+	.geo hierarchy XML file to used instead of a the .geo server
+
+Mon Nov 27 16:25:34 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Values.c (tvuSetString): set the debug filename
+	(tvuGetString): return the debug filename (or "stderr")
+
+	* Args.c (tvuArgFinish): free the debug filename string
+	(tvuParseArgArray): save the -debug_file filename
+
+	* tvutils.h (TVU_TRACE_FILE): new option
+
+2000-11-22  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Args.c (tvuParseArgArray): strdup the fixed default URLs so that
+	  they are properly freed by tvuArgFinish.
+
+Mon Nov 20 17:13:11 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Args.c (tvuParseArgArray): add a -dotgeo command line to
+	automatically connect to the schema at SRI's server
+
+Mon Nov 20 13:10:35 2000    <reddy@MAGNOLIA>
+
+	* Config.c (tvuSaveConfig): use correct cast for tsmDateString
+
+	* Viewpoint.c (tvuSaveViewpoints): ditto
+
+	* Args.c (tvuParseArgArray): fix the unix-specific compile for
+ 	compilation under Windows
+
+Mon Nov 20 10:51:57 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Config.c (tvuGetPathUrl): build a full pathname for a path file
+	by prepending default location if filename is relative
+
+	* tvutils.h: added extern "C" block for C++ compiling
+
+	* Values.c (tvuGetInt): added a TVU_TOTAL_ARGS, to return the
+	total number of arguments on the command line.
+	(tvuGetString): added a TVU_PATHS_URL, to return the default
+	directory for loading paths from.
+
+	* Init.c (tvuInit): do a PR_Init on a tvuInit
+
+	* Args.c (tvuParseArgArray): under a plugin environment, use the
+	earth and sfbay by default if no datasets specified.
+
+Sat Nov 18 12:53:30 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Args.c: added #include for config.h (or winbuild/config.h)
+
+	* Config.c: added #include for config.h (or winbuild/config.h)
+
+	* Init.c: added #include for config.h (or winbuild/config.h)
+
+	* Values.c: added #include for config.h (or winbuild/config.h)
+
+	* Viewpoint.c: added #include for config.h (or winbuild/config.h)
+
+	* Config.c (tvuSaveConfig): added "created" attribute to the
+	TerraVision root tag in a config.xml file
+
+	* Viewpoint.c (tvuSaveViewpoints): add "created" attribute to the
+	Viewpoint root tag in a viewpoint.xml file
+
+Fri Nov 17 10:51:25 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Config.c (tvuSaveConfig): don't save a config file if -noconfig
+ 	specified.
+
+	* Viewpoint.c (tvuLoadViewpoints_old): add support for specifying
+ 	different coordinate systems in the Viewpoints Bookmarks file.
+
+	* Values.c (tvuSetInt): changed INIT_MODE_3D to INITIAL_VIEWER
+
+	* Args.c (tvuPrintReleaseInfo): print tvutils release date also
+	(tvuParseArgArray): exit immediately after printing -version info
+
+	* Init.c (tvuVersion): removed - now use tvuGetInt( TVU_VERSION ).
+
+Tue Nov 14 18:12:14 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Values.c (tvuSetInt): [new func] set an integer value
+	(tvuSetFloat): [new func] set a floating point value
+	(tvuSetString): [new func] take a copy of a string value
+
+	* Args.c (tvuParseArgArray): only display the -xabort command line
+	option if compiling under unix
+
+Tue Nov 14 10:27:31 2000    <reddy@MAGNOLIA>
+
+	* Platform.h: make setting of TVU_WINDOWS more robust
+
+	* Viewpoint.c (tvuLoadViewpoints_old): use strncmp and not
+ 	strncasecmp for looking at old-style Viewpoint header.
+
+	* configure.in (LDFLAGS): add support for Windows OpenGL libs
+
+	* Viewpoint.h (TVU_PI): added a tvutils library definition of PI
+ 	to avoid conflicts between Windows and Unix ways of defining this.
+
+	* Viewpoint.c (tvuViewpointUpgradeItem): use the new TVU_PI define
+
+Tue Nov 14 10:31:58 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Viewpoint.c (tvuLoadViewpoints_new): fix reading of new
+	XML-format viewpoint files.
+
+Wed Nov  8 14:24:56 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* The beginning of recorded history.  TerraVision utilities.
+

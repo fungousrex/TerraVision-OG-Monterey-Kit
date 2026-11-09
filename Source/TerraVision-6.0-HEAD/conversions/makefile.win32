@@ -1,0 +1,18 @@
+#
+# Make sure that there is a space after the trailing backslash for
+# this DEPTH macro.  If there is no space, then nmake will simply
+# replace the backslash with a merging of the next line.
+#
+DEPTH = ..\..\ 
+
+local_targets:       SEconversions
+
+headers:     headers_SEconversions
+
+clean:         clean_SEconversions
+
+realclean: uninstall_SEconversions
+
+uninstall: uninstall_SEconversions
+
+!INCLUDE $(DEPTH)makefile.win32

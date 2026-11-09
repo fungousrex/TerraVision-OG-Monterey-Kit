@@ -1,0 +1,154 @@
+2002-02-15  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* configure.in: Undo Greg Cockroft changes...
+	* configure: Regen
+
+Mon Sep 24 17:41:39 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* pr/include/private/primpl.h: added LINUX to override for malloc,
+	free, etc. otherwise malloc was being overriden in the module
+	[Greg Cockroft]
+
+	* configure.in (dnl): add the following under *-linux-* in
+ 	nsprnew/configure.in [Greg Cockroft]:
+
+           USE_NSPR_THREADS=1
+           AC_DEFINE(_PR_LOCAL_THREADS_ONLY)
+
+
+2000-09-28  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (AC_PATH_PROGS(AS)): Use [$CC -c]
+	(if test -n "$USE_PTHREADS"): Add $_PTHREAD_FLAGS to OS_LIBS
+	* configure: Regen
+
+	* config/nsinstall.c (lunlink, lrmdir): Mods for Solaris.
+
+2000-09-27  Michael A. Eriksen  <eriksen@ai.sri.com>
+
+	* Fixed broken compilation of nspr.rc file
+
+Tue Sep 26 10:31:51 2000    <leei@MAGNOLIA>
+
+	* configure.in: Add -lsocket -lnsl -lposix4 to OS_LIBS on Solaris
+	* configure: Regen
+
+Thu May 04 13:57:44 2000    <reddy@MAGNOLIA>
+
+	* prtypes.h: the nspr4 release assumes that the win32 build is
+ 	only for a shared library. Updated so that if the sources are
+ 	compiled or linked against under gcc/mingwin, then we create
+ 	static library declarations for all exported functions.
+
+	* ntsec.c: PTOKEN_OWNER not defined in mingw32 so instead use
+	(TOKEN_OWNER *)
+
+2000-06-09  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (AS): Default to $(CC) -c
+	(USE_NSPR_THREADS): Improve handling so that only one of
+	  USE_PTHREADS, USE_NSPR_THREADS, or USE_USER_PTHREADS is used.
+	(AC_CHECK_FUNC (pthread)): Use pthread_join instead of pthread_create()
+	* configure: Regen.
+
+	* pr/include/prcompat2.h: Delete file.
+	
+Mon Apr 24 16:28:42 2000    <reddy@MAGNOLIA>
+
+	* w95io.c: mbstring.h is not available under GCC/Ming32, so made
+ 	its inclusion conditional on __MSVC__ and setup some simple
+ 	definitions for the multi-byte functions that are used.
+
+	* ntio.c: ditto
+	
+2000-01-28  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (AC_CHECK_FUNC(pthread_create)): Move to top level,
+          protected by $USE_PTHREADS
+	  Use EXTRA_LIBS and clear OS_LIBS if not shared.
+	* pr/tests/Makefile.in: Try to get it to compile if USE_AUTOCONF
+	  
+1999-12-22  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* pr/include/prtypes.h: Revert 1999-12-16 patch.
+
+1999-12-20  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Run make export at end of 
+
+Tue Dec  7 09:45:42 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* lib/prstreams/Makefile.in: add ifeq for USE_CPLUS around prstrms.cpp
+
+1999-12-16  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* pr/src/md/unix/irix.c (create_sproc): Make static
+	* pr/include/prcompat2.h: Create name mapping definitions so that
+	  we may coexist with an NSPR2 library.
+	* pr/include/prtypes.h: Include "prcompat2.h"
+	
+1999-12-05  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Reformat Irix section for readability.
+	  Move _PR_HAVE_GETPROTO_R defines into Irix6.5 section.
+	  Remove config/nsprincl.mk from AC_OUTPUT.
+	(EXTRA_LIBS): Set to $OS_LIBS
+
+	* configure: Regen
+	* config/Makefile.in: Add CONFIG_HEADERS.
+	  Add export target to install CONFIG_HEADERS in $(DIST)/include.
+	* config/nsprincl.sh.in: Reformat so usable as both shell and
+	  Makefile fragment.
+	* config/nsprincl.mk.in: Delete file.
+	  
+	* pr/include/md/_irix.h: Define PURIFY so we use system malloc.
+	
+Tue Nov 30 14:41:53 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* configure.in (dnl): remove standard irix6.3 code from
+ 	configure.in - it was conflicting with the improved ABI support we
+ 	added and caused an invalid configure script (unbalanced if..fi).
+	(dnl): don't set _PR_HAVE_GETPROTO_R for irix -n32 either. It
+ 	isn't available under -32 or -n32, at least under irix 6.3 - is
+ 	this supposed to be an irix 6.5 only section?.
+
+Wed Nov 24 13:50:18 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* pr/include/prtypes.h: don't include the obsolete/protypes.h file
+	as these produce incompatible type redefinition errors.
+
+	* configure.in: updated to support O32 compilation under
+ 	IRIX. Sets the right compile options and defines for when
+ 	compiling O32. Use --enable-n32 or --disable-n32.
+
+1999-11-24  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* config/Makefile.in (PROGS): Depend on $(CONFIG_PROGS)
+	* configure.in (CONFIG_PROGS): Define new AC_SUBST variable so
+	  that mingw32 will not try to build nsinstall.
+
+1999-10-04  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* pr/include/prio.h (enum PRSockOption): Add PR_SockOpt_Broadcast.
+	(struct PRSocketOptionData): Add broadcast.
+	* pr/src/io/prmapopt.c (_PR_SocketSetSocket): Add case for
+	  PR_SockOpt_Broadcast.
+	(_PR_MapOptionName): Map PR_SockOpt_Broadcast to SO_BROADCAST.
+	
+1999-09-08  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure: Regen
+	* config/autoconf.mk.in: Define OS_LIBS and EXTRA_LIBS
+	* pr/tests/Makefile.in: Add USE_AUTOCONF sections and build rules
+	  to allow for compilation in autoconfed version.
+	
+1999-09-07  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* configure.in (AC_ARG_ENABLE(shared)): Handle --enable-shared=no.
+	  Accumulate OS_LIBS and EXTRA_LIBS and substitute.  Fix setting
+	  of CXX and CXXFLAGS when --disable-cplus.  Substitute into
+	  config/nsprincl.mk and config/nsprincl.sh
+	* configure: Regen
+	* config/nsprincl.mk.in: New
+	* config/nsprincl.sh.in: New
+

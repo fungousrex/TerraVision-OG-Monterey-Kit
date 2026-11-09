@@ -1,0 +1,289 @@
+#  TerraVision: A 3D terrain visualization system.
+#
+#  Copyright SRI International (1993, 1994, 1995, 1996, 1997, 1998)
+#
+#  All rights reserved.
+#
+
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(main.c)
+
+# Determine the host, build, and target systems
+AC_CANONICAL_SYSTEM
+
+AM_INIT_AUTOMAKE(TclTV, 3.0)
+AM_MAINTAINER_MODE
+
+AC_ARG_ENABLE(tracing, 
+[  --enable-tracing        Enable tracing output.],
+	AC_DEFINE(TRACING))
+
+dnl Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+AC_PROG_RANLIB
+
+TV_CONFIG_WITH_PREFIX
+
+dnl Checks for header files.
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_INLINE
+if test "$ac_cv_c_inline" != no; then
+  AC_DEFINE(HAVE_INLINE)
+fi
+
+dnl are we compiling under X11?
+AC_PATH_XTRA
+if test "$no_x" != yes; then
+  AC_DEFINE(HAVE_X11)
+fi
+AM_CONDITIONAL(HAVE_X11, test "$no_x" != yes)
+
+dnl Determine whether we are compiling with -n32 on SGI.
+AC_TRY_RUN([
+#include <sgidefs.h>
+int main() { return _MIPS_SIM != _MIPS_SIM_NABI32; }],
+  [MIPS_N32=yes],[MIPS_N32=no])
+
+dnl Initially add the final libraries
+LDFLAGS="$LDFLAGS -L/usr/local/lib"
+LIBS="$LIBS -lm"
+
+if test "$no_x" = yes; then
+  LIBS="-lwsock32 -lwinmm $LIBS"
+fi
+
+dnl Use nspr libraries
+TV_NSPR(../nsprnew)
+
+dnl Find the purify directory for stubs library
+AC_PATH_PROG(PURIFY, purify)
+if /bin/false && test -n "$PURIFY"; then
+  purifydir=`dirname $PURIFY`
+  if test $MIPS_N32 = yes; then
+    LIBS="-lpurify_stubs_n32 $LIBS"
+  else
+    LIBS="-lpurify_stubs $LIBS"
+  fi
+  CPPFLAGS="-DPURIFY $CPPFLAGS"
+  LDFLAGS="-L$purifydir $LDFLAGS"
+fi
+
+dnl This allows a number of <foo/foo.h> includes to work properly.
+CPPFLAGS="-I.. -I$srcdir/.. -I$srcdir/../TerraVision $CPPFLAGS"
+CPPFLAGS="-I$srcdir/../plugin/include $CPPFLAGS"
+
+dnl
+dnl See if -pthread is supported.
+dnl
+rm -f conftest*
+ac_cv_have_dash_pthread=no
+AC_MSG_CHECKING(whether ${CC-cc} accepts -pthread)
+echo 'int main() { return 0; }' | cat > conftest.c
+${CC-cc} -pthread -o conftest conftest.c > conftest.out 2>&1
+if test $? -eq 0; then
+	if test -z "`egrep -i '(unrecognize|unknown)' conftest.out | grep pthread`" && test -z "`egrep -i '(error|incorrect)' conftest.out`" ; then
+		ac_cv_have_dash_pthread=yes
+		CFLAGS="$CFLAGS -pthread"
+		CXXFLAGS="$CXXFLAGS -pthread"
+	fi
+fi
+rm -f conftest*
+
+case "$target" in
+    *-*-solaris*) 
+		AC_DEFINE(_REENTRANT) 
+		;;
+
+    *-*-linux*) 
+		AC_DEFINE(_REENTRANT) 
+		;;
+
+    alpha*-*-osf*)
+		AC_DEFINE(_REENTRANT)
+dnl		if test ! "$GNU_CC"; then
+dnl			CFLAGS="$CFLAGS -pthread" 
+dnl			CXXFLAGS="$CXXFLAGS -pthread" 
+dnl		fi
+		;;
+
+    *-*-freebsd*)
+		AC_DEFINE(_REENTRANT)
+		AC_DEFINE(_THREAD_SAFE)
+dnl		CFLAGS="$CFLAGS -pthread"
+dnl		CXXFLAGS="$CXXFLAGS -pthread"
+		dnl -pthread links in -lc_r, so don't specify it explicitly.
+		if test "$ac_cv_have_dash_pthread" = "yes"; then
+			PTHREAD_LDFLAGS=""
+		else
+			PTHREAD_LDFLAGS="-lc_r"
+		fi
+		;;
+esac
+AC_MSG_RESULT($ac_cv_have_dash_pthread)
+
+dnl Determine name of TSM library and includes/libs.
+TV_TSMCONFIG
+
+dnl Set up for X
+if test "$no_x" != yes; then
+  CPPFLAGS="$X_CFLAGS $CPPFLAGS"
+  if test "$MIPS_N32" = no -a "$X_LIBS" != " -L/usr/lib"; then
+    LDFLAGS="$X_LIBS $LDFLAGS"
+  fi
+  LIBS="-lXmu -lXi $X_PRE_LIBS -lX11 -lXext $X_EXTRA_LIBS $LIBS"
+fi
+
+dnl Determine the name of the Tcl/Tk library and include/libs
+TV_TCL(..)
+
+AC_ARG_WITH(opengl, [
+  --with-opengl=dir	Provide a hint as to where to look for OpenGL lib], [
+  if test -d $withval; then
+    CPPFLAGS="$CPPFLAGS -I$withval/include"
+    LDFLAGS="$LDFLAGS -L$withval/lib"
+  else
+    echo Argument --with-opengl=$withval must point to directory.
+  fi
+])
+
+dnl Configure for libglt
+LDFLAGS="-L../glt $LDFLAGS"
+if test "$no_x" != yes; then
+  LIBS="-lglt -lGL -lGLU $LIBS"
+else
+  LIBS="-lglt -lOpenGL32 -lGLU32 -lGDI32 $LIBS"
+fi
+DEPS="../glt/libglt.a $DEPS"
+
+dnl Add all of the tiff and jpeg includes/libs
+TV_LIBTIFF(../tiff)
+
+dnl Now check for the togl library.
+if test -d ../libTogl; then
+  CPPFLAGS="-I$srcdir/../libTogl $CPPFLAGS"
+  LDFLAGS="-L../libTogl/.libs $LDFLAGS"
+  LIBS="-ltogl $TK_LIB_FLAG $TCL_LIB_FLAG $LIBS"
+  DEPS="../libTogl/.libs/libtogl.a $DEPS"
+fi
+
+dnl Now check for the thread utilities library.
+if test -d ../pthr; then
+  CPPFLAGS="-I../pthr $CPPFLAGS"
+  LDFLAGS="-L../pthr $LDFLAGS"
+  LIBS="-lpthrutil $LIBS"
+  DEPS="../pthr/libpthrutil.a $DEPS"
+fi
+
+dnl Configure for DIS library
+if test -d ../DIS; then
+  LDFLAGS="-L../DIS $LDFLAGS"
+  LIBS="-ldis_client $LIBS"
+  DEPS="../DIS/libdis_client.a $DEPS"
+fi
+
+dnl Configure for vrml2 library
+if test -d ../vrml2; then
+  LDFLAGS="-L../vrml2 $LDFLAGS"
+  LIBS="-lvrml2 $LIBS"
+  DEPS="../vrml2/libvrml2.a $DEPS"
+fi
+
+dnl Configure for ungif library
+if test -d ../libungif; then
+  LDFLAGS="-L../libungif/lib/.libs $LDFLAGS"
+  LIBS="-lungif $LIBS"
+  DEPS="../libungif/lib/.libs/libungif.a $DEPS"
+fi
+
+dnl Configure for png library
+if test -d ../libpng; then
+  CPPFLAGS="-I$srcdir/../libpng -I$srcdir/../zlib $CPPFLAGS"
+  LDFLAGS="-L../libpng -L../zlib $LDFLAGS"
+  LIBS="-lpng -lz $LIBS"
+  DEPS="../libpng/libpng.a ../zlib/libz.a $DEPS"
+fi
+
+dnl Configure for libxml library
+if test -d ../libxml; then
+  LDFLAGS="-L../libxml/.libs $LDFLAGS"
+  LIBS="-lxml $LIBS"
+  DEPS="../libxml/.libs/libxml.a $DEPS"
+fi
+
+dnl Configure for ghttp library
+if test -d ../ghttp; then
+  LDFLAGS="-L../ghttp/.libs $LDFLAGS"
+  LIBS="-lghttp $LIBS"
+  DEPS="../ghttp/.libs/libghttp.a $DEPS"
+fi
+
+dnl Now check for the .geo core library.
+if test -d ../libGeo_Core -a -f ../libGeo_Core/config.h; then
+  AC_DEFINE(HAVE_LIBGEO)
+  LDFLAGS="-L../libGeo_Core $LDFLAGS"
+  LIBS="-lGeo $LIBS"
+  DEPS="../libGeo_Core/libGeo.a $DEPS"
+fi
+
+dnl Now check for the .geo client library.
+if test -d ../libGeo_DiscClient; then
+  AC_DEFINE(HAVE_LIBGEO)
+  LDFLAGS="-L../libGeo_DiscClient $LDFLAGS"
+  LIBS="-lGeoDisc $LIBS"
+  DEPS="../libGeo_DiscClient/libGeoDisc.a $DEPS"
+fi
+
+dnl Configure for conversions
+if test -d ../conversions; then
+  CPPFLAGS="-I$srcdir/../conversions $CPPFLAGS"
+  LDFLAGS="-L../conversions $LDFLAGS"
+  LIBS="-lse_conv $LIBS"
+  DEPS="../conversions/libse_conv.a $DEPS"
+fi
+
+dnl Configure for tsmApi (specific to version)
+if test -d ../tsm; then
+  CPPFLAGS="-I../tsm $CPPFLAGS"
+  LDFLAGS="-L../tsm $LDFLAGS"
+  LIBS="-l$TSMNAME $LIBS"
+  DEPS="../tsm/lib$TSMNAME.a $DEPS"
+fi
+
+dnl Update the LDFLAGS with an RPATH
+for i in $LDFLAGS; do
+  case $i in
+  -L*) 
+    dir=`echo $i | sed -e 's/-L//'`
+    if test -d $dir; then
+      case $dir in
+      /*) ;;
+      *) dir=`(cd $dir; pwd)`;;
+      esac
+      # Test for existence of a shared object file
+      so=`cd $dir; eval echo \*.so 2>/dev/null`
+      if test "$so" != '*.so'; then
+        RPATH="$RPATH:$dir"
+      fi
+    fi
+    ;;
+  *) ;;
+  esac
+done
+
+if test `(uname -s) 2>/dev/null` = 'SunOS'; then
+  dnl We are on a Sun machine, so do not do the -W compile flag.
+  test
+else
+  if test -n "$RPATH"; then
+    LDFLAGS="$LDFLAGS -Wl,-rpath,"`echo $RPATH | sed -e s/://`
+  fi
+fi
+
+AC_SUBST(DEPS)
+
+AC_OUTPUT(Makefile)

@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+
+<HEAD>
+<TITLE>TerraVision User Guide</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<CENTER>
+<IMG SRC="../guide.gif" ALT="TerraVision User Guide">
+</CENTER>
+
+<H2>1. Getting Started</H2>
+
+<H3>Installing your TerraVision distribution</H3>
+
+You can download the TerraVision distribution from the <a
+href="http://www.ai.sri.com/TerraVision/download/index.shtml">TerraVision
+Download Page</a>. This comes as a compressed tar archive. Let's say you
+wish to install the distribution into the directory
+/homedir/TerraVision. You could do this as follows:
+
+<pre>
+  % cd /homedir
+  % zcat tv-dist.tar.Z | tar xf -
+</pre>
+
+(N.B. the percent symbol '%' is meant to represent the shell prompt
+and is not part of the command). You should replace "zcat" with "gzcat"
+if you have downloaded the tar.gz (gzipped) version. Note that the
+distribution extracts into a TerraVision directory by default.
+
+<H3>Configuring your environment</H3>
+
+Although not essential, you should update your login script (e.g.
+.cshrc for csh) to include the TVHOME environment variable which
+points to the directory where you have installed TerraVision, e.g.
+
+<pre>
+    # csh script to setup environment for TerraVision
+    setenv TVHOME /homedir/TerraVision
+    set path = ($path $TVHOME/bin)
+</pre>
+
+This is done to help TerraVision find various support files such as
+images, help files, master config files, etc. If you do not set a
+TVHOME environment variable, then TerraVision will use the current
+directory where you ran TerraVision from.
+
+<H3> Running TerraVision</H3>
+
+Once you have added the above environment variable and path update to
+your login script, you should source that file (e.g. "source
+~/.cshrc"), and then you can run TerraVision by typing the following
+command:
+
+<pre>
+   % TerraVision
+</pre>
+
+This should give you the main TerraVision menu. This menu bar is used
+to access all of the functionality of TerraVision and looks
+like:
+
+<P><CENTER>
+<IMG SRC="menu.gif">
+</CENTER><P>
+
+<H3> Viewing Terrain Datasets</H3>
+
+<P>The first thing that you will probably want to do is to look at
+some terrain. Here is a quick overview of the 3 steps that you need to
+perform to see something interesting in TerraVision:
+
+<OL>
+
+<LI> Make sure that you have some terrain data! You can browse dataset
+from SRI's http://www.ai.sri.com/TileSets web server or you can
+download a sample dataset from the <A
+HREF="http://www.ai.sri.com/TerraVision/download/index.shtml">TerraVision
+Download page</A>.
+
+<P><LI> Tell TerraVision to open the dataset. You can do this by going
+to the <B>File/Open TV</B> menu option. For more details, see the
+documentation for the <A HREF="../file/index.html">File Menu</A>.
+
+<P><LI> Select a view of the dataset. You can view the terrain from a
+2-D pan/zoom interface, or a full 3-D fly through. For more details,
+see the descriptions for the <A HREF="../views/index.html">View Menu</A>.
+</OL>
+
+<P><BR>
+<H3>Command Line Options</H3>
+
+TerraVision supports a number of command line options. These can be
+found by typing the command, <B>TerraVision -help</B>, and are
+described fully below:
+
+<P><CENTER>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=10 WIDTH="90%" >
+
+<TR BGCOLOR="#BBFFBB">
+<TD><B>Option</B></TD>
+<TD><B>Description</B></TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-help or -h</TT></TD> 
+
+<TD>Displays information about the command line arguments supported by
+that version of TerraVision.
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-debug [masks:]level</TT></TD>
+
+<TD>Set debugging level for TerraVision, and optionally the
+debugging masks. The debugging options cause TerraVision to output
+various diagnostic messages to the shell window that it was run
+from. The level value can be any value in the range 1-4, the mask
+string can be made up of any of the following characters: 'A' (All),
+'T' (Tiles), 't' (Texturing), 'i' (Init), '2' (2-D Viewer), '3' (3-D
+viewer), 'm' (Map Viewer), 'o' (OpenGL), or 'v' (Visiblity). If you do
+not specify a set of debugging masks, then all masks will be
+enabled. For example, <B>-debug 2</B> or <B>-debug Tt3:1</B></TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-license</TT></TD>
+
+<TD>
+Displays the TerraVision license agreement. You will always be
+presented with this requester whenever you first use a new version of
+TerraVision. However, you can use this option if you would like to 
+see the agreement again. You will have to accept the license before
+you can use the TerraVision system.
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-oi</TT></TD>
+
+<TD>Specifies a default OI (imagery) URL. If you also specify a default
+DEM URL with the -dem option, then TerraVision will automatically
+load this dataset when it first starts up.
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-dem</TT></TD>
+
+<TD>Specifies a default DEM (elevation) URL. If you also specify a default
+OI URL with the -oi option, then TerraVision will automatically
+load this dataset when it first starts up.
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-view 2D|3D</TT></TD>
+
+<TD>If you specify -view 2D, then after the first dataset has been
+loaded, the Overhead Viewer will be displayed. Similarly, if you
+specify -view 3D, then the Out The Window Viewer will be displayed
+after the first dataset has loaded.  You can combine this option with
+the -dem and -oi options in order to make TerraVision automatically
+load a particular dataset and display it on startup.
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-cmd COMMAND</TT></TD>
+
+<TD>The -cmd option lets you specify an OAA-style command that will
+be executed on startup (when a viewer window is opened). You can
+specify multiple -cmd options on the command line in order to
+setup your default settings. You can find the OAA command list
+from <A HREF="../oaa/index.html">OAA Interface</A> documentation.
+For example, <B>-cmd "set('SHOW_WIREFRAME',1)"</b>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-proxy URL</TT></TD>
+
+<TD>Specifies the full URL of your http proxy server.  You will
+probably need to specify this if you are running TerraVision from
+behind a firewall and want to access datasets on external servers.
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-debug_dpss</TT></TD>
+
+<TD>If this version of TerraVision has been compiled with DPSS
+support, then setting this command line option will switch on the DPSS
+internal debugging mode.
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-verbose_dpss</TT></TD>
+
+<TD>If this version of TerraVision has been compiled with DPSS
+support, then setting this command line option will switch on the DPSS
+internal verbose mode.
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-config filename</TT></TD>
+
+<TD>This option lets you specify an alternative .TerraVision file.
+This is the file that is used to store all of your personal
+configuration settings for TerraVision. By default, TerraVision
+will use the $HOME/.TerraVision file.
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-log</TT></TD>
+
+<TD>This option will tell TerraVision to start logging immediately
+upon start up. Then, whenever you open a dataset, logging will be
+turned on for that dataset. Note that you can customise the logging
+output by putting resources into your $HOME/.TerraVision file. For
+example, "*netloggerDirectory: /tmp" will send all NetLogger output
+to the directory /tmp.
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-path</TT></TD>
+
+<TD>This option specifies the filename of a path to be loaded and
+played when the 3-D viewer first opens. You do not need to specify the
+.path extension (it will be added if not present). The user's default
+path directory will be prepended to the file you specify, i.e.  you
+should specify a filename relative to the $HOME/.TerraVisionPaths/
+directory. If the file does not exist, then TerraVision will act as if
+you did you specify this option.
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-viewpoints URL</TT></TD>
+
+<TD>Specifies the full URL of your viewpoint bookmarks file. By 
+default, this file is $HOME/.TerraVisionViewpoints. Use this
+option to define another viewpoints file. This may be an http URL (although
+note that you cannot add viewpoints to a file that is located on
+an http server).
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-droptowireframe HZ</TT></TD>
+
+<TD>TerraVision will automatically drop into wireframe mode whenever
+you are navigating and the frame rate drops below a certain
+threshold. This is done to improve the frame rate and visual feedback
+during periods of navigation. The display returns to its previous mode
+when stopped. The default setting for this option is 5.0 Hz. Setting
+this value to 0.0 will disable the option, i.e. never drop to
+wireframe based on the frame rate.
+
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>
+-oaa host:port<BR>
+-oaahost host<BR>
+-oaaport port<BR>
+</TT>
+</TD>
+
+<TD>Lets you connect to an OAA facilitator. OAA stands for
+<A HREF="http://www.ai.sri.com/~oaa/">Open Agent
+Architecture</A>,  a framework for integrating a community of
+heterogeneous software agents in a distributed environment.
+TerraVision is OAA-enabled in that it can act as an "agent",
+	      advertising its capabilities as a 3-D terrain
+	      visualization system with a central facilitator.<P>
+
+You connect to a facilitator by supplying its host name and port number,
+		e.g. <B>-oaa trestle.ai.sri.com:3344</B>.
+
+</TD>
+</TR>
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-cave</TT></TD>
+
+<TD>Run the CAVE version of TerraVision. This option is only available
+if the TerraVision binary was compiled with CAVE support.</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-debugTexture</TT></TD>
+
+<TD>Uses a debug texture instead of loading texture maps from the
+OI (image) pyramid.</TD>
+</TR>
+<TR>
+<TD BGCOLOR="#FFFFBB"><TT>-v</TT></TD>
+
+<TD>Displays the version number of the TerraVision product, as well as
+the DPSS and tsmApi libraries that were used to build the
+binary. </TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<BR> <HR NOSHADE>
+
+<A HREF="../index.html">User Guide Contents</A> /
+<A HREF="http://www.ai.sri.com/TerraVision" TARGET="_top">TerraVision Home Page</A>
+
+</BODY>
+</HTML>

@@ -1,0 +1,699 @@
+2002-02-15  Lee Iverson  <leei@ece.ubc.ca>
+
+	* Makefile.in: Regen with automake 1.5
+	* aclocal.m4: Ditto
+	* config.h.in: Ditto
+
+	* configure.in: Find and use png library.
+	* configure: Regen with autoconf 2.52
+	
+Tue Nov 20 10:54:09 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* configure.in (DEPS): only add the -W compile line options if we
+	are not on a Solaris machine
+
+2001-08-08  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* TerraVision.c (LoadThread): Call TsGeoCreate_OIDEM instead of
+	  TsGeoCreate.
+
+2001-07-08  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure: Regenerate (to get libgeotiff)
+
+Fri Jan 26 16:21:30 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ThreeDWidget.c (ThreeDWidgetBtnUp): only try to open a URL if
+        the url is not an empty string.
+
+2001-01-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glmTiming.c (setupTiming): Use GL_RGB4_EXT for portability.
+
+Sun Jan 07 11:40:19 2001    <reddy@MAGNOLIA>
+
+        * configure.in (LIBS): under Windows, add a linker flag for GCC to
+        tell it to produce a GUI program, not a console app. This stops an
+        MS-DOS window from being created when running TerraVision under
+        Win32.
+
+2000-12-20  Michael A. Eriksen  <eriksen@ai.sri.com>
+
+	* ThreeDWidget.c, Viewpoint.c: Added
+
+		#ifdef HAVE_CONFIG_H
+		# ifdef MSVC
+		#  include "winbuild/config.h"
+		# else
+		#  include "config.h"
+		# endif
+		#endif
+
+
+Tue Dec 12 14:41:25 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Platform_X.c (PlatformInitThreeDWidget): use the new
+	tvuGetContext in order to get the glmContext (on the Unix side,
+	there is no cmd line overriding of the selected visual as yet).
+
+2000-12-13  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* PathsFE.c: Include "TerraVisionInc.h" first!
+
+Tue Dec 12 14:28:37 2000    <reddy@MAGNOLIA>
+
+	* Platform_win.c (PlatformInitThreeDWidget): use tvuGetContext in
+ 	order to find the best pixel format and also support command line
+ 	argument and config file overriding.
+
+Tue Dec  5 16:49:14 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionInitialLoad): use the new
+ 	tvuDotGeoInit() tvutils function to initialise the tvBase with a
+ 	.geo schema and hierarchy.
+
+Thu Nov 30 14:00:52 2000    <reddy@MAGNOLIA>
+
+	* TerraVision.c (TerraVisionIPCInput): just do a PR_ProcessExit
+ 	when we receive a "quit" OAA message on our input stream. Doing
+ 	the usual TerraVisionQuit() cleanup seems to open us up for random
+ 	crashes when embedded within the Netscape browser.
+
+Tue Nov 21 14:03:05 2000    <reddy@MAGNOLIA>
+
+	* Platform_X.c (PlatformSetWindow): removed
+	(TerraVisionSetupCanvas): read the command line args for the
+ 	Netscape window handle and viewport dimensions
+
+	* Platform_win.c (PlatformSetWindow): removed
+	(PlatformSetupGraphics): read the command line args for the
+ 	Netscape window handle and viewport dimensions
+
+2000-11-21  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_X.c (ThreeDWidgetResizeCB, PlatformKeypress): Update
+	  calls to tvBaseUpdateView
+	* Platform_win.c (WndProc): Ditto.
+
+Mon Nov 20 14:44:14 2000    <reddy@MAGNOLIA>
+
+	* Platform_win.c (ConvertMSCmdLine): removed
+
+	* Platform_X.c (PlatformSetupGraphics): remove argc/argv params
+ 	for plaform portability
+
+	* Platform_win.c (PlatformSetupGraphics): ditto
+
+Mon Nov 20 10:29:00 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVisionInc.h: removed *all* global variables!!
+
+	* Viewpoint.c (ViewpointFind): removed
+	(ViewpointClear): removed
+	(ViewpointAdd): removed
+	(ViewpointFilename): removed
+	(SetViewpointUrl): removed
+	(ViewpointPrint): removed
+	(ViewpointSave): removed
+	(ViewpointUpgradeItem): removed
+	(ViewpointLoad): removed
+
+	* TerraVision.c (TerraVisionParseArgs): removed
+	(TerraVisionPrintReleaseInfo): removed
+	(ConvertMSPathname): removed
+	(GetRegInstallDir): removed
+
+	* PathsFE.c (PathSetRootDirName): removed
+	(PathGetDirName): removed
+	(PathSetInitial): removed
+	(PathGetInitial): removed
+
+	* Makefile.am (TerraVision_LDADD): add tvutils to link line
+
+2000-11-13  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Replace ../libGeo reference with ../libGeo_Core and
+	  ../libGeo_DiscClient.
+	* configure: Regen
+
+2000-11-09  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* platform_win.c: Added #include <pthr/trace.h>
+
+2000-11-09  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_X.c (TerraVisionSetupCanvas): Compare window against 0.
+	* TerraVision.c (TerraVisionParseArgs): Have -dotgeo argument use
+	  "default" schema.
+	
+	* configure.in: Reference libGeo instead of libhs.
+	  AC_DEFINE(HAVE_LIBGEO)
+	* configure: Regen
+	* acconfig.h: Define HAVE_LIBGEO instead of HAVE_LIBHS
+	* config.h.in: Regen
+
+2000-11-01  Michael A. Eriksen  <eriksen@ai.sri.com>
+
+	* TerraVision.c: Renamed __WIN32__ to WIN32
+	* TerraVisionInc.c: Renamed __WIN32__ to WIN32
+	* ThreeDWidget.c: Renamed __WIN32__ to WIN32
+	* ThreeDWidgetI.h: Renamed __WIN32__ to WIN32
+	* Removed winbuild/config.h
+
+Wed Nov 08 13:30:30 2000    <reddy@MAGNOLIA>
+
+	* TerraVision.c (PRFileMore): [deleted]
+	(PRFClose): [deleted]
+	(PRFDOpen): [deleted]
+	(struct PRFile): [deleted]
+	(PRFGets): [deleted]
+	(PR_ReadLine): [new func] - reads a line of text from stdin. Uses
+ 	nspr routines, but does not block noninterruptably.
+	(TerraVisionIPCInput): change the IPC feedback fprintf statement
+ 	into a TSMTRACE statement
+
+Tue Nov 07 11:27:34 2000  Martin Reddy  <reddy@MAGNOLIA>
+
+	* Platform_win.c (PlatformInitThreeDWidget): create a new context
+ 	using iFormat = 0, not 1. Appears to work for Dave Scott's laptop
+	and desktop this way.
+
+Wed Nov 01 11:37:57 2000  Martin Reddy  <reddy@MAGNOLIA>
+
+	* Platform_win.c (PlatformInitThreeDWidget): if no suitable
+ 	context is found by glmWFindContext, then create something.
+
+Mon Oct 30 11:52:57 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ThreeDWidget.c (ThreeDWidgetBtn1Down): fix seeking to use the
+	new tvFlyToPickPoint() core function
+
+Mon Oct 09 13:39:13 2000    <reddy@MAGNOLIA>
+
+	* testX.c: enclose whole file in #ifdef HAVE_X11 and provide an
+ 	empty main() stub if HAVE_X11 is int defined. This lets us compute
+ 	dependencies under Windows.
+
+Mon Oct  9 14:07:36 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionInitialLoad): issue the "loading" or
+	"querying" message before attempting to load the schema.
+
+2000-10-04  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (CXXLINK): Add.
+	(LINK): Use CXXLINK
+	* Makefile.in: Regen.
+	* configure.in (AC_PROG_CXX): Add
+	(HAVE_LIBHS): Define if ../libhs was configured.
+	* configure: Regen
+	* acconfig.h: Add undef HAVE_LIBHS
+	* config.h.in: Regen
+
+2000-09-27  Michael A. Eriksen  <eriksen@ai.sri.com>
+
+	* winbuild/config.h: added #define HAVE_LIBHS
+
+Tue Sep 26 14:20:29 2000    <reddy@MAGNOLIA>
+
+	* TerraVision.c: Include <glt/glt.h>, <pratom.h> and <assert.h>
+
+	* configure.in: Add pointers to ../libhs
+	* configure: Regen
+
+Fri Sep 22 12:00:57 2000    <reddy@MAGNOLIA>
+
+	* Platform_win.c (WndProc): Backspace key unloads the topmost
+ 	dataset, 'D' key toggle dataset outlines, 'W' key toggles
+ 	wireframe mode
+
+	* TerraVision.c (TerraVisionParseArgs): add a new -schema command
+ 	line option. Also add a debug -G for debugging the .geo thread.
+	(TerraVisionParseArgs): only load the default datasets if a schema
+ 	has not been defined
+	(TerraVisionInitialLoad): specify the schema URL between creating
+ 	the tvBase and opening the viewers.
+	(TerraVisionInitialLoad): set the splash screen message depending
+ 	upon whether we are querying .geo initially or loading some
+ 	command line specified datasets
+
+2000-08-28  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_X.c (PlatformInitThreeDWidget): Gather and time
+	  contexts for choosing (disabled).
+	* Platform_win.c (PlatformInitThreeDWidget): Disable gather and
+	  choose of glmContexts.
+
+Thu Aug 24 11:15:17 2000   Lee Iverson  <leei@@MAGNOLIA>
+
+	* Platform_win.c (WndProc): Make sure that we disable attempts to
+	  reinitialize the ThreeDWidget while initializing.
+	(FindBestVisual): Improve tracing.
+	(PlatformInitThreeDWidget): Make sure that initializing is true
+	  only while in this routine.
+	* Platform_win.h (struct PlatformThreeDWidget): Add initializing
+	  field.
+	* ThreeDWidget.c (InitThreeDWidget): Return TRUE if already done.
+	
+2000-08-23  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* Platform_X.c (PlatformInitThreeDWidget): Actually use
+	  highest-performing visual after tests.
+	* testX.c (main): Tweak.
+
+2000-08-22  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* TerraVision.c (main): Move InitThreeDWidget back to...
+	(TerraVisionInitialLoad): here.
+
+Tue Aug 22 14:12:49 2000  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_X.c (TimeVisual): Add stencilDepth to score.
+	* Platform_win.c (struct glmContextList): New.  List of acceptable
+	  contexts.
+	(GatherContexts): New.  Collect a list of acceptable contexts.
+	  Used as a callback for glmWChooseContext for side-effect only.
+	(FindBestVisual): New.  Walk through the modes in glmContextList,
+	  evaluating speed and returning iFormat of mode with best score.
+	(PlatformInitThreeDWidget): Use FindBestVisual to select widest,
+	  highest-performing pixel format.
+	* glmTiming.c: Include "glt.h"
+	
+	* TerraVision.c (main): Call TerraVisionGetPaths before
+	  PlatformSetupGraphics.  Call InitThreeDWidget in main thread.
+	(TerraVisionInitialLoad): Disable InitThreeDWidget here.
+	(setupTiming, drawTexture, cleanupTiming): Make static.
+	(glmWindowSpeed): Use glOrtho instead of gluOrtho2D.
+
+	* winbuild/PluginTV.dsp: Add glmTiming.c
+
+2000-08-22  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_X.c (TimeVisual): Calculate score and select best
+	  scoring visualid.
+	(TimeVisualsEventHandler): Remove event handler after we've seen
+	  first one.  Invoke TimeVisual on expose instead of ginit.
+	* glmTiming.c (setupTiming): Fix glClearColor call.
+	(drawTexture): Remove non-textured display.
+	(glmWindowSpeed): Throw up message for double buffered modes.
+	  Don't check setup speed.  Adjust count for actual time elapsed.
+	* testX.c (TimeVisual): Calculate score and select best
+	  scoring visualid.
+	(TimeVisualsEventHandler): Remove event handler after we've seen
+	  first one.  Invoke TimeVisual on expose instead of ginit.
+
+2000-08-21  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (TerraVision_SOURCES): Check glmTiming.c (maybe this
+	  belongs in libtv2?)
+	* Platform_X.c (glmContextList): New struct for testing timing
+	  of glmContexts.
+	(GatherContexts): New.  Callback for glmXChooseContext which
+	  simply gathers a list of usable contexts for later speed
+	  checking.
+	(VisualSearchClosure): New struct for scoring potential contexts.
+	(TimeVisual): New. GLwNginitCallback to test the speed of the
+	  glmContext bound to window.  Updates a VisualSearchClosure
+	  structure in the client_data.
+	(TimeVisualsEventHandler): New.  Walks through gathered visuals,
+	  assessing their speed and choosing one.  Registered against
+	  MapNotify event in FindBestVisual.
+	(FindBestVisual): New.  Framework for testing speed of gathered
+	  visuals.
+	(PlatformInitThreeDWidget): Gather acceptable visuals and test
+	  them for speed.  (currently disabled).
+
+Fri Aug 18 10:11:21 2000  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_win.c: Include "ThreeDCoreI.h" for certain defns.
+	(WndProc): Add extra arg to tvBaseUpdateView
+	(PlatformInitThreeDWidget): Use glmWCreateContext
+	
+2000-08-16  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_X.c: Don't include "TVGLX.h"
+	(PlatformInitThreeDWidget): Don't access tvGLXContext at all.
+	  Adjust call to tvBaseCreate.
+	* Platform_win.c: Ditto.
+	* ThreeDWidgetI.h: Don't include "TVGLX.h"
+	(struct ThreeDWidget): Remove tvGLX field.
+
+2000-08-15  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_X.c (PlatformInitThreeDWidget): Use glmXFindContext()
+	  and glmContextProperties to initialize context.
+	(TerraVisionInitGraphics): tvGLX_Use* functions no longer exist.
+	* Platform_win.c (PlatformSetupGraphics): tvGLX_Use* functions no
+	  longer exist.
+	(PlatformInitThreeDWidget): Use glmXFindContext()
+	  and glmContextProperties to initialize context.
+
+Mon Aug 14 14:47:57 2000  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_win.c: Include <glt/glm.h>
+	(PlatformInitThreeDWidget): Pass hWnd into glmWCreateWindow
+
+Fri Aug 11 16:19:03 2000  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Move AC_PATH_XTRA call up.
+	  Don't unconditionally define HAVE_X11
+	* configure: Regen
+	
+2000-08-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_X.c (PlatformInitThreeDWidget): Update name of
+	  glmXContextVisualInfo
+
+2000-08-09  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_X.c (PlatformInitThreeDWidget): 
+	  Call glmWCreateWindow().
+	* Platform_win.c (PlatformInitThreeDWidget):
+	  Call glmXtCreateWindow().
+	  Don't call tvSetAddTimerHandler/tvSetDelTimerHandler.
+
+Mon Aug 14 13:58:39 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionParseArgs): support a new command line
+	option called -droptowireframe. Specifies frame rate at which we
+	drop to wireframe. Default = 5.0 Hz. No drop = 0.0 Hz.
+
+	* ThreeDWidget.c (InitThreeDWidget): initialise the
+ 	MOTION_THRESHOLD setting to that specified on the -droptowireframe
+ 	command line option.
+
+2000-08-07  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_X.c (PlatformInitThreeDWidget): Pass tvGLX to
+	  tvBaseCreate()
+	(ThreeDWidgetInitCB): Call ThreeDWidgetStartRendering()
+	  instead of tvBaseInitializeGraphics().
+	* Platform_win.c (PlatformInitThreeDWidget): Pass tvGLX to
+	  tvBaseCreate()
+	(ThreeDWidgetInitCallback): Call ThreeDWidgetStartRendering()
+	  instead of tvBaseInitializeGraphics().
+
+Mon Aug 07 11:14:30 2000    <reddy@MAGNOLIA>
+
+	* TerraVision.c (GetRegInstallDir): [new function] looks up the
+ 	Windows registry to find a key that tells us the install path of
+ 	the Netscape plugin (no longer hardwired to C:)
+	(endif): set MAGICHOME and HOME env vars based up the registry
+ 	found installation path under Windows
+
+Wed Jun 28 15:33:07 2000    <reddy@MAGNOLIA>
+
+	* TerraVision.c (TerraVisionParseArgs): ignore the parameter of a
+ 	-geo option as well as the option itself
+
+	* ThreeDWidget.c (InitThreeDWidget): turn off the display of view
+ 	frustums and paths by default, in addition to tile bboxes
+
+2000-06-27  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_X.c (TerraVisionSetupCanvas): Don't pass blank
+	  arguments to XtVaOpenApplication(): pass NULL, 0 instead.
+	(PlatformKeypress, PlatformKeyrelease): Don't process if threeD is
+	  NULL.
+	* TerraVision.c (no_ipc): New global flag.
+	(main): Don't start or shutdown IPC thread if no_ipc.
+	(TerraVisionParseArgs): Recognize -no_ipc argument.
+	(TerraVisionQuit): Don't remove links here.
+	  Atomically clear pluginWidget pointer and don't destroy if was
+	  empty.
+	* ThreeDWidget.c (DestroyThreeDWidget): Unlink self-links.  Free
+	  threeD->title. 
+
+2000-06-27  Michael A. Eriksen    <eriksen@ai.sri.com>
+
+	* changed glmWorkProcExt to glmWorkProc
+
+Mon Jun 26 17:06:55 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionParseArgs): remove -geo command line
+ 	option - no longer required for connecting to a dataset.
+	(TerraVisionParseArgs): added a -cmd command line argument to
+	specify an OAA-style command to run on startup
+	(LoadThread): execute all of the -cmd commands once datasets have
+	been loaded
+
+	* ThreeDWidget.c (InitThreeDWidget): add explicit links from this
+	tvBase to itself so that it will show its own tiles and paths when
+	given a set('SHOW_TILES',1) command.
+	(InitThreeDWidget): turn off tile bounding boxes by default
+
+	* TerraVision.c (TerraVisionQuit): remove those links on exit
+
+Mon Jun 26 15:49:20 2000    <reddy@MAGNOLIA>
+
+	* Platform_win.c (WndProc): we always lost the first window size
+ 	event because the threeDCore is not initialized by that time. So,
+ 	it threeDCore is NULL, repost the event. That way we make sure
+ 	that the message will eventually get processed and the core always
+ 	has the right screen dimensions.
+
+2000-06-19  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* Platform_X.c (PlatformKeypress): 
+	* Platform_win.c:
+  	  reflect name changes in libtv2:
+		tvStopMotion3d() --> tvStopMotion()
+		tvRotate3d() --> tvRotate()
+		tvMoveViewpoint3d() --> tvMoveViewpoint()
+	* Viewpoint.c:
+		FlyToLocation() --> tvFlyTo()
+
+Sat Jun 17 18:52:03 2000    <reddy@MAGNOLIA>
+
+	* Platform_win.c (PlatformSetupGraphics): don't call the function
+ 	glmStartWorkProc. This uses SetTimer which seems to be unstable.
+	(PlatformCloseDown): don't call the function tlmStopWorkProc as
+ 	this uses KillTimer which seems to be unstable.
+
+	* PluginTV.dsp: added TRACING define to Visual Studio config file
+
+2000-06-12  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* TerraVision.c (LoadThread): New.  Detached thread function for
+	  loading initial datasets.
+	(TerraVisionInitialLoad): Move dataset loading into detached
+	  thread in LoadThread().
+	* ThreeDWidget.c (InitThreeDWidget): Call ThreeDWidgetInitCallback,
+	  since none is defined on WIN32.
+	(ThreeDWidgetAddDataset): New. Add dataset and possibly start
+	  rendering.
+	* ThreeDWidget.h (ThreeDWidgetAddDataset): Declare.
+
+2000-06-08  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* TerraVision.c (ipc_thread): New. Holds thread running IPC I/O.
+	(main): Set ipc_thread pointer. Unconditionally create exit lock
+	  and condition.  Join with ipc_thread on exit.  Don't call
+	  PR_Cleanup.
+	(struct PRFile): New.  FILE-like layer on top of PRFileDesc.
+	(PRFDOpen): New. Create a PRFile from a PRFileDesc.
+	(PRFClose): New. Close a PRFile.
+	(PRFileMore): New. Read more chars into a PRFile buffer.  Exits
+	  when exit_flag is non-NULL.
+	(PRFGets): New. Equivalent of gets for PRFile.
+	(TerraVisionIPCInput): Use PRFile to read data (allows for exiting
+	  gracefully).
+	(TerraVisionQuit): Clear pluginWidget before
+	  destroying.  Only clear geoList if non NULL.
+
+2000-06-07  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_X.c (PlatformGraphicsLoop): Name thread here.
+	* TerraVision.c (main): Don't create geoList.  Don't assume that
+	  TerraVisionQuit() doesn't return.  Join with Renderer thread and
+	  call PR_Cleanup() prior to exit.
+	(TerraVisionInitialLoad): Don't manage geoList (now handled by
+	  TsGeoCreate/Destroy).
+	(TerraVisionIPCInput): Return after TerraVisionQuit().
+	(TerraVisionQuit): Call TerraVisionExit() rather than
+	  PR_ProcessExit() on non-win32.
+
+Mon Jun  5 18:03:08 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionQuit): add back the code for
+	destroying all of the TsGeoPyramids when you quit the plugin. This
+	looks to be stable now.
+
+Sat Jun  3 22:20:15 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Viewpoint.c (ViewpointSave): use tsmOpenStream() and
+ 	tsmCloseStream() when saving the bookmark file so that we cleanly
+ 	deal with saving to http servers (i.e. don't attempt it).
+
+	* TerraVision.c (TerraVisionParseArgs): added support for a
+	-viewpoints command line option to specify location of the desired
+	viewpoints file.
+
+	* Viewpoint.c (SetViewpointUrl): [new func] let the location for
+ 	the viewpoint file be specified (can be an http url)
+	(ViewpointFilename): if SetViewpointUrl() has been used to define
+ 	the viewpoint file location, then use that. Otherwise use the
+ 	original default of $HOME/.TerraVisionViewpoints
+	(ViewpointLoad): use tsmOpenStream() and tsmCloseStream() to read
+ 	the viewpoint file - this supports http and file://localhost URLs.
+
+2000-06-02  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Platform_win.x (ThreeDWidgetAddTimerHandler): Update to new
+	  prototype for tvAddTimerHandler.  Store pointer back into *loc.
+	(ThreeDWidgetDelTimerHandler): Update to new prototype for
+	  tvDelTimerHandler.
+	
+	* Platform_X.c: Include <pratom.h>
+	(TimerHandler): Claim timer object with an atomic clear through
+	  its pointer, then process it and free.
+	(ThreeDWidgetAddTimerHandler): Update to new prototype for
+	  tvAddTimerHandler.  Store pointer back into *idp.
+	(ThreeDWidgetDelTimerHandler): Update to new prototype for
+	  tvDelTimerHandler.  Claim timer object with an atomic clear
+	  through its pointer, then delete it and free.
+
+Thu Jun  1 16:33:58 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ThreeDWidget.h: remove ThreeDWidgetGeo structure - not needed
+
+	* PathsFE.c (PathLoadInitial): remove the TsGeoPyramid parameter -
+	no longer needed
+	(PathGetDirName): remove the geoset name directory from the
+	default paths directory
+
+2000-05-24  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* All: Track name changes in ThreeDCore.h:
+	  o ThreeDCore => tvBase
+	  o View       => tvViewpoint
+	  o function names.
+
+Mon Apr 24 17:24:17 2000    <reddy@MAGNOLIA>
+
+	* ThreeDWidget.c (ThreeDWidgetUpdate): updated the tvSetView
+ 	function call with the new third parameter to specify no jump.
+
+Thu Feb 10 13:40:15 2000    <reddy@MAGNOLIA>
+
+	* Platform_win.c: Change #include "ThreeDCoreI.h" to
+ 	"ThreeDCore.h". Now only using API level functions for the Core.
+
+	* ThreeDWidget.c (ThreeDWidgetBtn1Down): use new
+ 	tvFlyToScreenCoord function instead of using private ThreeDCore
+ 	callbacks
+	(global): Change #include "ThreeDCoreI.h" to "ThreeDCore.h". Now
+ 	only using API level functions for the Core.
+
+	* ThreeDWidgetI.h: remove the field current_geo
+
+	* ThreeDWidget.c (ThreeDWidgetMotion): use the tvGet... functions
+ 	in order to query the ThreeDCore internal structures instead of
+ 	diving into private fields.
+	(ThreeDWidgetUpdate): ditto
+	(InitThreeDWidget): ditto
+	(ThreeDWidgetBtn2Down): ditto
+
+Thu Mar  2 18:10:45 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* configure.in (DEPS): removed ghttp and added libxml
+
+Fri Feb 25 14:46:08 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+        * configure.in: replace the libwww libraries with ghttp on the
+        compile and link lines.
+
+Wed Feb 09 11:41:05 2000    <reddy@MAGNOLIA>
+
+	* Platform_win.c (PlatformSetupGraphics): put guards around all
+ 	threeDCore functions to check for threeDCore == NULL. Our window
+ 	can be popped up before we have created the core structure.
+
+	* TerraVision.c (main): initialise the TsLog stuff in order to get
+ 	the network throughput logging in the HUD
+	(TerraVisionIPCInput): robistify the reading of OAA commands from
+ 	stdin a little bit.
+
+Fri Feb 04 17:10:14 2000    <reddy@MAGNOLIA>
+
+	* Platform_win.c (ThreeDWidgetInitCallback): use the new
+ 	tvSetIntegerv( c, TV_SIZE, w ) call instead of accessing private
+ 	members of the ThreeDCore directly.
+	(WndProc): ditto when doing a window resize update
+
+	* Platform_X.c (ThreeDWidgetResizeCB): use the new tvSetIntegerv(
+ 	c, TV_SIZE, w ) call instead of accessing private members of the
+ 	ThreeDCore directly.
+	(ThreeDWidgetInitCB): ditto
+
+Thu Feb 03 17:33:06 2000    <reddy@MAGNOLIA>
+
+	* Platform_win.c (PlatformSetupGraphics): create the standalone
+ 	plugin window with close/minimize/maximize buttons and make the
+ 	window resizeable.
+	(WndProc): support the WM_CLOSE event (close button) and the
+ 	WM_SIZE event (resize the window).
+
+Thu Jan 27 17:50:40 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionParseArgs): added a -proxy command
+	line option. Calls the new tsmApi function tsmSetHttpProxy().
+
+	* configure.in (DEPS): add libwww to the compile and link line
+
+Mon Jan 24 20:34:48 2000    <reddy@MAGNOLIA>
+
+	* TerraVision.c (endif): removed call to PlatformSetHInstance()
+
+	* Platform_win.c (PlatformSetHInstance): [removed]
+	(PlatformSetupGraphics): work out the application's instance
+ 	handle using the call GetModuleHandle()
+
+	* TerraVision.c: under Windows, hardwire the MAGICHOME and HOME
+ 	values to C:/Program Files/SRI International/TerraVision Plugin
+
+Tue Jan 11 09:10:14 2000    <reddy@MAGNOLIA>
+
+	* Platform_win.c (EmulateMMB): emulate the middle mouse button by
+ 	clicking the left and right buttons.
+
+	* TerraVision.c (TerraVisionParseArgs): added a -view command line
+ 	option to specify the initial nav mode as 2-D or 3-D.
+
+	* Platform_win.c (WndProc): make SPACE really stop the user from
+ 	moving - need to update ThreeDWidget state as well as ThreeDCore
+ 	(basically simulate a MMB click).
+
+Mon Jan 24 16:19:19 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Platform_win.c (ThreeDWidgetInitCallback): renamed from
+	...InitCB to avoid conflict with static function in Platform_X.c
+
+	* ThreeDWidgetI.h: selectively compile Platform_win.h or
+	Platform_X.h based upon whether __WIN32__ define is defined.
+
+1999-12-22  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Enable use of DIS directory and library.
+	* configure: Regen
+
+Tue Dec 21 11:15:32 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionParseArgs): support a new -geo command
+	line argument so that we can load an OI and DEM without a database
+	file to know the geoname beforehand.
+	(TerraVisionInitialLoad): load all of the datasets specified on
+	the command-line (no longer hardcoded to Gtopo30).
+	remove #include <npapi.h> - we don't need this here
+
+Mon Dec 20 16:49:53 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionIPCInput): if we get a command "quit"
+	then we close the application, otherwise we send the command to
+	the new tvInterpret() function to be executed by the OAA interface.
+
+Mon Dec 13 12:19:31 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* configure.in (CPPFLAGS): added ../plugin/include to the compile
+ 	line
+

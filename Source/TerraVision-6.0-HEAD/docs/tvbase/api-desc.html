@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+  <title>The TerraVision Library:  API</title>
+</head>
+
+<body>
+
+
+<CENTER>
+<TABLE>
+<TR>
+<TD><IMG SRC="img/tv2.gif" ALT="TerraVision Home Page"></TD>
+<TD VALIGN="TOP"><IMG SRC="img/sri.gif" ALT="SRI International"></TD>
+</TR>
+</TABLE>
+</CENTER><BR>
+
+
+ <h1>The TerraVision Library:  API</h1> 
+ <BODY BGCOLOR="#FFFFFF" TEXT="#000000"> 
+
+<P><BLOCKQUOTE> 
+These pages provide a reference guide for the TerraVision library, containing descriptions of the API function calls and data structures needed to develop new TerraVision applications. 
+</BLOCKQUOTE>  
+
+<P><BR>
+<FONT SIZE="+2" COLOR="#FF0088"><B><I>API Overview</I>:</B></FONT>
+<HR NOSHADE>
+
+
+<P>
+The TerraVision library embodies the core functionality of the 
+TerraVision system. It forms the basis for TerraVision applications,
+where for example a GUI is layered on top of it to form a stand-alone program,
+or it is embedded in a plug-in framework for a web browser. 
+
+<P>
+The core capability may loosely be described as the
+visualization of three-dimensional, geographic datasets that are
+accessed from either local or remote sources. There are many
+options  that control the rendering of the scenes, the specification of
+viewing parameters, the class of features to be depicted,
+etc. Multiple renderings may be created, and can either exist
+independently, or  linked together so that changes in one are
+reflected in the others. 
+
+<P>
+The set of services 
+provided by the API can be partitioned into functional categories:
+
+<BLOCKQUOTE>
+<P>
+<LI><A HREF="init.html" TARGET="API">
+    Initialization and Control of Visualization Threads</A>
+<LI><A HREF="tspec.html" TARGET="API">
+    Tileset/GeoSet Specification</A>
+<LI><A HREF="viewspec.html" TARGET="API">
+    View Specification and Navigation</A>
+<LI><A HREF="rendering.html"  TARGET="API">
+    Rendering Options</A>
+<LI><A HREF="paths.html"  TARGET="API">
+    Predefined/Automated Flight Paths</A>
+<LI><A HREF="linking.html"  TARGET="API">
+    Linking Views</A>
+<LI><A HREF="features.html"  TARGET="API">
+    VRML Features</A>
+<LI><A HREF="logging.html"  TARGET="API">
+    Logging (net logging, tileset logging)</A>
+<LI><A HREF="glx.html"  TARGET="API">
+    GLX Interface</A>
+<LI><A HREF="oaa.html"  TARGET="API">
+    OAA Interface</A>
+<LI><A HREF="misc.html"  TARGET="API">
+    Miscellaneous Operations </A>
+</BLOCKQUOTE>
+
+<P>
+The library makes use of  OpenGL to generate rendered scenes, and each 
+rendering instance is a distinct thread of execution. Additionally,
+this library makes use of the services of several other
+utility libraries bundled with  the TerraVision distribution,
+such as the "libglt.a" for programs incorporating OpenGL
+within an  Xt/Motif context, 
+and <a href="http://www.ai.sri.com/tsmApi/api-new.html">libtsm.a</a> 
+for managing access to geographical datasets. In some cases, functions of
+this API require arguments which are created by these other
+libraries. Those  instances are noted below, however the APIs
+for these auxiliary libraries are described  elsewhere.
+
+
+<hr>
+      <address><a href="mailto:brownrig@erg.sri.com">Rick
+	  Brownrigg</a></address> <!-- Created: Mon Jan 10 16:17:48
+      CET 2000 --> <!-- hhmts start --> Last modified: Mon Jan 10
+      16:18:17 CET 2000 <!-- hhmts end --> </body>
+</html>

@@ -1,0 +1,944 @@
+2002-02-15  Lee Iverson  <leei@ece.ubc.ca>
+
+	* Makefile.in: Regen with automake 1.5
+	* aclocal.m4: Ditto
+	* config.h.in: Ditto
+
+	* configure.in: Find and use libpng library
+	* configure: Regen with autoconf 2.52
+	
+2001-08-08  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* tsmUtilCmds.c (tsmUtilCommand): Add control of http_debug if
+	  GHTTP_DEBUG is enabled.
+
+	* TerraVision.c (TVDataSetConnect): Call TsGeoCreate_OIDEM instead of
+	  TsGeoCreate.
+
+2001-07-17  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* FeaturesFE.c (FeatureGet): Add missing arg to FeatureAlloc
+
+2001-03-07  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* TerraVision.c (main): Encapsulate graphics thread start/stop.
+	(SystemInit): Set reserved memory for TsCache to 1/2 core size if
+	  known.
+	(TVDataSetCreate): Copy name value for safety.
+	(TVDataSetLoadThread): Clean up name value and tsm record.
+
+	* Link.c (LinkGetMenu): Clean up title compound string if
+	  necessary.
+	* NetLogger.c (NetLogGetCurrentStrings): Free returned strings
+	  after copy.
+	* ThreeDPanel.c (ThreeDPanelCreateDebugWidgets): Initialize
+	  freezeButton.
+	(ThreeDPanelUpdatePosition): Free compound text for labels.
+	  Reformat.
+	* ThreeDWidget.c (ThreeDWidgetCreateUtilButtons): Track and free
+	  compound strings.
+	(ThreeDWidgetExposeCB): Either call tvBaseStart or
+	  tvBasePostRedraw
+	(ThreeDWidgetKeypress): Make 'x' or 'X' freeze tiles.
+	(ThreeDWidgetCreateMenuBar): Free accelerator text.
+	* ThreeDWidgetI.h (struct ThreeDWidget): Add freezeButton.
+	
+Fri Jan 26 14:40:11 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ThreeDWidget.c (ThreeDWidgetBtn1Down): only try to open a URL if
+	the url is not an empty string.
+
+Fri Jan 12 11:36:17 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ThreeDWidget.c (ThreeDWidgetBtn2Down): reset the slide and
+ 	attitude deltas when middle mouse button pressed. This stops the
+ 	effect of a slight jiggle when clicking SHIFT and then the middle
+ 	button.
+
+2001-01-10  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* ThreeDPanel.c (ThreeDPanelCreateRenderWidgets): Set minimum
+	  resolution adjustment to -0.5.
+	(ThreeDPanelPoppingCB): Use tvSetInteger to change popping
+	  strategy.
+
+Tue Jan  9 10:51:03 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionTimerCallback): update the display of
+	the Viewpoint Status window every second, rather than every 5 secs
+
+	* TerraVision.ad: change title of Viewpoint Status window to be
+	more descriptive: Geocentric Viewpoint Coordinates
+
+	* ThreeDPanel.c (ThreeDPanelUpdatePosition): display the real
+	pitch, not 90-pitch, in the Viewpoint Status window.
+	(ThreeDPanelCreatePositionWidgets): update labels for the GCC
+	position to be X, Y, and Z, respectively.
+
+	* TerraVision.ad: add resource string for the Debug HUD widget
+
+	* ThreeDPanel.c (ThreeDPanelCreateRenderWidgets): remove the
+	MipMap, Show Clouds, and Elev Scale widgets from the ThreeDPanel
+	because they don't do anything.
+	(ThreeDPanelGetButtonStates): remove the MimMap and Show Clouds
+	buttons
+	(ThreeDPanelCreateDebugWidgets): add a toggle button in the Debug
+	window for the debug HUD display.
+
+2000-12-15  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionGraphicsLoop): Move data set loading
+	  and window popup code to here...
+	(main): ...from here.
+
+Thu Dec 14 13:41:31 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionCreateMenuBar): add a "TV FAQ" entry
+	to the Help menu to bring up the new TerraVision FAQ web page.
+
+Wed Dec 13 17:06:53 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (main): call OpenInitialWindow by using a timeout
+ 	of 300ms until we understand why it crashes when called
+ 	immediately. Only do the call back if -view option was specified.
+
+2000-12-13  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* BusyDialog.c (CreateBusyDialog): Set and clear busy message
+	  inside locked region.
+	(SetBusyText): Free previous message if set.
+
+2000-12-12  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* PathsFE.c (PathSetSelected): Use XmListSelectPos() to select
+	  list item.
+
+2000-12-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* AboutDialog.c: Properly clean up tvXmString assignments.
+	* Database.c: Ditto.
+	* DatabaseAdv.c: Ditto.
+	* DatabaseOpts.c: Ditto.
+	* Dialogs.c: Ditto.
+	* NetLogger.c: Ditto.
+	* TerraVision.c: Ditto.
+	* ThreeDControl.c: Ditto.
+	* ThreeDPanel.c: Ditto.
+
+Mon Dec 11 13:45:03 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* PathsFE.c (PathDeleteCB): refresh the path viewpoint list after
+ 	deleting an entry.
+
+Wed Dec  6 11:18:23 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Database.c (DBaseNewDBase): updated the config.xml file with the
+ 	new database filename when this is changed by the user.
+
+	* ScannedMap.c: turn off the map viewer overlays as they are not
+	working right now
+
+	* TerraVision.c (TerraVisionButtonCB): update www.ai.sri.com URLs
+	to point to www.tvgeo.com
+
+	* ThreeDWidget.c (ThreeDWidgetCreateMenuBar): update for the new
+	filename of the 3D Viewer user guide entry
+
+	* ScannedMap.c (ScannedMapCreateWidgets): update for the new
+	filename of the Map Viewer user guide entry
+
+	* TerraVision.c (TerraVisionHelp): update to point to the new user
+	guide location on www.tvgeo.com.
+
+Tue Dec  5 16:07:14 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionInitThreeDWidget): use the new
+	tvuDotGeoInit() tvutils function to initialise the tvBase with a
+	.geo schema and hierarchy.
+
+Fri Dec  1 00:12:22 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Datasets.c (RemoveDatasetCB): I have fixed list_delete so that
+	it returns NULL when deleting the last element of a list, however
+	let's just be extra sure - do a break; after removing a dataset.
+
+Thu Nov 30 15:24:03 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ThreeDWidget.c (CreateThreeDWidget): initialise the status bar
+	texts for when the viewer is opened without a datasets.
+
+	* TerraVision.c (OpenInitialWindow): new function that opens a 2d,
+ 	3d, or no window the first time that it is called.
+	(main): if we are not loading any datasets specified on the
+ 	command line, then issue a callback to open an initial viewer
+ 	should the user have specified a -view 2d or -view 3d option.
+
+2000-11-30  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* ThreeDWidget.c (ThreeDWidgetKeypress): Enable debugging heads up
+	  with shift-H and normal with h.
+
+2000-11-29  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* DatabaseOpts.c: Include "config.h"
+	* TerraVision.ad (threeDPanelBackfaceWidget): Default to True.
+	* TerraVision.ad.h: Regen
+	* ThreeDPanel.c (ThreeDPanelCreateDebugWidgets): Disable Detail
+	  texture toggle.
+	(ThreeDPanelCreateRenderWidgets): Move backfacing button next to
+	  horizon culling.
+
+2000-11-21  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* ThreeDPanel.c (ThreeDPanelToggleChangedCB): Update call to
+	  tvBaseUpdateView.
+
+Mon Nov 20 10:56:12 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* PathsFE.c (PathSetRootDirName): removed
+	(PathGetDirName): removed
+	(PathSetInitial): removed
+	(PathGetInitial): removed
+
+	* TerraVision.c (main): remove the PR_Init call - now done in
+ 	tvuInit()
+
+Fri Nov 17 11:28:54 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Viewpoint.c (ViewpointFind): removed (in tvutils)
+	(ViewpointAdd): removed
+	(ViewpointDelete): removed
+	(ViewpointClear): removed
+	(ViewpointFilename): removed
+	(SetViewpointUrl): removed
+	(ViewpointPrint): removed
+	(ViewpointSave): removed
+	(ViewpointUpgradeItem): removed
+	(ViewpointLoad): removed
+
+	* TerraVision.c (TerraVisionParseArgs): removed
+	(TerraVisionPrintReleaseInfo): removed
+	(TerraVisionUserInfoFile): removed
+	(TerraVisionReadUserInfo): removed
+	(TerraVisionSaveUserInfo): removed
+	(main): revamp to use tvutils - much cleaning up and
+ 	simplification
+	(TerraVisionDebugLevelCB): don't reset debug output to stderr when
+	changing debug level - could be outputting to a debug file.
+
+	* TerraVisionGlobals.h: removed lots of globals (only 2 left!)
+
+	* TerraVision.c (TVDataSetLoadSuccess): don't bother with that
+	"Opened ... successfully" dialog. It just gets in the way.
+
+2000-11-13  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Replace ../libGeo reference with ../libGeo_Core and
+	  ../libGeo_DiscClient.
+	* configure: Regen
+
+2000-11-09  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Reference libGeo instead of libhs.
+	  AC_DEFINE(HAVE_LIBGEO)
+	* configure: Regen
+	* acconfig.h: Define HAVE_LIBGEO instead of HAVE_LIBHS
+	* config.h.in: Regen
+
+2000-11-06  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Dialogs.h (GenericPromptDialog): Closure is XtPointer.
+
+Fri Oct 27 14:56:45 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ThreeDWidget.c (ThreeDWidgetUpdateStatusBar): only update each
+	section of the status bar if it has changed since the last time we
+	called this function - stops all that flickering.
+	(ThreeDWidgetBtn1Down): if we click the left moust button, then
+	check to see if we are over a VRML hyperlink. If so, then open the
+	url in a web browser.
+
+	* ThreeDWidgetI.h: add state to the ThreeDWidget structure to
+	remember the last values refreshed on the status bar, so we don't
+	keep refreshing the same text.
+
+Thu Oct 26 10:16:36 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* FeaturesFE.c (FeatureInfoCB): report the number of Anchor nodes
+	in the VRML file
+
+Mon Oct  9 13:32:42 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionParseArgs): added a -schema command
+	line option
+	(TerraVisionInitThreeDWidget): load the schema file if specified
+
+2000-10-04  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (CXXLINK): Add.
+	(LINK): Use CXXLINK
+	* Makefile.in: Regen.
+	* configure.in (AC_PROG_CXX): Add
+	(HAVE_LIBHS): Define if ../libhs was configured.
+	* configure: Regen
+	* acconfig.h: Add undef HAVE_LIBHS
+	* config.h.in: Regen
+
+Fri Sep 15 10:23:30 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionCreateMenuBar): added ".geo" mask to
+	the Debug menu
+	(TerraVisionDebugMaskCB): added support for DOTGEO_MASK
+	(TerraVisionRefreshMenus): don't ghost the Viewers menu any more
+	(TerraVisionRemoveGeoPyramid): don't ghost the Viewers menu items
+
+2000-08-28  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* Trivial changes to comments on xxxBtn callbacks for consistency and 
+	clarity.
+
+2000-08-16  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* AboutDialog.c: Don't include "TVGLX.h"
+	* BusyDialog.c: Ditto.
+	* ScannedMap.c: Ditto.
+	* TVLogger.c: Ditto.
+	* TerraVision.c: Ditto.
+	* ThreeDWidget.c: Ditto.
+	(CreateThreeDWidget): Don't access tvGLXContext at all.
+	  Adjust call to tvBaseCreate.
+
+2000-08-15  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* AboutDialog.c (CreateAboutDialog): Just use glmXFindContext()
+	* BusyDialog.c (CreateBusyDialog): Ditto.
+	* ScannedMap.c (CreateScannedMap): Ditto.
+	* TVLogger.c (CreateTVLogger): Ditto.
+
+	* TerraVision.c (TerraVisionParseArgs): Set global tileByTile.
+	* TerraVisionGlobals.h (singleBuffer): New var.
+	(stereoVisual): New var.
+	(tileByTile): New var.
+	* ThreeDWidget.c (CreateThreeDWidget): Use glmXFindContext with
+	  properties from globals.  Set TV_TILE_BY_TILE if flagged.
+	
+2000-08-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* AboutDialog.c (CreateAboutDialog): Use
+	   glmXContextVisualInfo.
+	* BusyDialog.c (CreateBusyDialog): Ditto.
+	* ScannedMap.c (ScannedMapCreateWidgets): Ditto.
+	* ThreeDWidget.c (ThreeDWidgetCreateWidget): Ditto.
+	* TVLogger.c (TVLoggerCreateWidgets): Ditto.
+
+2000-08-09  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* ThreeDWidget.c (CreateThreeDWidget): Use glmXtCreateWindow()
+	  Don't call tvSetAddTimerHandler/tvSetDelTimerHandler.
+
+	* AboutDialog.c (CreateAboutDialog): Use glmXtCreateWindow()
+	* BusyDialog.c (CreateBusyDialog): Use glmXtCreateWindow()
+	* ScannedMap.c: Use glmXtCreateWindow() throughout.
+	* TVLogger.c: Use glmXtCreateWindow() throughout.
+	
+2000-08-07  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* ThreeDWidget.c (CreateThreeDWidget): Pass tvGLX to
+	  tvBaseCreate()
+	(ThreeDWidgetInitCB): Call tvBaseStart() instead of
+	  tvBaseInitializeGraphics()
+	(ThreeDWidgetStartRendering): Move origin initialization before
+	  raising widget, since we now call tvBaseStart() automatically
+	  on window map.  Likewise, don't call tvBaseStart().
+
+Mon Aug 14 13:59:28 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ThreeDWidget.c (CreateThreeDWidget): initialise the
+ 	MOTION_THRESHOLD setting to that specified on the -droptowireframe
+ 	command line option.
+	(ThreeDWidgetKeypress): add keyboard shortcut: L = toggle SRI logo
+
+	* TerraVision.c (TerraVisionParseArgs): support a new command line
+	option called -droptowireframe. Specifies frame rate at which we
+	drop to wireframe. Default = 5.0 Hz. No drop = 0.0 Hz.
+
+Thu Jul 13 10:31:28 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* resource.c (tvExpandStr): change error report for env var not
+	found to a trace message, not an error on stderr.
+
+	* TerraVision.c (main): use $TVHOME instead of $MAGICHOME (check
+	$MAGICHOME if $TVHOME not set, for temporary compatibility.)
+
+	* TerraVision.ad: updated $MAGICHOME references to $TVHOME
+
+2000-06-29  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* ThreeDPanel.c (ThreeDPanelSliderChangedCB): Replaced the following
+	calls:
+		tvBaseChangeTimeOfDay() ---> tvSetFloat(...,TV_TIME_OF_DAY,..)
+		tvBaseChangeFog()       ---> tvSetFloat(...,TV_FOG_DENSITY,..)
+
+
+2000-06-29  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* TerraVision.c (main): Don't call PR_Cleanup().  Seems to cause
+	  purify problems.
+
+	* ThreeDWidget.c (DestroyThreeDWidget): Make sure we actually had
+	  the widget to remove, otherwise we've already been destroyed.
+	(ThreeDWidgetKeypress, ThreeDWidgetKeyrelease): Make sure widget
+	  and tvBase are both non-NULL.
+
+Mon Jun 26 17:51:59 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionInitThreeDWidget): perform any -cmd
+ 	commands
+	(TerraVisionParseArgs): added a new command line argument, -cmd,
+	to provide a number of OAA style commands to be run on startup
+
+	* ThreeDWidget.c (ThreeDWidgetInterpret): [new func] executes an
+	OAA command given a ThreeDWidget structure
+
+
+2000-06-19  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* ThreeDControl.c (ThreeDControlMoveButtonCB):
+ 	* ThreeDPanel.c: (ThreeDPanelDrawToggleChangedCB):
+	* ThreeDWidget.c: (ThreeDWidgetKeypress):
+		reflect renaming of OAA interface functions in libtv2:
+		tvStopMotion3d() --> tvStopMotion()
+		tvRotate3d() --> tvRotate()
+		tvMoveViewpoint3d() --> tvMoveViewpoint()
+		tvResetView3d() --> tvResetView()
+	* Viewpoint.c: FlyToLocation() renamed to tvFlyTo() in libtv2.
+
+Sat Jun  3 22:20:15 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* Viewpoint.c (ViewpointSave): use tsmOpenStream() and
+ 	tsmCloseStream() when saving the bookmark file so that we cleanly
+ 	deal with saving to http servers (i.e. don't attempt it).
+
+	* TerraVision.c (TerraVisionParseArgs): added support for a
+	-viewpoints command line option to specify location of the desired
+	viewpoints file.
+
+	* Viewpoint.c (SetViewpointUrl): [new func] let the location for
+ 	the viewpoint file be specified (can be an http url)
+	(ViewpointFilename): if SetViewpointUrl() has been used to define
+ 	the viewpoint file location, then use that. Otherwise use the
+ 	original default of $HOME/.TerraVisionViewpoints
+	(ViewpointLoad): use tsmOpenStream() and tsmCloseStream() to read
+ 	the viewpoint file - this supports http and file://localhost URLs.
+
+2000-06-02  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Link.c (LinkCreateSubmenu): Remove unused button var.
+	
+	* ThreeDWidget.c: Include <pratom.h>
+	(TimerHandler): Claim timer object with an atomic clear through
+	  its pointer, then process it and free.
+	(ThreeDWidgetAddTimerHandler): Update to new prototype for
+	  tvAddTimerHandler.  Store pointer back into *idp.
+	(ThreeDWidgetDelTimerHandler): Update to new prototype for
+	  tvDelTimerHandler.  Claim timer object with an atomic clear
+	  through its pointer, then delete it and free.
+
+Thu Jun  1 12:28:00 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TVDataSetConnect): remove the tsm->name parameter
+	to TsGeoCreate - no longer needed.
+	(TVDataSetCreate): if the OI URL is not in the database, then
+	don't fail - just make up a geoset name based upon the url string
+	(the name is just used for information dialogs these days anyway)
+
+	* PathsFE.c (PathSaveCB): convert call_data from ThreeDWidgetGeo
+ 	to just a normal ThreeDWidget - no longer need the TsGeoPyramid
+	(PathLoadCB): ditto
+	(PathFileSelect): change parameter from ThreeDWidgetGeo to just
+ 	ThreeDWidget and pass this as the callback closure
+	(PathLoad): ditto
+	(PathLoadInitial): ditto
+	(PathGetDirName): removed the dataset name parameter for working
+	out the directory to store path files in. We now just store all
+	path files in a single directory rather than trying to split these
+	us into GeoSet subdirectories - this made sense before multiple
+	datasets, but not really anymore.
+
+	* ThreeDWidget.c (CreateThreeDWidget): removed current_geo references
+	(ThreeDWidgetMenuCB): ditto
+	(ThreeDWidgetMenuCB): ditto
+	(ThreeDWidgetStartRendering): ditto
+
+	* ThreeDWidgetI.h: removed the current_geo field (ThreeDWidgetGeo)
+	as is no longer needed
+
+	* ThreeDWidget.h: removed the ThreeDWidgetGeo structure - this was
+	a hack caused by the dependency of PathLoadFile on a TsGeoPyramid
+
+Thu May 25 20:07:44 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ThreeDWidget.c (ThreeDWidgetDemoDest): removed
+
+2000-05-24  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* All: Track name changes in ThreeDCore.h:
+	  o ThreeDCore => tvBase
+	  o View       => tvViewpoint
+	  o function names.
+
+Thu May 18 16:26:44 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* FeaturesFE.c (FeatureMakeGeoSetList): update function to create
+	a list of models when the geoset_name is NULL, i.e. for all global
+	features not associated with a geoset.
+	(FeatureGenerateList): build a list of global features after all
+	of the features associated with particular datasets
+	(FeatureInfoCB): don't display model name if NULL
+
+Thu May 11 21:46:17 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ThreeDWidget.c (CreateThreeDWidget): don't show that old klunky
+	web icon panel at the bottom of the ThreeDWidget by default.
+	(ThreeDWidgetCreateWidget): make default size of the ThreeDWidget
+	render window be 640x480
+
+Mon May  8 13:01:48 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ThreeDWidget.c (ThreeDWidgetCreateMenuBar): add a new entry to
+	the Path menu bar called "Save to Images"
+	(ThreeDWidgetCreateMenuBar): add two Save to Images menu items,
+	one for 320x240 images and one for 480x360
+
+	* ThreeDWidgetI.h: add a Widget structure for the new Path/Save to
+	Images menu option
+
+2000-04-20  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Datasets.c (DatasetPrioSet): Dataset priority changes are
+	  non-jump moves.
+	* ScannedMap.c (ScannedMapBtn1Up): This is clearly a jump move.
+	* ThreeDControl.c (ThreeDControlMoveButtonCB): Assume these moves
+	  are jumps.
+	(ThreeDControlMove): Assume these moves are non-jumps.
+	* ThreeDPanel.c (ThreeDPanelSliderChangedCB): Use tvSetView() and
+	  assume non-jump for fov, nearPlane and farPlane changes.
+	(ThreeDPanelToggleChangedCB): Assume non-jump for
+	  ThreeDCoreUpdateView()
+	(ThreeDPanelToggleCoreChangedCB): The tvSetBoolean() call should
+	  handle consequences, so remove call to ThreeDCoreUpdateView()
+	* ThreeDWidget.c (ThreeDWidgetResizeCB): Remove call to
+	  ThreeDCoreUpdateView().
+	(ThreeDWidgetKeypress): Use tvSetBoolean() for TV_TWOD_CONSTRAIN
+	  and TV_USE_ZBUFFER_HACK.
+	(ThreeDWidgetUpdate): Update view as non-jump.
+	(ThreeDWidgetMenuCB): Use tvSetBoolean() for TV_USE_ZBUFFER_HACK.
+	
+2000-04-19  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* ScannedMap.c (ScannedMapDraw, ScannedMapBtn1Up,
+	 ScannedMapCAVERedraw): Remove dependency on access to tspec.  Use
+	  TsGeooBBoxLVCS() instead.
+
+2000-04-06  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Database.c (DBaseSelectTV): Update for change to list_next()
+	* Datasets.c (SelectDatasetOkay, SelectDatasetRefresh,
+	  RefreshDatasetSelectors, DatasetDisplayRefreshWidget,
+	  DatasetDisplayAddCB): Update for change to list_next()
+	(RemoveDatasetCB): Update for changes to list_next() and list_delete()
+	* Info.c (InfoFindDatasets): Update for change to list_next()
+	* Link.c (LinkCreateSubmenu, LinkUpdateSubmenu): Update for change
+	  to list_next()
+	* Prefs.c (PrefsDPSSTimeoutCB): Update for change to list_next()
+	* ScannedMap.c (ScannedMapGeoSet, ScannedMapGeo, ScannedMapBtn1Up,
+	  NumAvailMaps, MapSelectRefresh): Update for change to list_next()
+	* TerraVision.c (TerraVisionTimerCallback, TerraVisionStopLogging,
+	  TerraVisionStartLogging, ): Update for change to list_next()
+	* ThreeDPanel.c (ThreeDPanelPoppingCB): Update for change to
+	  list_next()
+	* ThreeDWidget.c (ThreeDWidgetForall, ThreeDWidgetFind,
+	  WhichThreeDWidget): Update for change to list_next() 
+	* resource.c (PrintStringList): Update for change to list_next()
+
+	* AboutDialog.c (CreateAboutDialog, AboutDialogWidgetX11Callback):
+	  Remove unused vars.
+	* Dialogs.c (CreateQuitDialog, CreateWarningDialog): Ditto.
+	* ThreeDControl.c (ThreeDControlCreateWidgets): Ditto.
+
+	* configure.in, configure (DEPS): Add ../ghttp/.libs/libghttp.a
+
+2000-03-21  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* TerraVision.c (tileByTile): Delete.
+	(main): Use pthr_set_name() to name Renderer thread.
+	(user_info_strs): Delete.
+	* configure.in (AC_CHECK_FUNCS): Delete gethostname, gettimeofday,
+	  select, socket, ntohs, ntohl.
+	* configure, config.h.in: Regen.
+
+2000-03-08  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Datasets.c: Include "ThreeDCore.h" instead of "ThreeDCoreI.h"
+	(DatasetListCB): New.  Generic callback for building a list of
+	  XmString values from a tvForallDatasets() callback.
+	(DatasetPrioRefreshWidget, DatasetDisplayRefreshWidget): Use
+	  tvForallDatasets(DatasetListCB).
+	(DatasetPrioTopCB, DatasetPrioUpCB, DatasetPrioDownCB,
+	 DatasetPrioBottomCB): Use tvDatasetSetPriority() to move a
+	  dataset
+	(SelectDatasetFromCore): New.  Update scrolled list elements from
+	  a ThreeDCore geoList.
+	(SelectDatasetRefresh): Call SelectDatasetFromCore() when
+	  cb_info is associated with a ThreeDCore.
+	
+	* ScannedMap.c: Include "ThreeDCore.h" instead of "ThreeDCoreI.h"
+
+2000-03-08  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Datasets.c (DatasetDisplayRemoveCB): Adjust to use tvGetDataset().
+
+	* Link.c: Include "ThreeDCore.h" instead of "ThreeDCoreI.h"
+	(LinkUpdateMenu): Use tvGetLinks() public interface rather than
+	  direct field access.
+	
+	* TerraVision.c (main): Join the graphics thread before exiting.
+	
+	* ThreeDWidget.c (ThreeDWidgetBtn2Up, ThreeDWidgetBtn2Down,
+	 ThreeDWidgetBtn3Down): Use tvSetIntegerv(TV_CROSSHAIR) and
+	  tvSetBoolean(TV_SHOW_CROSSHAIR) to update the crosshair.
+
+	* Viewpoint.c: Include "ThreeDCore.h" instead of "ThreeDCoreI.h"
+	(ViewpointSetView): Adjust call to tvGetDataset()
+	(ViewpointAddCurrent): Ditto.
+	(ViewpointAddGeoCB): New.  Private callback for gathering bookmark
+	  strings.
+	(ViewpointRefreshWidget): Revamp to use gather bookmarks by using
+	  ViewpointAddGeoCB() with tvForallDatasets().
+	(ViewpointAddCallback): Adjust to optimize for single dataset by
+	  checking tvNumDatasets() and getting it with tvFindDataset()
+	(ViewpointFirstGeo): New. Callback for tvFindDataset().  Returns
+	  first.
+
+2000-03-02  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* BusyDialog.c, Database.c, DatabaseOpts.c, FeaturesFE.c,
+	Link.c, Prefs.c, ScannedMap.c, TVLogger.c, TerraVision.c,
+	ThreeDControl.c, ThreeDPanel.c, ThreeDWidget.c, Viewpoint.c:
+	  Comment out unused funcName vars.
+
+	* configure.in, configure:
+	  Remove /usr/local/lib from library path.
+
+Thu Mar  2 16:52:14 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* configure.in (DEPS): remove ghttp from compile/link line
+
+Fri Feb 25 14:37:05 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+        * configure.in: replace the libwww libraries with ghttp on the
+        compile and link lines.
+
+Mon Feb  7 11:51:35 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (main): do a PR_ProcessExit instead of a return at
+	the end of main(). This makes TerraVision exit immediately under
+	IRIX instead of taking several seconds.
+
+Fri Feb  4 18:08:46 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ThreeDWidget.c (ThreeDWidgetInitCB): use ThreeDWidget->screenMax
+	and not ThreeDCore->screenMax (access to core private members).
+	(ThreeDWidgetFullScreenMode): ditto
+
+	* ThreeDWidgetI.h: added screenMax[2] to ThreeDWidget
+
+	* ThreeDWidget.c (ThreeDWidgetResizeCB): use the new tvSetIntegerv
+	interface to change the size of the viewport instead of digging
+	into ThreeDCore private structures.
+	(ThreeDWidgetInitCB): ditto
+
+Thu Jan 27 16:28:01 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionParseArgs): added a -proxy command
+	line option. Calls the new tsmApi function tsmSetHttpProxy().
+	(TerraVisionQuit): call tsmCleanupHttp() on quit in order to
+	terminate the libwww globals
+
+	* configure.in (DEPS): add libwww to the compile and link lines
+
+Wed Jan 26 11:09:40 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* FeaturesFE.c (FeatureGet): allocate a new closure structure -
+	can't use a local variable because the closure needs to persist
+	beyond the completion of the function. 
+	(FeatureLoadCB): free up the closure when done
+
+1999-12-22  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* ThreeDWidget.c (CreateThreeDWidget): Sample code to start the
+	  DIS PDU generator (commented out).
+	* configure.in: Enable use of DIS directory and library.
+	* configure: Regen
+
+1999-12-14  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* TerraVision.c (main): Don't create geoList.
+	  Don't call OAAConnect().
+	(TVDataSetConnect): Don't push onto geoList.
+
+Tue Dec  7 12:38:54 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* ThreeDWidget.c (ThreeDWidgetKeypress): exit function directly
+	after closing the widget when ESC pressed (don't try to update the
+	status bar!)
+	(ThreeDWidgetUpdateStatusBar): only update the status bar if
+	threeDWidget->threeDCore is non-NULL.
+
+1999-12-05  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (AC_ARG_WITH(opengl)): Extend LDFLAGS and CPPFLAGS
+	  paths if provided.
+	* configure: Regen
+
+1999-12-03  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (TerraVision_SOURCES): Delete OAA.c
+	(EXTRA_HEADERS): Delete OAA.h
+	* Makefile.in: Regen
+	* OAA.c: Delete file.
+	* OAA.h: Delete file.
+	
+	* ThreeDPanel.c: Only include "OAA.h"
+	* ThreeDWidget.c (DrawOnScreen_BtnDn, DrawOnScreen_BtnUp,
+	 DrawOnScreen_Motion): Moved here from OAA.c
+
+1999-12-03  Lee Iverson  <leei@Canada.AI.SRI.COM>
+	
+	* FeaturesFE.c: Include ThreeDCore.h instead of ThreeDCoreI.h.
+	(FeatureSelectInit): Use tvGetBoolean() to obtain values for
+	  TV_FEATURES_TEXTURED, TV_FEATURES_LIGHTING,
+	  TV_FEATURES_WIREFRAME, TV_FEATURES_LOAD_TEXTURES,
+	  and TV_FEATURES_BACKFACE_CULL.
+	(MakeSetListClosure, MakeSetList): New. Callback and closure for
+	  updating GeoSetList with tvForallDatasets()
+	(FeatureGenerateList): Use tvForallDatasets(MakeSetList) to update
+	  GeoSetList.
+	* OAA.c: Pare down to essentials.  Probably shoud,be included
+	  elsewhere.
+	(DrawOnScreen_BtnDn): Move functionality into tvBeginStroke() in
+	  core.
+	(DrawOnScreen_Motion): Move functionality into tvContinueStroke()
+	  in core.
+	(DrawOnScreen_BtnUp): Move functionality into tvEndStroke() in core.
+	* ThreeDControl.c: Include ThreeDCore.h instead of ThreeDCoreI.h.
+	(ThreeDControlMove): Use tvGetBoolean() to access
+	  TV_HEIGHT_BASED_NAVIGATION value.
+	* ThreeDPanel.c: Include "TerraVision/OAA.h"
+	(addToggleCoreCallback): Initialize value from toggle button
+	  state.
+	(ThreeDPanelCreateDebugWidgets): Remove TV_SHOW_TILE_DEBUG
+	  initialization (now done in addToggleCoreCallback).
+	(ThreeDPanelCreateNavWidgets): Use addToggleCoreCallback() for
+	  TV_DOODLE_ON_TERRAIN.
+	(ThreeDPanelCreateRenderWidgets): Use addToggleCoreCallback() for
+	  TV_SHOW_LIGHTING, TV_SHOW_HEADS_UP, TV_MIPMAP_TEXTURES,
+	  TV_BACKFACE_CULL, TV_SHOW_WIREFRAME.
+	  Don't initialize TV_SHOW_TEXTURES, TV_SHOW_MODELS, TV_SHOW_SKY,
+	  TV_SHOW_GROUND, TV_SHOW_DATASETS, TV_HORIZON_CULL and
+	  TV_SCALE_IPD (now done in addToggleCoreCallback).
+	  Use ThreeDPanelStereoToggleChangedCB() to change stereo
+	  setting.
+	  Use tvGetFloat() to obtain initial value of TV_ABSOLUTE_IPD,
+	  and TV_RESOLUTION_ADJUST.
+	(ThreeDPanelSliderChangedCB): Use tvSetFloat() to change
+	  TV_RESOLUTION_ADJUST, TV_ELEVATION_SCALE and TV_ABSOLUTE_IPD.
+	(ThreeDPanelToggleChangedCB): Remove cases for ShowSky and
+	  ShowGround. 
+	(ThreeDPanelStereoToggleChangedCB): New. Calls
+	  ThreeDWidgetSetStereoMode() to modify value.
+	(ThreeDPanelProjectToggleChangedCB): Delete.
+	(ThreeDPanelLightingToggleChangedCB): Delete.
+	(ThreeDPanelHeadsUpToggleChangedCB): Delete.
+	(ThreeDPanelMipmapToggleChangedCB): Delete.
+	(ThreeDPanelBackfaceChangedCB): Delete.
+	(ThreeDPanelWireFrameToggleChangedCB): Delete.
+
+	* ThreeDWidget.c (ThreeDWidgetStartRendering): Call
+	  GetViewpointOrigin() and then tvSetInitialView() if found.
+	* ThreeDWidgetI.h (struct ThreeDWidget ): Add originView field for
+	  "Origin" Viewpoint. 
+	* Viewpoint.c (GetViewpointOrigin): Iterate over global geoList
+	  instead of that from ThreeDCore.
+
+1999-12-02  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* OAA.c: Include "TerraVision/OAA.h"
+	* OAA.h (SetDrawTimeout, GetDrawTimeout): Delete decls.
+	* ThreeDPanel.c (ThreeDPanelCreateNavWidgets): Fix call to
+	  GetDrawTimeout().
+	(ThreeDPanelToggleChangedCB): Remove locking of core.  Update to
+	  use ThreeDWidgetSetStereoMode().
+	(ThreeDPanelTimeoutChangedCB): Remove locking of core.  Fix call
+	  to SetDrawTimeout().
+	(ThreeDPanelClearDoodleCB): Remove locking of core.
+	* ThreeDWidget.c (ThreeDWidgetSetStereoMode): Modified from
+	  ThreeDWidgetChangeStereoMode() to take an argument.
+	(ThreeDWidgetKeypress): Use ThreeDWidgetSetStereoMode() for 'S' key.
+	* ThreeDWidget.h (ThreeDWidgetSetStereoMode): Declare.
+
+1999-12-01  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* ThreeDControl.c (ThreeDControlMove): Fix declaration.
+	* ThreeDPanel.c (ThreeDPanelCreateNavWidgets): Update handling of
+	  heightBasedNav to use tvSetBoolean().
+	(ThreeDPanelGetButtonStates): Ditto.
+	* ThreeDWidget.c (CreateThreeDWidget): Don't initialize timerId
+	(ThreeDWidgetDismissCallback): Don't remove timerId timeout.
+	(ThreeDWidgetBtnUp): Use ThreeDCoreStartMovement() to continue
+	  with current velocity setting.
+	(ThreeDWidgetBtn2Up): Use ThreeDCoreStopMovement() to terminate
+	  motion.
+	(ThreeDWidgetBtn1Down): Use ThreeDCoreStartAccelerate() to move.
+	(ThreeDWidgetBtn2Down): Use ThreeDCoreStartMovement() to move.
+	(ThreeDWidgetBtn3Down): Use ThreeDCoreStartDeccelerate() to move.
+	(ThreeDWidgetMotion): Send a normalized mouse offset value to
+	  ThreeDCoreSetSlideDelta() or ThreeDCoreSetAttitudeDelta().
+	(ThreeDWidgetUpdateTimer, ThreeDWidgetCancelTimer,
+	 ThreeDWidgetAccelerate, ThreeDWidgetDeccelerate, 
+	 ThreeDWidgetMove): Delete obsolete timeout management. Moved into
+	  core.
+	(ThreeDWidgetUpdate): Minor updates (obsolete function).
+	* ThreeDWidget.h (struct ThreeDWidget): Protect with
+	  ThreeDWidget_typedef define.
+	* ThreeDWidgetI.h (struct ThreeDWidget): Delete timerId and
+	  heightBasedNav fields.
+
+	* OAA.c (time_out, drawTimerId, fullRefresh): Delete variables.
+	(DrawTimeOut, ClearDrawTimeOut, StartDrawTimeOut): Move these to
+	  core OAA.c
+	(DrawOnScreen_BtnDn): Update for core handling of timeout.
+	(DrawOnScreen_BtnUp): Ditto.
+	(SetDrawTimeout, GetDrawTimeout): Move to core OAA.c
+
+1999-11-29  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* TerraVision.c (TerraVisionReadUserInfo): Get VISIBLE_{MIN,MAX}
+	  from resource directory and call ThreeDCoreSetVisibleCycle() to
+	  set them.
+	
+	* ThreeDWidget.c (CreateThreeDWidget): Delete calls to
+	  tvSetErrorHandler() and tvSetStatusHandler(), replacing with
+	  single call to tvSetMessageHandler().
+	(ThreeDWidgetErrorHandler): Delete.  Subsumed by
+	  ThreeDWidgetMessageHandler()
+	(ThreeDWidgetStatusHandler): Ditto.
+	(ThreeDWidgetMessageHandler): New.  Handle all three (currently)
+	  kinds of messages coming from core.
+	(ThreeDWidgetError): Call ThreeDWidgetMessageHandler(TV_ERROR_MSG)
+
+	* BusyDialog.c (BusyHandler): Delete.
+	(SetupBusyCallback): Take ThreeDWidget* arg.
+	(ClearBusyCallback): Ditto.
+	* BusyDialog.h: Include "ThreeDWidget.h"
+	(SetupBusyCallback, ClearBusyCallback): Take ThreeDWidget*
+	  argument.
+	* FeaturesFE.c (struct FeatureLoadClosure): Change to take
+	  ThreeDWidget instead of ThreeDCore.
+	(FeatureLoadCB): Correct for use of FeatureLoadClosure.threeD
+	  since SetupBusyCallback() and SetupBusyCallback() need
+	  ThreeDWidget*. 
+	(FeatureGet): Initialize closure with ThreeDWidget*.
+	* ThreeDWidget.c (CreateThreeDWidget): Initialize busyDialog.
+	(ThreeDWidgetBusyDialog): New.  Set busyDialog pointer for widget.
+	* ThreeDWidget.h: Include "BusyDialog.h"
+	(ThreeDWidgetBusyDialog): Declare.
+	* ThreeDWidgetI.h (struct ThreeDWidget): Add busyDialog field.
+	  Used to manage new message handling interface.
+	
+	* OAA.c: Moved into core.  Retain only FE pieces.
+	* OAA.h: Ditto.
+
+	* ThreeDWidget.c (CreateThreeDWidget): Delete call to PathInit().
+	* PathsFE.c (PathInit): Delete.  Unneeded.
+	(PathAnimationCB, PathActivateAnimation, PathAnimator): Moved into
+	  core.
+	
+	* ThreeDPanel.c (ThreeDPanelCreateNavWidgets,
+	  ThreeDPanelProjectToggleChangedCB, ThreeDPanelGetButtonStates):
+	  Reflect movement of projectToTerrain into core.
+	(ThreeDPanelProjectToggleChangedCB): New.  Used to update the
+	  state of projectToTerrain.
+	* ThreeDPanel.h (struct ThreeDPanel): Delete projectToTerrain
+	  field: moved to ThreeDCore.
+	
+	* ThreeDWidget.c (CreateThreeDWidget): Call tvSetAddTimerHandler()
+	  and tvSetDelTimerHandler() to initialize timeout handling.
+	(struct TimerClosure): New.  Holds Xt and callback info for
+	  handling timeouts.
+	(TimerHandler): New. Xt callback which calls callback registered
+	  by ThreeDWidgetAddTimerHandler().
+	(ThreeDWidgetAddTimerHandler): New.  Callback registered with
+	  tvSetAddTimerHandler().  Initializes a TimerClosure and then
+	  sets up Xt timer callback to TimerHandler.
+	(ThreeDWidgetDelTimerHandler): New. Callback registered with
+	  tvSetDelTimerHandler().  Call XtRemoveTimeOut().
+	* ThreeDWidgetI.h (struct ThreeDWidget): Delete pathTimer since
+	  this is now moved into core.
+
+1999-11-23  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Datasets.c (DatasetDisplayRemoveCB): Minor format change.
+	* Link.c (LinkSubmenu): Update TV_LINK_* => TV_*
+	* ThreeDWidget.c (ThreeDWidgetUpdateHandler): Update TV_LINK_PATHS
+	  => TV_PATHS.  Add case for TV_DATASETS which is called back from
+	  tvAddDataset and tvRemoveDataset.
+
+1999-11-19  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* FeaturesFE.c (FeatureLoadProgress): Delete.
+	(FeatureLoadCB): Remove progress args to FeatureLoad() since nopw
+	  handled by generic Busy message callback.
+	
+	* TerraVision.c (TerraVisionGetURLPaths): Call TextureSetPath()
+	  with path named TEXTURE_PATHNAME.
+	
+	* ThreeDWidget.c (CreateThreeDWidget): Call tvSetStatusHandler()
+	  and tvSetUpdateHandler() to establish status tracking callbacks.
+	(ThreeDWidgetStatusHandler): New.  Callback for
+	  tvSetStatusHandler() -- calls ThreeDWidgetUpdateStatusBar().
+	(ThreeDWidgetUpdateHandler): New.  Callback for
+	  tvSetUpdateHandler() -- calls ScannedMapRedraw() on
+	  TV_LINK_PATHS update.
+
+1999-11-18  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* FeaturesFE.c (struct FeatureLoadClosure): New.  Pair of
+	  ThreeDCore* and FeatureItem* passed into FeatureLoadCB().
+	(FeatureLoadProgress): New.  Used as progress callback for
+	  FeatureLoad().
+	(FeatureLoadCB): Extract guts and move to FeatureLoad() in
+	  libtv2.a
+	(FeatureGet): Renamed from FeatureLoad().  Fill in
+	  FeatureLoadClosure and the call OpenBusyDialog() with
+	  FeatureLoadCB callback.
+	(FeatureSelectedCB): Call FeatureGet().
+	* FeaturesFE.h (FeatureLoad): Delete.
+
+1999-11-18  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Database.c: Include "ThreeDCore.h" for geoList.
+	* Info.c: Ditto.
+	* Prefs.c: Ditto.
+	* TerraVision.c (singleBuffer, tileByTile): Move here from
+	  TerraVisionGlobals.h.
+	(TerraVisionInitGraphics): Change to tvGLX_Use*() calls.
+	(TerraVisionGraphicsFeatures): Delete.
+	* TerraVisionGlobals.h (singleBuffer, tileByTile,
+	 use_antialiasing, use_texture_objects, use_vertex_array): Delete.
+	(geoList): Move to ThreeDCore.c
+
+1999-11-18  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Create directory.  Motif front-end files moved from TerraVision
+

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+
+<HEAD>
+<TITLE>TerraVision User Guide</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<CENTER>
+<IMG SRC="../guide.gif" ALT="TerraVision User Guide">
+</CENTER>
+
+<H2>3. The "File/Open TV" Menu Option</H2>
+
+<P><CENTER>
+<IMG SRC="menu.gif">
+</CENTER><P>
+
+<H3>Database Options</H3>
+
+<P>The Database Options dialog lets you manage the contents of your
+Dataset Database. It is accessed by clicking on the "Options..." button
+of the <B>File/Open TV</B> menu.
+
+<P><CENTER><IMG SRC="options.gif" ALT="Database Options window"></CENTER><P>
+
+The main display is a list of servers that holds one or more
+TerraVision style terrain datasets. For a localdisk server, this will
+be something like <TT>/homedir/magic/TileSets</TT>; for an http
+server, this will look like <TT>http://www.ai.sri.com/TileSets</tt>;
+and for a DPSS server this will look like
+<TT>x-dpss://iss-1.sri.magic.net/</TT>.
+
+<p>You can add and remove servers from the database by using the "Add
+Server" and "Remove Server" buttons. When you add a new server, you
+will be asked if you wish to read the server now and update the
+database with all of the datasets stored at that location. When you
+remove a server, you will be asked to confirm the operation before it
+is completed.
+
+<P>You can re-order a server in the list, i.e. make it the first
+server or the last server, by using the "Move Up" and "Move Down". The
+effect of this is not immediately evident; however, when you next do a
+"Re-read All" all of the dataset instances in the Open TV dialog will
+be listed in the order you specify here.
+
+<P>The "Re-read Server" and "Re-read All" buttons are used to tell
+TerraVision to connect to the specified server(s) and read all of the
+datasets on that server.  If the server is contactable, then
+TerraVision will first delete all instances already in the database
+that describe datasets on that server.  The new list is then built
+from scratch. This ensures, that any dataset removals will propagate
+from the server to the database. If a server cannot be contacted, then
+the database will not be changed. This ensures that we don't delete
+information from the database just because a server is temporarily
+down.
+
+<P>The "Last contacted:" display at the bottom of the dialog states
+the date and time when the selected server was last successfully
+contacted. This will be n/a if the server has not been contacted at
+all.
+
+<P><BR><HR NOSHADE>
+
+<A HREF="index.html">The File Menu</A> /
+<A HREF="../index.html">User Guide Contents</A> /
+<A HREF="http://www.ai.sri.com/TerraVision" TARGET="_top">TerraVision
+      Home Page</A> /
+<A HREF="http://www.ai.sri.com/TerraVision/tsmApi/dataset-db.html">
+Dataset Database Format</A>
+</BODY>
+</HTML>

@@ -1,0 +1,104 @@
+
+                    TERRAVISION (TM) - RELEASE NOTES
+
+                         http://www.tvgeo.com/
+
+
+OVERVIEW:
+---------
+
+TerraVision is a system for interactively browsing 3D representations
+of large geographic areas. It can retrieve and merge massive volumes
+of remotely located data, including aerial and satellite imagery,
+topography, weather data, buildings, and other cultural features. The
+data can be terabytes in size, distributed over multiple servers
+across the Web.
+
+
+HISTORY:
+--------
+
+TerraVision began life in 1993 as the primary application of the MAGIC
+(Multidimensional Applications and Gigabit Internet Consortium)
+project. TerraVision was the brain child of Dr. Yvan Leclerc at SRI
+International, who kept its development going for almost a decade.
+The funding for TerraVision completed in 2002 and as a result, SRI
+decided to Open Source TerraVision so that the community can continue
+to develop and utilize this unique system, and so that the legacy of
+Yvan's work can continue to grow and evolve.
+
+TerraVision is released under the Mozilla Public License 1.1 and the
+full source code is hosted on the SorceForge website.
+
+
+TO START UP TERRAVISION:
+------------------------
+
+1) Update your login script (e.g. .cshrc for csh) and add a TVHOME
+   environment variable that points to the TerraVision directory, e.g.
+
+     # csh script to setup environment for TerraVision
+     setenv TVHOME /homedir/TerraVision
+     set path = ($path $TVHOME/bin)
+
+2) source your login script (e.g. "source .cshrc")
+
+3) To run the Tcl/Tk TerraVision interface type, TerraVision
+
+   (N.B. TerraVision is a shell script that runs the binary TclTV)
+
+
+For help on using TerraVision, please refer to the User Guide at:
+
+   http://www.tvgeo.com/user_guide/
+
+
+VIEWING A SAMPLE DATASET:
+-------------------------
+
+There is a sample Database file included in the distribution as
+TerraVision/etc/sample_database.xml. This contains a snapshot of all
+terrain datasets available on the Internet2 TerraVision dataset
+server. To try any of these, go to "File/Open Dataset/Open Terrain"
+and select a GeoSet then click on "Open Dataset".
+
+N.B. if the database file is out of date, you can update it with the
+latest list of datasets by going to the "File/Open Terrain/Options"
+button and clicking on "Re-read All". You can also download a number
+of TerraVision datasets to your own machine so that they can be 
+viewed locally without the need for a network connection. To download
+datasets, go to:
+
+   http://www.tvgeo.com/download_datasets.shtml   
+
+Then extract the datasets to a directory named Pyramids, for example,
+C:\TileSets\Pyramids. Then go to the "File/Servers" window and add
+this directory as a new server.
+
+
+ASSISTANCE:
+-----------
+
+If you need further help, please refer to the TerraVision User Guide:
+
+   http://www.tvgeo.com/user_guide/
+
+There is also a Frequently Asked Questions (FAQ) page at:
+
+   http://www.tvgeo.com/faq.shtml
+
+For further instructions on installation, and for future updates, see
+the following URL:
+
+   http://www.tvgeo.com/download.shtml
+
+Finally, there is a discussion group where you can ask questions and 
+make contributions on TerraVision. This is hosted on the Yahoo! Groups
+system at:
+
+   http://groups.yahoo.com/group/terravision/
+
+
+---
+Last updated: Nov 29 2002
+Martin Reddy <reddy@ai.sri.com>

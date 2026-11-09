@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+
+<HEAD>
+<TITLE>TerraVision User Guide</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<CENTER>
+<IMG SRC="../../guide.gif" ALT="TerraVision User Guide">
+</CENTER>
+
+<H2>The 3-D Viewer</H2>
+
+<P><CENTER>
+<IMG SRC="viewer.gif">
+</CENTER><P>
+
+<P>The 3-D Viewer allows you to navigate around the terrain
+in 3-D. That is, the elevation data are used to create the 3-D
+geometry that models the undulation of the actual terrain, and the
+imagery data are used as texture maps for this geometry.
+
+<H3>Mouse Controls</H3>
+
+You can navigate around the 3-D environment using a mouse by moving
+the cursor into the viewer window and using the mouse buttons as
+follows:
+
+<UL>
+<LI><B>Middle Mouse Button</B>: rotates the current viewpoint as you
+drag the mouse but does not change your location, i.e. this can be
+considered analgous to simply moving your head to look around the
+environment. You can also use this button to stop if you are currently
+moving.
+
+<P><LI><B>Left Mouse Button</B>: accelerates you through the
+environment. You can move the mouse while you are moving forward to
+change your trajectory.
+
+<P><LI><B>Right Mouse Button</B>: decelerates your forward momentum,
+eventually moving you backwards through the environment once you reach
+zero velocity. You can move the mouse while you are moving forward to
+change your trajectory.
+</UL>
+
+If you depress one of the SHIFT keys on the keyboard, then the
+behaviour of the mouse navigation changes to give you viewer-centric
+navigation as follows:
+
+<UL>
+<LI><B>SHIFT + Middle Mouse Button</B>: slides the current viewpoint
+to the left or right, up or down, depending upon how you move the
+mouse from the initial mouse click. You can think of this as
+equivalent to side-stepping or bobbing your head up or down.
+
+<P><LI><B>SHIFT + Left Mouse Button</B>: accelerates you forward along
+the direction that you are currently facing.
+You can move the mouse while you are moving forward in order to
+slide the viewpoint during the motion.
+
+<P><LI><B>SHIFT + Right Mouse Button</B>: decelerates your forward
+momentum, eventually moving you backwards from the way that you are
+currently facing. Again, you can move the mouse while you are moving
+forward in order to slide the viewpoint during the motion.
+</UL>
+
+
+<H3>Keyboard Controls</H3>
+
+You can press a number of keys while the mouse is over the 3-D Viewer
+in order to quickly access a number of features. Currently, the
+following key strokes are supported:
+
+<UL>
+<P><LI> <B>'N'</B> - display the Navigation Settings dialog
+<P><LI> <B>'R'</B> - display the Rendering Settings dialog
+<P><LI> <B>'D'</B> - display the Debug Settings dialog
+<P><LI> <B>'V'</B> - display the VRML Features Selection dialog
+<P><LI> <B>'C'</B> - display the Viewpoint Control dialog
+<P><LI> <B>'S'</B> - display the Viewpoint Status dialog
+<P><LI> <B>'B'</B> - display the Viewpoint Bookmarks dialog
+<P><LI> <B>'O'</B> - return to the default (Origin) viewpoint
+<P><LI> <B>'2'</B> - switch to 2-D constrained viewing mode
+<P><LI> <B>'3'</B> - switch to 3-D viewing mode
+<P><LI> <B>'H'</B> - toggle the display of the Heads Up Display
+<P><LI> <B>'M'</B> - toggle display of the menu bar at the top of the window
+<P><LI> <B>'W'</B> - toggle display of the web icons panel at the
+	bottom of the window
+<P><LI> <B>'F'</B> - toggle the full screen mode
+<P><LI> <B>'A'</B> - toggle the display of the status bar at the
+	bottom of the window
+<P><LI> <B>'Esc'</B> - close the 3-D viewer
+
+<P><LI> <B>'Ctrl+P'</B> - Play the current flight path
+<P><LI> <B>'Ctrl+S'</B> - Stop the currently playing flight path
+<P><LI> <B>'Ctrl+U'</B> - Continue a previously stopped flight path
+<P><LI> <B>'Ctrl+T'</B> - Jump to the first viewpoint in the current path
+<P><LI> <B>'Ctrl+N'</B> - Jump to the next viewpoint in the current path
+<P><LI> <B>'Ctrl+V'</B> - Jump to the previous viewpoint in the current path
+<P><LI> <B>'Ctrl+E'</B> - Jump to the last viewpoint in the current path
+
+</UL>
+
+<H3>Menus</H3>
+
+The Out the Window viewer has a menu bar along the top of the window
+with a number of options. These are as follows:
+
+<UL>
+<p><LI><A HREF="datasets/index.html">Datasets</A> : options for
+managing the set of datasets that are being displayed 
+
+<p><LI><A HREF="options/index.html">Options</A> : options for
+controlling the render settings and the user's navigation.
+
+<P><LI><A HREF="viewpoint/index.html">Viewpoint</A> : options for
+controlling the user's position and orientation in the 3-D
+environment.
+
+<P><LI><A HREF="paths/index.html">Paths</A> : the flight path
+facility of TerraVision
+
+<P><LI><A HREF="window/index.html">Window</A> : options for
+controlling the window display
+
+<P><LI><A HREF="link/index.html">Link</A> : options for linking
+to other TerraVision viewers
+
+<P><LI><A HREF="help/index.html">Help</A> : help pages on
+how to use the 3-D viewer
+
+</UL>
+
+<H3>Heads Up Display</H3>
+
+The Heads Up Display (HUD) provides a textual overlay in the
+bottom-left corner of the display with various useful pieces of
+information. Currently this includes:
+
+<ul>
+<p><li> The (latitude, long, elevation) of your viewpoint
+<p><li> Your (yaw, pitch, roll) orientation
+<p><li> The current frame number and the number of tiles in the scene
+<p><li> The 1 second data burst rate into the application (MBit/s) and the
+	total amount of data read so far
+<p><li> The frame rate of the graphics system (instantaneous and averaged
+        over 5 second)
+</ul>
+
+<P>You can toggle the display of the HUD from the "Options/Render Options"
+menu entry, or pressing 'H' on the keyboard.
+
+<H3>Status Bar</H3>
+
+The Status Bar is a strip at the bottom of the window which provides a
+number of useful pieces of information. It has the following fields:
+
+<p><center>
+<table width="90%" border=2 bgcolor="#CCCCCC">
+<tr>
+<td>Viewpoint Name</td>
+<td>Number of Datasets</td>
+<td>Navigation Mode</td>
+<td>View Mode</td>
+</tr>
+</table>
+</center>
+
+<p>The Viewpoint Name has the name of the bookmark for the current
+location assuming that you have just jumped to a certain bookmark. If
+you move from this viewpoint, then this field will be empty.
+
+<p>The Number of Datasets field displays the number of GeoSets that
+are currently being displayed in the viewer. You can load new GeoSets
+via the "File/Open Dataset" option, and you can also select which
+subset of all loaded dataset you want to display via the
+"Datasets/Dataset Display" option/
+
+<p>The Navigation Mode tells you what will happen when you use your
+mouse to navigate. In "Fly Mode" your mouse lets you change the (yaw,
+pitch, roll) and forward velocity; in "Slide Mode" you have a pan and
+zoom type metaphor, in "Fly To Mode" the left button is used to pick a
+point to zoom up to.
+
+<p>The View Mode tells you whether the current viewer is operating in
+3-D mode, or if the 2-D constrain mode is on. In 2-D mode, the
+viewpoint is constrained to always looks down and a "Slide" Navigation
+Mode is enforced.
+
+<P>You can toggle the display of the Status Bar by selecting the
+"Window/Show Status Bar" menu option, or pressing 'A' on the keyboard.
+
+<H3>Web Icons</H3>
+
+<P><CENTER>
+<IMG SRC="webicons.gif">
+</CENTER><P>
+
+Along the bottom of the viewer window you will see a number of icons,
+such as the SRI logo and TerraVision logo. Clicking over these will
+display the appropriate WWW home page, e.g. the SRI logo will take you
+to the SRI International Home Page, http://www.sri.com/. N.B. You will
+have to have the command "netscape" in your path for this to work. If
+you already have a netscape session running, then TerraVision will try
+to open the URL using this session rather than trying to spawn another
+netscape process. 
+
+<P>You can toggle the display of the Web Icon panel by selecting the
+"Window/Show Web Icons" menu option, or pressing 'W' on the keyboard.
+
+<P><BR><HR NOSHADE>
+
+<A HREF="../index.html">User Guide Contents</A> /
+<A HREF="http://www.ai.sri.com/TerraVision" TARGET="_top">TerraVision Home Page</A>
+
+</BODY>
+</HTML>

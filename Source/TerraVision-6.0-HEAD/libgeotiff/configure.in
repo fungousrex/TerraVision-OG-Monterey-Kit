@@ -1,0 +1,782 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(geo_new.c)
+
+VERSION=0.1beta06
+AC_SUBST(VERSION)
+
+AC_CANONICAL_SYSTEM
+AC_VALIDATE_CACHED_SYSTEM_TUPLE
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_RANLIB
+AC_PROG_MAKE_SET
+
+dnl Checks for libraries.
+AC_CHECK_LIB(geotiff, GTIFNew)
+
+DIR_LIBTIFF=../tiff
+AC_SUBST(DIR_LIBTIFF)
+
+TV_LIBTIFF($DIR_LIBTIFF)
+
+dnl Checks for header files.
+AC_HEADER_STDC
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_TYPE_SIZE_T
+
+dnl Checks for library functions.
+AC_CHECK_FUNCS(strtoul)
+
+[
+# This stuff has been lifted from tiff
+
+SRCDIR=$srcdir
+SRCDIR_IS_LIBTIFF=no
+PORT=auto
+PORTDOTH=port.h
+RM="rm -f"
+MAKE=make
+
+#
+# Descriptor usage:
+# 1: ???
+# 2: errors that should be seen even if we're in the background.
+# 3: [stdout from test runs]
+# 4: verbose-style messages (Using ...)
+# 5: compiler stderr when running tests
+#
+exec 4>/dev/null			# chuck messages
+exec 5>./tiffconfig.log			# compiler messages and the like
+
+Note()
+{
+    echo "$@" 1>&4
+}
+
+capture()
+{
+    (eval "set -x; $*") >&5 2>&1
+    return
+}
+captureX()
+{
+    (eval "set -x; $*") 2>&5
+    return
+}
+
+#
+# Error diagnostics that should go to the terminal are
+# done with this interface (or cat).
+#
+bitch()
+{
+    echo "configure: $@" 1>&2
+}
+
+date >&5
+echo Running "$0" with arguments: "$@" >&5
+
+cat 1>&5 <<'EOF'
+
+This file contains information that is captured from running the configure
+script.  Lines that begin with a "+" are command lines echoed by the
+shell.  Other lines are the output of commands; usually the contents of
+test case files or the output from compilers.  If configure does the
+wrong thing, you can use the information captured here to aid in debugging.
+
+EOF
+
+TARGET=$ac_cv_target_system_type
+
+if [ -z "${FILLORDER-}" ]; then
+    #
+    # Host bit order within a word.
+    #
+    case $TARGET in
+    mips-dec-*)	FILLORDER=LSB2MSB;;
+    i[345]86-*)	FILLORDER=LSB2MSB;;
+    *)		FILLORDER=MSB2LSB;;
+    esac
+fi
+
+#
+# Find the full pathname of a file
+# using the specified test operation.
+#
+findThing()
+{
+    t="$1"; app="$2"; path="$3";
+    case "$app" in
+    /*) eval "$t" "$app" && { echo "$app"; return; };;
+    esac
+    (IFS=:
+    for i in $path; do
+	eval "$t" "$i/$app" && { echo "$i/$app"; return 0; }
+    done
+    return 1
+    )
+}
+
+#
+# Find the full pathname of a plain file.
+#
+findFile()
+{
+    findThing "test -f" "$1" "$2"
+}
+
+#
+# Find the full pathname of an executable.
+#
+findApp()
+{
+    findThing "test -x" $1 $2
+}
+
+#
+# Find the full pathname of an executable;
+# supply a default if nothing is found.
+#
+findAppDef()
+{
+    app=$1; path=$2; def=$3
+    case $app in
+    /*) test -x $app && { echo $app; return; };;
+    esac
+    IFS=:
+    for i in $path; do
+	test -x $i/$app && { echo $i/$app; return; }
+    done
+    echo $def
+}
+
+#
+# Find the full pathname of a header file; in search-path $DIRS_LIBINC
+#
+findHeader()
+{
+    case "$1" in
+    /*) echo "$1"; return ;;
+    esac
+    for i in ${DIRS_LIBINC} /usr/include; do
+	test -r $i/$1 && {
+	    case "$i" in
+	    /*) echo "$i/$1"; return ;;
+	    esac
+	    if [ $SRCDIR_IS_LIBTIFF = yes ]; then
+		echo "$i/$1";
+	    else
+		echo "../$i/$1";
+	    fi
+	    return;
+	}
+    done
+}
+
+#
+# Locate a C compiler that satisfies our needs (using assorted heuristics).
+#
+JUNK="
+    confsed
+    conftestmmap
+    confx confy
+    confMakefile
+    core
+    dummy
+    dummy.a
+    dummy.c
+    dummy.o
+    foo
+    so_locations
+    t.c
+    t.o
+    t$EXE
+    xMakedepend
+    xdefs
+    xgnu.c
+    xmakeinc
+    xport.h
+"
+trap "$RM \$JUNK; exit 1" 1 2 15
+
+$RM $JUNK
+
+cat>xgnu.c<<EOF
+#ifdef __GNUC__
+yes;
+#endif
+EOF
+
+#
+# Check if the specified compiler is from GNU 
+#
+isGNU()
+{
+    capture "cat xgnu.c; ($1 -E xgnu.c 2>&5 | egrep yes)"
+}
+
+#
+# NB: use ANSI C prototype to weed out non-ANSI compilers.
+#
+cat>dummy.c<<EOF
+main(int argc, char* argv) { exit(0); }
+EOF
+
+checkCompiler()
+{
+    compiler=$1
+    fullcompiler="$*"
+    shift
+    if test -n "$*"; then
+      ENVOPTS="$*"
+    fi
+    if isGNU "$compiler"; then
+	ISGCC=yes
+    else
+	ISGCC=no
+    fi
+    #
+    # Guess special options needed to get an
+    # ANSI C compiler and/or similar.  Must
+    # be combined with above checks so we only
+    # select an ANSI C compiler.
+    #
+    if [ -z "${ENVOPTS-}" ]; then
+	case $ISGCC-$TARGET in
+	no-*-irix*)	C_ANSI="-xansi";;
+	no-*-hp*)	C_ANSI="-Aa -D_HPUX_SOURCE -Dhpux";;
+	no-*-apollo-*)	C_ANSI="-A nansi";;
+	no-*-aix*)	C_ANSI="-Dunix -qlanglvl=ansi -qsrcmsg";;
+	*-sco*)		C_ANSI="-Dsco";;
+	esac
+    else
+	C_ANSI="$ENVOPTS"
+    fi
+    $RM dummy dummy.o
+    capture $fullcompiler -o dummy ${C_ANSI} dummy.c && {
+	CC=$fullcompiler;
+	test -z "${CCOMPILER-}" && CCOMPILER=`findApp "$compiler" $PATH`
+	test -z "${ENVOPTS-}"   && ENVOPTS="${C_ANSI-}"
+	return 0
+    }
+    return 1
+}
+
+CCtested=
+capture cat dummy.c
+if [ -z "${CC-}" ]; then
+    CCOMPILER=
+    for i in gcc cc ncc dcc xlc c89 gcc2; do
+	CCtested="$CCtested $i"
+	checkCompiler $i && break
+    done
+else
+    CCtested="$CCtested $CC"
+    checkCompiler $CC
+fi
+if [ -z "$CCOMPILER" ]; then
+    cat<<EOF
+
+Cannot locate a working ANSI C compiler.
+
+We attempted to compile the following test program:
+
+----------------------------------------------------------
+EOF
+    cat dummy.c
+    cat<<EOF
+----------------------------------------------------------
+
+with these compilers:
+
+    $CCtested
+
+but none of them were successful.
+
+If your compiler is in a non-standard location, you can specify its
+location in several ways:
+
+    o set the environment variable CC
+    o create a config.local or config.site file that includes a
+      definition for CC
+    o supply it on the command line using -with-CC=<pathname>
+
+If command line options are required for ANSI C compilation, set the
+ENVOPTS parameter to these options in a similar way (either through
+an environment variable or config.local/config.site) and then rerun
+this script.
+EOF
+    boom
+fi
+Note "Using $CCOMPILER for a C compiler (use -with-CC=compilername to override)."
+
+test "$ENVOPTS" && {
+    Note "Using $ENVOPTS to get the appropriate compilation environment."
+}
+
+if [ ${ISGCC} = yes ] ; then
+    GCCversion="`${CCOMPILER} -v 2>&1 | \
+	sed -n -e '/version/s/.* \([0-9]*\)\.\([0-9]*\).\([0-9]*\)/\1.\2.\3/p'`"
+fi
+
+
+CheckForGandO()
+{
+   f=$1
+   if test -s $f; then
+	capture grep -i \(error\|warning\) $f || return 1
+    fi
+    return 0
+}
+
+if [ -z "${GCOPTS-}" ]; then
+    if capture $CCOMPILER $ENVOPTS -g -c dummy.c; then
+	Note "Looks like $CCOMPILER supports the -g option."
+	# NB: cannot use captureX here 'cuz we lose stderr
+	if $CCOMPILER $ENVOPTS -c -g -O dummy.c >t 2>&1 && CheckForGandO t; then
+	    GCOPTS="-g"
+	else
+	    Note "... but not together with the -O option, not using it."
+	    GCOPTS=
+	fi
+    else
+	GCOPTS=
+    fi
+fi
+if [ ! -z "${GCOPTS}" ]; then
+    Note "Using \"$GCOPTS\" for C compiler options."
+fi
+
+echo "int main() {return 0;}" > t.c
+captureX ${CCOMPILER} ${ENVOPTS} t.c -o t
+if test -f t.exe; then
+  EXE=.exe
+fi
+rm -f t.c t$EXE
+
+#
+# runMake target rules ...
+#
+runMakeX()
+{
+    target="$1"; shift
+    $RM $target
+    (echo SRCDIR=.
+       for i in "$@"; do
+	  echo "$i";
+       done
+    )>confMakefile
+    captureX ${MAKE} -f confMakefile $target
+    return
+}
+runMake()
+{
+    runMakeX "$@" >&5
+    return
+}
+
+#
+# Look for a library using a known (unique) function.
+#
+CheckForLibrary()
+{
+    f=$1; shift
+    libs="$@";
+    cat>t.c<<EOF
+int t() { $f(); return 0; }
+int main(){ t(); return 0; }
+EOF
+    runMake t "t:; ${CCOMPILER} ${ENVOPTS} t.c $libs"
+}
+
+#
+# Look for an include file.
+#
+CheckForIncludeFile()
+{
+    (for i do
+	echo "#include \"$i\""
+     done)>t.c
+    runMake t "t:; ${CCOMPILER} ${ENVOPTS} -E t.c"
+}
+
+#
+# Figure out if certain system-specific interfaces are
+# supported.  We craft a port.h file that has external
+# declarations for missing routines that are required by
+# the system and modify defs to reflect which optional
+# interfaces are supported.
+#
+
+EmitCPlusPlusPrologue()
+{
+    echo '/*'
+    echo ' * Warning, this file was automatically created by the TIFF configure script'
+    echo ' * VERSION:	' $VERSION
+    echo ' * DATE:	' $DATE
+    echo ' * TARGET:	' $TARGET
+    if [ $ISGCC = yes ]; then
+	echo ' * CCOMPILER:	' ${CCOMPILER}-${GCCversion}
+    else
+	echo ' * CCOMPILER:	' $CCOMPILER
+    fi
+    echo ' */'
+    echo "#ifndef $1"
+    echo "#define $1 1"
+    echo '#ifdef __cplusplus'
+    echo 'extern "C" {'
+    echo '#endif'
+}
+
+EmitCPlusPlusEpilogue()
+{
+    echo '#ifdef __cplusplus'
+    echo '}'
+    echo '#endif'
+    echo '#endif'
+}
+
+#
+# Look for a function in one of the standard libraries
+# or one of the machine-dependent libraries selected above.
+#
+CheckForFunc()
+{
+    echo "extern int $1(); main(){$1();exit(0);}" >t.c
+    runMake t "t:; ${CCOMPILER} ${ENVOPTS} t.c ${MACHDEPLIBS}"
+}
+
+#
+# Look for a function declaration in system include files.
+#
+AddFuncDecl()
+{
+    echo "$2";
+    Note "... add function prototype for $1"
+}
+CheckForFuncDecl()
+{
+    f=$1; shift
+    (for i do
+	echo "#include \"$i\""
+     done)>t.c
+    capture cat t.c
+    runMakeX t "t:; ${CCOMPILER} ${ENVOPTS} -E t.c" |\
+     awk '{while($0~/[,(][ \t]*$/){printf"%s",$0;getline}print}' |\
+     grep "$f[ ]*(.*)" >&5
+    return
+}
+CheckFuncDecl()
+{
+    f=$1; shift
+    decl=$1; shift
+    CheckForFuncDecl "$f" "$@" || AddFuncDecl "$f" "$decl"
+}
+
+#
+# Look for a variable declaration in system include files.
+#
+CheckForVarDecl()
+{
+    v="$1"; shift
+    (for i do
+	echo "#include \"$i\""
+     done)>t.c
+    capture cat t.c
+    runMakeX t "t:; ${CCOMPILER} ${ENVOPTS} -E t.c" | grep "$v" >&5
+    return
+}
+CheckVarDecl()
+{
+    v="$1"; shift
+    decl="$1"; shift
+    CheckForVarDecl "$v" "$@" || \
+	(echo "$decl"; Note "... add declaration $decl")
+}
+
+#
+# Look for a #define in system include files.
+#
+AddDefine()
+{
+   echo '#ifndef' $1
+   echo '#define' "$2"
+   echo '#endif'
+   Note '... add #define for' "$1"
+}
+CheckForDefine()
+{
+    def=$1; shift
+    (for i do
+	echo "#include \"$i\""
+     done
+     echo "#ifdef $def"
+     echo "FOUND();"
+     echo "#endif"
+    )>t.c
+    capture cat t.c
+    runMakeX t "t:; ${CCOMPILER} ${ENVOPTS} -E t.c" | grep FOUND >&5
+}
+CheckDefine()
+{
+    def=$1; shift
+    decl=$1; shift
+    CheckForDefine "$def" "$@" || AddDefine "$def" "$decl"
+}
+
+CheckForMMAP()
+{
+    if CheckForFunc getpagesize; then
+	cat>t.c<<'EOF'
+/* this was lifted from GNU autoconf */
+/* Thanks to Mike Haertel and Jim Avera for this test. */
+#include <sys/types.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+EOF
+    else
+	cat>t.c<<'EOF'
+/* this was lifted from GNU autoconf */
+/* Thanks to Mike Haertel and Jim Avera for this test. */
+#include <sys/types.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+
+#ifdef BSD
+# ifndef BSD4_1
+#  define HAVE_GETPAGESIZE
+# endif
+#endif
+
+#ifndef HAVE_GETPAGESIZE
+# include <sys/param.h>
+# ifdef EXEC_PAGESIZE
+#  define getpagesize() EXEC_PAGESIZE
+# else
+#  ifdef NBPG
+#   define getpagesize() NBPG * CLSIZE
+#   ifndef CLSIZE
+#    define CLSIZE 1
+#   endif
+#  else
+#   ifdef NBPC
+#    define getpagesize() NBPC
+#   else
+#    define getpagesize() PAGESIZE /* SVR4 */
+#   endif
+#  endif
+# endif
+#endif
+EOF
+    fi
+cat>>t.c<<'EOF'
+#if defined(__osf__) || defined(_AIX)
+# define valloc malloc
+#endif
+char *valloc(), *malloc();
+
+int
+main()
+{
+  char *buf1, *buf2, *buf3;
+  int i = getpagesize(), j;
+  int i2 = getpagesize()*2;
+  int fd;
+
+  buf1 = (char *)valloc(i2);
+  buf2 = (char *)valloc(i);
+  buf3 = (char *)malloc(i2);
+  for (j = 0; j < i2; ++j)
+    *(buf1 + j) = rand();
+  fd = open("conftestmmap", O_CREAT | O_RDWR, 0666);
+  write(fd, buf1, i2);
+  mmap(buf2, i, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_PRIVATE, fd, 0);
+  for (j = 0; j < i; ++j)
+    if (*(buf1 + j) != *(buf2 + j))
+      exit(1);
+  lseek(fd, (long)i, 0);
+  read(fd, buf2, i); /* read into mapped memory -- file should not change */
+  /* (it does in i386 SVR4.0 - Jim Avera, jima@netcom.com) */
+  lseek(fd, (long)0, 0);
+  read(fd, buf3, i2);
+  for (j = 0; j < i2; ++j)
+    if (*(buf1 + j) != *(buf3 + j))
+      exit(1);
+  exit(0);
+}
+EOF
+    capture cat t.c
+    runMake t$EXE "t$EXE:; ${CCOMPILER} ${ENVOPTS} t.c ${MACHDEPLIBS} -o t$EXE" && ./t$EXE
+}
+
+CheckForBigEndian()
+{
+    echo 'main() { int one = 1; char* cp = (char*)&one; exit(*cp!=0); }'>t.c
+    capture cat t.c
+    runMake t$EXE "t$EXE:; ${CCOMPILER} ${ENVOPTS} t.c -o t$EXE" && ./t$EXE
+}
+
+#
+# Check an existing port.h to see if it was created
+# for the target and compiler we are using.
+#
+CheckPortDotH()
+{
+    getConfigTag()
+    {
+	param=`grep "$1:" $2 | sed -e 's/.*:[ 	]*\([^ 	]*\).*/\1/'`
+    }
+    getConfigTag TARGET $PORTDOTH; target="$param"
+    getConfigTag CCOMPILER $PORTDOTH; ccompiler="$param"
+    CCOMP=$CCOMPILER
+    if [ $ISGCC = yes ]; then
+	CCOMP="${CCOMP}-${GCCversion}"
+    fi
+    test "$target" = "$TARGET" && test "$ccompiler" = "$CCOMP"
+}
+
+#
+# Built port.h based on the system and compiler setup.
+#
+BuildPortDotH()
+{
+    Note ""
+    Note "Creating $PORTDOTH with necessary definitions."
+
+    (EmitCPlusPlusPrologue _PORT_
+
+    CheckForIncludeFile sys/types.h && echo '#include <sys/types.h>'
+    CheckVarDecl off_t 'typedef long off_t;' sys/types.h stdlib.h
+    CheckVarDecl size_t 'typedef unsigned size_t;' sys/types.h stdlib.h
+    CheckVarDecl u_char 'typedef unsigned char u_char;' sys/types.h
+    CheckVarDecl u_short 'typedef unsigned short u_short;' sys/types.h
+    CheckVarDecl u_int 'typedef unsigned int u_int;' sys/types.h
+    CheckVarDecl u_long 'typedef unsigned long u_long;' sys/types.h
+
+    echo "#define HOST_FILLORDER FILLORDER_${FILLORDER}"
+    CPU=`echo $TARGET | sed 's/-.*//'`
+    Note "... using $FILLORDER bit order for your $CPU cpu"
+    if CheckForBigEndian; then
+	echo "#define HOST_BIGENDIAN	1"
+	Note "... using big-endian byte order for your $CPU cpu"
+    else
+	echo "#define HOST_BIGENDIAN	0"
+	Note "... using little-endian byte order for your $CPU cpu"
+    fi
+
+    CheckForMMAP && {
+	echo '#define HAVE_MMAP 1'
+	Note "... configure use of mmap for memory-mapped files"
+	CheckFuncDecl mmap \
+	    'extern void* mmap(void*, size_t, int, int, int, off_t);' sys/mman.h
+    }
+
+    CheckForIncludeFile stdio.h		&& echo '#include <stdio.h>'
+    CheckForIncludeFile unistd.h	&& echo '#include <unistd.h>'
+    CheckForIncludeFile string.h	&& echo '#include <string.h>'
+    CheckForIncludeFile stdlib.h	&& echo '#include <stdlib.h>'
+    if CheckForDefine O_RDONLY fcntl.h; then
+	echo '#include <fcntl.h>'
+	Note "... O_RDONLY is in <fcntl.h>"
+    elif CheckForDefine O_RDONLY sys/file.h; then
+	echo '#include <sys/file.h>'
+	Note "... O_RDONLY is in <sys/file.h>"
+    else
+	AddDefine O_RDONLY "O_RDONLY	0"
+	AddDefine O_WRONLY "O_WRONLY	1"
+	AddDefine O_RDWR   "O_RDWR	2"
+    fi
+
+    echo 'typedef double dblparam_t;'
+	Note "... using double for promoted floating point parameters"
+
+    if [ -z "${INLINE-}" ]; then
+	if [ $ISGCC = yes ]; then
+	    echo '#ifdef __STRICT_ANSI__'
+	    echo '#define	INLINE	__inline__'
+	    echo '#else'
+	    echo '#define	INLINE	inline'
+	    echo '#endif'
+	    Note "... enabling use of inline functions"
+	else
+	    echo '#define	INLINE'
+	    Note "... disabling use of inline functions"
+	fi
+    else
+	echo "#define INLINE $INLINE"
+	Note "... using \"$INLINE\" to control inline function usage"
+    fi
+
+    echo '#define GLOBALDATA(TYPE,NAME)	extern TYPE NAME'
+
+    CheckFuncDecl memset 'extern void* memset(void*, int, size_t);' string.h
+    CheckFuncDecl floor 'extern double floor(double);' math.h
+    CheckFuncDecl ceil 'extern double ceil(double);' math.h
+    CheckFuncDecl exp 'extern double exp(double);' math.h
+    CheckFuncDecl pow 'extern double pow(double, double);' math.h
+    CheckFuncDecl read 'extern int read(int, const void*, unsigned int);' unistd.h
+    CheckFuncDecl malloc 'extern void* malloc(size_t);' stdlib.h
+    CheckFuncDecl realloc 'extern void* realloc(void*, size_t);' stdlib.h
+    CheckFuncDecl free 'extern void free(void*);' stdlib.h
+    EmitCPlusPlusEpilogue
+    )>xport.h
+    mv xport.h $PORTDOTH; chmod 444 $PORTDOTH
+    Note "Done creating $PORTDOTH."
+}
+
+if [ "$PORT" != no ] && test -f $PORTDOTH && CheckPortDotH; then
+    Note ""
+    Note "Using previously created $PORTDOTH."
+else
+    $RM xport.h t.c t$EXE $PORTDOTH
+    BuildPortDotH
+fi
+
+if [ "$PORT" != no ] && test -f $PORTDOTH && CheckPortDotH; then
+    Note ""
+    Note "Using previously created $PORTDOTH."
+else
+    $RM xport.h t.c a.out $PORTDOTH
+    BuildPortDotH
+fi
+
+if [ "$PORT" = auto ]; then
+    Note ""
+    Note "Checking system libraries for functionality to emulate."
+
+    FUNCS="
+        strcasecmp
+        strtoul
+        getopt
+    "
+
+    for i in $FUNCS; do
+        CheckForFunc $i || {
+            Note "... emulate $i"
+            PORTFUNCS="${PORTFUNCS-} $i.c"
+        }
+    done
+    if [ "${PORTFUNCS-}" ]; then
+        LIBPORT='${PORT}/port/libport.a'
+        PORT=yes
+    else
+        PORT=no
+    fi
+fi
+if [ $PORT != yes ] ; then
+   LIBPORT=
+   PORTFUNCS=
+fi
+Note "Done checking system libraries."
+
+$RM $JUNK
+]
+
+AC_SUBST(LIBPORT)
+
+AC_OUTPUT(Makefile bin/Makefile)

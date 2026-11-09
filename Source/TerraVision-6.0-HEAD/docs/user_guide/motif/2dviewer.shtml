@@ -1,0 +1,68 @@
+<html><!-- #BeginTemplate "/Templates/User Guide.dwt" -->
+<head>
+<title>Digital Earth: TerraVision: User Guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="http://www.ai.sri.com/digitalearth/styles.css">
+<script language="JavaScript" src="http://www.ai.sri.com/digitalearth/common.js"></script>
+</head>
+
+<!--#include virtual="../bodytag.inc"-->
+<!--#include virtual="../header.inc" -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="10" valign="top" align="left">&nbsp;</td>
+    <td width="121" valign="top" align="left" background="../images/bg_sidebar.gif"> 
+<!--#include virtual="sidebar.inc" -->
+      
+    </td>
+    <td width="10">&nbsp;</td>
+    <td valign="top"> 
+      <p><img src="../images/user_guide_title.gif" width="470" height="70"> </p>
+      <p><a href="http://www.ai.sri.com/digitalearth/" target="_top"><span class="history_link">Digital 
+        Earth</span></a> <span class="history_link">&gt; <a href="http://www.tvgeo.com/">Terravision<sup><font size="-2">TM</font></sup></a> 
+        &gt; <a href="../welcome.shtml">User Guide</a> &gt; 
+        <a href="welcome.shtml">X/Motif</a> &gt; 
+        <a href="chapter_views.shtml">&quot;Views&quot; 
+        Menu</a> &gt; The 2-D Viewer </span></p>
+      <!-- #BeginEditable "content" --> 
+      <h2>The 2-D Viewer</h2>
+      The TerraVision<sup><font size="-2">TM</font></sup>  2-D Viewer is actually just a constrained 3-D viewer. 
+      Exactly the same codebase is used for the 2-D viewer as the 3-D viewer. 
+      The only difference is that your view orientation is always constrained 
+      such that you are looking straight down and up is always north. Therefore, 
+      all options that apply for <a
+href="3dviewer.shtml">The 3-D Viewer</a> also apply here. 
+      <p> 
+        <center>
+          <img src="../images/2dviewer.gif" width="553" height="397"> 
+        </center>
+      <p> 
+      <p>Once you have opened a 2-D viewer, you can actually switch it to a 3-D 
+        viewer (and vice-versa) by simply checking the "2D Navigation" option 
+        in the "Options/Naviation Settings" menu. Or, you can use the following 
+        keyboard shortcuts: 
+      <ul>
+        <p> 
+        <li> <b>'2'</b> - switch to 2-D constrained viewing mode 
+          <p> 
+        <li> <b>'3'</b> - switch to 3-D viewing mode 
+      </ul>
+      <p>You can easily tell whether you are in 3-D view mode or 2-D constrained 
+        mode by looking at the last field in the status bar at the bottom of the 
+        window. For example, in the above screen shot you can see that it says 
+        "View Mode: 2-D". 
+      <p><i>Tip</i>: If you in 3-D mode, high above the earth and looking down, 
+        and want to quickly snap your view so that it is aligned with the lat/long 
+        graticule (i.e. reset roll to 0), then you can switch to 2-D mode and 
+        then back to 3-D mode, i.e. press '2' then '3'. 
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p align="center" class="description">
+        <!--#include virtual="../footer.inc" --><br>
+        Last updated: <!--#echo var="LAST_MODIFIED" -->.</p>
+      <!-- #EndEditable --></td>
+    <td width="20">&nbsp;</td>
+  </tr>
+</table>
+</body>
+<!-- #EndTemplate --></html>

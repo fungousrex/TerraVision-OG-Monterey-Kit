@@ -1,0 +1,88 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(vrml2_parse.c)
+
+AM_INIT_AUTOMAKE(vrml2, 0.2)
+AM_CONFIG_HEADER(config.h)
+AM_MAINTAINER_MODE
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_RANLIB
+
+dnl Checks for libraries.
+dnl AC_CHECK_LIB(www, HTLoadToStream,,,-ldl -lz)
+
+AC_CHECK_FUNC(getopt)
+AM_CONDITIONAL(GETOPT, test "$ac_cv_func_getopt" = no)
+
+dnl Checks for header files.
+AC_HEADER_STDC
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_INLINE
+if test "$ac_cv_c_inline" != no; then
+  AC_DEFINE(HAVE_INLINE)
+fi
+AC_TYPE_SIZE_T
+
+AC_DEFINE(YYDEBUG, 1)
+AC_ARG_ENABLE(debug, [
+  --enable-debug	Enable parser debugging], [
+  if test $enableval = no; then
+    AC_DEFINE(YYDEBUG, 0)
+  fi])
+
+dnl Use nspr libraries
+TV_NSPR(../nsprnew)
+
+dnl Checks for library functions.
+AC_FUNC_ALLOCA
+AC_FUNC_MEMCMP
+AC_FUNC_MMAP
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS(strtol)
+
+dnl Now check for the thread utilities library.
+if test -d ../pthr; then
+  CPPFLAGS="-I.. -I$srcdir/.. $CPPFLAGS"
+  LDFLAGS="-L../pthr $LDFLAGS"
+  LIBS="-lpthrutil $LIBS"
+  DEPS="../pthr/libpthrutil.a $DEPS"
+fi
+
+dnl Checks for X11 and sets up for compilation.
+AC_PATH_XTRA
+X_LIBS="$X_LIBS $X_PRE_LIBS"
+AC_SUBST(X_LIBS)
+AC_SUBST(X_EXTRA_LIBS)
+DEPS="$DEPS $X_CFLAGS"
+
+dnl Check for OpenGL and GLUT
+X_LIBS="$X_LIBS -lXmu -lXi -lX11 -lXext $X_EXTRA_LIBS"
+AC_CHECK_LIB(GL, glBegin, OPENGL_LIBS="-lGL -lGLU",, $X_LIBS)
+if test "$OPENGL_LIBS" = ""; then
+  AC_CHECK_LIB(MesaGL, glBegin, OPENGL_LIBS="-lMesaGL -lMesaGLU",, $X_LIBS)
+fi
+if test "$OPENGL_LIBS" != ""; then
+  AC_DEFINE(HAVE_OPENGL)
+fi
+AC_SUBST(OPENGL_LIBS)
+
+AC_ARG_WITH(glut, [
+  --with-glut=dir	Provide a hint as to where to look for glut lib], [
+  if test -d $withval; then
+    CPPFLAGS="-I$withval/include $CPPFLAGS"
+    LDFLAGS="-L$withval/lib $LDFLAGS"
+  else
+    echo Argument --with-glut=$withval must point to directory.
+  fi
+])
+
+AC_CHECK_LIB(glut, glutInit, [
+  AC_DEFINE(HAVE_GLUT)
+  GLUT_LIBS="-lglut $OPENGL_LIBS $X_LIBS"
+  ],, $OPENGL_LIBS $X_LIBS -lm)
+AC_SUBST(GLUT_LIBS)
+
+AC_OUTPUT(Makefile)

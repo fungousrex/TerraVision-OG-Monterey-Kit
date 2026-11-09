@@ -1,0 +1,299 @@
+1999-09-20  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* pthr_sproc.c (pthread_cancel): Send signal if in any blocking
+	  monitor state.
+	(thread_cancel_async): Correct debug message.
+	(thread_cancel_sync): Alias to thread_cancel_async()
+	(locks_describe): New.  Describe all active locks.
+	(thread_describe_): Don't call locks_describe_()
+	(manager_handler): Call locks_describe() after
+	  thread_describe_all() in SIGHUP handler.
+	
+1999-07-21  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* pthr_sproc.c (pthread_mutex_lock): Temporarily add abort() for
+	  debugging double-tripped locks.
+
+1999-07-19  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* pthr_sproc.c: Simplify by adopting consistent locking/unlocking
+	  structure.  Maintain list of locks for consistency checking.
+
+1999-07-16  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* pthr_sproc.c (thread_malloc): Add debug tracing of arena size.
+	(thread_newsema): Abort on failure.
+	(thread_state_name): Add unstarted string
+	(debug_threads): Remove unused vars.
+	(pthread_key_create): Properly initialize key.
+	(pthread_cond_init): Trace failure.
+	(pthread_cond_signal): Remove unused var.
+	(pthread_cond_broadcast): Remove unused var.
+	
+	(struct _pthread): Add handshake semaphore for transfer of control
+	  instead of pipe.
+	(thread_new): Initialize handshake semaphore.
+	(thread_suspend): Use handshake semaphore for suspend.
+	(thread_resume): Use handshake semaphore for resume.
+	(thread_free): Free handshake semaphore.
+	(manager_sproc): Handle failure by setting thread state to
+	  THR_UNSTARTED and resuming parent process with handshake
+	  semaphore. 
+	(pthread_create): Use handshake semaphore to suspend process.
+	(sproc_entry): Use parent's handshake semaphore to restart after
+	  successful sproc().
+	
+	Include <sys/mman.h> for mmap() used to initialize common area.
+	(struct _pthread_common): New structure contains contents of
+	  common area.
+	(thread_common): New variable contains pointer to thread-specific
+	  common area.
+	(pthread_self): Use common area rather than hash table lookup.
+	(thread_register): Place thread pointer in common area.
+	(thread_init_): Initialize common region.  Expand size of arena.
+	  Call usnewsema() directly for table_sema initialization.
+	
+	(report_start): Avoid thread_newsema() since we are initializing
+	  debug.
+
+	(pthread_mutex_init): Check for already initialized and malloc
+	  failure.
+	(pthread_mutex_destroy): Add debug trace.
+	
+1999-06-28  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* pthr_sproc.c (enum thread_state_t): Add THR_UNSTARTED
+	(thread_init_): Allow 64 arena users.
+	(manager_sproc): Catch error return from sproc() and return to
+	  parent.
+	(pthread_create): Catch error return from sproc().  Use
+	  lock/test/wait/unlock to avoid race condition with suspend.
+	(sproc_entry): Lock parent before resume()ing.
+
+1999-05-25  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am: Remove NSPR references.
+	* Makefile.in: Regen.
+
+1999-04-30  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* pthr_sproc.h: Avoid inclusion of <sys/pthread.h> under Irix 6.5.
+
+1999-04-26  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* pthr_sproc.c: Undo change of 1999-04-23 (unneeded).
+
+1999-04-23  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* pthr_sproc.c (pthread_create): Robusitify (hopefully) by
+	  mallocing the spr_arg and allowing sproc_entry to free it when
+	  done.
+	(sproc_entry): Free spr_arg after use.
+
+1999-03-23  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* pthr_sproc.c (pthread_cancel): Expand debug info and ensure that
+	  nly cancel if cancellable.
+	(thread_cancel_async): Enable signal unblocking.
+	(thread_cancel_sync): Enable signal blocking.
+	(sproc_entry): Properly initialize signals etc. when non-default
+	  cancellation options selected.
+	
+1999-03-18  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* Makefile.in: Regenerate
+	* aclocal.m4: Ditto.
+	* configure: Ditto.
+
+	* Makefile.am: Remove EXTRA_DATA.
+	* configure.in (AM_MAINTAINER_MODE): Add.
+	(CPPFLAGS): Use bare $srcdir.
+	
+	* pthr_sproc.c (thread_new): Make CANCEL_ASYNCHRONOUS default.
+	(sproc_entry): Setup dependent on canceltype.
+
+1998-08-26  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* pthr_sproc.c: Remove references to pthr_name().
+	(thread_malloc): Check for usmalloc() failure.
+	(thread_newsema): Check for usnewsema() failure.
+	(report_start): Separate report_start/end implementation from
+	  pthr/report.c.
+	(pthread_mutex_init): Return ENOMEM if thread_malloc fails.
+	(pthread_mutex_lock): Return EDEADLK if already holding.
+	(mutex_describe_): New.  Describe a mutex for debugging.
+	(thread_describe_): Describe mutexes and conds being waited for.
+	(cond_describe_): New.  Describe a condition for debugging.
+	* pthr_sproc.h (DEBUG_PTHREAD): Change default to 1.
+
+1998-04-06  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* pthr_sproc.c (thread_newsema): Expose this function to extern
+	  references.
+
+	* Makefile.am: Modify method of installing a derived pthread.h to
+	  better integrate with automake's install/checking facilities.
+
+1998-03-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (EXTRA_PROGRAMS): Move ahead of tests.  Fixes
+	  automake failure and prevents thr_ex? compilation for target all.
+
+1997-12-04  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in Makefile.am: Reconstruct so only concern is
+	  building replacement for unavailable pthread libraries.
+
+	* report.[ch], html_gen.[ch], timestamp.[ch], list.[ch]: Moved to
+	  pthr directory.
+
+1997-11-12  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Completely changed mechanism for finding native
+	  pthreads.   --disable-native-threads now forces the use of
+	  sproc() threads under Irix.
+
+1997-11-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: unset ac_cv_func_pthread_create and
+	  ac_cv_lib_pthread_pthread_create so config.cache doesn't
+	  interfere with recognition of system pthread library.
+
+	* pthr_sproc.c (thread_init_): Move exit_main() fwd decl outside
+	  of local scope.
+
+1997-10-28  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (PTHR_DEPS): Define to be dependent on PTHREAD_SRCS
+	  so that we can suppress dependency computation when appropriate.
+	(DEP_FILES): Define to override automatically generated form.
+
+	* pthr_sproc.h (PTHREAD_COND_INITIALIZER): Properly of type
+	  `pthread_cond_t *`.
+
+	* pthr_sproc.c (thread_malloc): Be much more careful with pointer
+	  types.
+	(pthread_mutex_destroy): Test mutex pointer more carefully and
+	  properly return 0 on success.
+	(pthread_cancel): Return 0 on success.
+	(pthread_key_delete): Return 0 on success.
+	(struct _pthread_condattr): Add dummy for compilers
+	  which don't like empty structures.
+	(pthread_cond_destroy): Return 0 on success.
+
+	* timestamp.c (pthr_cond_test): Remove superfluous break commands.
+
+Mon Oct 27 11:17:52 1997  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* configure.in (AC_CHECK_LIB(pthread,...)): check to see if
+	sched_yield exists in libpthread.a
+
+	* Makefile.am (EXTRA_PROGRAMS): compilation of thr_ex3.c is now
+	conditional on sched_yield existing in libpthread.a
+
+Fri Oct 17 18:06:24 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* configure.in (AC_PATH_PROG(AR)): Search in /usr/ccs/bin under
+	  Solaris.
+
+	* list.c (new_elem): New function for allocating l_elem_t
+	  entries.  Caches entries for speed.
+	(free_elem): New function returns l_elem_t to free list.
+	(pthr_list_push): Call new_elem() for l_elem_t.
+	(pthr_list_pop): Call free_elem() for l_elem_t.
+	(pthr_list_trypop): Pop from list or return NULL if empty.
+	(pthr_list_shift): Call new_elem() for l_elem_t.
+	(pthr_list_unshift): Call free_elem() for l_elem_t.
+	(pthr_list_tryunshift): Unshift from list or return NULL if empty.
+	(pthr_list_flush): Call free_elem() for l_elem_t.
+
+	* list.h: Declare new functions pthr_list_trypop() and
+	  pthr_list_tryunshift().
+
+	* pthr_sproc.c (pthread_cond_init): Don't check for EBUSY.
+
+	* report.c (vtrace): Show either PID or thread id depending on
+	  whether we are using sproc() threads.
+
+Fri Oct  3 15:53:48 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* report.c (pthr_verror): Add function.
+	(pthr_verror1): Add function.
+
+	* report.h (TRACING): Change name of trace controlling definition
+	  from PTHR_TRACING to TRACING.
+	(pthr_verror): Add declaration.
+	(pthr_verror1): Add declaration.
+
+Wed Oct  1 11:47:39 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* report.c (pthr_trace_indent): Ensure that old_indent is not
+	  returned uninitialized.
+
+Wed Sep 24 11:31:20 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* pthr_sproc.c (thread_setcancelstate): Correct state validity
+	  test and provide a debug trace.
+	(thread_setcanceltype): Correct canceltype validity test and
+	  provide a debug trace.
+
+Mon Sep  8 12:15:40 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* pthr_sproc.c (pthread_cond_broadcast): Avoid referencing freed
+	  memory.
+
+	* timestamp.c (pthr_cond_all, pthr_cond_any): Don't write beyond
+	  end of list.
+
+	* report.c (pthr_trace_indent): Add level argument.
+
+Thu Jul 31 09:43:26 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* pthr_sproc.c (pthread_kill): Check for validity before sending
+	  signal.
+
+Thu Jul  3 14:31:39 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* list.c list.h: New files.  Implementation of a general
+	  thread-locked list manipulation facility with an interface taken
+	  from Perl (shift/unshift for front and push/pop for end).
+
+	* pthr_sproc.c: New monitor_states (MON_CREATE, MON_COND_WAIT).
+	(thread_suspend): Provide second argument with monitor state
+	  `reason' for the suspend.
+	(thread_describe_): Describe MON_COND_WAIT condition.
+
+Fri Jun 20 11:36:29 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* pthr_sproc.h (pthread_mutex_t): Hide structure from external
+	  interface.  Now a pointer to struct _pthread_mutex.
+
+	* pthr_sproc.c (thread_inarena): New function.  Determines whether
+	  ptr is in thread_arena.
+	(thread_malloc): malloc() in thread_arena.
+	(thread_newsema): usnewsema() in thread_arena.
+	(struct _pthread_mutex): Hide this from external interface.
+	(pthread_mutex_init, pthread_mutex_lock, pthread_mutex_unlock,
+	  pthread_mutex_trylock, pthread_mutex_destroy): Adapt for change
+	  to pthread_mutex_t.
+
+	  
+
+Fri Jun  6 16:36:04 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* pthr_sproc.c (_debug): Don't use pthr_report_start/end for
+	  interlocking indent increments (mp-unsafe but faster and not a
+	  big deal).
+	(sched_yield): Add.
+
+	* report.c (pthr_trace_indent): Don't use pthr_report_start/end
+	  for interlocking indent increments.
+
+Fri Jun  1 12:00:03 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* Convert to automake configuration.
+
+Thu Mar 20 14:04:46 1997  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (PACKAGE): Define.
+

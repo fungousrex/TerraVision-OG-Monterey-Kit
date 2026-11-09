@@ -1,0 +1,64 @@
+The glm library is intended to provide an abstract layer over the
+interface between a window system and OpenGL.  Modelled somewhat after
+the GLX layer, it provides an interface based on a separation between
+an possibly shareable OpenGL context (glmContext) and an OpenGL window
+(glmWindow).
+
+In particular, the platform-specific factory functions are:
+
+X11:
+
+  glmContext glmXCreateContext (Display *disp, XVisualInfo *vinfo);
+
+  glmWindow glmXtCreateWindow (Widget w, glmContext ctx, 
+			       int doublebuffer, int stereo);
+
+  /* do these actually belong here? */
+  XVisualInfo * glmXChooseVisualByScore (Display *disp, Screen *scr,
+					 int nattribs, int *attribs,
+					 int (*scoref) (XVisualInfo *,
+							int *attribs, void *),
+					 void *closure);
+  XVisualInfo * glmXChooseVisual (Display *disp, Screen *scr, 
+				  int doublebuffer, int stereo);
+
+Microsoft Windows:
+
+  glmContext glmWCreateContext (HWND hWnd);
+  glmWindow glmWCreateWindow (glmContext ctx, int doublebuffer, in stereo);
+
+
+All of the following functions are virtualized, and form a common
+interface to the glmWindow and glmContext objects after creation.
+
+// Operating on glmContext
+  int glmContextDoubleBuffered (glmContext ctx);
+  int glmContextStereo (glmContext ctx);
+
+  void glmDestroyContext (glmContext ctx);
+
+// Operating on glmWindow
+  int glmWindowDoubleBuffered (glmWindow glmw);
+  int glmWindowStereo (glmWindow glmw);
+  glmContext glmWindowContext (glmWindow glmw);
+  int glmIsMapped (glmWindow glmw);
+
+// Support redrawing and notification of need to do so.
+  glmRedrawFunc glmRegisterRedraw (glmWindow glmw, 
+				   glmRedrawFunc redraw, void *closure);
+  void glmRemoveRedraw (glmWindow glmw);
+  void glmPostRedraw (glmWindow glmw);
+  int glmPendingRedraw (glmWindow glmw);
+
+// Notify when a window changes its visibility
+  void glmRegisterMapNotify (glmWindow glmw,
+			     glmMapNotifyFunc notify, void *closure);
+
+// Make the window's OpenGL context active or not.
+  glmContext glmMakeCurrentWindow (char const *funcName, glmWindow);
+  void glmReleaseWindow (char const *funcName, glmWindow);
+
+// Draw a character string
+  void glmCharstr (glmWindow glmw, int fidx, char const *str);
+
+  void glmDestroyWindow (glmWindow glmw);

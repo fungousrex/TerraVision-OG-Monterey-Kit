@@ -1,0 +1,1456 @@
+2002-03-22    <Martin Reddy@HEATHER>
+
+	* vrml2il.h (vsgCreateNode): guard against a NULL vsgClass. This
+	can happen if a non builtin node is encountered without an
+	appropriate EXERNPROTO/PROTO.
+
+	* newparse.c (vsgpNode): if the node could not be created, then
+	fail gracefully
+
+2002-02-15  Lee Iverson  <leei@ece.ubc.ca>
+
+	* Makefile.in: Regen with automake 1.5
+	* aclocal.m4: Ditto
+	* config.h.in: Ditto
+	* install-sh, missing, mkinstalldirs: Update to automake 1.5 version.
+
+	* configure: Regen with autoconf 2.52
+
+2001-05-16  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* vec3.c (glTranslatef_m4f): New. Update matrix with translation.
+	(rotate_m3f): New.  Apply rotation to matrix.
+	(rotate_m4f): New.  Apply rotation to matrix.
+	(glRotation_m3f): New. Restore functionality of gl_rotation_m3f
+	(glRotation_m4f): New. Restore functionality of gl_rotation_m4f
+	(glRotatef_m3f): Call rotate_m3f to rotate.
+	(glRotatef_m4f): Call rotate_m4f to rotate.
+	(scale_m4f): New. Update matrix with scaling.
+	(glScalef_m4f): New.  Apply scaling to matrix.
+	* vec3.h (glRotation_m3f): New. Restore functionality of
+	  gl_rotation_m3f
+	(glRotation_m4f): New. Restore functionality of gl_rotation_m4f
+
+2001-05-14  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* c_nodes.c (vsgcNewNode): Slightly improve tracing output.
+	* vec3.{c,h} (glTranslatef_m4f): Renamed from gl_translation_m4f
+	(glScalef_m4f): Renamed from gl_scaling_m4f
+	(glRotatef_m4f): Renamed from gl_rotation_m4f
+	(glRotatef_m3f): Renamed from gl_rotation_m3f 
+
+Sat May 12 16:10:23 2001    <reddy@MAGNOLIA>
+
+	* vrml2defs.c: make the default SFBool value be -1, i.e. not 1 or
+ 	0. This default value is used to suppress output of fields that
+ 	have a default value set, however, different VRML nodes have
+ 	different default SFBool values (e.g. AudioClip.loop = FALSE,
+ 	Collision.collide = TRUE), thus it was possible to set a non-
+ 	default value for a node, but not have this value output to the
+ 	VRML file. If there is a better way to do this, then feel free to
+ 	do it.
+
+2001-04-24  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* c_nodes.c (vsgcNewNode): Initialize aux field to NULL.
+	* c_node.h (struct vsgcNode): Add aux field.
+
+2000-12-13  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* configure.in (X_LIBS): Add -lXi
+	(GLUT_LIBS): Check with -lm
+	* configure: Regen
+	
+	* newlex.c (vsgParseStream): Don't fclose() stream inside here.
+
+Sun Dec  3 20:57:52 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* newlex.c (vsgParseFile): check that file has a valid VRML97
+ 	header. Previously, the library would load any file and then seg
+ 	fault if the file wasn't a valid VRML file. Also, don't do an
+	exit() if file can't be opened - just return an error value.
+	(valid_vrml97_file): [new file] checks for a valid VRML97 header
+	(vsgParseStream): return an error if stream does not begin with a
+	valid VRML97 header
+
+2000-11-01  Michael A. Eriksen  <eriksen@ai.sri.com>
+
+	* VRML2.h: Renamed _MSVC to MSVC
+	* VRML2int.h: Renamed _MSVC to MSVC
+	* Removed winbuild/config.h
+
+2000-05-01  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* gensyms.c (output_state): Don't generate broken "optimization"
+	* syms.c, syms.h: Regen
+
+2000-04-05  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* c_nodes.c (vsgcCoordinateInterpolator_value_changed,
+	  vsgcNormalInterpolator_value_changed,
+	  vsgcOrientationInterpolator_value_changed): Delete unused vars.
+	* syms.c (is_reserved_word): Remove dubious "optimization"
+
+2000-03-21  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* newparse.c: Revert change to use exinline.
+
+	* vec3.h (mult_m4fT_m4f): Declare.
+	* vec3.c (mult_m4fT_m4f): New.  m4fT implies T(m1)*m2
+
+2000-02-28  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* vec3.c (mult_m4f_v4f): New function.
+	(mult_m4f_m4f): Return value.
+	(mult_m3f_m4f): New function.  Assume simple homogeneous extension
+	  of m3f to m4f.
+	(mult_m3fT_m4f): New function.  m3fT implies T(m1)*m2.
+	* vec3.h (mult_m4f_v4f): Declare new.
+	(mult_m3f_m4f): Ditto.
+	(mult_m3fT_m4f): Ditto.
+
+2000-02-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* vec3.c, vec3.h (mult_m3fT_m3f): New.  Multiply T(m1)*m2
+	(mult_m3f_m3fT): New.  Multiply m1*T(m2)
+
+Tue Dec 07 15:41:34 1999    <leei@MAGNOLIA>
+
+	* decomp.c (rowlen): Replace sqrtf with sqrt.
+	* gensyms.c: Include "config.h" for alloca() defn.
+	* quat.c (M_PI): Define if not already.
+	* vec3.c (M_PI): Ditto.
+	(length_v3f, length_v4f): Replace sqrtf with sqrt.
+
+	* Makefile.am (gensyms_SOURCES): Add optional GETOPT_C value.
+	* Makefile.in: Regen
+	* configure.in (getopt): Check for function and define GETOPT_C if
+	  not found. 
+	* configure: Regen
+	* getopt.c: Add file
+
+1999-09-08  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure: Regen based on change to ../acinclude.m4
+
+1999-08-27  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (AM_CONFIG_HEADER): Don't create sysconfig.h
+	(SRI_INT32_T): Delete.
+	(TV_NSPR): Add.
+	* configure: Regen.
+	* config.h.in: Regen.
+	* acconfig.h: Regen.
+	* Makefile.in: Regen.
+	* sysconfig.h.in: Delete.
+	
+	* plist.c: Include <prtypes.h> for NSPR types.
+	  Delete include of "sysconfig.h"
+	(HASH): Cast to PRUint32
+	(hash_val): Use PRUint32 types for calculation.
+	(plist_lookup): Ditto.
+	* symtab.c: Include <prtypes.h> for NSPR types.
+	  Delete include of "sysconfig.h"
+	(HASH): Cast to PRUint32
+	(hash_val): Use PRUint32 types for calculation.
+	(symtab_lookup): Ditto.
+	* vrml2.h: Include <prtypes.h> for NSPR types.
+	(SFInt32): Use PRInt32.
+	
+1999-07-22  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* lu.c (ludecomp_m4f): Delete unused variables.
+	* vrml2.h (vsgdInit): Correct no-arguments prototype to (void).
+	* vrml2defs.c: Include <string.h> for str* and mem* funcs.
+	(vsgdInit): Correct no-arguments prototype to (void).
+	* vrml2stubs.c (SET_GENERIC): Correct initialization of evin.
+
+Thu May 20 17:47:38 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* newlex.c: include config.h instead of alloca.h because config.h
+	has all of the gumf to properly deal with alloca includes on
+	different platforms.
+
+Tue Mar 30 08:53:23 1999    <reddy@MAGNOLIA>
+
+	* vrml2_browse.c (render): document the fact that vsgRender does
+ 	nothing by default any more.
+
+	* c_render.c: removed all rendering code from the vrml2
+ 	library. The vsgSetupRenderGL() call is now just a stub that
+ 	prints a warning message that no rendering is built-in. 
+
+	* vrml2stubs.c (vsgRender): added a "closure" parameter to
+ 	vsgRender. This lets us pass in some application-specific state
+ 	into the render process, e.g. we can have different display
+ 	configurations for each ThreeDWidget rather than a single global
+ 	state.
+
+1999-03-30  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* vrml2defs.c (vsgiClaimStack): Oops.  Fix reference to
+	  vsgiCheckStack().
+
+1999-03-30  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* Makefile.in: Regenerate.
+	* configure: Regenerate.
+
+	* test_vec3.c (print_m4f): Delete function.
+
+	* Makefile.am (libvrml2_a_SOURCES): Remove obstack.c, eqhash.c and
+	  eqhash_inline.c.
+	(pkginclude_HEADERS): Remove obstack.h, vobstack.h, eqhash.h and
+	  eqhash_inline.h.
+	(test_syms_LDADD): Delete.
+	(test_plist_LDADD): Remove obstack.o
+	* configure.in (AC_PROG_YACC): Remove (unneeded).
+	(CPPFLAGS, LDFLAGS, LIBS, DEPS): Use libpthrutil.a in ../pthr.
+	* newlex.c (struct vsgpLexer): change field `vobstack *vtemp' to
+	  `istack *tmp'
+	(init_vsgpLexer, vsglDestroy, seen_exponent, seen_decimal_point,
+	  octal_or_float, hex, number, vsgpLex): Use istack functions on
+	  lexer->tmp.
+	* plist.c: Include <pthr/istack.h> instead of "vobstack.h"
+	(struct plist_table): Change field `struct obstack *data' to
+	  `istack *data'.
+	(TABLE_ALLOC, plist_create, plist_destroy): Use istack functions
+	  on tbl->data. 
+	* symtab.c: Include <pthr/istack.h> instead of "vobstack.h"
+	(struct symtab): Change field `vobstack *vob' to `istack *ist'
+	(SYMTAB_ISTACK): Renamed from SYMTAB_OBSTACK().
+	(symtab_create, symtab_destroy, sym_intern1, ): Use istack
+	  functions on symtab->ist. 
+	(symtab_istack): Rename from symtab_obstack and return symtab->ist.
+	* symtab.h (symtab_istack): Rename from symtab_obstack and returns
+	  istack *.
+	* vrml2defs.c: Include <pthr/istack.h> instead of <vobstack.h>.
+	(Many functions): Use istack functions instead of vobstack or
+	  obstack.
+	(vsgiCheckStack): Renamed from vsgiCheckObstack().
+	(vsgiClaimStack): Renamed from vsgiClaimObstack().
+	(vsgiReleaseStack): Renamed from vsgiReleaseObstack().
+	* vrml2int.h: Include <pthr/istack.h> instead of "vobstack.h".
+	(NUM_STACKS): Name changed from NUM_OBSTACKS.
+	(struct vsgWorld): Change fields `vobstack *vobs[]' to `istack
+	  *stacks[]', `struct obstack *data' to `istack *data', `struct
+	  obstack *externs' to `istack *externs'
+	(MFGEN_ISTACK): Renamed from MFGEN_OBSTACK.
+	(MFGenericI): Change field ob to stack.
+	(vsgiCheckStack): Renamed from vsgiCheckObstack().
+	(vsgiClaimStack): Renamed from vsgiClaimObstack().
+	(vsgiReleaseStack): Renamed from vsgiReleaseObstack().
+	* vrml2stubs.c: Don't include <vobstack.h> or define obstack
+	  macros.
+
+	* eqhash.c: Move file to pthr library.
+	* eqhash.h: Ditto.
+	* eqhash_inline.c: Ditto.
+	* eqhash_inline.h: Ditto.
+
+	* obstack.c: Delete file.
+	* obstack.h: Delete file.
+	* vobstack.h: Delete file.
+	
+Mon Mar 29 15:24:48 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* c_render.c (vsgcSetupCustomRender): [new func] lets the client
+	install their own custom render callback.
+
+	* c_nodes.h: added prototypes for vsgcSetupRenderGL and for the new
+	vsgcSetupCustomRender functions. Also added a new type for
+	callback functions, vsgCallback_t.
+
+1999-03-25  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* quat.c (trackball): Use degrees not radians.
+	(rot_v3f_quat): New. Make quaternion from axis vector and rotation
+	  angle. 
+	(rotation_quat): Expand arguments.
+	(quat_angle): New. Extract angle and axis from quaternion.
+	(normalize_quat): Properly normalize.
+	(quat_m4f): Transpose matrix for proper OpenGL order.
+	* quat.h (rot_v3f_quat): Declare.
+	(quat_angle): Declare.
+	* vec3.c (mult_v3f_m3f): New.  Premultiplies vector vT.M.
+	(mult_v3f_m4f): New. As above but homogeneous.
+	(ROTATION): New macro.  Fills in the rotational 3x3 of a matrix.
+	(rotation_m3f): New.  Build a 3x3 rotation matrix.
+	(rotation_m4f): Use ROTATION().
+	(gl_translation_m4f): New. OpenGL arguments to build translation
+	  matrix. 
+	(gl_scaling_m4f): New. OpenGL arguments to build scaling matrix.
+	(gl_rotation_m4f): New. OpenGL arguments to build rotation matrix.
+	(gl_rotation_m3f): New. OpenGL arguments to build 3x3 rotation matrix.
+	(print_m3f): New. Print a 3x3 matrix.
+	(print_m4f): New. Print a 4x4 matrix.
+	* vec3.h (mult_v3f_m3f): Declare.
+	(mult_v3f_m4f): Declare.
+	(rotation_m3f): Declare.
+	(gl_translation_m4f): Declare.
+	(gl_scaling_m4f): Declare.
+	(gl_rotation_m4f): Declare.
+	(gl_rotation_m3f): Declare.
+	(print_m3f): Declare.
+	(print_m4f): Declare.
+
+1999-03-25  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* configure.in (AM_MAINTAINER_MODE): Add.
+
+1999-03-20  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* eqhash_inline.h: Don't include <stddef.h>
+	(eqhash_get): Avoid use of NULL.
+	
+Wed Mar  3 09:51:15 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* c_render.c (renderShape): do not render the geometry node of a
+ 	Shape node if the Material node sets transparency to 1.0, i.e.
+  	don't render stuff you can't see.
+
+1999-03-01  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (libvrml2_a_SOURCES): Add eqhash_inline.c
+	* eqhash_inline.c: New file.  Only purpose is to instantiate
+	  functions defined in eqhash_inline.h
+	* eqhash.c: Don't instantiate inlined functions here.  Moved to
+	  eqhash_inline.c
+	* eqhash.h: Enable inlining for C++.
+
+1999-02-24  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (AC_ARG_WITH(glut)): Improve robustness of glut
+	  directory hint.
+	* vrml2.h (SFBool): Make this an unsigned int, so we can compress
+	  it down to a single bit bitfield.
+
+1999-02-22  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* quat.c (add_quat): Refer to inner_v3f (not inner_v3f_v3f).
+
+	* test_vec3.c (main): Add test for translate_m4f.
+	* vec3.c (translate_m4f): New.  Operates as glTranslatef. 
+	(length_v3f): Refer to inner_v3f (not inner_v3f_v3f).
+	(length_v4f): Refer to inner_v3f (not inner_v3f_v3f).
+	* vec3.h (translate_m4f): Declare.
+
+	* newlex.c (vsgpLex): Don't throw away first digit after initial
+	  decimal.
+
+Mon Feb 22 13:30:18 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* c_render.c (setBackfaceCull): [new func] enables/disables
+	GL_CULL_FACE if the requested setting is not already in
+	effect. This is done to reduce the number of state changes.
+	(setVertexOrdering): [new func] ditto for GL_CCW/GL_CW
+	(setShadeModel): [new func] ditto for GL_SMOOTH/GL_FLAT
+	(setLighting): [new func] ditto for GL_LIGHTING
+
+Sat Feb 20 12:07:21 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* c_render.c (vsgcGLRenderNode): don't try to render a node if it
+	is a PROTO or a Script node (the render callback always throws us
+	straight into SIGSEGV territory). Later, we can plug in code that
+	detects if a PROTO is one of our GeoVRML nodes and vector off to
+	the appropriate routine to handle that.
+
+Fri Feb 19 16:30:47 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* c_render.c (renderILS): for IndexedLineSets, use GL_LINE_STRIP,
+ 	not GL_LINES, switch to GL_SMOOTH shading when per-vertex
+ 	colouring, support colorPerVertex and the colorIndex correctly
+ 	according to VRML spec, use emissive material colour if no colors
+ 	defined.
+	(renderBox): [new func] render a VRML Box node
+
+Thu Feb 18 10:43:45 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* c_render.c (renderIFS): we should use the coordIndex list only if
+ 	colorIndex is not specified (colorPerVertex TRUE), and we should
+	use the colorIndex list if specified, otherwise just use the
+	colors from the Color node in order (colorPerVertex FALSE).
+	(renderIFS): support the ccw field of IFS - set glFrontFace
+	accordingly to GL_CCW or GL_CW (save setting in render state). 
+
+Wed Feb 17 09:20:20 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* c_render.c: added a vsgMaterial* to the render state. We need to
+	know what the currently bound material is when we get to the
+	geometry node, also we need to implement a default material if
+	none is specified.
+	(renderShape): initialise the material state with the default
+	VRML97 parameters so that these are used if no Appearance or
+	Material node is supplied.
+	added a poly_mode field to the render state. If this is set to
+	GL_POLYGON then IFSs are rendered solid, if this is set to
+	GL_LINE_LOOP then IFSs are rendered in wireframe.
+	(calcIFSNormal): calculate the normal for a face - support the ccw
+	VRML97 field (clockwise or anticlockwise ordering).
+	(renderSphere): [new func] render a VRML97 Sphere node
+	(renderCylinder): [new func] render a VRML97 Cylinder node
+	(renderIFS): added support for the solid field - toggle OpenGL
+	backface culling appropriately (store current cull state in the
+	render state structure to avoid setting to current value).
+	(renderMaterial): if alpha < 0.0 for material, then enable
+	GL_BLEND (if not already enabled), otherwise turn off GL_BLEND (if
+	not already disabled). Preserve state in render state structure.
+	(renderIFS): support colour-per-vertex polygons by enabling
+	GL_SMOOTH, otherwise use GL_FLAT. Store the current shading mode
+	in the render state to reduce state change calls.
+
+Tue Feb 16 16:07:00 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* c_render.c (renderCollision): [new func] render the children of
+	a Collision node
+	(renderAnchor): [new func] render the children of an Anchor node
+	(vsgcSetupRenderGL): install callbacks for rendering Collision and
+	Anchor nodes - previously the contents of these were just ignored.
+	(renderAppearance): [new func] set up the appearance parameters
+	for the current shape - previously all Appearance/Material nodes
+	were simply ignored
+	(vsgcGLRenderNode): sanity check to ensure that node is non-NULL
+
+Thu Feb 11 15:19:59 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* c_render.c (renderGL): vsgcGLRenderMFNode() does not exist!
+	Perhaps this was supposed to be renderMFNode().
+	Added prototypes for static module functions.
+
+1999-01-19  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* config.h.in: Add alloca boilerplate.
+
+1998-12-23  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* quat.c: New file.  Quaternion manipulations.
+	* quat.h: New file.  Defines interface to quaternion manipulation
+	  package.
+	
+	* Makefile.am (libvrml2_a_SOURCES): Add quat.c
+	(EXTRA_HEADERS): Add quat.h
+
+	* acconfig.h: Add boilerplate for alloca() declaration.
+	* sysconfig.h.in: Correct name of guard macro.
+	
+	* vec3.c (set_v2f): New.  Initialize a v2f from arguments.
+	(set_v3f): New.  Initialize a v3f from arguments.
+	(set_v4f): New.  Initialize a v4f from arguments.
+	(add_v2f): New.  Add two v2f arguments. v = v0+v1.
+	(add_v3f): New.  Add two v3f arguments. v = v0+v1.
+	(add_v4f): New.  Add two v4f arguments. v = v0+v1.
+	(sub_v2f): New.  Subtract two v2f arguments. v = v0-v1.
+	(sub_v3f): New.  Subtract two v3f arguments. v = v0-v1.
+	(sub_v4f): New.  Subtract two v4f arguments. v = v0-v1.
+	(scale_v2f): New.  Scale a v2f by a scalar. v = scl*v0.
+	(scale_v3f): New.  Scale a v3f by a scalar. v = scl*v0.
+	(scale_v4f): New.  Scale a v4f by a scalar. v = scl*v0.
+	* vec3.h (set_v[234]f): New declarations.
+	(add_v[234]f): Ditto.
+	(sub_v[234]f): Ditto.
+	(scale_v[234]f): Ditto.
+
+1998-12-06  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* vrml2.h (SFNode): Add route list field .routes
+	(struct vsgRouteLink): New. Route list element.
+	(struct vsgRoute): New. Route description.
+	(vsgAddRoute): New declaration.
+	(vsgProtoClass): Add route list field .routes
+	(vsgEventIn): Add vsgWorld* first argument.
+	(vsgEventOut): Ditto.
+	(vsgHasDEF): Properly type second argument (SFNode).
+	* vrml2defs.c (vsgIntern): Check for reserved word before
+	  interning in local symtab.
+	(vsgPushFrame): Initialize route list.
+	(vsgHasDEF): Properly type second argument (SFNode).
+	(vsgDEF): Fixup tracing info.
+	(vsgUSE): Ditto.
+	(vsgEventInName): New.  Optionally strip set_ prefix to establish
+	  name of eventIn.
+	(vsgEventOutName): New.  Optionally strip _changed suffix to
+	  establish name of eventIn.
+	(vsgEventIn): Add vsgWorld* first argument.  Canonicalize eventIn
+	  name before checking. Moved from vrml2il.h
+	(vsgEventOut): Add vsgWorld* first argument.  Canonicalize eventOut
+	  name before checking. Moved from vrml2il.h
+	(vsgAddRoute): New.  Create route and add it to frame list and
+	  outgoing list of node.
+	(vsgdEndProto): Grab route list from frame.
+	* vrml2il.h (vsgEventIn): Move to vrml2defs.c
+	(vsgEventOut): Ditto.
+	* vrml2int.h (struct vsgiFrame): Add accumulator for routes.
+	(vsgiCurrRoutes): New.  Macro to access route list.
+	* c_print.c (vsgdPrint): Print routes after nodes.
+	(print_PROTO): Ditto.
+	(print_routes): New. Print route list in reverse order.
+	* newparse.c (vsgpRouteStatement): Error check and add route.
+
+1998-11-26  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* decomp.c (extractR_m4f): Use a slihtly more robust non-zero test.
+
+	* test_vec3.c: #include "config.h" before anything else.
+
+	* vrml2.h (struct vsgClassField): Add bit to fieldType.
+
+Fri Nov 20 14:33:13 1998  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* acinclude.m4: Fixed the generation of the intxx_t and u_intxx_t
+ 	defines. Previously these put a dollar symbol into the config
+ 	file, such as "#define int32 $int32". These appears to be because
+ 	the AC_CHECK_TYPE was taking $int32 as a literal string and not a
+ 	variable. This problem only raises it's head on non-sgi platforms.
+
+	* acconfig.h: added comment to describe the fixed bit-size defines
+
+Wed Nov 18 15:04:43 1998  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* All: added a header comment to all .c and .h files to contain
+	the tsmApi public license exibit A statement. Also included some
+	revision history information and a RCS Id tag.
+
+Sat Nov 14 13:34:55 1998  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* c_render.c: #include stdio.h for the definition of stderr, and
+	vrml2.h for the definition of FALSE. This problem only raised it
+	head when compiling under a system without OpenGL.
+
+1998-10-15  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Change HAVE_GL to HAVE_OPENGL.
+	* c_render.c (vsgcSetupRenderGL): Only setup defaults if
+	  HAVE_OPENGL is defined.  Return FALSE if unsuccessful.
+	  All other functions are only compiled if HAVE_OPENGL.
+
+	* acinclude.m4: New.  Define SRI_INT8_T, SRI_INT16_T, SRI_INT32_T,
+	  SRI_INT64_T.
+	* configure.in (AM_CONFIG_HEADER): Add sysconfig.h.
+	  (SRI_INT32_T):  Use new macro to define u_int32_t in sysconfig.h.
+	  (AC_OUTPUT): Remove sysconfig.h
+	* sysconfig.h.in: Provide #undef's since now generated by
+	  AM_CONFIG_HEADER.
+
+Wed Oct 14 14:02:52 1998  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* c_render.c: conditionally define the OpenGL display functions
+	only if OpenGL is available. Otherwise we create a series of stub
+	functions that just display a "not compiled in" message. Now we
+	should be able to compile the vrml2 library even if we don't have
+	OpenGL installed.
+
+	* configure.in (X_LIBS): added a HAVE_GL define which is defined
+	if we have OpenGL libs available to us.
+
+	* acinclude.m4: okay, I get how this works now. I've now split up
+	the definitions of the sized types so that the signed and unsigned
+	types are computed separated. Under Solaris on LBL's machine we
+	already had definitions for int32_t, but not u_int32_t. Previously
+	we the int_32_t and u_int32_t types iff int32_t didn't exist.
+
+	* sysconfig.h: need to define u_int32_t for eqhash_inline.h 
+
+1998-10-12  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (syms.[ch]): Depends on symlist.def and gensyms.c so
+	  we don't make gensyms unless necessary.
+	(test_syms_LDADD): Correct typo.
+	* acconfig.h (HAVE_GLUT): New template.
+	* configure.in (AC_ARG_WITH(glut)): Search include and lib
+	  subdirs.
+	(AC_CHECK_LIB(glut)): AC_DEFINE(HAVE_GLUT) when successful. 
+	* test_vec3.c: Protect <GL/glut.h> with HAVE_GLUT.
+	* vrml2_browse.c: Ditto.
+	
+	* vrml2il.h (vsgGet): Moved to vrml2defs.c.
+
+1998-10-09  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* TAGS: Update.
+	
+	* vrml2.h (vsgdInit): New declaration.
+	(vsgIntern): Ditto.
+	(vsgWorldAppend): Ditto.
+	(vsg<node>Class): Ditto.
+	(vsgSet<node>_<field>): Redefine signature.
+
+	* vrml2defs.c (vsgIntern): New.  Intern a string into world's
+	  symbol table.
+	(vsgGetClass): Protect against NULL wrl so may be called outside
+	  of world context to get builtin bindings.
+	(vsgNewWorld): Initialize with a default filetype.
+	(vsgWorldAppend): New.  Append node to world's top-level MFNode.
+	(vsgdInit): New.  Initialize all vsg<node>Class ptrs then call
+	  vsgdSetupDefalts(). 
+
+	* vrml2int.h (NUM_OBSTACKS): Increase to 5.
+
+	* vrml2stubs.c (VSG_CLASS): Renamed from VSG_NEW.  Defines
+	  vsgNew<node> to create a new node given vsg<node>Class.
+	(SET_GENERIC): Defines vsgSet<node>_<field> to check class match
+	  then quickly dispatch (caching lookup).
+	(vsg<node>_<field>): Define all.
+	(vsgStartWorld): Use vsgdInit() as default init binding.
+
+1998-10-07  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* c_nodes.c (vsgc<node>_set_<field>): Add wrl arg. Set
+	  vsgcNode_DIRTY flag.
+	(vsgc<node>_<field>_changed): Add wrl arg.
+	(vsgc<node>Class): Initialize flags field.
+	(vsgc<node>_fields): Don't set vsgFieldHasDefault flag (obsolete).
+	(vsgcEffectiveNode): New. Get effective node when PROTO defined.
+	(LINTERP): New. Linear interpolation function.
+	(interpolate): New. Compute keyValue interpolation value and index
+	  given t.
+	(vsgcNewNode): Reflect change to vsgcNode definition and
+	  initialize routes.
+
+	(vsgc<node>_<field>_changed): Return default value.
+	(vsgcAnchor_set_addChildren): Implement.
+	(vsgcAudioClip_isActive_changed): Return isActive field.
+	(vsgcBillboard_set_addChildren): Implement.
+	(vsgcCollision_set_addChildren): Implement.
+	(vsgcColorInterpolator_set_fraction): Set fraction field.
+	(vsgcColorInterpolator_value_changed): Interpolate SFColor from
+	  key values.
+	(vsgcCoordinateInterpolator_set_fraction): Set fraction field.
+	(vsgcCoordinateInterpolator_value_changed): Interpolate MFVec3f
+	  from key values.
+	(vsgcCylinderSensor_isActive_changed): Return isActive field.
+	(vsgcFog_isBound_changed): Return isBound value.
+	(vsgcGroup_set_addChildren): Implement.
+	(vsgcMovieTexture_isActive_changed): Return isActive field.
+	(vsgcNavigationInfo_isBound_changed): Return isBound field.
+	(vsgcNormalInterpolator_set_fraction): Set fraction field.
+	(vsgcNormalInterpolator_value_changed): Interpolate MFVec3f
+	  from key values.
+	(vsgcOrientationInterpolator_set_fraction): Set fraction value.
+	(vsgcOrientationInterpolator_value_changed): Interpolate
+	  MFRotation from key values.
+	(vsgcPlaneSensor_isActive_changed): Return isActive field.
+	(vsgcPositionInterpolator_set_fraction): Set fraction value.
+	(vsgcPositionInterpolator_value_changed): Interpolate SFVec3f from
+	  key values.
+	(vsgcProximitySensor_isActive_changed): Return isActive field.
+	(vsgcScalarInterpolator_set_fraction): Set fraction field.
+	(vsgcScalarInterpolator_value_changed): Interpolate SFFloat from
+	  key values.
+	(vsgcSphereSensor_isActive_changed): Return isActive field.
+	(vsgcTimeSensor_isActive_changed): Return isActive field.
+	(vsgcTouchSensor_isActive_changed): Return isActive field.
+	(vsgcTransform_set_addChildren): Implement.
+	(vsgcVisibilitySensor_isActive_changed): Return isActive field.
+
+	* c_nodes.h (vsgcAsSFNode): New. Casts vsgc* node to SFNode.
+	(vsgcAsNode): New. Casts vsgc* node to vsgcNode*.
+	(vsgcNode_DIRTY): Renamed fro NODE_DIRTY.
+	(struct vsgcNode): Subclass from struct SFNode.
+	(struct vsgc<node>): Remove unused set_* fields.
+	(vsgc<node>_set_<field>): Add wrl arg.
+	(vsgc<node>_get_<field>): Add wrl arg.
+	
+	* c_print.c (print_PROTOfields): Use is_extern to check for
+	  EXTERNPROTO.
+	(print_EXTERNPROTO): Cast to vsgExternProtoClass for access to
+	  externproto data.
+	(print_PROTO): Use is_extern to check for EXTERNPROTO.
+	(print_protos): Don't check for EXTERNPROTO/PROTO difference,
+	  handled by print_PROTO().
+	(print_fieldValue): Pass s->wrl to vsgGet().  Always check against
+	  default value, since it is now always defined.
+	
+	* c_render.c (vsgcGLRenderNode): Take SFNode as arg and use
+	  vsgNodeClass() to get class.
+	(renderIFS): Use vsgcEffectiveNode() to get coord and color nodes.
+	(renderILS): Ditto.
+	
+	* gensyms.c (output_state): Cast string to pass to hash to
+	  (unsigned char const *).
+
+	* newparse.c (vsgpSetCB): Pass wrl arg to vsgVaDescSet().
+	(vsgpExternProto): Use vsg{Start,End}ExternProto().
+	  Don't call vsgEndProtoFields() for EXTERNPROTO.
+	
+	* test_proto.c (main): Remove unused variables result, i, f,
+	  vrmlTexUrl, val, coord, coord2.
+	  Use vsg{Start,End}ExternProto() in declaration.
+	  Pass wrl arg to vsgSet.
+	  Use vsgMakeSFVec3f() for temporaries.
+	  
+	* vrml2.h (enum vsgfId_t): Add vsgfStartExternProto,
+	  vsgfEndExternProto values.
+	(SFNode): Redefine as struct SFNode with class and route pointers.
+	(struct vsgClass): Add flags field.
+	(vsgClassIsProtoFlag): New. Bit is set for PROTO/EXTERNPROTO
+	  classes.
+	(vsgClassIsScriptFlag): New. Bit is set for Script node classes.
+	([SM]F*_default): Declaration of default values.
+	(vsgFieldHasDefault): Delete.
+	(struct vsgEventInDesc): Add wrl arg.
+	(vsgSet[SM]F*): Add wrl arg.
+	(vsgDescSet): Ditto.
+	(vsgVaDescSet): Ditto.
+	(vsgSet): Ditto.
+	(vsgSetv): New. Declare.
+	(struct vsgEventOutDesc): Add wrl arg.
+	(vsgGet[SM]F*): Ditto.
+	(vsgDescGet): Ditto.
+	(vsgGet): Ditto.
+	(struct vsgProtoClass): Add is_extern field, Remove extern_urls.
+	(struct vsgExternProtoClass): New.  Derived from vsgProtoClass.
+	* vrml2defs.c (vsgSetupDefaults): Add vsgfStartExternProto and
+	  vsgfEndExternProto defaults.
+	(vsgVaDescSet1): Add wrl arg and pass on.
+	(vsgVaDescSet): Ditto.
+	(vsgDescSet): Ditto.
+	(vsgSet): Ditto.
+	(vsgSetv): New.  Set of a number of fields with a single call.
+	(vsgDescGet): Add wrl arg and pass on.
+	([SM]F*_default): New. Define default values for all types.
+	(vsgDefaultAnyArg): New. Initialize a vsgAnyArg with a typed default.
+	(vsgMakeSFColor): Delete.
+	(vsgMakeSFRotation): Delete.
+	(vsgMakeSFVec2f): Delete.
+	(vsgMakeSFVec3f): Delete.
+	(vsgProto_set[SM]F*): Add wrl arg.
+	(vsgProto_get[SM]F*): Ditto.
+	(setFunc_t): Ditto.
+	(getFunc_t): Ditto.
+	(vsgClass protoClass): Initialize flags field with
+	  vsgClassIsProtoFlag.
+	(vsgdStartProto): Initialize is_extern = FALSE. Delete extern_urls.
+	(vsgdDeclareField): Don't place field reference in props.
+	  Call vsgDefaultAnyArg() to default field value.
+	(vsgdVaDeclareFieldDefault): Signal error if called in an
+	  EXTERNPROTO declaration.  Don't set vsgFieldHasDefault (obsolete).
+	(vsgClass externProtoClass): New. Used for defining EXTERNPROTOs.
+	(vsgdStartExternProto): New. Start declaration of EXTERNPROTO.
+	(vsgdEndExternProto): New. Finish declaration of EXTERNPROTO.
+	(vsgClass scriptClass): Initialize flags field with
+	  vsgClassIsScriptFlag.
+	(vsgdStartScript): Initialize is_extern = FALSE. Delete extern_urls.
+	
+	* vrml2il.h (vsgNodeClass): Reflect new definition of SFNode.
+	(vsgSetFunc): Use vsgiGet_setFunc().
+	(vsgGetFunc): Use vsgiGet_getFunc().
+	(vsgEventIn): Use vsgiGet_eventIn().
+	(vsgEventOut): Use vsgiGet_eventOut().
+	(vsgGet): Add wrl arg and pass on.
+	(vsgSet[SM]F*, vsgGet[SM]F*): Ditto.
+	(vsgMakeSFColor): New. Create an SFColor from r, g, b.
+	(vsgMakeSFRotation): New. Create an SFRotation from a, b, c, d.
+	(vsgMakeSFVec2f): New. Create an SFVec2f from v0, v1.
+	(vsgMakeSFVec3f): New. Create an SFVec3f from v0, v1, v2.
+
+	* vrml2stubs.c (vsgAppendChild): Add wrl arg to vsgGetMFNode().
+	(vsgStartExternProto): New.  Start an EXTERNPROTO defn.
+	(vsgEndExternProto): New. Finish an EXTERNPROTO defn.
+
+1998-08-25  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (pkginclude_HEADERS): Add eqhash_inline.h
+	* acconfig.h (HAVE_INLINE): New.
+	* configure.in (AC_DEFINE(HAVE_INLINE)): New.  Defined if inline
+	  keyword available in some form.
+	  (INT16, INT32, INT64): Defined and substituted into sysconfig.h
+	  to define 16, 32 and 64 bit integer types.
+
+	* eqhash.c: Reconstruct to use eqhash_inline.h
+	  (eqhash_clear): New. Empties hash table.
+	  (maybe_grow): Split into inlined test and then call grow_table().
+	  (grow_table): New.  Moved from maybe_grow().
+	* eqhash_inline.h: New.  Parts of implementation moved here from
+	  eqhash.c.
+	  #include "sysconfig.h" for hash value calculation.
+	  (struct eqhash_entry): Moved here from eqhash.c
+	  (struct eqhash): Ditto.
+	  (eqhash_hash): Ditto.  Renamed from hash_val.
+	  (eqhash_get): Ditto.
+	* eqhash.h: Add include of eqhash_inline.h when necessary.
+	  (eqhash_put): Declare returning int.
+	  (eqhash_clear): New declaration.
+
+	* vobstack.h (vobstack_begin): Reserve 8 bytes for maximum
+	  alignment.
+	  (vobstack_unwind): New.  Unwind without deleting.
+
+1998-08-09  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* c_nodes.c (INIT_<node>): #define initialization macro for each
+	  of the node types.  Invoked by vsgNew<node>().
+	  (INIT_Background): Call vsgExtendBackgroundStack();
+	  (INIT_Fog): Call vsgExtendFogStack().
+	  (INIT_NavigationInfo): Call vsgExtendNavigationInfoStack().
+	  (INIT_Viewpoint): Call vsgExtendViewpointStack().
+	  (vsg<node>_create): Impose automatic slot initialization to
+	  default values.  Call INIT_<node> when done.
+	  (vsgNew<node>): Call INIT_<node> when done.
+	
+	* c_render.c (TFM_DIRTY): Define flag bit for renderState.flags.
+	  (struct renderState): Add flags vector and tfm, inv_tfm matrices
+	  for tracking current transforms.
+	  (renderGL): Initialize flags and tfm, inv_tfm matrices.
+	  (renderTransform): Save tfm, inv_tfm matrices on entry and
+	  restore on exit.
+
+	* vec3.h (translation_m4f): Declare.
+	  (scaling_m4f): Declare.
+
+	* vec3.c (translation_m4f): New.  Create translation matrix.
+	  (scaling_m4f): New.  Creates scaling matrix.
+
+	* vrml2.h (vsgWorldBackground): Declare.
+	  (vsgBindBackground): Declare.
+	  (vsgExtendBackgroundStack): Declare.
+	  (vsgWorldFog): Declare.
+	  (vsgBindFog): Declare.
+	  (vsgExtendFogStack): Declare.
+	  (vsgWorldNavigationInfo): Declare.
+	  (vsgBindNavigationInfo): Declare.
+	  (vsgExtendNavigationInfoStack): Declare.
+	  (vsgWorldViewpoint): Declare.
+	  (vsgBindViewpoint): Declare.
+	  (vsgExtendViewpointStack): Declare.
+
+	* vrml2defs.c (vsgNewWorld): Initialize binding stacks.
+	  (vsgiIsBound): New.  Returns TRUE iff node is bound on
+	  given stack.
+	  (vsgiBindStack): New.  Bind node on given stack.
+	  (vsgiExtendStack): New.  Extend stack with given node (used
+	  during read so that first node read is bound at end).
+	  (vsgBindBackground): New. Bind Background node.
+	  (vsgExtendBackgroundStack): New. Extend Background stack.
+	  (vsgWorldBackground): New.  Returns the currently bound
+	  background node.
+	  (vsgBindFog): New. Bind Fog node.
+	  (vsgExtendFogStack): New. Extend Fog stack.
+	  (vsgWorldFog): New. Returns currently bound Fog node.
+	  (vsgBindNavigationInfo): New. Binds NavigationInfo node.
+	  (vsgExtendNavigationInfoStack): New. Extends NavigationInfo stack.
+	  (vsgWorldNavigationInfo): New. Returns currently bound
+	  NavigationInfo node 
+	  (vsgBindViewpoint): New. Binds Viewpoint node.
+	  (vsgExtendViewpointStack): New. Extends Viewpoint stack.
+	  (vsgWorldViewpoint): New. Returns currently bound Viewpoint node 
+
+	* vrml2int.h (struct vsgWorld): Add components for each of the
+	  four binding stacks: backgroundStack, fogStack,
+	  navigationInfoStack, and viewpointStack.
+	  (struct vsgiBindingStack): New. Define stack structure.
+
+1998-08-06  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* vrml2_browse.c (render): New.  Clear and render an OpenGL frame
+	  using vsgWorld state.
+	  (main): Initialize GLUT toolkit and dispatch rendering to
+	  render().
+
+	* Makefile.am (vrml2_browse_LDADD): Use @GLUT_LIBS@.
+	  (test_vec3_LDADD): Use @GLUT_LIBS@
+
+	* configure.in: Define and substitute OPENGL_LIBS and GLUT_LIBS
+	  for linking with OpenGL and Mark Kilgard's GLUT toolkit.
+
+	* All files: Name changes:
+		VRML_Context_t	     -> vsgWorld
+		vsgNewContext        -> vsgNewWorld
+		vsgContextFiletype   -> vsgWorldFiletype
+		vsgContextFilename   -> vsgWorldFilename
+		vsgContextNode       -> vsgWorldNode
+		vsgContextType       -> vsgWorldType
+		vsgContextProperties -> vsgWorldProperties
+
+1998-08-05  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* decomp.c (extractP_m4f): Returns T/F depending on success.  Also
+	  make trace printing based on DBG macro.
+	  (extractT_m4f): Ditto.
+	  (extractS_m4f): Ditto.
+	  (extractR_m4f): Ditto.
+	  (decompose_m4f): Ditto.
+
+	* lu.c (lusub_m4f): Change pivot to const.
+
+1998-08-04  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* vec3.h (mult_v3f_m4f -> mult_v4f_m4f): Change declaration.
+
+	* vec3.c (mult_v3f_m4f -> mult_v4f_m4f): Pre-multiply wants a v4f
+	  vector (especially if being used to manipulate plane equations).
+
+1998-08-04  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* c_nodes.c (vsgc<Node>_create): No need to cast result of
+	  vsgcNewNode() since now returns SFNode.
+	  (vsgcNewNode): Return SFNode.  Reflected in forward reference above.
+	  (vsgcCollision_collideTime_changed): Changed name from
+	  vsgcCollision_collideTime so resolves reference.
+
+	* vrml2.h (struct vsgFieldRefs): New. List of IS references to
+	  field in a PROTO scene graph.
+	  (struct vsgPROTOField): New. Subtype of vsgClassField which
+	  defines a PROTO field.  Includes the list of IS references.
+	  (struct vsgPROTOClass): New. Subtype of vsgClass which defines a
+	  PROTO class.  If extern_urls is non-empty, then this is an
+	  EXTERNPROTO.
+
+1998-08-03  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* c_nodes.c (MFVec2fCrossSection): Now a #define so usable as
+	  compile-time constant.
+	  (MFRotationZout): Ditto.
+	  (MFColorBlack): Ditto.
+	  (MFVec2fIdentity): Ditto.
+	  (MFVec3fSpine): Ditto.
+	  (MFStringSERIF): Ditto.
+	  (MFStringBEGIN): Ditto.
+	  (MFStringNavType): Ditto.
+	  (MFFloatAvatar): Ditto.
+	  (vsgc<Node>_fields>: New. Automatically create a list of fields
+	  for each node type.
+	  (vsgcClass_fields): New.  Function which creates and returns the
+	  field list for a given class, given the vsgc<Node>_fields vector.
+	  (vsgc<Node>Class): Initialize subclass and .fieldvec values.
+
+	* c_nodesI.h (struct vsgcClass): New.  Subtype of vsgClass,
+	  includes vector of fields.
+
+	* geom3.c (normalize_plane3f): Fix thinko.  Entire plane
+	  description is scaled by 1/norm.
+
+	* vrml2.h (enum vsgFieldType): New. The four types of fields:
+	  field, exposedField, eventIn and eventOut.
+	  (struct vsgClassField): New.  The description of a VRML field.
+
+1998-07-29  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* geom3.h: New file.  Description and manipulation of spatial
+	  geometric elements.
+	  (struct pt3f): New. 3D point.
+	  (struct plane3f): New. Plane in 3D.
+	  (normalize_plane3f): Declare.
+
+	* geom3.c (normalize_plane3f): New. Normalize a plane3f so that
+	  the normal vector (P[0],P[1],P[2]) is a unit vector.
+	  (distance_plane3f_pt3f): New. Compute distance from a normalized
+	  plane3f to a point.
+
+	* vrml2.h (struct vsgClass): Remove flags and pass class pointer
+	  as first argument to all functions.
+
+	* c_nodes.c (vsgc<Node>_class): Restructure for changes to
+	  vsgClass.
+	  (vsgc<Node>_setFunc): Takes vsgClass as first arg (ignored).
+	  (vsgc<Node>_getFunc): Ditto.
+	  (vsgc<Node>_eventIn): Ditto.
+	  (vsgc<Node>_eventOut): Ditto.
+	  (vsgc<Node>_create): Ditto.
+	
+	* c_render.c (renderRotate): Convert from VRML radians to OpenGL
+	  degrees.
+	  (renderTransform): Reverse order of transformations.
+
+	* vec3.h (V, M): Take struct and not pointer as arg.
+	  (struct v4i): Vector of four integers.
+	  (length_v3f, length_v4f): Declare.
+	  (normalize_v3f, normalize_v4f): Declare.
+	  (identity_m4f, rotation_m4f): Declare.
+
+	  (det2x2, det3x3): Declare.
+	  (det_m3f, det_m4f): Declare.
+	  (inverse_m4f): Declare.
+	  (adjoint_m4f): Declare.
+
+	  (ludecomp_m4f, lusub_m4f, lusolve_m4f_v4f): Declare.
+	  (decompose_m4f): Declare.
+
+	* vec3.c: Modify vector functions for change to V() and M() macros.
+	  (length_v3f): New.  Computes the L2 norm of vector.
+	  (length_v4f): New.  Computes the L2 norm of vector.
+	  (normalize_v3f): New. Normalizes vector, returning original norm.
+	  (normalize_v4f): New. Normalizes vector, returning original norm.
+	  (identity_m4f): New. Creates and identity matrix.
+	  (rotation_m4f): New. Creates a rotation matrix. r[3] is angle.
+
+	* invert.c: New file.  Contains functions for inverting 4x4
+	  matrices and obtaining determinants (of submatrices as well).
+
+	  (det2x2, det3x3): New. Compute determinant of 2x2 and 3x3
+	  matrices, passed as arguments.
+	  (det_m3f, det_m4f): New. Compute determinants of m3f and m4f
+	  matrices passed as pointers to structures.
+	  (inverse_m4f): New. Compute the inverse of a 4x4 matrix.
+	  (adjoint_m4f): New. Compute the adjoint of a 4x4 matrix.
+
+	* lu.c: New file. Contains code for computing LU decomposition of
+	  4x4 matrices and using this to solve Ax = b linear systems.
+
+	  (ludecomp_m4f): New. Compute LU decomposition of m4f.
+	  (lusub_m4f): New. Use LU decomposition to backsolve Ax = b.
+	  (lusolve_m4f_v4f): New. Solve Ax = b using LU decomposition.
+
+	* decompose.c: New file.  Decompose a transformation matrix into
+	  translation, rotation and scale corresponding to entries in VRML
+	  Transform node.
+	
+	  (extractP_m4f): New. Extract projection components from matrix,
+	  leaving affine matrix.
+	  (extractT_m4f): New. Extract translation components from affine
+	  matrix, leaving scaled rotation.
+	  (extractS_m4f): New. Extract scaling from scaled rotation
+	  matrix, leaving rotation.
+	  (extractR_m4f): New. Extract axis and angle description of
+	  rotation from rotation matrix.
+	  (decompose_m4f): New. Decompose a 4x4 transformation matrix into
+	  sequence of rotation, scaling, translation, and projection.
+
+1998-07-21  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* c_nodes.c (vsgc<Node>_set_<field>): Define stubs for eventIn
+	  functions.
+	  (vsgc<Node>_<field>_changed): Define stuibs for eventOut functions.
+
+	* c_nodes.h: Automagically generate prototypes for the field
+	  access functions vsgc<Node>_set_<field>() and
+	  vsgc<Node>_<field>_changed().
+
+	* nodes.def (ScalarInterpolator): Fix value to be eventOut.
+
+	* gensyms.c: include <string.h> for mem*() functions.
+	* syms.[ch]: Regenerated slightly smaller.
+
+1998-07-17  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* c_nodes.h (NODE_DIRTY): Flag specifying that derived data in
+	  node is out of date.
+
+	* gensyms.c (find_unique_subset): Print error message on failure.
+	  (main): Update usage string.
+
+	* vec3.h (mult_v3f_m4f): Declare.
+	* vec3.c (mult_m3f_v3f): Add const declarations to submatrices.
+	  (mult_m4f_v3f): Ditto.  Minor cleanup.
+	  (mult_m3f_m3f): Ditto.
+	  (mult_m4f_m4f): Ditto.
+	  (mult_v3f_m4f): New function v.M pre-multiplication.
+
+	* symlist.def: Consolidate symbols removing set_ and _changed.
+	  (SYM bind_changed): Remove.
+	  (SYM bind): Add.
+	  (SYM duration_changed): Remove.
+	  (SYM isBound): Add.
+	  (SYM rotation_changed): Remove.
+	  (SYM set_bind): Remove.
+	  (SYM set_crosssection): Remove.
+	  (SYM set_fraction): Remove.
+	  (SYM set_orientation): Remove.
+	  (SYM set_scale): Remove.
+	  (SYM set_spine): Remove.
+	  (SYM trackPoint_changed): Remove.
+	  (SYM trackPoint): Add.
+	  (SYM translation_changed): Remove.
+	  (SYM value_changed): Remove.
+	  (SYM value): Add.
+	* c_nodes.h (EXPOSEDFIELD): Reflect change in default naming
+	  convention in symlist.def.
+	* nodes.def: Reflect changes in symbol names in symlist.def.
+	* parse.y: Consolidate tokens reflecting changes to symlist.def.
+	
+	* vrml2.h (enum vsgDataType): Add vsgErrorType.
+	  (struct vsgClass): Type specifier for new API nodes.  Provides
+	    name, flags and function pointers for basic functionality.
+	  (struct vsgEventInDesc): Descriptor used for accessing vsgSet
+	    functions.  Returned by vsgClass.get_setFunc and get_eventIn.
+	  (struct vsgEventOutDesc): Descriptor used for accessing vsgGet
+	    functions.  Returned by vsgClass.get_getFunc and get_eventOut.
+	  Add declarations for all of vsgSet() and vsgSet<type>().
+	  Add declarations for all of vsgGet() and vsgGet<type>().
+	
+	* c_nodes.c (SFImageEmpty): Remove indirection.
+	  Auto define (from nodes.def) vsgc<Node>_set_<field>(),
+	  vsgc<Node>_<field>_changed(), vsgc<Node>_setFunc(),
+	  vsgc<Node>_getFunc(), vsgc<Node>_eventIn(), and
+	  vsgc<Node>_eventOut() using new API.
+
+	* vrml2defs.c (vsgSetMFColor): New function.  Set an MFColor field
+	  or eventIn value.
+	(vsgSetMFFloat): Same for MFFloat.
+	(vsgSetMFInt32): Same for MFInt32.
+	(vsgSetMFNode): Same for MFNode.
+	(vsgSetMFRotation): Same for MFRotation.
+	(vsgSetMFString): Same for MFString.
+	(vsgSetMFVec2f): Same for MFVec2f.
+	(vsgSetMFVec3f): Same for MFVec3f.
+	(vsgSetSFBool): Same for SFBool.
+	(vsgSetSFColor): Same for SFColor.
+	(vsgSetSFFloat): Same for SFFloat.
+	(vsgSetSFImage): Same for SFImage.
+	(vsgSetSFInt32): Same for SFInt32.
+	(vsgSetSFNode): Same for SFNode.
+	(vsgSetSFRotation): Same for SFRotation.
+	(vsgSetSFString): Same for SFString.
+	(vsgSetSFTime): Same for SFTime.
+	(vsgSetSFVec2f): Same for SFVec2f.
+	(vsgSetSFVec3f): Same for SFVec3f.
+	(vsgSet): Set any type.  Determined by vsgEventInDesc.
+	(vsgGetMFColor): New function.  Returns the MFColor value from a
+	  field or eventOut.
+	(vsgGetMFInt32): Same for MFInt32.
+	(vsgGetMFNode): Same for MFNode.
+	(vsgGetMFRotation): Same for MFRotation.
+	(vsgGetMFString): Same for MFString.
+	(vsgGetMFVec2f): Same for MFVec2f.
+	(vsgGetMFVec3f): Same for MFVec3f.
+	(vsgGetSFBool): Same for SFBool.
+	(vsgGetSFColor): Same for SFColor.
+	(vsgGetSFFloat): Same for SFFloat.
+	(vsgGetSFImage): Same for SFImage.
+	(vsgGetSFInt32): Same for SFInt32.
+	(vsgGetSFNode): Same for SFNode.
+	(vsgGetSFRotation): Same for SFRotation.
+	(vsgGetSFString): Same for SFString.
+	(vsgGetSFTime): Same for SFTime.
+	(vsgGetSFVec2f): Same for SFVec2f.
+	(vsgGetSFVec3f): Same for SFVec3f.
+	(vsgGet): Get any type.  Determined by vsgEventOutDesc.
+
+	* vrml2stubs.c (vsgRender): Returns void.
+
+1998-07-16  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* vrml2.h (SFNode): Redefine to void *
+	(struct MFNode): List of SFNode not SFNode *
+	(vsgContextNode): Update declaration.
+	(vsgAppendChild): Ditto.
+	(vsgAppendSFNode): Ditto.
+	(vsgMakeMFNode): Ditto.
+	  Change all vsgSet... to SFNode.
+
+	* vrml2defs.c (VRML_type_size): Use SFNode not SFNode*.
+	(vsgContextNode): Return SFNode.
+	(vsgStore): Use SFNode for VRML_SFNode.
+	(vsgAppendSFNode): Use SFNode.
+	(vsgEndMFNode): Ditto.
+	(vsgMakeMFNode): Use SFNode argument.
+
+	* vrml2stubs.c (vsgEndGroup): Change SFNode reference.
+	(vsgAppendChild): Ditto.
+	SET_GENERICP -> SET_GENERIC for SFNode typed fields.
+
+	* c_nodes.h (vsgcAppearance): Correct SFNode use in fields.
+	(vsgcCollision): Ditto.
+	(vsgcElevationGrid): Ditto.
+	(vsgcIndexedFaceSet): Ditto.
+	(vsgcIndexedLineSet): Ditto.
+	(vsgcPointSet): Ditto.
+	(vsgcShape): Ditto.
+	(vsgcSound): Ditto.
+	(vsgcText): Ditto.
+
+	* c_print.c (print_MFNode1): Use SFNode not SFNode*.
+	(print_MFNode): Ditto.
+
+1998-07-14  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* Makefile.am (vrml2_browse_LDADD): Add OpenGL and X11 library
+	  linkage.
+
+	* c_render.c (vsgcGLRenderNode): Fix func type.
+	(renderTransform): Correct call to glTranslatef().
+
+	* configure.in (AC_PATH_XTRA): Search for X11 libraries and
+	  includes.  Make available for Makefile.in.
+
+	* vrml2_browse.c: #include "config.h"
+	(main): Call vsgcSetupRenderGL() before and vsgcRender() after
+	  loading file.
+
+1998-07-13  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* c_render.c: #include "config.h" for inline.
+	(vsgcSetupRenderGL): Cast renderFuncs functions to void*.
+
+	* configure.in (AC_C_INLINE): Add check for inline keyword.
+
+1998-07-13  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* vec3.[ch]: New files. Optimized 3d vector arithmetic.
+
+	* eqhash.[ch]: New files. A fast pointer hash implementation.
+
+	* c_render.c: New file.  Implements the OpenGL rendering portion
+	of browser.
+
+	* Makefile.am (libvrml2_a_SOURCES): Add c_render.c and vec3.c
+	(EXTRA_HEADERS): Add vec3.h
+	(EXTRA_PROGRAMS): Add vrml2_browse.
+
+	* configure.in: No longer need AC_PROG_LEX.
+
+	* plist.c: #include <sys/types.h> for u_int32_t declaration.
+	(HASH): Use u_int32_t for portability.
+	(hash_val): Ditto.
+	(plist_lookup): Ditto.
+
+	* symtab.c: #include <sys/types.h> for u_int32_t declaration.
+	(HASH): Use u_int32_t for portability.
+	(hash_val): Ditto.
+	(symtab_lookup): Ditto.
+
+1998-07-09  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* vrml2.h (VRML_funcid): Define VRML_Render vector element.
+
+	* vrml2defs.c (vsgdSetNodeField): When val is NULL, use the type
+	  defined for the field.
+
+	* vrml2stubs.c (vsgSetPROTOField): Protect against NULL val.
+	  (vsgSetNodeField): Ditto.
+	  (vsgRender): New function.  Invoke user-defined rendering
+	  structure.
+
+1998-04-24  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* vrml2.h: Change Lod -> LOD for conformance.
+	* vrml2int.h: Ditto.
+	* vrml2stubs.c: Ditto.
+	* vrml2defs.c: Ditto.
+	* parse.y: Ditto.
+	* c_nodes.h: Ditto.
+	* nodes.def: Ditto.
+
+	* vrml2defs.c (vsgStrdup): New function for strdup() onto context
+	  obstack.
+	* vrml2.h (vsgStrdup): Declare.
+
+Fri Apr 24 10:13:48 1998  Nathaniel Bletter  <bletter@Silver.AI.SRI.COM>
+
+	* symtab.c (symtab_destroy): free symtab structure as well
+
+	* Makefile.am : added test_proto.c
+
+	* test_proto.c : added
+
+	* c_print.c (cleanup1): changed intialization for NULL def
+
+1998-04-24  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am: Remove references to test_proto.
+
+	* c_print.c (vsgcPrint): Ensure that cleanup1() is called
+	  whether or n ot we exit with an error.
+	(cleanup1): Avoid dereferencing NULL def.
+
+	* plist.c: #include "vobstack.h" for localized memory allocation.
+	(struct plist_table): Add vobstack data_v for localized allocation.
+	(TABLE_ALLOC): Macro to allocate from data_v.
+	(plist_create): Initialize data_v.
+	(plist_destroy): Destroy data_v.
+	(new_entry): Allocate new entries using TABLE_ALLOC().
+	(plist_put): Allocate new lists using TABLE_ALLOC().
+
+1998-04-23  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* vrml2.h (vsgRegisterExtern): Declare.
+
+	* vrml2defs.c (vsgNewContext): Initialize externs obstack.
+	(vsgiExternRef): New type which holds a pointer and a pointer to
+	  a callback function which will be called on vsgDestroyContext().
+	(vsgDestroyContext): Call the detach callback for all external
+	  references registered via vsgRegisterExtern().
+	(vsgRegisterExtern): Push the pair of a pointer and its detach
+	  callback onto the externs obstack.
+	(vsgiDetachPlist): Detach callback for disembodied proprty
+	  lists.  Calls plist_destroy() on them.
+	(vsgdEndPROTODecl): Call vsgRegisterExtern() on detached
+	  property list.
+	(vsgdEndEXTERNPROTODecl): Call vsgRegisterExtern() on detached
+	  property list.
+
+	(vsgEndNode): Correct erroneous first arg to vrml2Error().
+	(vsgStartMFData): Ditto.
+	(vsgEndMFData): Ditto.
+
+	* vrml2int.h (VRML_context_t): Add new obstack `externs' for
+	  tracking and detaching external references from world.
+
+Thu Apr 23 16:34:42 1998  Nathaniel Bletter  <bletter@Silver.AI.SRI.COM>
+
+	* vrml2defs.c (vsgDestroyContext): Actually free context when
+	destroying.
+	(vsgNewContext): Correctly initialize symtab_localp.
+
+Tue Apr 21 17:23:16 1998  Nathaniel Bletter  <bletter@Silver.AI.SRI.COM>
+
+	* vrml2.h: vsgSetTextureCoordinate_point incorrectly named
+ 	vsgSetTextureCoord_point
+
+	* vrml2defs.c (vsgMakeSFVec3f): check if frame actually exists for
+	creating SFVec3f's, not MFVec3f's
+
+1998-04-21  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* vrml2defs.c (vsgEndNode): Check for mismatched begin/end pairs.
+	(vsgStartMFData): Ditto.
+	(vsgEndMFData): Ditto.
+
+1998-04-16  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* c_print.c (vsgcPrint): Revert to calling print_MFNode1().
+
+	* newlex.c (vrml2lex): Properly handle filetype identifier in
+	  first line (call vsgSetFiletype).
+
+Thu Apr 16 15:39:14 1998  Nathaniel Bletter  <bletter@Silver.AI.SRI.COM>
+
+	* vrml2stubs.c (vsgEndWorld): Only destroy lexer when non-NULL.
+
+1998-04-16  Lee Iverson  <leei@Canada.AI.SRI.COM>
+	
+	* vrml2.h (VRML_funcid): Add VRML_SetNodeField.
+	  (vsgdSetNodeField): Add declaration.
+	  (vsgNodeField): Ditto.
+	  (vsgSetNodeField): Ditto.
+
+	* vrml2defs.c (vsgSetupDefaults): Setup default reference to
+	  vsgdSetNodeField from VRML_SetNodeField;
+	  (vsgNodeField): New function to get the field description given
+	  a PROTONode and a field name.
+	  (vsgdSetNodeField): New function to set the value of a component
+	  field given node and field name.
+	  (vsgdSetPROTOField): Use vsgdSetNodeField.
+	  (vsgPROTONodeField): Use vsgNodeField.
+
+	* vrml2stubs.c (vsgSetNodeField): New function to set the
+	  component value of a given PROTONode.
+
+	* vrml2.h (VRML_PROTONode_t): Remove references to the assignments
+	  list.  Instead declare a bindings array which is parallel to the
+	  proto->fields array.  Also remove redundant name (can be
+	  obtained from proto).
+
+	* vrml2defs.c (vsgdStartPROTONode): Implement new method of
+	  assigning bindings to a PROTO reference node.  The bindings
+	  array is parallel to the fields array in the proto definition.
+	  It is fully allocated in this function.
+	  (vsgdEndPROTONode): Continue the above changes.  This function
+	  is now just an identity stub.
+	  (vsgdSetPROTOField): Now implemented by looking up the index of
+	  the named field in the proto definition and making a vsgStore in
+	  the parallel bindings array of the proto node.
+
+	* c_print.c (print_Unknown): Reflect changes made in the
+	  definition of VRML_PROTONode_t objects.  Print out by walking
+	  through the proto fields and examining binding array for
+	  assigned values.
+
+	* *.[ych]: Another name change:
+		vsgInit		-> vsgStartWorld
+		vsgCleanup	-> vsgEndWorld
+
+Tue Apr 14 15:02:58 1998  Nathaniel Bletter  <bletter@Silver.AI.SRI.COM>
+
+	* vrml2defs.c (vsgNewContext): initialized lexer to NULL, so it works 
+	  works when checked later
+
+1998-04-14  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* c_print.c (vsgcPrint): Call print_MFNode() so that proper care
+	  is taken over NULL node list.
+	  (print_MFGeneric): Consolidate treatment of empty nodes.
+	  (print_MFNode): Ditto.
+
+	* newlex.c (vrml2lexPushNormal): Renamed from vrml2lexNormal.
+	  (vrml2lexPushMeta): Renamed from vrml2lexMeta.
+	  (vrml2lexPushProto): Renamed from vrml2lexProto.
+
+	* parse.y (FieldType, nvFieldType): Allow use of any identifier in
+	  field names.  Necessitated reconstruction of both of these
+	  nonterminals together in order to eliminate reduce/reduce
+	  conflicts when actions added.
+
+	* vrml2defs.c (vsgdDeclareField): Move declaration of default
+	  value to an auxiliary routine.
+	  (vsgdDeclareFieldDefault): New function for declaring field
+	  default values.
+
+	* vrml2stubs.c (vsgDeclareField): Move declaration of default
+	  value to an auxiliary routine (vsgDeclareFieldDefault).
+	  (vsgDeclareFieldDefault): New function for declaring field
+	  default values.
+
+	* *.[ych]: Another name change:
+		VRML_LookupPROTOField		-> VRML_LookupField
+		vsgLookupPROTOField		-> vsgLookupField
+		vsgdLookupPROTOField		-> vsgdLookupField
+		
+1998-04-10  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* *.[ych]: Name changes for clarifications:
+		VRML_UnknownNode		-> VRML_PROTONode
+		VRML_EndUnknownNode		-> VRML_EndPROTONode
+		VRML_SetUnknownNode		-> VRML_SetPROTOField
+		VRML_SetPROTOFieldPointer	-> VRML_DeclareFieldIS
+		VRML_SetMetatype		-> VRML_DeclareMetatype
+		VRML_StartUnknownNode		-> VRML_StartPROTONode
+		VRML_UnknownNode_assign_t	-> VRML_PROTONode_assign_t 
+		VRML_UnknownNode_t		-> VRML_PROTONode_t
+	
+		vsgdSetPROTOFieldPointer	-> vsgdDeclareFieldIS
+		vsgdSetMetatype			-> vsgdDeclareMetatype
+		vsgdStartUnknownNode		-> vsgdStartPROTONode
+		vsgdEndUnknownNode		-> vsgdEndPROTONode
+		vsgdSetUnknownNode		-> vsgdSetPROTOField
+	
+		vsgUnknownNodeField		-> vsgPROTONodeField
+		vsgEndUnknownNode		-> vsgEndPROTONode
+		vsgSetUnknownNodeIS		-> vsgSetPROTOFieldIS
+		vsgSetUnknownNode		-> vsgSetPROTOField
+		vsgStartUnknownNode		-> vsgStartPROTONode
+		vsgSetMetatype			-> vsgDeclareMetatype
+		vsgSetPROTOFieldPointer		-> vsgDeclareFieldIS
+
+		vsgcUnknownNode			-> vsgcPROTONode
+		vsgcNewUnknownNode		-> vsgcNewPROTONode
+	
+	* parse.y (vrml2Error): Be aware that ctx->lexer might be NULL.
+
+	* vrml2defs.c (vsgPopFrame): Don't try to print the prev if frame
+	  is NULL.
+
+	* parse.y (vrml2readMFType): Abort parse with error if not
+	  recognized MFType.
+
+	* vrml2.h: Declare vsgSetUnknownNode and vsgSetUnknownNodeIS.
+
+1998-04-06  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* nodes.def: Add all EVENTIN/EVENTOUT/FIELD references from the
+	  standard docs.  EXTERNFIELD expands to a set of these three.
+
+	* c_nodes.[ch]: Base nodes.def processing on
+	  FIELD/EVENTIN/EVENTOUT specifications.
+
+	* vrml2.h: Gather all external interface into this file.  Needs to
+	  be organized.
+	
+	* plist.c (plist_create): Reconstruct plist as a two-layer
+	  hashtable and association list.  This allows for the possibility
+	  of deleting the entire association list for a given object...
+
+1998-03-23  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* c_nodes.c: Fix #undef/#define pairs to avoid cpp warnings.
+
+	* c_nodes.h: Fix #undef's to avoid cpp warnings.
+
+	* c_print.c (print_Data): Move function in file and forward
+	  declare for warning-free initialization.
+
+	* parse.y (vrml2readMFType): Cleanup unreachable code.
+
+1998-03-19  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Initial CVS checkin.
+

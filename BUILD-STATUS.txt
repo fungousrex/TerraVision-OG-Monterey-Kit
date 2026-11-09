@@ -1,0 +1,22 @@
+STATO DEL RECUPERO E DEL KIT — 2026-11-09
+
+COMPLETATO E VERIFICATO:
+- Archivio ZIP CVS originale dell'utente testato con unzip -t.
+- SHA-256 archivio originale: a890f3c461b3745fe47a5e7f068c98a6e4c3b357267af7e24f5d60ef68e2e810.
+- Copia contenuta nel kit confrontata tramite SHA-256: IDENTICA.
+- 3.705 archivi RCS letti; 3.705 revisioni HEAD materializzate; 0 errori di parsing.
+- Snapshot TerraVision 6.0 identificato dal file RELEASE (2002-10-31).
+- Inventariati 30 directory principali, moduli, build system e interfaccia Tcl/Tk.
+- Individuati backend OpenGL/GLX/X11, NSPR e wrapper pthr con call site di thread.
+- Script shell verificati sintatticamente con bash -n.
+- ZIP finale del kit verificato con unzip -t: nessun errore.
+- SHA-256 ZIP kit: 4f631e26a70788112aa81a50bc9094725b4aee7b59f585ad458c9afd3812df2a
+
+NON ANCORA ESEGUITO / NON CERTIFICATO:
+- Build end-to-end del codice storico con GCC moderno.
+- Avvio di TclTV in UTM/Debian.
+- Rendering OpenGL/GLX sul Mac dell'utente.
+- Caricamento di dataset reali .oi/.dem.
+- Raggiungibilità del vecchio server di dataset: non confermata.
+
+Il kit contiene quindi l'archivio CVS originale, uno snapshot HEAD leggibile, inventario, documentazione e script di build/avvio. Non contiene un eseguibile macOS pronto né dichiara una compilazione già riuscita.

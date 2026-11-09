@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+
+<HEAD>
+<TITLE>TerraVision User Guide</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<CENTER>
+<IMG SRC="../../../guide.gif" ALT="TerraVision User Guide">
+</CENTER>
+
+<H2>The 3-D Viewer "Paths" Menu</H2>
+
+<P><CENTER>
+<IMG SRC="../menu-3d.gif">
+</CENTER><P>
+
+The Path menu provides access to all of TerraVision's flight path
+capabilities. This lets you record a certain flight path through the
+terrain and play this back. You can save flight paths for use at a
+later date.
+
+<p><img src="menu.gif" align="right">
+
+<H3>New Path</H3>
+
+This option lets you create a new path. If you already have a path
+file loaded, then it will be removed from memory. You are then
+presented with a user interface for managing the creating of your new
+flight path. This is exactly the same as the interface for "Edit Path",
+below.
+
+<H3>Load Path...</H3>
+
+This option will let you load TerraVision fligh path file.  Flight
+path files contain a list a viewpoints which TerraVision interpolates
+between in order to produce a fly-through animation. These are stored
+as plain ASCII text files in a directory with the same name as the
+terrain dataset, which in turn lives in the directory
+$HOME/.TerraVisionPaths/. For your information, a path file looks
+like:
+
+<BLOCKQUOTE><FONT COLOR="#003300"><PRE>
+#PATH V1.0
+
+$interpolate = linear
+$name        = Irwin Test Flight
+$update_rate = 30
+$speed       = 2000
+$loop        = yes
+$gcc         = yes
+
+x=-4444.57 z=-1746.71 y=7634.46 yaw=0.4732 pitch=2.134 roll=0
+x=1802.74 z=942.15 y=3173.27 yaw=0.4569 pitch=2.177
+x=8908.53 z=-3449.30 y=7902.57 yaw=2.0751 pitch=2.333
+x=11967.45 z=1492.28 y=4728.7 yaw=2.8615 pitch=2.115
+x=12322.39 z=9028.90 y=3047.98 yaw=3.7999 pitch=1.835
+x=8871.02 z=6391.788 y=1787.71 yaw=3.7885 pitch=1.821
+x=5230.81 z=3640.53 y=973.24 yaw=3.7905 pitch=1.745
+</PRE></FONT></BLOCKQUOTE>
+
+<H3>Save Path As...</H3>
+
+This option will let you save the current flight path to disk.
+Once you have saved a flight path to disk, you can recover it by
+using the "Load Path..." menu option.
+
+<H3>Edit Path</H3>
+
+The Edit Path path let's you control all of the parameters that define
+a single flight path. The interface looks like this:
+
+<p><center><img src="editpath.gif"></center><p>
+
+A flight path is essentially composed of a number of viewpoints that
+TerraVision flies between. You can create a flight path interactively
+by just pressing "Add" at each successive viewpoint you want to add to
+the flight path. Once you have added a few viewpoints, then you can
+see what your flight path looks like by selecting the "Path/Play"
+option.
+
+<p>The other buttons next to "Add" include, "Del" which lets you
+remove a viewpoint from the list of viewpoints, "Updt" which updates
+the currently selected entry in the path with the current camera
+position, "Dup" which creates a duplicate of the selected path entry,
+and "Up" and "Dn" which let you bubble viewpoints up and down the list.
+
+<p>Other flight path features that you can control include the
+velocity, whether the flight path will continually loop, whether
+TerraVision will automatically close the loop from the last viewpoint
+to the first one, and also whether you want to do linear or spline (or
+no) interpolation for the flight path.
+
+<H3>Play</H3>
+
+Play the currently loaded flight path from the beginning.
+
+<H3>Stop</H3>
+
+Stop the current flight path animation
+
+<H3>Continue</H3>
+
+Play the currently loaded flight path from the point at which it was
+    last stopped, or from the beginning if you have not previously
+    stopped an animation.
+
+<H3>Goto Start</H3>
+
+Jump to the very first frame of the flight path animation, but do not
+animate.
+
+<H3>Goto Next</H3>
+
+Jump to the next viewpoint in the flight path file (do not
+animate).
+
+<H3>Goto Prev</H3>
+
+Jump to the previous viewpoint in the flight path file (do not
+animate).
+
+<H3>Goto End</H3>
+
+Jump to the very last frame of the flight path animation, but do not
+animate.
+
+<P><BR><HR NOSHADE>
+
+<A HREF="http://www.ai.sri.com/TerraVision">TerraVision Home Page</A>
+
+</BODY>
+</HTML>

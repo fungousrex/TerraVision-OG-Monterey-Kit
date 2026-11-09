@@ -1,0 +1,61 @@
+#
+# Makefile.noauto - Martin Reddy <reddy@ai.sri.com>,  19 March 1999
+#
+# This is a quick and dirty Makefile in order to compile up the tiff
+# libraries of the libtiff distribution under a Windows environment.
+#
+# *** THIS FILE IS NOT PART OF THE STANDARD LIBTIFF DISTRIBUTION ***
+#
+# The configure script does not appear to work under the Nutcraker
+# unix environment on WinNT - normally we just regenerate this from the 
+# configure.in script with autoconf; however, this file is not
+# supplied with the libtiff distribution. Therefore, this Makefile
+# was written in order to compile up the libz.a library.
+#
+# usage:
+#    make -f Makefile.noauto [all]     - generate libz.a
+#    make -f Makefile.noauto clean     - remove all library & obj files
+#    make -f Makefile.noauto install   - currently does nothing
+#    
+# $Id: Makefile.noauto,v 1.1 1999/03/21 23:25:57 reddy Exp $
+#
+
+CC        = cc 
+INCLUDE   = -I.
+CFLAGS    = -DJPEG_SUPPORT -DZIP_SUPPORT -g
+NUTCFLAGS =  -W/w -WNC_WIN95 -WNC_LIB_STRICT
+LIBRARY   = libz.a
+COMPILE    = $(CC) $(INCLUDE) $(CFLAGS) $(NUTCFLAGS)
+
+RM        = rm -f
+AR        = ar rc
+
+OBJS = \
+	example.o \
+	adler32.o \
+	compress.o \
+	crc32.o \
+	gzio.o \
+	uncompr.o \
+	deflate.o \
+	trees.o \
+	zutil.o \
+	inflate.o \
+	infblock.o \
+	inftrees.o \
+	infcodes.o \
+	infutil.o \
+	inffast.o
+
+.c.o:
+	$(COMPILE) -c $<
+
+all: $(LIBRARY)
+
+$(LIBRARY): $(OBJS)
+	$(AR) $(LIBRARY) $(OBJS)
+
+clean:
+	$(RM) $(OBJS) $(LIBRARY) core
+
+install:

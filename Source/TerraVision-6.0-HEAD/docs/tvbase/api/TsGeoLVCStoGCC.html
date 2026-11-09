@@ -1,0 +1,39 @@
+<html><head><TITLE>TsGeoLVCStoGCC</TITLE></head>
+<body bgcolor="#ffffff" text="#000000">
+<H2><A HREF ="#DOC.DOCU" > <IMG BORDER=0 SRC=down.gif></A> void  TsGeoLVCStoGCC (TsGeoPyramid const *geo, float l0, float l1, float l2, double g[3]) </H2><BLOCKQUOTE>
+
+Coordinate conversion:  Transform a point in Local Vertical coordinates 
+to the Geocentric coordinate system
+</BLOCKQUOTE>
+<A NAME="DOC.DOCU">
+<hr noshade size=2>
+ <h2> Documentation </h2>
+<BLOCKQUOTE>
+
+Coordinate conversion:  Transform a point in Local Vertical coordinates 
+to the Geocentric coordinate system.
+
+The Local Vertical coordinate system (LVCS) is a localized, arbitrary 
+coordinate space;  points are represented by the tuple (x,y,z), with 
+the Z axis oriented in the UP direction.  Geocentric coordinates (GCC) 
+are <x, y, z> tuples that represent distances from the planet's center.
+
+
+
+</BLOCKQUOTE>
+<DL>
+</DL>
+<DL><DT><B>Returns:</B><DD>void
+
+<DT><B>Parameters:</B><DD><B>geo</B> -      reference geoset.
+<br><B>l0</B> -       input coordinate in LVCS space.
+<br><B>l1</B> -       "
+<br><B>l2</B> -       "
+<br><B>g</B> - [3]    returned transformed coordinate in GCC space.
+<br></DL><P><I></I><P><hr noshade size=2>
+<!-- sribanner -->
+</FONT><P>
+<IMG SRC="../img/back.gif" ALT="Back to" HEIGHT=21 WIDTH=20>
+<A HREF="../api.html" TARGET="_top">API</A>
+
+</BODY>

@@ -1,0 +1,334 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ActiveX_TV", "ActiveX\TerraVision\TerraVision.vcproj", "{9A11DBCE-1F14-4F63-BF33-816EAA9D001B}"
+	ProjectSection(ProjectDependencies) = postProject
+		0 = {0B55F079-DFF0-4B00-A8F8-FA1A58DCDDC0}
+		1 = {3E60406E-E082-4D40-8A05-B4B8BB1DEEDA}
+		2 = {7CF13B47-9290-4737-9ECC-79AF153E5921}
+		3 = {6F955A9E-469E-4C86-8273-0362EFB9657F}
+		4 = {533D9B64-067B-49DD-952C-98F44150D345}
+		5 = {A8C7AA44-BD4D-453B-8271-AFB6A0AAD6A5}
+		6 = {3827E8C3-02CA-4CC5-B291-1E80ABAB11F1}
+		7 = {9A56C824-C71F-467A-BF44-A98AAAC71567}
+		8 = {94F4649F-EB8D-4211-BF8B-C8069ED95716}
+		9 = {D024AEF8-B0BC-4E94-831B-BA4C16B627CE}
+		10 = {4896DAB8-B76B-4F31-B8BB-022413C45125}
+		11 = {63E3CBB8-DD25-4678-B0BA-EFC41F02D6C8}
+		12 = {9C70257B-3FFB-4C00-9CB8-39181D2EF92C}
+		13 = {385AFB51-CCFF-44EB-9099-F490E4B87A5B}
+		14 = {3872B482-D3B4-4CFC-A4C7-C63466B9B5E5}
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		Unicode Debug.Build.0 = Unicode Debug|Win32
+		Unicode Release.ActiveCfg = Unicode Release|Win32
+		Unicode Release.Build.0 = Unicode Release|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PluginTV", "..\PluginTV\winbuild\PluginTV.vcproj", "{D14045B0-7157-4427-ABC1-27CEF397149A}"
+	ProjectSection(ProjectDependencies) = postProject
+		0 = {0B55F079-DFF0-4B00-A8F8-FA1A58DCDDC0}
+		1 = {3E60406E-E082-4D40-8A05-B4B8BB1DEEDA}
+		2 = {7CF13B47-9290-4737-9ECC-79AF153E5921}
+		3 = {6F955A9E-469E-4C86-8273-0362EFB9657F}
+		4 = {533D9B64-067B-49DD-952C-98F44150D345}
+		5 = {A8C7AA44-BD4D-453B-8271-AFB6A0AAD6A5}
+		6 = {3827E8C3-02CA-4CC5-B291-1E80ABAB11F1}
+		7 = {9A56C824-C71F-467A-BF44-A98AAAC71567}
+		8 = {94F4649F-EB8D-4211-BF8B-C8069ED95716}
+		9 = {D024AEF8-B0BC-4E94-831B-BA4C16B627CE}
+		10 = {4896DAB8-B76B-4F31-B8BB-022413C45125}
+		11 = {63E3CBB8-DD25-4678-B0BA-EFC41F02D6C8}
+		12 = {9C70257B-3FFB-4C00-9CB8-39181D2EF92C}
+		13 = {385AFB51-CCFF-44EB-9099-F490E4B87A5B}
+		14 = {3872B482-D3B4-4CFC-A4C7-C63466B9B5E5}
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Debug|Win32
+		Unicode Debug.Build.0 = Debug|Win32
+		Unicode Release.ActiveCfg = Debug|Win32
+		Unicode Release.Build.0 = Debug|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestActiveX", "ACTIVEX\TEST\C++\TestActiveX.vcproj", "{064388E4-0C82-4BBE-8676-B6BD42031F82}"
+	ProjectSection(ProjectDependencies) = postProject
+		0 = {9A11DBCE-1F14-4F63-BF33-816EAA9D001B}
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Release|Win32
+		Unicode Debug.Build.0 = Release|Win32
+		Unicode Release.ActiveCfg = Release|Win32
+		Unicode Release.Build.0 = Release|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libGeoStatic_Core", "..\libGeo_Core\winbuild\libGeoStatic_Core.vcproj", "{9C70257B-3FFB-4C00-9CB8-39181D2EF92C}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Debug|Win32
+		Unicode Debug.Build.0 = Debug|Win32
+		Unicode Release.ActiveCfg = Debug|Win32
+		Unicode Release.Build.0 = Debug|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libGeoStatic_DiscClient", "..\libGeo_DiscClient\winbuild\libGeoStatic_DiscClient.vcproj", "{63E3CBB8-DD25-4678-B0BA-EFC41F02D6C8}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Release|Win32
+		Unicode Debug.Build.0 = Release|Win32
+		Unicode Release.ActiveCfg = Release|Win32
+		Unicode Release.Build.0 = Release|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libconv", "..\conversions\winbuild\libconv.vcproj", "{3872B482-D3B4-4CFC-A4C7-C63466B9B5E5}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Release|Win32
+		Unicode Debug.Build.0 = Release|Win32
+		Unicode Release.ActiveCfg = Release|Win32
+		Unicode Release.Build.0 = Release|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libdis", "..\DIS\winbuild\libdis.vcproj", "{385AFB51-CCFF-44EB-9099-F490E4B87A5B}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Debug|Win32
+		Unicode Debug.Build.0 = Debug|Win32
+		Unicode Release.ActiveCfg = Debug|Win32
+		Unicode Release.Build.0 = Debug|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libghttp", "..\GHTTP\WINBUILD\libghttp.vcproj", "{4896DAB8-B76B-4F31-B8BB-022413C45125}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Debug|Win32
+		Unicode Debug.Build.0 = Debug|Win32
+		Unicode Release.ActiveCfg = Debug|Win32
+		Unicode Release.Build.0 = Debug|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libglt", "..\glt\winbuild\libglt.vcproj", "{D024AEF8-B0BC-4E94-831B-BA4C16B627CE}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Release|Win32
+		Unicode Debug.Build.0 = Release|Win32
+		Unicode Release.ActiveCfg = Release|Win32
+		Unicode Release.Build.0 = Release|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjpg", "..\jpeg\winbuild\libjpg.vcproj", "{94F4649F-EB8D-4211-BF8B-C8069ED95716}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Release|Win32
+		Unicode Debug.Build.0 = Release|Win32
+		Unicode Release.ActiveCfg = Release|Win32
+		Unicode Release.Build.0 = Release|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libpthr", "..\pthr\winbuild\libpthr.vcproj", "{9A56C824-C71F-467A-BF44-A98AAAC71567}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Debug|Win32
+		Unicode Debug.Build.0 = Debug|Win32
+		Unicode Release.ActiveCfg = Debug|Win32
+		Unicode Release.Build.0 = Debug|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libtiff", "..\tiff\winbuild\libtiff.vcproj", "{3827E8C3-02CA-4CC5-B291-1E80ABAB11F1}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Release|Win32
+		Unicode Debug.Build.0 = Release|Win32
+		Unicode Release.ActiveCfg = Release|Win32
+		Unicode Release.Build.0 = Release|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libtsm", "..\tsm\winbuild\libtsm.vcproj", "{A8C7AA44-BD4D-453B-8271-AFB6A0AAD6A5}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Debug|Win32
+		Unicode Debug.Build.0 = Debug|Win32
+		Unicode Release.ActiveCfg = Debug|Win32
+		Unicode Release.Build.0 = Debug|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libtv2", "..\TerraVision\winbuild\libtv2.vcproj", "{533D9B64-067B-49DD-952C-98F44150D345}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Debug|Win32
+		Unicode Debug.Build.0 = Debug|Win32
+		Unicode Release.ActiveCfg = Debug|Win32
+		Unicode Release.Build.0 = Debug|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libungif", "..\libungif\winbuild\libungif.vcproj", "{6F955A9E-469E-4C86-8273-0362EFB9657F}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Release|Win32
+		Unicode Debug.Build.0 = Release|Win32
+		Unicode Release.ActiveCfg = Release|Win32
+		Unicode Release.Build.0 = Release|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libvrml2", "..\vrml2\winbuild\libvrml2.vcproj", "{7CF13B47-9290-4737-9ECC-79AF153E5921}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Debug|Win32
+		Unicode Debug.Build.0 = Debug|Win32
+		Unicode Release.ActiveCfg = Debug|Win32
+		Unicode Release.Build.0 = Debug|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libxml", "..\libxml\winbuild\libxml.vcproj", "{3E60406E-E082-4D40-8A05-B4B8BB1DEEDA}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Release|Win32
+		Unicode Debug.Build.0 = Release|Win32
+		Unicode Release.ActiveCfg = Release|Win32
+		Unicode Release.Build.0 = Release|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "modTerraVision", "..\TSMUTILS\WINBUILD\modTerraVision.vcproj", "{9E14DBB3-9C16-4FDA-B978-FF6C3A432B0E}"
+	ProjectSection(ProjectDependencies) = postProject
+		0 = {3872B482-D3B4-4CFC-A4C7-C63466B9B5E5}
+		1 = {4896DAB8-B76B-4F31-B8BB-022413C45125}
+		2 = {94F4649F-EB8D-4211-BF8B-C8069ED95716}
+		3 = {9A56C824-C71F-467A-BF44-A98AAAC71567}
+		4 = {3827E8C3-02CA-4CC5-B291-1E80ABAB11F1}
+		5 = {A8C7AA44-BD4D-453B-8271-AFB6A0AAD6A5}
+		6 = {6F955A9E-469E-4C86-8273-0362EFB9657F}
+		7 = {3E60406E-E082-4D40-8A05-B4B8BB1DEEDA}
+		8 = {0B55F079-DFF0-4B00-A8F8-FA1A58DCDDC0}
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Release|Win32
+		Unicode Debug.Build.0 = Release|Win32
+		Unicode Release.ActiveCfg = Release|Win32
+		Unicode Release.Build.0 = Release|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "time_tiles", "..\tsmUtils\winbuild\time_tiles.vcproj", "{F5C503F0-6319-44FD-81B4-8665C32229C4}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Release|Win32
+		Unicode Debug.Build.0 = Release|Win32
+		Unicode Release.ActiveCfg = Release|Win32
+		Unicode Release.Build.0 = Release|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tvutils", "..\TVUTILS\WINBUILD\tvutils.vcproj", "{0B55F079-DFF0-4B00-A8F8-FA1A58DCDDC0}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(SolutionConfiguration) = postProject
+		Unicode Debug.ActiveCfg = Debug|Win32
+		Unicode Debug.Build.0 = Debug|Win32
+		Unicode Release.ActiveCfg = Debug|Win32
+		Unicode Release.Build.0 = Debug|Win32
+		Release.ActiveCfg = Release|Win32
+		Release.Build.0 = Release|Win32
+		Debug.ActiveCfg = Debug|Win32
+		Debug.Build.0 = Debug|Win32
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+		ConfigName.2 = Unicode Release
+		ConfigName.3 = Unicode Debug
+		DoSign = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

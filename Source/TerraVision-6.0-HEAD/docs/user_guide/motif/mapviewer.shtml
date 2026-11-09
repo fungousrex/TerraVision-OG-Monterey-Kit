@@ -1,0 +1,89 @@
+<html><!-- #BeginTemplate "/Templates/User Guide.dwt" -->
+<head>
+<title>Digital Earth: TerraVision: User Guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="http://www.ai.sri.com/digitalearth/styles.css">
+<script language="JavaScript" src="http://www.ai.sri.com/digitalearth/common.js"></script>
+</head>
+
+<!--#include virtual="../bodytag.inc"-->
+<!--#include virtual="../header.inc" -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="10" valign="top" align="left">&nbsp;</td>
+    <td width="121" valign="top" align="left" background="../images/bg_sidebar.gif"> 
+<!--#include virtual="sidebar.inc" -->
+      
+    </td>
+    <td width="10">&nbsp;</td>
+    <td valign="top"> 
+      <p><img src="../images/user_guide_title.gif" width="470" height="70"> </p>
+      <p><a href="http://www.ai.sri.com/digitalearth/" target="_top"><span class="history_link">Digital 
+        Earth</span></a> <span class="history_link">&gt; <a href="http://www.tvgeo.com/">Terravision<sup><font size="-2">TM</font></sup></a> 
+        &gt; <a href="../welcome.shtml">User Guide</a> &gt; 
+        <a href="welcome.shtml">X/Motif</a> &gt; 
+        <a href="chapter_views.shtml">&quot;Views&quot; 
+        Menu</a> &gt; The Map Viewer </span></p>
+      <!-- #BeginEditable "content" -->
+      <h2>The Map Viewer</h2>
+      <p>
+        <center>
+          <img src="../images/mapviewer.gif" width="423" height="360"> 
+        </center>
+      <p> The Map Viewer is used to display an active map of the terrain that 
+        is covered by the currently open dataset. This is an active map in the 
+        sense that your position and field of view in the 2-D and 3-D viewers 
+        are projected onto this map (as a transparent blue overlay) so that you 
+        can easily ascertain where you are in the world. Additionally, you can 
+        click over any area of the map to teleport directly to that region. The 
+        transparent green overlay is used to denote the area of the map for which 
+        terrain data is available. An orange line is used to display the currently 
+        loaded flight path from the 3-D viewer. 
+      <h3>Maps Menu Option</h3>
+      The "Maps" menu lets you select between different maps, unload a map from 
+      memory, and close the Map Viewer. <img src="../images/select.gif" align="right" width="436" height="357"> 
+      <ul>
+        <p>
+        <li> <b>Select Map</b> : select the map that you want to display and where 
+          you want to load it from. Each terrain dataset that you have loaded 
+          can have multiple maps associated with it, and these can be on local 
+          disk or on an http server. The Select Map dialog lets you select which 
+          of these maps you want to look at. Double click on the appropriate map, 
+          or cancel the operation by clicking on the Dismiss button. 
+          <p>
+        <li> <b>Unload Map</b> : unloads the current map from memory and closes 
+          the Map Viewer. The next time that you try to open a Map Viewer you 
+          will be given the Select Map window. 
+          <p>
+        <li> <b>Dismiss</b> : close the Map Viewer 
+      </ul>
+      <h3>Options Menu Option</h3>
+      The "Options" menu is used to toggle the following attributes: 
+      <ul>
+        <li> <b>Show Coverage</b> : toggle display of the (green) coverage rectangle. 
+          <p>
+        <li> <b>Show Frustum</b> : toggle display of the (blue) frustum overlay 
+          <p>
+        <li> <b>Show Path</b> : toggle display of the (orange) flight path from 
+          the 3-D Viewer 
+      </ul>
+      <h3>Help Menu Option</h3>
+      The "Help" menu has two entries: 
+      <ul>
+        <li> <b>Help on Map Viewer</b> : displays this page from the TerraVision<sup><font size="-2">TM</font></sup>  
+          User Guide 
+          <p>
+        <li> <b>Help on TerraVision</b> : displays this first page of the TerraVision<sup><font size="-2">TM</font></sup>  
+          User Guide 
+      </ul>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p align="center" class="description">
+        <!--#include virtual="../footer.inc" --><br>
+        Last updated: <!--#echo var="LAST_MODIFIED" -->.</p>
+      <!-- #EndEditable --></td>
+    <td width="20">&nbsp;</td>
+  </tr>
+</table>
+</body>
+<!-- #EndTemplate --></html>

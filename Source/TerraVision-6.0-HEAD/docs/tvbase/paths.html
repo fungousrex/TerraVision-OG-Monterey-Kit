@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Predefined/Automated Flight Paths</title>
+</head>
+
+<body>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"> 
+<h1>Predefined/Automated Flight Paths</h1>
+
+<p>
+The Paths feature provides the ability to create, save, restore, and playback 
+trajectories through the scene. Example uses would be <i>flight logging</i> or 
+hands-free playback of interesting routes through a geographical area.
+<p>
+A new path is created by <i>opening</i> a new instance; there is only one path 
+defined for a render thread at any one time. Successive viewpoints are added 
+to the path to create its trajectory, each one indexed by its sequence number 
+along the path. The client code may step through the path sequentially, go 
+directly to the begining or end of a path, or go directly to an arbitrary 
+index. The API also supports editing of existing paths.
+
+<p> 
+Path creation and editing functions: 
+<a href="api/PathNew.html">PathNew()</a>, 
+<a href="api/PathAdd.html">PathAdd()</a>, 
+<a href="api/PathDelete.html">PathDelete()</a>, 
+<a href="api/PathUpdate.html">PathUpdate()</a>, 
+<a href="api/PathDuplicate.html">PathDuplicate()</a>, 
+<a href="api/PathUp.html">PathUp()</a>, 
+<a href="api/PathDown.html">PathDown()</a>, 
+<a href="api/PathSetName.html">PathSetName()</a>, 
+<a href="api/PathSaveFile.html">PathSaveFile()</a>, 
+<a href="api/PathLoadFile.html">PathLoadFile()</a>, 
+<a href="api/PathReset.html">PathReset()</a>.
+
+<p>
+Functions to control the playback of a path: 
+<a href="api/PathPlay.html">PathPlay()</a>, 
+<a href="api/PathStop.html">PathStop()</a>, 
+<a href="api/PathPause.html">PathPause()</a>, 
+<a href="api/PathGoto.html">PathGoto()</a>, 
+<a href="api/PathGotoStart.html">PathGotoStart()</a>, 
+<a href="api/PathGotoEnd.html">PathGotoEnd()</a>, 
+<a href="api/PathGotoNext.html">PathGotoNext()</a>, 
+<a href="api/PathGotoPrev.html">PathGotoPrev()</a>, 
+<a href="api/PathSetInterpolate.html">PathSetInterpolate()</a>, 
+<a href="api/PathIsPlaying.html">PathIsPlaying()</a>, 
+<a href="api/PathIsActive.html">PathIsActive()</a>.
+
+<p>
+Miscellaneous functions: 
+<a href="api/tvGetPath.html">tvGetPath()</a>, 
+<a href="api/PathDraw2D.html">PathDraw2D()</a>.
+
+<p><b>
+(Issue:  this is presently part of the external interface, called by from
+ViewPoint.c.  Should it be?  What is its intention? -- </b>
+<a href="api/FlyToLocation.html">FlyToLocation()</a>)
+
+
+
+<hr>
+<p><IMG SRC="img/back.gif" ALT="Back to" HEIGHT=21 WIDTH=20>
+<A HREF="api-desc.html">API</A>
+<p>
+<address><a href="mailto:brownrig@erg.sri.com">Rick Brownrigg</a></address>
+<!-- Created: Mon Jan 10 22:59:31 CET 2000 -->
+<!-- hhmts start -->
+Last modified: Mon Jun 19 15:11:27 CDT 2000
+<!-- hhmts end -->
+</body>
+</html>

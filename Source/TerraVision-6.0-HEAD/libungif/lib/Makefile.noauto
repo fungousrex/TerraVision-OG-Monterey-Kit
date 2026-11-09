@@ -1,0 +1,51 @@
+#
+# Makefile.noauto - Martin Reddy <reddy@ai.sri.com>,  20 March 1999
+#
+# This is a quick and dirty Makefile in order to compile up the ungif
+# library. This is done in order to compile under a Windows environment
+# with the NuTCracker development environment.
+#
+# *** THIS FILE IS NOT PART OF THE STANDARD LIBUNGIF DISTRIBUTION ***
+#
+# usage:
+#    make -f Makefile.noauto [all]     - generate libjpeg.a
+#    make -f Makefile.noauto clean     - remove all library & obj files
+#    make -f Makefile.noauto install   - currently does nothing
+#    
+# N.B. this file only creates a static library (libungif.a)
+#
+# $Id: Makefile.noauto,v 1.1 1999/03/21 23:27:31 reddy Exp $
+#
+
+CC      = cc
+CFLAGS  = -g -DUSE_VARARGS -W/w
+INCS    = -I.
+LIBRARY = libungif.a
+
+OBJS    = dev2gif.o egif_lib.o dgif_lib.o gifalloc.o gif_font.o \
+	  gif_err.o quantize.o qprintf.o getarg.o
+
+.c.o:
+	$(CC) $(INCS) $(CFLAGS) -c $<
+
+all: $(LIBRARY)
+
+$(LIBRARY): $(OBJS)
+	rm -f $(LIBRARY)
+	ar rc $(LIBRARY) $(OBJS)
+
+clean:
+	rm -f $(OBJS) $(LIBRARY)
+
+install:
+
+dev2gif.o: gif_lib.h
+egif_lib.o: gif_lib.h gif_lib_private.h
+dgif_lib.o: gif_lib.h gif_lib_private.h
+gif_err.o: gif_lib.h
+gifalloc.o: gif_lib.h
+gif_font.o: gif_lib.h
+quantize.o: gif_lib.h
+qprintf.o: gif_lib.h
+getarg.o: getarg.h
+

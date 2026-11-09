@@ -1,0 +1,798 @@
+# Makefile.in generated automatically by automake 1.4-p6 from Makefile.am
+
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+
+SHELL = @SHELL@
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+DESTDIR =
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = .
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+transform = @program_transform_name@
+
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+build_alias = @build_alias@
+build_triplet = @build@
+host_alias = @host_alias@
+host_triplet = @host@
+target_alias = @target_alias@
+target_triplet = @target@
+AR = @AR@
+CC = @CC@
+MAINT = @MAINT@
+MAKEINFO = @MAKEINFO@
+NSPR_LIBS = @NSPR_LIBS@
+PACKAGE = @PACKAGE@
+RANLIB = @RANLIB@
+RPCGEN = @RPCGEN@
+TSMLIB = @TSMLIB@
+TSMNAME = @TSMNAME@
+VERSION = @VERSION@
+
+lib_LIBRARIES = @TSMLIB@ 
+
+libtsmApi_a_SOURCES =  	tsmDatabase.c tsmDatabase_local.c tsmDatabase_web.c 	tsmDatabase_dpss.c tsmConnectionParams.c 	tsmConnection.c tsmConnection_dpss.c tsmConnection_web.c         tsmConnection_local.c tsmRequest.c tsmRequestSrv.c 	tsmTile.c tsmTile_dpss.c tsmTile_local.c         tsmTile_web.c tsmHost_web.c tsmDatabase_wms.c 	tsmWMS.c tsmConnection_wms.c tsmTspec_wms.c tsmTile_wms.c 	tsmTspec.c tsmTspec_dpss.c tsmTspec_local.c         tsmTspec_web.c tsmImage.c tsmEmulate.c tsmEmulate_dpss.c 	tsmEmulate_web.c tsmEmulate_local.c tsmArg.c tsmLocalDbase.c         tsmLocalDbase_local.c tsmLocalDbase_dpss.c tsmLocalDbase_web.c 	tsmPyramidInfo_web.c tsmPyramidInfo_local.c tsmPyramidInfo_dpss.c 	tsmPyramidInfo.c tsmUrlToFile.c tsmCreate.c tsmCreate_RAW.c 	tsmAllocTspecs.c tsmTspecUtils.c tsmChecksum.c 	tsmArray.c tsmPurl.c tsmUtils.c tsmImageUtils.c tsmJPEG.c tsmUTM.c 	tsmHost.c tsmTrace.c tsmMem.c 	tsmVRMLUtils.c tsmVRML.c orient.c 	TsTileSpecUtils.c TsTileSpecIn.c TsTileSpecOut.c 	TsTileSpecUrls.c TsTileSpecGen.c TsTileSpecParse.c 	logging.c         tsmGeoVRML.c tsmTileCoord.c tsmGeoCoordBuffer.c tsmStringBuffer.c 	tsmReadRowsPBM.c tsmReadRowsGIF.c tsmReadRowsJPEG.c tsmReadRowsRAW.c 	tsmReadRowsDEM.c tsmReadRowsDTED.c tsmReadRowsDOQ.c 	tsmReadRowsTIFF.c tsmWriteRows.c
+
+
+@DPSS_TRUE@DPSS_C = TsTileSpecDecs_xdr.c tsmPurlDefns_xdr.c tsmPackTspecs.c
+
+libtsmApi_DPSS_a_SOURCES = $(libtsmApi_a_SOURCES) $(DPSS_C)
+libtsmApi_ISS_a_SOURCES = $(libtsmApi_a_SOURCES) $(DPSS_C)
+
+pkginclude_HEADERS =  	tsm.h TsTileSpecDecs.h TsTileSpecExtProts.h tsmArg.h 	tsmArray.h tsmGenArray.h tsmPyramidInfo.h tsmExtProts.h 	tsmPackTspecs.h tsmPurl.h tsmPurlDefns.h tsmImage.h 	tsmTspecUtils.h tsmDatabase.h tsmConnection.h tsmTile.h         tsmConnectionParams.h tsmEmulate.h tsmLocalDbase.h tsmCreate.h 	tsmVRMLUtils.h logging.h tsmWMS.h tsmConnect_wms.h         tsmGeoVRML.h tsmTileCoord.h tsmGeoCoordBuffer.h tsmStringBuffer.h 	tsmReadRowsPBM.h tsmReadRowsGIF.h tsmReadRowsJPEG.h tsmReadRowsRAW.h 	tsmReadRowsDEM.h tsmReadRowsDTED.h tsmReadRowsDOQ.h 	tsmReadRowsTIFF.h tsmWriteRows.h
+
+
+EXTRA_HEADERS =  	tsmInternal.h tsmIntProts.h tsmTileInt.h 	tsmEmulateInt.h TsTileSpecIntProts.h tsmConnectionParamsInt.h 	tsmRequest.h tsmRequestSrv.h orient.h 	tsmConnectionInt.h tsmConnect_web.h tsmConnect_local.h
+
+
+EXTRA_LIBRARIES = libtsmApi.a libtsmApi-DPSS.a libtsmApi-ISS.a
+ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+mkinstalldirs = $(SHELL) $(top_srcdir)/../mkinstalldirs
+CONFIG_HEADER = config.h tsmTrace.h
+CONFIG_CLEAN_FILES = 
+LIBRARIES =  $(lib_LIBRARIES)
+
+
+DEFS = @DEFS@ -I. -I$(srcdir) -I. -I.
+CPPFLAGS = @CPPFLAGS@
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+libtsmApi_a_LIBADD = 
+libtsmApi_a_OBJECTS =  tsmDatabase.o tsmDatabase_local.o \
+tsmDatabase_web.o tsmDatabase_dpss.o tsmConnectionParams.o \
+tsmConnection.o tsmConnection_dpss.o tsmConnection_web.o \
+tsmConnection_local.o tsmRequest.o tsmRequestSrv.o tsmTile.o \
+tsmTile_dpss.o tsmTile_local.o tsmTile_web.o tsmHost_web.o \
+tsmDatabase_wms.o tsmWMS.o tsmConnection_wms.o tsmTspec_wms.o \
+tsmTile_wms.o tsmTspec.o tsmTspec_dpss.o tsmTspec_local.o \
+tsmTspec_web.o tsmImage.o tsmEmulate.o tsmEmulate_dpss.o \
+tsmEmulate_web.o tsmEmulate_local.o tsmArg.o tsmLocalDbase.o \
+tsmLocalDbase_local.o tsmLocalDbase_dpss.o tsmLocalDbase_web.o \
+tsmPyramidInfo_web.o tsmPyramidInfo_local.o tsmPyramidInfo_dpss.o \
+tsmPyramidInfo.o tsmUrlToFile.o tsmCreate.o tsmCreate_RAW.o \
+tsmAllocTspecs.o tsmTspecUtils.o tsmChecksum.o tsmArray.o tsmPurl.o \
+tsmUtils.o tsmImageUtils.o tsmJPEG.o tsmUTM.o tsmHost.o tsmTrace.o \
+tsmMem.o tsmVRMLUtils.o tsmVRML.o orient.o TsTileSpecUtils.o \
+TsTileSpecIn.o TsTileSpecOut.o TsTileSpecUrls.o TsTileSpecGen.o \
+TsTileSpecParse.o logging.o tsmGeoVRML.o tsmTileCoord.o \
+tsmGeoCoordBuffer.o tsmStringBuffer.o tsmReadRowsPBM.o tsmReadRowsGIF.o \
+tsmReadRowsJPEG.o tsmReadRowsRAW.o tsmReadRowsDEM.o tsmReadRowsDTED.o \
+tsmReadRowsDOQ.o tsmReadRowsTIFF.o tsmWriteRows.o
+libtsmApi_DPSS_a_LIBADD = 
+@DPSS_FALSE@libtsmApi_DPSS_a_OBJECTS =  tsmDatabase.o \
+@DPSS_FALSE@tsmDatabase_local.o tsmDatabase_web.o tsmDatabase_dpss.o \
+@DPSS_FALSE@tsmConnectionParams.o tsmConnection.o tsmConnection_dpss.o \
+@DPSS_FALSE@tsmConnection_web.o tsmConnection_local.o tsmRequest.o \
+@DPSS_FALSE@tsmRequestSrv.o tsmTile.o tsmTile_dpss.o tsmTile_local.o \
+@DPSS_FALSE@tsmTile_web.o tsmHost_web.o tsmDatabase_wms.o tsmWMS.o \
+@DPSS_FALSE@tsmConnection_wms.o tsmTspec_wms.o tsmTile_wms.o tsmTspec.o \
+@DPSS_FALSE@tsmTspec_dpss.o tsmTspec_local.o tsmTspec_web.o tsmImage.o \
+@DPSS_FALSE@tsmEmulate.o tsmEmulate_dpss.o tsmEmulate_web.o \
+@DPSS_FALSE@tsmEmulate_local.o tsmArg.o tsmLocalDbase.o \
+@DPSS_FALSE@tsmLocalDbase_local.o tsmLocalDbase_dpss.o \
+@DPSS_FALSE@tsmLocalDbase_web.o tsmPyramidInfo_web.o \
+@DPSS_FALSE@tsmPyramidInfo_local.o tsmPyramidInfo_dpss.o \
+@DPSS_FALSE@tsmPyramidInfo.o tsmUrlToFile.o tsmCreate.o tsmCreate_RAW.o \
+@DPSS_FALSE@tsmAllocTspecs.o tsmTspecUtils.o tsmChecksum.o tsmArray.o \
+@DPSS_FALSE@tsmPurl.o tsmUtils.o tsmImageUtils.o tsmJPEG.o tsmUTM.o \
+@DPSS_FALSE@tsmHost.o tsmTrace.o tsmMem.o tsmVRMLUtils.o tsmVRML.o \
+@DPSS_FALSE@orient.o TsTileSpecUtils.o TsTileSpecIn.o TsTileSpecOut.o \
+@DPSS_FALSE@TsTileSpecUrls.o TsTileSpecGen.o TsTileSpecParse.o \
+@DPSS_FALSE@logging.o tsmGeoVRML.o tsmTileCoord.o tsmGeoCoordBuffer.o \
+@DPSS_FALSE@tsmStringBuffer.o tsmReadRowsPBM.o tsmReadRowsGIF.o \
+@DPSS_FALSE@tsmReadRowsJPEG.o tsmReadRowsRAW.o tsmReadRowsDEM.o \
+@DPSS_FALSE@tsmReadRowsDTED.o tsmReadRowsDOQ.o tsmReadRowsTIFF.o \
+@DPSS_FALSE@tsmWriteRows.o
+@DPSS_TRUE@libtsmApi_DPSS_a_OBJECTS =  tsmDatabase.o tsmDatabase_local.o \
+@DPSS_TRUE@tsmDatabase_web.o tsmDatabase_dpss.o tsmConnectionParams.o \
+@DPSS_TRUE@tsmConnection.o tsmConnection_dpss.o tsmConnection_web.o \
+@DPSS_TRUE@tsmConnection_local.o tsmRequest.o tsmRequestSrv.o tsmTile.o \
+@DPSS_TRUE@tsmTile_dpss.o tsmTile_local.o tsmTile_web.o tsmHost_web.o \
+@DPSS_TRUE@tsmDatabase_wms.o tsmWMS.o tsmConnection_wms.o \
+@DPSS_TRUE@tsmTspec_wms.o tsmTile_wms.o tsmTspec.o tsmTspec_dpss.o \
+@DPSS_TRUE@tsmTspec_local.o tsmTspec_web.o tsmImage.o tsmEmulate.o \
+@DPSS_TRUE@tsmEmulate_dpss.o tsmEmulate_web.o tsmEmulate_local.o \
+@DPSS_TRUE@tsmArg.o tsmLocalDbase.o tsmLocalDbase_local.o \
+@DPSS_TRUE@tsmLocalDbase_dpss.o tsmLocalDbase_web.o \
+@DPSS_TRUE@tsmPyramidInfo_web.o tsmPyramidInfo_local.o \
+@DPSS_TRUE@tsmPyramidInfo_dpss.o tsmPyramidInfo.o tsmUrlToFile.o \
+@DPSS_TRUE@tsmCreate.o tsmCreate_RAW.o tsmAllocTspecs.o tsmTspecUtils.o \
+@DPSS_TRUE@tsmChecksum.o tsmArray.o tsmPurl.o tsmUtils.o \
+@DPSS_TRUE@tsmImageUtils.o tsmJPEG.o tsmUTM.o tsmHost.o tsmTrace.o \
+@DPSS_TRUE@tsmMem.o tsmVRMLUtils.o tsmVRML.o orient.o TsTileSpecUtils.o \
+@DPSS_TRUE@TsTileSpecIn.o TsTileSpecOut.o TsTileSpecUrls.o \
+@DPSS_TRUE@TsTileSpecGen.o TsTileSpecParse.o logging.o tsmGeoVRML.o \
+@DPSS_TRUE@tsmTileCoord.o tsmGeoCoordBuffer.o tsmStringBuffer.o \
+@DPSS_TRUE@tsmReadRowsPBM.o tsmReadRowsGIF.o tsmReadRowsJPEG.o \
+@DPSS_TRUE@tsmReadRowsRAW.o tsmReadRowsDEM.o tsmReadRowsDTED.o \
+@DPSS_TRUE@tsmReadRowsDOQ.o tsmReadRowsTIFF.o tsmWriteRows.o \
+@DPSS_TRUE@TsTileSpecDecs_xdr.o tsmPurlDefns_xdr.o tsmPackTspecs.o
+libtsmApi_ISS_a_LIBADD = 
+@DPSS_FALSE@libtsmApi_ISS_a_OBJECTS =  tsmDatabase.o tsmDatabase_local.o \
+@DPSS_FALSE@tsmDatabase_web.o tsmDatabase_dpss.o tsmConnectionParams.o \
+@DPSS_FALSE@tsmConnection.o tsmConnection_dpss.o tsmConnection_web.o \
+@DPSS_FALSE@tsmConnection_local.o tsmRequest.o tsmRequestSrv.o \
+@DPSS_FALSE@tsmTile.o tsmTile_dpss.o tsmTile_local.o tsmTile_web.o \
+@DPSS_FALSE@tsmHost_web.o tsmDatabase_wms.o tsmWMS.o \
+@DPSS_FALSE@tsmConnection_wms.o tsmTspec_wms.o tsmTile_wms.o tsmTspec.o \
+@DPSS_FALSE@tsmTspec_dpss.o tsmTspec_local.o tsmTspec_web.o tsmImage.o \
+@DPSS_FALSE@tsmEmulate.o tsmEmulate_dpss.o tsmEmulate_web.o \
+@DPSS_FALSE@tsmEmulate_local.o tsmArg.o tsmLocalDbase.o \
+@DPSS_FALSE@tsmLocalDbase_local.o tsmLocalDbase_dpss.o \
+@DPSS_FALSE@tsmLocalDbase_web.o tsmPyramidInfo_web.o \
+@DPSS_FALSE@tsmPyramidInfo_local.o tsmPyramidInfo_dpss.o \
+@DPSS_FALSE@tsmPyramidInfo.o tsmUrlToFile.o tsmCreate.o tsmCreate_RAW.o \
+@DPSS_FALSE@tsmAllocTspecs.o tsmTspecUtils.o tsmChecksum.o tsmArray.o \
+@DPSS_FALSE@tsmPurl.o tsmUtils.o tsmImageUtils.o tsmJPEG.o tsmUTM.o \
+@DPSS_FALSE@tsmHost.o tsmTrace.o tsmMem.o tsmVRMLUtils.o tsmVRML.o \
+@DPSS_FALSE@orient.o TsTileSpecUtils.o TsTileSpecIn.o TsTileSpecOut.o \
+@DPSS_FALSE@TsTileSpecUrls.o TsTileSpecGen.o TsTileSpecParse.o \
+@DPSS_FALSE@logging.o tsmGeoVRML.o tsmTileCoord.o tsmGeoCoordBuffer.o \
+@DPSS_FALSE@tsmStringBuffer.o tsmReadRowsPBM.o tsmReadRowsGIF.o \
+@DPSS_FALSE@tsmReadRowsJPEG.o tsmReadRowsRAW.o tsmReadRowsDEM.o \
+@DPSS_FALSE@tsmReadRowsDTED.o tsmReadRowsDOQ.o tsmReadRowsTIFF.o \
+@DPSS_FALSE@tsmWriteRows.o
+@DPSS_TRUE@libtsmApi_ISS_a_OBJECTS =  tsmDatabase.o tsmDatabase_local.o \
+@DPSS_TRUE@tsmDatabase_web.o tsmDatabase_dpss.o tsmConnectionParams.o \
+@DPSS_TRUE@tsmConnection.o tsmConnection_dpss.o tsmConnection_web.o \
+@DPSS_TRUE@tsmConnection_local.o tsmRequest.o tsmRequestSrv.o tsmTile.o \
+@DPSS_TRUE@tsmTile_dpss.o tsmTile_local.o tsmTile_web.o tsmHost_web.o \
+@DPSS_TRUE@tsmDatabase_wms.o tsmWMS.o tsmConnection_wms.o \
+@DPSS_TRUE@tsmTspec_wms.o tsmTile_wms.o tsmTspec.o tsmTspec_dpss.o \
+@DPSS_TRUE@tsmTspec_local.o tsmTspec_web.o tsmImage.o tsmEmulate.o \
+@DPSS_TRUE@tsmEmulate_dpss.o tsmEmulate_web.o tsmEmulate_local.o \
+@DPSS_TRUE@tsmArg.o tsmLocalDbase.o tsmLocalDbase_local.o \
+@DPSS_TRUE@tsmLocalDbase_dpss.o tsmLocalDbase_web.o \
+@DPSS_TRUE@tsmPyramidInfo_web.o tsmPyramidInfo_local.o \
+@DPSS_TRUE@tsmPyramidInfo_dpss.o tsmPyramidInfo.o tsmUrlToFile.o \
+@DPSS_TRUE@tsmCreate.o tsmCreate_RAW.o tsmAllocTspecs.o tsmTspecUtils.o \
+@DPSS_TRUE@tsmChecksum.o tsmArray.o tsmPurl.o tsmUtils.o \
+@DPSS_TRUE@tsmImageUtils.o tsmJPEG.o tsmUTM.o tsmHost.o tsmTrace.o \
+@DPSS_TRUE@tsmMem.o tsmVRMLUtils.o tsmVRML.o orient.o TsTileSpecUtils.o \
+@DPSS_TRUE@TsTileSpecIn.o TsTileSpecOut.o TsTileSpecUrls.o \
+@DPSS_TRUE@TsTileSpecGen.o TsTileSpecParse.o logging.o tsmGeoVRML.o \
+@DPSS_TRUE@tsmTileCoord.o tsmGeoCoordBuffer.o tsmStringBuffer.o \
+@DPSS_TRUE@tsmReadRowsPBM.o tsmReadRowsGIF.o tsmReadRowsJPEG.o \
+@DPSS_TRUE@tsmReadRowsRAW.o tsmReadRowsDEM.o tsmReadRowsDTED.o \
+@DPSS_TRUE@tsmReadRowsDOQ.o tsmReadRowsTIFF.o tsmWriteRows.o \
+@DPSS_TRUE@TsTileSpecDecs_xdr.o tsmPurlDefns_xdr.o tsmPackTspecs.o
+CFLAGS = @CFLAGS@
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
+HEADERS =  $(pkginclude_HEADERS)
+
+DIST_COMMON =  ./stamp-h1.in ./stamp-h2.in AUTHORS ChangeLog INSTALL \
+Makefile.am Makefile.in NEWS TODO acconfig.h acinclude.m4 aclocal.m4 \
+config.h.in configure configure.in tsmTrace.h.in
+
+
+DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+
+TAR = tar
+GZIP_ENV = --best
+DEP_FILES =  .deps/TsTileSpecDecs_xdr.P .deps/TsTileSpecGen.P \
+.deps/TsTileSpecIn.P .deps/TsTileSpecOut.P .deps/TsTileSpecParse.P \
+.deps/TsTileSpecUrls.P .deps/TsTileSpecUtils.P .deps/logging.P \
+.deps/orient.P .deps/tsmAllocTspecs.P .deps/tsmArg.P .deps/tsmArray.P \
+.deps/tsmChecksum.P .deps/tsmConnection.P .deps/tsmConnectionParams.P \
+.deps/tsmConnection_dpss.P .deps/tsmConnection_local.P \
+.deps/tsmConnection_web.P .deps/tsmConnection_wms.P .deps/tsmCreate.P \
+.deps/tsmCreate_RAW.P .deps/tsmDatabase.P .deps/tsmDatabase_dpss.P \
+.deps/tsmDatabase_local.P .deps/tsmDatabase_web.P \
+.deps/tsmDatabase_wms.P .deps/tsmEmulate.P .deps/tsmEmulate_dpss.P \
+.deps/tsmEmulate_local.P .deps/tsmEmulate_web.P \
+.deps/tsmGeoCoordBuffer.P .deps/tsmGeoVRML.P .deps/tsmHost.P \
+.deps/tsmHost_web.P .deps/tsmImage.P .deps/tsmImageUtils.P \
+.deps/tsmJPEG.P .deps/tsmLocalDbase.P .deps/tsmLocalDbase_dpss.P \
+.deps/tsmLocalDbase_local.P .deps/tsmLocalDbase_web.P .deps/tsmMem.P \
+.deps/tsmPackTspecs.P .deps/tsmPurl.P .deps/tsmPurlDefns_xdr.P \
+.deps/tsmPyramidInfo.P .deps/tsmPyramidInfo_dpss.P \
+.deps/tsmPyramidInfo_local.P .deps/tsmPyramidInfo_web.P \
+.deps/tsmReadRowsDEM.P .deps/tsmReadRowsDOQ.P .deps/tsmReadRowsDTED.P \
+.deps/tsmReadRowsGIF.P .deps/tsmReadRowsJPEG.P .deps/tsmReadRowsPBM.P \
+.deps/tsmReadRowsRAW.P .deps/tsmReadRowsTIFF.P .deps/tsmRequest.P \
+.deps/tsmRequestSrv.P .deps/tsmStringBuffer.P .deps/tsmTile.P \
+.deps/tsmTileCoord.P .deps/tsmTile_dpss.P .deps/tsmTile_local.P \
+.deps/tsmTile_web.P .deps/tsmTile_wms.P .deps/tsmTrace.P \
+.deps/tsmTspec.P .deps/tsmTspecUtils.P .deps/tsmTspec_dpss.P \
+.deps/tsmTspec_local.P .deps/tsmTspec_web.P .deps/tsmTspec_wms.P \
+.deps/tsmUTM.P .deps/tsmUrlToFile.P .deps/tsmUtils.P .deps/tsmVRML.P \
+.deps/tsmVRMLUtils.P .deps/tsmWMS.P .deps/tsmWriteRows.P
+SOURCES = $(libtsmApi_a_SOURCES) $(libtsmApi_DPSS_a_SOURCES) $(libtsmApi_ISS_a_SOURCES)
+OBJECTS = $(libtsmApi_a_OBJECTS) $(libtsmApi_DPSS_a_OBJECTS) $(libtsmApi_ISS_a_OBJECTS)
+
+all: all-redirect
+.SUFFIXES:
+.SUFFIXES: .S .c .o .s
+$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOMAKE) --foreign Makefile
+
+Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+$(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ configure.in  acinclude.m4
+	cd $(srcdir) && $(ACLOCAL)
+
+config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
+	$(SHELL) ./config.status --recheck
+$(srcdir)/configure: @MAINTAINER_MODE_TRUE@$(srcdir)/configure.in $(ACLOCAL_M4) $(CONFIGURE_DEPENDENCIES)
+	cd $(srcdir) && $(AUTOCONF)
+
+config.h: stamp-h1
+	@if test ! -f $@; then \
+		rm -f stamp-h1; \
+		$(MAKE) stamp-h1; \
+	else :; fi
+stamp-h1: $(srcdir)/config.h.in $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES= CONFIG_HEADERS=config.h \
+	     $(SHELL) ./config.status
+	@echo timestamp > stamp-h1 2> /dev/null
+$(srcdir)/config.h.in: @MAINTAINER_MODE_TRUE@$(srcdir)/stamp-h1.in
+	@if test ! -f $@; then \
+		rm -f $(srcdir)/stamp-h1.in; \
+		$(MAKE) $(srcdir)/stamp-h1.in; \
+	else :; fi
+$(srcdir)/stamp-h1.in: $(top_srcdir)/configure.in $(ACLOCAL_M4) acconfig.h
+	cd $(top_srcdir) && $(AUTOHEADER)
+	@echo timestamp > $(srcdir)/stamp-h1.in 2> /dev/null
+
+tsmTrace.h: stamp-h2
+	@if test ! -f $@; then \
+		rm -f stamp-h2; \
+		$(MAKE) stamp-h2; \
+	else :; fi
+stamp-h2: $(srcdir)/tsmTrace.h.in $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES= CONFIG_HEADERS=tsmTrace.h \
+	     $(SHELL) ./config.status
+	@echo timestamp > stamp-h2 2> /dev/null
+$(srcdir)/tsmTrace.h.in: @MAINTAINER_MODE_TRUE@$(srcdir)/stamp-h2.in
+	@if test ! -f $@; then \
+		rm -f $(srcdir)/stamp-h2.in; \
+		$(MAKE) $(srcdir)/stamp-h2.in; \
+	else :; fi
+$(srcdir)/stamp-h2.in: $(top_srcdir)/configure.in $(ACLOCAL_M4) acconfig.h
+	cd $(top_srcdir) && $(AUTOHEADER)
+	@echo timestamp > $(srcdir)/stamp-h2.in 2> /dev/null
+
+mostlyclean-hdr:
+
+clean-hdr:
+
+distclean-hdr:
+	-rm -f config.h tsmTrace.h
+
+maintainer-clean-hdr:
+
+mostlyclean-libLIBRARIES:
+
+clean-libLIBRARIES:
+	-test -z "$(lib_LIBRARIES)" || rm -f $(lib_LIBRARIES)
+
+distclean-libLIBRARIES:
+
+maintainer-clean-libLIBRARIES:
+
+install-libLIBRARIES: $(lib_LIBRARIES)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(libdir)
+	@list='$(lib_LIBRARIES)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    echo " $(INSTALL_DATA) $$p $(DESTDIR)$(libdir)/$$p"; \
+	    $(INSTALL_DATA) $$p $(DESTDIR)$(libdir)/$$p; \
+	  else :; fi; \
+	done
+	@$(POST_INSTALL)
+	@list='$(lib_LIBRARIES)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    echo " $(RANLIB) $(DESTDIR)$(libdir)/$$p"; \
+	    $(RANLIB) $(DESTDIR)$(libdir)/$$p; \
+	  else :; fi; \
+	done
+
+uninstall-libLIBRARIES:
+	@$(NORMAL_UNINSTALL)
+	list='$(lib_LIBRARIES)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(libdir)/$$p; \
+	done
+
+.s.o:
+	$(COMPILE) -c $<
+
+.S.o:
+	$(COMPILE) -c $<
+
+mostlyclean-compile:
+	-rm -f *.o core *.core
+
+clean-compile:
+
+distclean-compile:
+	-rm -f *.tab.c
+
+maintainer-clean-compile:
+
+libtsmApi.a: $(libtsmApi_a_OBJECTS) $(libtsmApi_a_DEPENDENCIES)
+	-rm -f libtsmApi.a
+	$(AR) cru libtsmApi.a $(libtsmApi_a_OBJECTS) $(libtsmApi_a_LIBADD)
+	$(RANLIB) libtsmApi.a
+
+libtsmApi-DPSS.a: $(libtsmApi_DPSS_a_OBJECTS) $(libtsmApi_DPSS_a_DEPENDENCIES)
+	-rm -f libtsmApi-DPSS.a
+	$(AR) cru libtsmApi-DPSS.a $(libtsmApi_DPSS_a_OBJECTS) $(libtsmApi_DPSS_a_LIBADD)
+	$(RANLIB) libtsmApi-DPSS.a
+
+libtsmApi-ISS.a: $(libtsmApi_ISS_a_OBJECTS) $(libtsmApi_ISS_a_DEPENDENCIES)
+	-rm -f libtsmApi-ISS.a
+	$(AR) cru libtsmApi-ISS.a $(libtsmApi_ISS_a_OBJECTS) $(libtsmApi_ISS_a_LIBADD)
+	$(RANLIB) libtsmApi-ISS.a
+
+install-pkgincludeHEADERS: $(pkginclude_HEADERS)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(pkgincludedir)
+	@list='$(pkginclude_HEADERS)'; for p in $$list; do \
+	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(pkgincludedir)/$$p"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(pkgincludedir)/$$p; \
+	done
+
+uninstall-pkgincludeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	list='$(pkginclude_HEADERS)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(pkgincludedir)/$$p; \
+	done
+
+tags: TAGS
+
+ID: $(HEADERS) $(SOURCES) $(LISP)
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	here=`pwd` && cd $(srcdir) \
+	  && mkid -f$$here/ID $$unique $(LISP)
+
+TAGS:  $(HEADERS) $(SOURCES) config.h.in tsmTrace.h.in $(TAGS_DEPENDENCIES) $(LISP)
+	tags=; \
+	here=`pwd`; \
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(ETAGS_ARGS)config.h.in tsmTrace.h.in$$unique$(LISP)$$tags" \
+	  || (cd $(srcdir) && etags -o $$here/TAGS $(ETAGS_ARGS) $$tags config.h.in tsmTrace.h.in $$unique $(LISP))
+
+mostlyclean-tags:
+
+clean-tags:
+
+distclean-tags:
+	-rm -f TAGS ID
+
+maintainer-clean-tags:
+
+distdir = $(PACKAGE)-$(VERSION)
+top_distdir = $(distdir)
+
+# This target untars the dist file and tries a VPATH configuration.  Then
+# it guarantees that the distribution is self-contained by making another
+# tarfile.
+distcheck: dist
+	-rm -rf $(distdir)
+	GZIP=$(GZIP_ENV) $(TAR) zxf $(distdir).tar.gz
+	mkdir $(distdir)/=build
+	mkdir $(distdir)/=inst
+	dc_install_base=`cd $(distdir)/=inst && pwd`; \
+	cd $(distdir)/=build \
+	  && ../configure --srcdir=.. --prefix=$$dc_install_base \
+	  && $(MAKE) $(AM_MAKEFLAGS) \
+	  && $(MAKE) $(AM_MAKEFLAGS) dvi \
+	  && $(MAKE) $(AM_MAKEFLAGS) check \
+	  && $(MAKE) $(AM_MAKEFLAGS) install \
+	  && $(MAKE) $(AM_MAKEFLAGS) installcheck \
+	  && $(MAKE) $(AM_MAKEFLAGS) dist
+	-rm -rf $(distdir)
+	@banner="$(distdir).tar.gz is ready for distribution"; \
+	dashes=`echo "$$banner" | sed s/./=/g`; \
+	echo "$$dashes"; \
+	echo "$$banner"; \
+	echo "$$dashes"
+dist: distdir
+	-chmod -R a+r $(distdir)
+	GZIP=$(GZIP_ENV) $(TAR) chozf $(distdir).tar.gz $(distdir)
+	-rm -rf $(distdir)
+dist-all: distdir
+	-chmod -R a+r $(distdir)
+	GZIP=$(GZIP_ENV) $(TAR) chozf $(distdir).tar.gz $(distdir)
+	-rm -rf $(distdir)
+distdir: $(DISTFILES)
+	-rm -rf $(distdir)
+	mkdir $(distdir)
+	-chmod 777 $(distdir)
+	here=`cd $(top_builddir) && pwd`; \
+	top_distdir=`cd $(distdir) && pwd`; \
+	distdir=`cd $(distdir) && pwd`; \
+	cd $(top_srcdir) \
+	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --foreign Makefile
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  if test -d $$d/$$file; then \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
+	  else \
+	    test -f $(distdir)/$$file \
+	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+	  fi; \
+	done
+
+DEPS_MAGIC := $(shell mkdir .deps > /dev/null 2>&1 || :)
+
+-include $(DEP_FILES)
+
+mostlyclean-depend:
+
+clean-depend:
+
+distclean-depend:
+	-rm -rf .deps
+
+maintainer-clean-depend:
+
+%.o: %.c
+	@echo '$(COMPILE) -c $<'; \
+	$(COMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
+	@-cp .deps/$(*F).pp .deps/$(*F).P; \
+	tr ' ' '\012' < .deps/$(*F).pp \
+	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
+	    >> .deps/$(*F).P; \
+	rm .deps/$(*F).pp
+
+%.lo: %.c
+	@echo '$(LTCOMPILE) -c $<'; \
+	$(LTCOMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
+	@-sed -e 's/^\([^:]*\)\.o[ 	]*:/\1.lo \1.o :/' \
+	  < .deps/$(*F).pp > .deps/$(*F).P; \
+	tr ' ' '\012' < .deps/$(*F).pp \
+	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
+	    >> .deps/$(*F).P; \
+	rm -f .deps/$(*F).pp
+info-am:
+info: info-am
+dvi-am:
+dvi: dvi-am
+check-am: all-am
+check: check-am
+installcheck-am:
+installcheck: installcheck-am
+all-recursive-am: config.h tsmTrace.h
+	$(MAKE) $(AM_MAKEFLAGS) all-recursive
+
+install-exec-am: install-libLIBRARIES
+install-exec: install-exec-am
+
+install-data-am: install-pkgincludeHEADERS install-data-local
+install-data: install-data-am
+
+install-am: all-am
+	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+install: install-am
+uninstall-am: uninstall-libLIBRARIES uninstall-pkgincludeHEADERS
+uninstall: uninstall-am
+all-am: Makefile $(LIBRARIES) $(HEADERS) config.h tsmTrace.h
+all-redirect: all-am
+install-strip:
+	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
+installdirs:
+	$(mkinstalldirs)  $(DESTDIR)$(libdir) $(DESTDIR)$(pkgincludedir)
+
+
+mostlyclean-generic:
+
+clean-generic:
+
+distclean-generic:
+	-rm -f Makefile $(CONFIG_CLEAN_FILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+
+maintainer-clean-generic:
+mostlyclean-am:  mostlyclean-hdr mostlyclean-libLIBRARIES \
+		mostlyclean-compile mostlyclean-tags mostlyclean-depend \
+		mostlyclean-generic
+
+mostlyclean: mostlyclean-am
+
+clean-am:  clean-hdr clean-libLIBRARIES clean-compile clean-tags \
+		clean-depend clean-generic mostlyclean-am
+
+clean: clean-am
+
+distclean-am:  distclean-hdr distclean-libLIBRARIES distclean-compile \
+		distclean-tags distclean-depend distclean-generic \
+		clean-am
+
+distclean: distclean-am
+	-rm -f config.status
+
+maintainer-clean-am:  maintainer-clean-hdr maintainer-clean-libLIBRARIES \
+		maintainer-clean-compile maintainer-clean-tags \
+		maintainer-clean-depend maintainer-clean-generic \
+		distclean-am
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+maintainer-clean: maintainer-clean-am
+	-rm -f config.status
+
+.PHONY: mostlyclean-hdr distclean-hdr clean-hdr maintainer-clean-hdr \
+mostlyclean-libLIBRARIES distclean-libLIBRARIES clean-libLIBRARIES \
+maintainer-clean-libLIBRARIES uninstall-libLIBRARIES \
+install-libLIBRARIES mostlyclean-compile distclean-compile \
+clean-compile maintainer-clean-compile uninstall-pkgincludeHEADERS \
+install-pkgincludeHEADERS tags mostlyclean-tags distclean-tags \
+clean-tags maintainer-clean-tags distdir mostlyclean-depend \
+distclean-depend clean-depend maintainer-clean-depend info-am info \
+dvi-am dvi check check-am installcheck-am installcheck all-recursive-am \
+install-exec-am install-exec install-data-local install-data-am \
+install-data install-am install uninstall-am uninstall all-redirect \
+all-am all installdirs mostlyclean-generic distclean-generic \
+clean-generic maintainer-clean-generic clean mostlyclean distclean \
+maintainer-clean
+
+
+install-data-local:
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(pkgincludedir)
+	$(INSTALL_DATA) tsmTrace.h $(pkgincludedir);
+
+@DO_RPCGEN_TRUE@$(srcdir)/TsTileSpecDecs.h: $(srcdir)/TsTileSpecDecs.x
+@DO_RPCGEN_TRUE@	cd $(srcdir); rpcgen -h -P -o TsTileSpecDecs.h TsTileSpecDecs.x
+
+@DO_RPCGEN_TRUE@$(srcdir)/TsTileSpecDecs_xdr.c: $(srcdir)/TsTileSpecDecs.x
+@DO_RPCGEN_TRUE@	cd $(srcdir); rpcgen -c -P -o TsTileSpecDecs_xdr.c TsTileSpecDecs.x
+
+@DO_RPCGEN_TRUE@$(srcdir)/tsmPurlDefns.h: $(srcdir)/tsmPurlDefns.x
+@DO_RPCGEN_TRUE@	cd $(srcdir); rpcgen -h -P -o tsmPurlDefns.h tsmPurlDefns.x
+
+@DO_RPCGEN_TRUE@$(srcdir)/tsmPurlDefns_xdr.c: $(srcdir)/tsmPurlDefns.x
+@DO_RPCGEN_TRUE@	cd $(srcdir); rpcgen -c -P -o tsmPurlDefns_xdr.c tsmPurlDefns.x
+
+#
+#DATASETS = /homedir/magic/TileSets/Pyramids
+#
+#vtiles: vtile
+#	./vtile -oi $(DATASETS)/earth.oi -dem $(DATASETS)/earth.dem \
+#                -vrmldir ./earth -worldscale 1000000 -elevscale 200
+#
+#trees: tree
+#	./tree -oi $(DATASETS)/earth.oi -dem $(DATASETS)/earth.dem \
+#                -vrmldir ./earth -worldscale 1000000
+#
+#round-earth: vtile tree
+#	./vtile -oi $(DATASETS)/earth.oi -dem $(DATASETS)/earth.dem \
+#                -vrmldir ./earth -worldscale 1000000 -elevscale 20
+#	./tree -oi $(DATASETS)/earth.oi -dem $(DATASETS)/earth.dem \
+#                -vrmldir ./earth -worldscale 1000000 -elevscale 20
+#
+#flat-earth: vtile tree
+#	./vtile -oi $(DATASETS)/earth.oi -dem $(DATASETS)/earth.dem \
+#                -vrmldir ./earth-flat -worldscale 10000000 -elevscale 100 \
+#                -flat -numpolys 16
+#	./tree -oi $(DATASETS)/earth.oi -dem $(DATASETS)/earth.dem \
+#                -vrmldir ./earth-flat -worldscale 10000000 -elevscale 100 \
+#                -flat -numpolys 16
+#
+#colorado: vtile tree
+#	./tree -oi $(DATASETS)/co.oi -dem $(DATASETS)/co.dem \
+#                -vrmldir ./colorado -worldscale 100000 -elevscale 5 \
+#                -numpolys 8 -flat -utm -nogeotiles
+#
+#
+#p-icon: vtile
+#	./vtile -oi $(DATASETS)/pendleton.oi -dem $(DATASETS)/pendleton.dem \
+#                -vrmldir ./p-icon -worldscale 1000000 -elevscale 5 \
+#                -numpolys 4
+#
+#pendleton-vtiles: vtile
+#	./vtile -oi $(DATASETS)/pendleton.oi -dem $(DATASETS)/pendleton.dem \
+#                -vrmldir ./pendleton -worldscale 100000 -elevscale 5 \
+#                -numpolys 8 -flat -utm
+#
+#pendleton-trees: tree
+#	./tree -oi $(DATASETS)/pendleton.oi -dem $(DATASETS)/pendleton.dem \
+#                -vrmldir ./pendleton -worldscale 100000 -elevscale 5 \
+#                -numpolys 8 -flat -utm -nogeotiles
+#
+#pendleton: pendleton-vtiles pendleton-trees
+#
+#pend1deg-vtiles: vtile
+#	./vtile -oi $(DATASETS)/camp_1degree.oi \
+#                -dem $(DATASETS)/camp_1degree.dem \
+#                -vrmldir ./pendleton -worldscale 100000 -elevscale 3 \
+#                -numpolys 8 -flat -utm
+#
+#pend1deg-trees: tree
+#	./tree -oi $(DATASETS)/camp_1degree.oi \
+#               -dem $(DATASETS)/camp_1degree.dem \
+#               -vrmldir ./pendleton -worldscale 100000 -elevscale 3 \
+#               -numpolys 8 -flat -utm -nogeotiles
+#
+#pend1deg: pendleton-vtiles pendleton-trees
+#
+#geotile-vtiles: vtile
+#	./vtile -oi $(DATASETS)/pendleton.oi -dem $(DATASETS)/pendleton.dem \
+#                -vrmldir ./GeoTileTest -worldscale 100000 -elevscale 5 \
+#                -numpolys 8 -flat -utm
+#
+#geotile-trees: tree
+#	./tree -oi $(DATASETS)/pendleton.oi -dem $(DATASETS)/pendleton.dem \
+#                -vrmldir ./GeoTileTest -worldscale 100000 -elevscale 5 \
+#                -numpolys 8 -flat -utm
+#
+#geotile: geotile-vtiles geotile-trees
+#
+#test: tree
+#	./tree -oi $(DATASETS)/co.oi -dem $(DATASETS)/co.dem \
+#		-vrmldir ./test -worldscale 100000 -elevscale 5 \
+#		-numpolys 8 -flat -utm -quadlodtrees
+#
+#test-vtiles: vtile
+#	./vtile -oi $(DATASETS)/co.oi -dem $(DATASETS)/co.dem \
+#		-vrmldir ./test -worldscale 100000 -elevscale 5 \
+#		-numpolys 8 -flat -utm
+#
+#ctrees: tree
+#	./tree -oi $(DATASETS)/co.oi -dem $(DATASETS)/co.dem \
+#                -vrmldir ./colorado -worldscale 100000 -elevscale 5 \
+#                -numpolys 8 -flat -utm -quadlodtrees \
+#		-absurl "http://www.ai.sri.com/VRMLSets/ColoradoGeoTile/"
+#
+#cvtiles: vtile
+#	./vtile -oi $(DATASETS)/co.oi -dem $(DATASETS)/co.dem \
+#                -vrmldir ./colorado -worldscale 100000 -elevscale 5 \
+#                -numpolys 8 -flat -utm \
+#		-absurl "http://www.ai.sri.com/VRMLSets/ColoradoGeoTile/"
+#
+#cimages: image
+#	./image -oi $(DATASETS)/co.oi  -vrmldir ./colorado
+#
+#btrees: tree
+#	./tree -oi $(DATASETS)/benning.oi -dem $(DATASETS)/benning.dem \
+#                -vrmldir ./benning -worldscale 100000 -elevscale 1 \
+#                -numpolys 8 -flat -utm -quadlodtrees \
+#		-absurl "http://www.ai.sri.com/VRMLSets/BenningGeoTile/"
+#
+#bvtiles: vtile
+#	./vtile -oi $(DATASETS)/benning.oi -dem $(DATASETS)/benning.dem \
+#                -vrmldir ./benning -worldscale 100000 -elevscale 1 \
+#                -numpolys 8 -flat -utm \
+#		-absurl "http://www.ai.sri.com/VRMLSets/BenningGeoTile/"
+#
+#etrees: tree
+#	./tree -oi /home/crazy5/magic/TileSets/Pyramids/Earth-AVHRR.oi -dem $(DATASETS)/earth.dem \
+#                -vrmldir ./earth -worldscale 100000 -elevscale 50 \
+#                -numpolys 16 -quadlodtrees \
+#		-absurl "http://www.ai.sri.com/VRMLSets/EarthGeoTile/"
+#
+#evtiles: vtile
+#	./vtile -oi /home/crazy5/magic/TileSets/Pyramids/Earth-AVHRR.oi -dem $(DATASETS)/earth.dem \
+#                -vrmldir ./earth -worldscale 100000 -elevscale 50 \
+#                -numpolys 16 \
+#		-absurl "http://www.ai.sri.com/VRMLSets/EarthGeoTile/"
+#
+#eimages: image
+#	./image -oi /home/crazy5/magic/TileSets/Pyramids/Earth-AVHRR.oi -vrmldir ./earth
+#
+#ytrees: tree
+#	./tree -oi x-dpss://iss-1-spans.sri.magic.net/Pyramids/yosemite.oi \
+#		-dem x-dpss://iss-1-spans.sri.magic.net/Pyramids/yosemite.dem \
+#                -vrmldir ./yosemite -utm -worldscale 100000 -elevscale 1 \
+#                -numpolys 16 -quadlodtrees \
+#		-absurl "http://www.ai.sri.com/VRMLSets/YosemiteGeoTile/"
+#
+#yvtiles: vtile
+#	./vtile -oi x-dpss://iss-1-spans.sri.magic.net/Pyramids/yosemite.oi \
+#		-dem x-dpss://iss-1-spans.sri.magic.net/Pyramids/yosemite.dem \
+#                -vrmldir ./yosemite -utm -worldscale 100000 -elevscale 1 \
+#                -numpolys 16 \
+#		-absurl "http://www.ai.sri.com/VRMLSets/YosemiteGeoTile/"
+#
+#ctrees-pc: tree
+#	./tree -oi $(DATASETS)/co.oi -dem $(DATASETS)/co.dem \
+#                -vrmldir /home/lomond2/magic/GeoTile/Colorado \
+#		-worldscale 100000 -elevscale 5 \
+#                -numpolys 8 -flat -utm -quadlodtrees \
+#		-absurl "file:/D:/VRMLSets/GeoTile/Colorado/"
+#
+#cvtiles-pc: vtile
+#	./vtile -oi $(DATASETS)/co.oi -dem $(DATASETS)/co.dem \
+#                -vrmldir /home/lomond2/magic/GeoTile/Colorado \
+#		-worldscale 100000 -elevscale 5 \
+#                -numpolys 8 -flat -utm \
+#		-absurl "file:/D:/VRMLSets/GeoTile/Colorado/"
+#
+#benning-trees: tree
+#	./tree -oi $(DATASETS)/benning.oi -dem $(DATASETS)/benning.dem \
+#                -vrmldir ./Benning -worldscale 100000 -elevscale 1 \
+#                -flat -utm -lods 5 -start 10 -end 7 -nogeotiles
+#
+#benning-vtiles: vtile
+#	./vtile -oi $(DATASETS)/benning.oi -dem $(DATASETS)/benning.dem \
+#                -vrmldir ./Benning -worldscale 100000 -elevscale 1 \
+#                -flat -utm -lods 6
+#
+#benning: benning-trees benning-vtiles
+#
+#
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:

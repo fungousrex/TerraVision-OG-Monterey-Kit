@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+
+<HEAD>
+<TITLE>TerraVision User Guide</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<CENTER>
+<IMG SRC="../guide.gif" ALT="TerraVision User Guide">
+</CENTER>
+
+<IMG SRC="pyramid.gif" ALIGN="right">
+
+<H2>8. Creating TerraVision Datasets</H2>
+
+This section is provided to give you some information on how you can
+go about creating your terrain and other datasets for visualization
+using TerraVision. This involves creating OI (ortho-imagery) pyramids,
+DEM (elevation) pyramids, digital maps (for the Map Viewer), and VRML
+models (overlayed on the terrain).
+
+<H3>Creating Image (OI) Pyramids</H3>
+
+TerraVision uses a tiled, multi-resolution pyramid to store all of its
+imagery and elevation data (see the image above). SRI International
+provide a command-line utility for creating this structure from raw
+bitmap imagery. This utility is called make_oi.
+
+<p>make_oi is part of the tsmApi library tools archive. You can
+download the latest tsmUtils archive for various platforms from the <a
+href="http://www.ai.sri.com/tsmApi/download.shtml#tsmUtils">tsmApi
+Download Page</a>.
+
+Using make_oi, you can create an OI pyramid from raw source
+imagery. Currently we only support raw RGB bitmaps and PPM/PGM format
+images. Please refer to the make_oi <a href="http://www.ai.sri.com/tsmApi/examples/Docs/make_oi.html">Manual Page</a> for
+information on how to use this utility.
+
+As an example, the following command-line is used to create an OI
+dataset called laguna_beach.oi from the source 2.4384 m resolution PPM
+image, and supplying the UTM coordinate of the lower-left corner of
+the image. The geoname is a string that is used to associate an OI
+pyramid with a DEM pyramid.
+
+<BLOCKQUOTE><FONT COLOR="#004400"><PRE>
+  make_oi ~magic/TileSets/Pyramids/laguna_beach \
+          laguna_beach.ca.ppm \
+          -ll_e 417945 -ll_n 3708247 -zone 11 \
+          -startres 2.4384 -geoname "Laguna Beach"
+</PRE></FONT></BLOCKQUOTE>
+
+N.B. through convention, TerraVision datasets are stored in a
+directory called Pyramids, which is often a subdirectory of a
+directory called TileSets. In the Pyramids directory, each dataset is
+stored in a separate directory and there is an ASCII <a
+href="http://www.ai.sri.com/tsmApi/databases.html">PyramidUrls</a>
+file which lists all of the available datasets in that directory.
+
+<H3>Creating Elevation (DEM) Pyramids</H3>
+
+The process for creating DEM pyramids is very similar to that of
+creating an OI pyramid. SRI International provide a utility called
+make_dem as part of the tsmApi library tools archive. You can read the
+make_dem <a
+href="http://www.ai.sri.com/tsmApi/examples/Docs/make_dem.html">Manual
+Page</a> for information on how to use this utility.
+
+<p>As an example, the following command-line is used to create a DEM
+dataset called laguna_beach.dem from the source 78.0288 m resolution
+raw (32-bit) elevation bitmap, which has 160 x 198 postings, and
+supplying the UTM coordinate of the lower-left corner of the image.
+Note that we specify the same geoname for the DEM as in the OI example
+above. This lets TerraVision know that these datasets should be
+treated as an (imagery, elevation) pair.
+
+<BLOCKQUOTE><FONT COLOR="#004400"><PRE>
+  make_dem ~magic/TileSets/Pyramids/laguna_beach \
+           laguna_beach.ca_dem.raw \
+           -width 160 -height 198 \
+           -ll_e 417945 -ll_n 3708247 -zone 11 \
+           -startres 78.0288 -geoname "Laguna Beach" 
+</PRE></FONT></BLOCKQUOTE>
+
+Currently, the following constrains are placed on the relation between
+the OI and the DEM data. You must ensure that your data agrees with
+each of these points in order to use these tools:
+
+<ol>
+<li> The OI and DEM must be co-rectified. That is, they must be
+rectified to a common coordinate system, e.g. UTM or lat/long.
+
+<p><li> The DEM dataset must completely cover the OI dataset
+
+</ol>
+
+<H3>Creating VRML Models</H3>
+
+<p>TerraVision can overlay VRML models on top of the terrain,
+e.g. buildings, atmospheric simulations, roads, etc. In order to
+create a VRML model that TerraVision can use, you need to create a
+directory with a .model extension.  Although it is not necessary, it
+is good practice to use the same root name as the dataset.
+
+<p>Inside this directory there must be a file called model.wrl. This
+is the VRML model for the particular feature you want to represent.
+This file can Inline other files as required.
+
+<p>In order to tell TerraVision where to locate this VRML model in the
+world, you need to supply a Metadata node inside the model.wrl
+file. This Metadata node can also be used to provide information such
+as author, copyright, etc. For example,
+
+<BLOCKQUOTE><FONT COLOR="#004400"><PRE>
+#VRML V2.0 utf8
+
+PROTO Metadata [ exposedField MFString info "" ] { Group{} }
+DEF METADATA Metadata { info [
+  "name: Clear Air Turbulence"
+  "author: Don Middleton, NCAR"
+  "y-axis-up: no"
+  "lcs-offset: 123676 42073 0"
+  "geoname: Colorado"
+  "description: Clear Air Turbulence isosurfaces over the Rockies"
+] }
+
+....
+</PRE></FONT></BLOCKQUOTE>
+
+You can specify the location of the model on the planet with one
+of the following tokens:
+
+<ol>
+<li> <b>lcs-offset</b> : specifies an (x,y,z) LVCS offset in meters
+from the bottom-left corner of the OI dataset that the model is
+associated with, e.g.  "lcs-offset: 1000 2000 0".
+
+<p><li> <b>utm-location</b> : specifies an absolute UTM location for
+the model in the order northing, easting, elevation, zone,
+e.g. "utm-location: 3900814 528407 100 11".
+
+<p><li> <b>latlong-location</b> : specifies an absolute geodetic
+(lat/long) location for the model in the order latitude, longitude,
+elevation, e.g. "latlong-location: 37.457056 -122.17795 0".
+
+</ol>
+
+<p>The y-axis-up field specifies whether the data has been generated with
+the VRML97 standard of +Y = up, or if the more common computer graphic
+system of +Z = up has been used.
+
+<p>The geoname field is used to associate this model with a particular
+OI dataset - it should match the geo-name field in the OI's tile.tspec
+file. This field is mandatory.
+
+<H3>Creating Digital Maps</H3>
+
+<p>TerraVision has a <a href="../views/map/index.html">Map Viewer</a>
+which lets you view digital maps and treat these as active maps. This
+means that you can click on the map and your 3-D (or 2-D) viewer will
+move to that location. Also, you can overlay the view frustum or
+flight path from your 3-D viewer on the map.
+
+<P>In order to associate a map image with a dataset you need to create
+a directory with a .map extension. Although it is not necessary, it is
+good practice to use the same root name as the dataset.
+
+<p>Inside this directory you need two files: one for the image data
+and one for the metadata about the geographic extent of the map image.
+The image can be in PPM, GIF, or JFIF/JPEG format, and can be given any
+name. The metadata file must be called map.info. The map.info file
+contains the filename of the image as well as the (u,v) coordinate of
+the lower-left and upper-right corner of the image. (u,v) are
+specified in the same coordinate system as the OI and DEM datasets
+that the map is being associated with. For example,
+
+<BLOCKQUOTE><FONT COLOR="#004400"><PRE>
+  # ---- map.tspec ----
+  map-name "fort-irwin-utm.ppm"
+  map-geoname "Ft Irwin (2scene)"
+  map-min-u 520000
+  map-max-u 570000
+  map-min-v 3880000
+  map-max-v 3920000
+</PRE></FONT></BLOCKQUOTE>
+
+This map.info file specifies that there is a file called
+fort-irwin-utm.ppm in the same directory, and that it's lower-left UTM
+coordinate is (520000, 3880000), and it's upper-right UTM coordinate
+is (570000, 3920000). The map-geoname field is used to associate this
+map with a particular OI dataset - it should match the geo-name field
+in the OI's tile.tspec file.
+
+<P><BR><HR NOSHADE>
+
+<A HREF="../index.html">User Guide Contents</A> /
+<A HREF="http://www.ai.sri.com/TerraVision" TARGET="_top">TerraVision Home Page</A>
+
+</BODY>
+</HTML>

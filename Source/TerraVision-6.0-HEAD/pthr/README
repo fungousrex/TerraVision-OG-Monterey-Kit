@@ -1,0 +1,5 @@
+This is the pthr library. A collection of thread-safe functions
+and datatypes. This includes things like hash tables and list
+functions. This code is released as Open Source as part of the
+tsmApi distribution, at http://www.tsmApi.com/
+

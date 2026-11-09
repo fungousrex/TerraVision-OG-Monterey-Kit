@@ -1,0 +1,36 @@
+INCLUDEDIRS= -I../libTogl -I/usr/X11R6/include -I../TerraVision -I../ \
+    -I../BUILD -I../conversions -I../ghttp -I../pthr -I../tiff/libtiff \
+     -I../BUILD/nsprnew/dist/include 
+
+CFLAGS= -c -g $(INCLUDEDIRS) -DHAVE_X11 -DHAVE_INLINE
+LDFLAGS= -L../libTogl -L../BUILD/TerraVision \
+    -L../BUILD/tsm -L../BUILD/conversions -L../BUILD/libxml/.libs \
+    -L../BUILD/libungif/lib/.libs \
+    -L../BUILD/DIS -L../BUILD/ghttp/.libs -L../BUILD/vrml2 -L../BUILD/pthr \
+    -L../BUILD/tiff/libtiff -L../BUILD/tiff/../zlib -L../BUILD/tiff/../jpeg \
+    -L../BUILD/glt -L../BUILD/nsprnew/dist/lib \
+    -L/usr/X11R6/lib
+AUXLIBS = -ltv2 -ltsmApi -lse_conv -lxml -lungif -ldis_client -lghttp -lvrml2 \
+    -lpthrutil -ltiff -ljpeg -lz -lglt -lGL -lGLU -lnspr4 -ldl \
+    -lpthread -lc   -lm -lm
+
+LIBS = -ltogl -ltk -ltcl
+
+OBJS = main.o tvBaseCmds.o tsGeoPyramidCmds.o \
+    ../BUILD/glt/glmXt.o ../BUILD/glt/glmX.o ../BUILD/glt/glmTcl.o
+
+TclTV:	$(OBJS)
+	$(CC) -o TclTV $(OBJS) $(LDFLAGS) $(AUXLIBS) $(LIBS)
+
+clean:
+	rm -f *.o TclTV
+
+main.o:  main.c tvBaseCmds.h
+	$(CC) $(CFLAGS) main.c 
+
+tvBaseCmds.o:  tvBaseCmds.c tvBaseCmds.h
+	$(CC) $(CFLAGS) tvBaseCmds.c
+
+tsGeoPyramidCmds.o:  tsGeoPyramidCmds.c tsGeoPyramidCmds.h
+	$(CC) $(CFLAGS) tsGeoPyramidCmds.c
+

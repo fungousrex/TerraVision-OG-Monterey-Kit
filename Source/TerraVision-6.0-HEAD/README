@@ -1,0 +1,79 @@
+
+                 SRI International's TerraVision System
+
+
+This is the full source tree for the TerraVision 3D terrain visualization
+system developed by SRI International. TerraVision lets you browse massive
+volumes of terrain and other data that can be streamed over the Web and
+interacted with in real-time. It is the product of 10 years of development
+effort and is now released as Open Source under the Mozilla license agreement
+(see the LICENSE file in this distribution). The code should compile under
+most versions of Unix as well as under Windows platforms.
+
+Instructions on compiling TerraVision can be found in the INSTALL file in
+this directory. They can also be found, along with documentation and sample
+data, on the TerraVision website at:
+
+  http://www.tvgeo.com/
+
+e.g., GNU autoconf configure files are provided for compilation under Unix
+platforms. The configue must be performed in a separate build directory,
+i.e. not in the source directory. For example,
+
+  cd TerraVision
+  mkdir irix6.5
+  cd irix6.5
+  ../configure --enable-tracing
+
+Microsoft Visual Studio workspace and project files are also provided
+to ease compilation on Windows platforms. The main workspace (.dsw)
+files can be found in the TerraVision/winbuild directory.
+
+The directory and library structure of TerraVision is briefly
+described below.
+
+Core Libraries
+  - TerraVision     The core terrain rendering routines
+  - glt             A version-independent OpenGL abstraction layer
+  - pthr            An abstraction layer for the threading model
+  - tsm             The tsmApi tileset manager for reading/writing data
+  - tvutils         A suite of tools ontop of the core TerraVision library
+  - vrml2           A VRML97 scene graph and parsing library
+
+User Interface Libraries
+  - plugin          An interface to the Netscape plugin API
+  - PluginTV        A simple TerraVision window with no menus
+  - TclTV           A Tcl/Tk interface to TerraVision (the best interface)
+  - XmTV            An X/Motif interface to TerraVision (discontinued)
+  - libTogl         A layer for Tcl/Tk to access OpenGL
+  - winbuild        Contains the ActiveX user interface
+
+3rd Party Libraries
+  - DIS             Routines for DIS simulations 
+  - conversions     The SEDRIS Conversions API for geographic coord systems
+  - ghttp           The GNOME http library for reading remote data
+  - jpeg            The JPEG library
+  - libgeotiff      The GeoTIFF library
+  - libpng          The PNG library
+  - libungif        The ungif library (writes uncompressed GIFs)
+  - libxml          The XML parser for GNOME
+  - nsprnew         The Netscape Portable Runtime (NSPR) library
+  - tiff            The TIFF library
+  - zlib            The libz compression library
+
+Supplemental directories
+  - bin             Directory where MSVC projects build their output
+  - nsprwin         Precompiled NSPR distribution for Windows
+  - tsmUtils        Suite of tools built on top of the tsmApi
+  - winbuild        Contains the MSVC workspace and project files
+  - docs            Contains the TerraVision user guide and other docs
+
+Obsolete Libraries
+  - GATS, etc, libGats, libGeo, libGeo_Core, libGeo_DiscClient,
+    libIss, libList, libMagic, libSem, libThread, libTileSvc,
+    libhs, nspr, libwww, thread, xpm
+
+
+----
+Copyright (c) 1993-2002 SRI International. All rights reserved.
+TerraVision is a registered trademark of SRI International.

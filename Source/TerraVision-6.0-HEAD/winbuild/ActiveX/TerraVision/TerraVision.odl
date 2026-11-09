@@ -1,0 +1,127 @@
+// TerraVision.odl : type library source for ActiveX Control project.
+
+// This file will be processed by the Make Type Library (mktyplib) tool to
+// produce the type library (TerraVision.tlb) that will become a resource in
+// TerraVision.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(10B518E7-997E-42A2-A79A-4FF564658BB3), version(1.0),
+  helpfile("TerraVision.hlp"),
+  helpstring("TerraVision ActiveX Control"), control ]
+library TERRAVISIONLib
+{
+	importlib(STDOLE_TLB);
+	importlib(STDTYPE_TLB);
+
+	//  Primary dispatch interface for TerraVisionCtrl
+
+	[ uuid(11705662-A9B7-47A1-A181-B2092EC633DC),
+	  helpstring("Dispatch interface for TerraVision Control"), hidden ]
+	dispinterface _DTerraVision
+	{
+		properties:
+			// NOTE - ClassWizard will maintain property information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_PROP(TerraVisionCtrl)
+			[id(DISPID_READYSTATE), readonly] long ReadyState;
+			[id(1)] boolean showWireframe;
+			[id(2)] boolean showLighting;
+			[id(3)] boolean showHUD;
+			[id(4)] boolean showTextures;
+			[id(5)] boolean showSky;
+			[id(6)] boolean showGround;
+			[id(7)] boolean showDatasets;
+			[id(8)] boolean showFrustums;
+			[id(9)] boolean showTiles;
+			[id(10)] boolean showPaths;
+			[id(11)] boolean showLogo;
+			[id(12)] boolean showCrosshair;
+			[id(13)] boolean showModels;
+			[id(14)] boolean showFeaturesWireframe;
+			[id(15)] boolean showFeaturesTextured;
+			[id(16)] boolean showFeaturesLighting;
+			[id(17)] boolean featuresLoadTextures;
+			[id(18)] boolean featuresBackfaceCull;
+			[id(19)] boolean useHorizonCull;
+			[id(20)] boolean useZBufferHack;
+			[id(21)] boolean freezeTiles;
+			[id(22)] boolean showTileDebug;
+			[id(23)] boolean scaleIPD;
+			[id(24)] boolean useMipMapTextures;
+			[id(25)] boolean useBackfaceCull;
+			[id(26)] boolean useHeightBasedNavigation;
+			[id(27)] boolean use2DConstrain;
+			[id(28)] BSTR schema;
+			[id(29)] BSTR viewpointURL;
+			//}}AFX_ODL_PROP
+
+		methods:
+			// NOTE - ClassWizard will maintain method information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_METHOD(TerraVisionCtrl)
+			[id(30)] void startRendering();
+			[id(31)] void stopRendering();
+			[id(32)] void flyTo(double x, double y, double z, double yaw, double pitch, double roll);
+			[id(33)] void getView(double *x, double *y, double *z, double *yaw, double *pitch, double *roll);
+			[id(34)] void getViewGDC(double *latitude, double *longitude, double *elevation);
+			[id(35)] void loadModel(BSTR url);
+			[id(36)] void loadTerrain(BSTR oi, BSTR dem);
+			[id(37)] void message(BSTR text);
+			[id(38)] void move(double forward, double right, double up);
+			[id(39)] void pathLoad(BSTR url);
+			[id(40)] void pathReset();
+			[id(41)] void pathPlay();
+			[id(42)] void pathStop();
+			[id(43)] void pathPause();
+			[id(44)] void refresh();
+			[id(45)] void resetView();
+			[id(46)] void rotate(double yaw, double pitch, double roll);
+			[id(47)] void set(BSTR option, BSTR value);
+			[id(48)] void setView(double x, double y, double z, double yaw, double pitch, double roll);
+			[id(49)] void setViewGDC(double latitude, double longitude, double elevation, double yaw, double pitch, double roll);
+			[id(50)] void stopMotion();
+			[id(51)] void translate(double x, double y, double z);
+			[id(52)] void unloadModel(BSTR url);
+			[id(53)] void unloadTerrain(BSTR geoname);
+			[id(54)] void host(BSTR host);
+			[id(55)] void port(BSTR number);
+			[id(56)] void hostPort(BSTR hostport);
+			[id(57)] void cmd(BSTR cmd);
+			//}}AFX_ODL_METHOD
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+	};
+
+	//  Event dispatch interface for TerraVisionCtrl
+
+	[ uuid(D385E174-7562-4936-BA95-6F012600A47D),
+	  helpstring("Event interface for TerraVision Control") ]
+	dispinterface _DTerraVisionEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+			// NOTE - ClassWizard will maintain event information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_EVENT(TerraVisionCtrl)
+			[id(DISPID_READYSTATECHANGE)] void ReadyStateChange();
+			//}}AFX_ODL_EVENT
+	};
+
+	//  Class information for TerraVisionCtrl
+
+	[ uuid(BEB6E5D6-5455-4BF2-A70B-8BCA1B241C2E), licensed,
+	  helpstring("TerraVision Control"), control ]
+	coclass TerraVision
+	{
+		[default] dispinterface _DTerraVision;
+		[default, source] dispinterface _DTerraVisionEvents;
+	};
+
+
+	//{{AFX_APPEND_ODL}}
+	//}}AFX_APPEND_ODL}}
+};

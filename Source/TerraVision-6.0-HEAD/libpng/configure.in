@@ -1,0 +1,29 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(png.h)
+AM_INIT_AUTOMAKE(png, 1.0.3)
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
+AC_PROG_RANLIB
+
+dnl Checks for libraries.
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS(malloc.h strings.h)
+
+if test -d ../zlib; then
+  CPPFLAGS="-I$srcdir/../zlib $CPPFLAGS"
+  LDFLAGS="-L../zlib $LDFLAGS"
+fi
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_TYPE_SIZE_T
+AC_STRUCT_TM
+
+dnl Checks for library functions.
+
+AC_OUTPUT(Makefile)

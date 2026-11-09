@@ -1,0 +1,289 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_REVISION($Revision: 1.35.2.1 $)dnl
+AC_INIT(tsmConnection.c)
+
+# Determine the host, build, and target systems
+AC_CANONICAL_SYSTEM
+
+AM_INIT_AUTOMAKE(tsm, 1.0)
+AM_CONFIG_HEADER(config.h tsmTrace.h)
+AM_MAINTAINER_MODE
+
+AC_ARG_ENABLE(tracing, 
+[  --enable-tracing        Enable tracing output.],
+	AC_DEFINE(TRACING))
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+AC_PROG_RANLIB
+
+case "$host" in
+mips-sgi-irix*)
+  AC_PATH_PROG(RPCGEN, rpcgen,, $PATH)
+  ;;
+esac
+AM_CONDITIONAL(DO_RPCGEN, test "x$RPCGEN" != "x")
+
+AC_PATH_PROG(AR, ar,, $PATH:/usr/ccs/bin)
+
+dnl Make sure that $prefix is used for configuration.
+TV_CONFIG_WITH_PREFIX
+
+dnl For now, do this manually.
+AC_DEFINE(USE_HTTP)
+
+AC_HEADER_DIRENT
+AC_HEADER_STDC
+AC_CHECK_HEADERS(malloc.h strings.h syslog.h pwd.h unistd.h \
+	         sys/types.h errno.h)
+AC_CHECK_HEADER(rpc/types.h,,[
+  if test ! -d rpc; then mkdir rpc; fi
+  cp $srcdir/rpc_types.h.in rpc/types.h
+  cp $srcdir/rpc_rpc.h.in rpc/rpc.h
+])
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_INLINE
+if test "$ac_cv_c_inline" != no; then
+  AC_DEFINE(HAVE_INLINE)
+fi
+AC_TYPE_SIZE_T
+
+dnl Checks for library functions.
+AC_TYPE_SIGNAL
+AC_FUNC_ALLOCA
+AC_CHECK_FUNCS(mkdir)
+AC_CHECK_FUNCS(strcspn strdup strtod strtol)
+AC_CHECK_FUNC(xdr_int,, AC_CHECK_LIB(nsl, xdr_int))
+
+dnl Determine whether we are compiling with -n32 on SGI.
+AC_TRY_RUN([
+#include <sgidefs.h>
+int main() { return _MIPS_SIM != _MIPS_SIM_NABI32; }],
+  [MIPS_N32=yes],[MIPS_N32=no])
+
+dnl Initially add the final libraries.
+LIBS="-lm $LIBS"
+
+dnl Use nspr libraries
+TV_NSPR(../nsprnew)
+
+dnl This allows <tsm/tsm.h> to work inside this directory.
+dnl (and depends on *this* directory being named tsm!)
+CPPFLAGS="-I.. -I$srcdir/.. $CPPFLAGS"
+
+dnl Determine name of TSM library and includes/libs.
+TV_TSMCONFIG
+
+AM_CONDITIONAL(DPSS, test "$dpss" != "no")
+
+dnl
+dnl Use Solaris large file compilation environment
+dnl
+case "$target" in
+  *-*-solaris*)
+    CPPFLAGS="`getconf LFS_CFLAGS` $CPPFLAGS"
+    LDFLAGS="`getconf LFS_LDFLAGS` $LDFLAGS"
+    LIBS="`getconf LFS_LIBS` $LIBS"
+    echo CPPFLAGS: $CPPFLAGS
+    ;;
+esac
+
+dnl
+dnl See if -pthread is supported.
+dnl
+rm -f conftest*
+ac_cv_have_dash_pthread=no
+AC_MSG_CHECKING(whether ${CC-cc} accepts -pthread)
+echo 'int main() { return 0; }' | cat > conftest.c
+${CC-cc} -pthread -o conftest conftest.c > conftest.out 2>&1
+if test $? -eq 0; then
+	if test -z "`egrep -i '(unrecognize|unknown)' conftest.out | grep pthread`" && test -z "`egrep -i '(error|incorrect)' conftest.out`" ; then
+		ac_cv_have_dash_pthread=yes
+		CFLAGS="$CFLAGS -pthread"
+		CXXFLAGS="$CXXFLAGS -pthread"
+	fi
+fi
+rm -f conftest*
+
+case "$target" in
+    *-*-solaris*) 
+		AC_DEFINE(_REENTRANT) 
+		;;
+
+    *-*-linux*) 
+		AC_DEFINE(_REENTRANT) 
+		;;
+
+    alpha*-*-osf*)
+		AC_DEFINE(_REENTRANT)
+dnl		if test ! "$GNU_CC"; then
+dnl			CFLAGS="$CFLAGS -pthread" 
+dnl			CXXFLAGS="$CXXFLAGS -pthread" 
+dnl		fi
+		;;
+
+    *-*-freebsd*)
+		AC_DEFINE(_REENTRANT)
+		AC_DEFINE(_THREAD_SAFE)
+dnl		CFLAGS="$CFLAGS -pthread"
+dnl		CXXFLAGS="$CXXFLAGS -pthread"
+		dnl -pthread links in -lc_r, so don't specify it explicitly.
+		if test "$ac_cv_have_dash_pthread" = "yes"; then
+			PTHREAD_LDFLAGS=""
+		else
+			PTHREAD_LDFLAGS="-lc_r"
+		fi
+		;;
+esac
+AC_MSG_RESULT($ac_cv_have_dash_pthread)
+
+dnl Check for jpeglib.h in ../jpeg
+if test -d ../jpeg -a -f ../jpeg/jconfig.h; then
+  CPPFLAGS="-I../jpeg -I$srcdir/../jpeg $CPPFLAGS"
+  LDFLAGS="-L../jpeg $LDFLAGS"
+  LIBS="-ljpeg $LIBS"
+fi
+
+dnl Now check for the thread utilities library.
+if test -d ../pthr; then
+  CPPFLAGS="-I../pthr $CPPFLAGS"
+  LDFLAGS="-L../pthr $LDFLAGS"
+  LIBS="-lpthrutil $LIBS"
+fi
+
+dnl Configure for libxml library
+if test -d ../libxml; then
+  CPPFLAGS="-I../libxml -I$srcdir/../libxml $CPPFLAGS"
+  LDFLAGS="-L../libxml/.libs $LDFLAGS"
+  LIBS="-lxml $LIBS"
+fi
+
+dnl Configure for ghttp library
+if test -d ../ghttp; then
+  CPPFLAGS="-I$srcdir/../ghttp $CPPFLAGS"
+  LDFLAGS="-L../ghttp/.libs $LDFLAGS"
+  LIBS="-lghttp $LIBS"
+fi
+
+dnl Configure for ungif library
+if test -d ../libungif; then
+  CPPFLAGS="-I$srcdir/../libungif/lib $CPPFLAGS"
+  LDFLAGS="-L../libungif/lib/.libs $LDFLAGS"
+  LIBS="-lungif $LIBS"
+  DEPS="../libungif/lib/.libs/libungif.a $DEPS"
+fi
+
+dnl Configure for png library
+if test -d ../libpng; then
+  CPPFLAGS="-I$srcdir/../libpng -I$srcdir/../zlib $CPPFLAGS"
+  LDFLAGS="-L../libpng -L../zlib $LDFLAGS"
+  LIBS="-lpng -lz $LIBS"
+  DEPS="../libpng/libpng.a ../zlib/libz.a $DEPS"
+fi
+
+if test $dpss != no; then
+  dnl Check ability to get version info
+  AC_CHECK_FUNCS(issGetInternalVersInfo)
+
+  dnl Check ability to do continuation loads to a DPSS. This involves
+  dnl checking for the presence of a function and also checking that it
+  dnl has enough (4) parameters (older version had fewer params)
+  AC_CHECK_FUNCS(iss_db_get_next_block, [
+    AC_MSG_CHECKING([for DPSS continuation load facility])
+    AC_CACHE_VAL(tsm_cv_DPSS_CONT_LOAD, [
+      tsm_cv_DPSS_CONT_LOAD=no
+      for i in $CPPFLAGS; do
+	case $i in
+	-I*)
+	  dir=`echo $i | sed -e 's/-I//'`
+	  if test -d $dir/iss; then
+	    pat='iss_db_get_next_block.*,.*,.*,'
+	    if grep $pat $dir/iss/*.h > /dev/null; then
+	      tsm_cv_DPSS_CONT_LOAD=yes
+	    fi
+	  fi
+	  ;;
+	*) ;;
+	esac
+      done
+    ])
+    AC_MSG_RESULT($tsm_cv_DPSS_CONT_LOAD)
+    if test $tsm_cv_DPSS_CONT_LOAD = yes; then
+      AC_DEFINE(DPSS_CONT_LOAD)
+    fi
+  ])
+fi
+
+dnl This makes the tsmAutoStructs.h file for exporting.
+dnl AC_MSG_CHECKING([sizeof TsmTileHeader])
+dnl AC_CACHE_VAL(tsm_cv_size_TsmTileHeader,[
+dnl   AC_TRY_RUN([
+dnl #include "$srcdir/tsmStructs.h"
+dnl int main()
+dnl {
+dnl   FILE *out = fopen ("tsm.size", "w");
+dnl   fprintf (out, "tsm_cv_size_TsmTileHeader=%d\n", sizeof (TsmTileHeader));
+dnl   return 0;
+dnl }
+dnl 	],[. ./tsm.size; rm -rf tsm.size],
+dnl 	AC_MSG_RESULT([ERROR: Unable to extract TsmTileHeader size]))
+dnl ])
+dnl TSMTILEHEADER_SIZE=$tsm_cv_size_TsmTileHeader
+dnl AC_MSG_RESULT($TSMTILEHEADER_SIZE)
+dnl AC_SUBST(TSMTILEHEADER_SIZE)
+
+dnl AC_MSG_CHECKING([sizeof TsmAppRequest])
+dnl AC_CACHE_VAL(tsm_cv_size_tsmAppRequest,[
+dnl   AC_TRY_RUN([
+dnl #include "$srcdir/tsmStructs.h"
+dnl int main()
+dnl {
+dnl   FILE *out = fopen ("tsm.size", "w");
+dnl   fprintf (out, "tsm_cv_size_tsmAppRequest=%d\n", sizeof (TsmAppRequest));
+dnl   return 0;
+dnl }
+dnl 	],[. ./tsm.size; rm -rf tsm.size],
+dnl 	AC_MSG_RESULT([ERROR: Unable to extract TsmAppRequest size]))
+dnl ])
+dnl TSMAPPREQUEST_SIZE=$tsm_cv_size_tsmAppRequest
+dnl AC_MSG_RESULT($TSMAPPREQUEST_SIZE)
+dnl AC_SUBST(TSMAPPREQUEST_SIZE)
+
+dnl Checks for libraries.
+
+TV_LIBTIFF(../tiff)
+
+dnl VRML2 parsing libs
+CPPFLAGS="-I../vrml2 $CPPFLAGS"
+LDFLAGS="-L../vrml2 $LDFLAGS"
+LIBS="-lvrml2 $LIBS"
+
+dnl Update the LDFLAGS with an RPATH
+for i in $LDFLAGS; do
+  case $i in
+  -L*) 
+    dir=`echo $i | sed -e 's/-L//'`
+    if test -d $dir; then
+      case $dir in
+      /*) ;;
+      *) dir=`(cd $dir; pwd)`;;
+      esac
+      # Test for existence of a shared object file
+      so=`cd $dir; eval echo \*.so 2>/dev/null`
+      if test "$so" != '*.so'; then
+        RPATH="$RPATH:$dir"
+      fi
+    fi
+    ;;
+  *) ;;
+  esac
+done
+if test -n "$RPATH"; then
+  LDFLAGS="$LDFLAGS -Wl,-rpath,"`echo $RPATH | sed -e s/://`
+fi
+
+AC_OUTPUT(Makefile)

@@ -1,0 +1,42 @@
+2002-02-15  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* Makefile.in: Regen with automake 1.5
+
+2001-06-13  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* se_conv_types.h (SE_CONVERT_COORD_SYSTEM_PAIR): Make this
+	  opaque type a const ptr.
+	* se_coord_conv.c: Remove include of <assert.h>
+	(CreateConstants): Make output_ptr a modifiable
+	  SE_CONVERT_COORD_SYSTEM_PARAMS * instead of
+	  SE_CONVERT_COORD_SYSTEM_PAIR.
+	(SE_CreateCoordConversionConstants): Ditto.
+	(SE_ConvertCoordToGivenSystem1): Make convert_params_ptr a const
+	  ptr for extra verification.  Ditto for e_constants.
+	  Remove unnecessary assertion.
+	(SE_FreeCoordConversionConstants): Must cast away const to free
+	  the pair.
+
+Tue Jun 12 17:23:55 2001  Lee Iverson  <leei@AI.SRI.COM>
+
+	* se_coord_conv.c (SE_ConvertCoordSystemParams): Remove c_index
+	  field.
+	(SE_CreateCoordConversionConstants): Don't modify c_index.
+	(SE_ConvertCoordToGivenSystem1): Renamed from SE_CCTGS.  Make
+	  reentrant by passing c_index as an argument.  Use argument value
+	  throughout.
+	(SE_ConvertCoordToGivenSystem): Pass initial c_index=0 to
+	  SE_ConvertCoordToGivenSystem1.
+	(SRM_ConvergenceOfMeridian): Convert c_index to local variable.
+	  Call SE_ConvertCoordToGivenSystem1 directly.
+
+Tue Jan  9 17:58:19 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* make_geoid.c (main): supply a FILE *f_ptr if we are compiling
+	with CONV_DEBUG
+
+2000-11-01  Michael A. Eriksen  <eriksen@ai.sri.com>
+
+	* Changed #ifdef _WIN32 to #ifdef WIN32 in following files:
+	    se_conv.c, se_conv.h, se_conv_default.c, se_conv_print.c, se_conv_valid.c, se_coord_conv.c, se_stds.c, se_stds.h
+	* ww15mgh16.c: Added check for HAVE_CONFIG_H and #pragma warning( disable : 4305 ) to disable typecast warning

@@ -1,0 +1,14 @@
+.OPTION EXPLICIT
+.Set Cabinet=on
+.Set Compress=on
+.Set MaxDiskSize=CDROM
+.Set ReservePerCabinetSize=6144
+.Set DiskDirectoryTemplate=
+.Set CompressionType=MSZIP
+.Set CompressionLevel=7
+.Set CompressionMemory=21
+.Set CabinetNameTemplate="TerraVision_d.CAB"
+"e:\source\TerraVision\winbuild\ActiveX\TerraVision\TerraVision_d.inf"
+"e:\source\TerraVision\winbuild\ActiveX\TerraVision\Debug\TerraVision.ocx"
+"e:\source\TerraVision\winbuild\ActiveX\TerraVision\Debug\TerraVision.lic"
+"e:\source\TerraVision\bin\libnspr4_d.dll"

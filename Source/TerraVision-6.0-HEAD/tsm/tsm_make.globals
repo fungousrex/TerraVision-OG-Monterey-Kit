@@ -1,0 +1,76 @@
+#================================================================
+# Global variables for the tsmApi library.  This file should be
+# included in Makefiles that use the tsmApi library.
+#================================================================
+
+#================================================================
+# Specify the architecture of your machine.
+#================================================================
+
+#ARCH = sparc-sun-sunos4
+#ARCH = sparc-sun-solaris2
+ARCH = mips-sgi-irix5
+#RANLIB      = ranlib
+
+#================================================================
+# Specify the base location of the tsmApi directory and the location
+# of the libraries that it uses (such as the DPSS libraries).
+#================================================================
+
+#TSMBASE = /homedir/magic/software/leei/TerraVision
+TSMBASE = ..
+LIBHOME = $(TSMBASE)/$(ARCH)/lib
+BINHOME = $(TSMBASE)/$(ARCH)/bin
+INCHOME = $(TSMBASE)/include
+
+#================================================================
+# Use the first include below to get DPSS 2.3 functionality,
+# the second to get DPSS 2.4 (and above) functionality, and the 
+# third for no DPSS functionality at all.
+#================================================================
+
+#include dpss23.globals
+include dpss24.globals
+# include nodpss.globals
+
+#================================================================
+# Use the non-empty variables below if you want to have www
+# functionality.
+#================================================================
+
+HTTP_CFLAG = -DHTTP
+HTTP_LIBS  = -lwww
+
+#HTTP_CFLAG=
+#HTTP_LIBS=
+
+#================================================================
+# Use the first variable if you want to enable tracing in the
+# tsmApi library (recommended).  Use the second variable if
+# you want to disable tracing (faster, but no tracing!).
+
+# See file pthr/report.h where the PTRACE macro that uses this flag
+# is defined.
+#================================================================
+
+TRACE_FLAG = -DPTHR_TRACING
+
+#TRACE_FLAG=
+
+#================================================================
+# The following variables are used by the tsmWeb interface.
+#================================================================
+
+WWWHOME    = /homedir/magic/public_html
+CGIBINHOME = /homedir/www/cgi-bin
+
+#================================================================
+# The following variable is used by the GLU code.
+#================================================================
+
+GLUBASE = /home/crazy3/dodd
+
+VRML_LIBS= -lvrml2
+VRML_LDFLAG = -L${LIBHOME}/vrml2
+ISS_INC   = -I$(INCHOME)/vrml2
+TSM_LIBNAME = vrml2

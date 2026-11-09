@@ -1,0 +1,54 @@
+2002-02-15  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* Makefile.in: Regen with automake 1.5
+	* aclocal.m4: Ditto
+	* config.h.in: Ditto
+	* acconfig.h: Remove
+	* configure: Regen with autoconf 2.52
+
+2000-11-01  Michael A. Eriksen  <eriksen@ai.sri.com>
+
+	* disdefs.h: Added #ifdef HAVE_CONFIG_H check for including config.h
+
+1999-12-22  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* client_lib.c (net_open): Automatically assign host_id from net
+	  address. 
+	* disdefs.h: Include auxiliary files with "" so looks in same
+	  directory.
+	* print.c: Don't conditionalize on DEBUG define.
+	(printEntityOrientation): Print in degrees.
+	* test_it.c (main): Recognize -v for verbose argument.  Call
+	  printPDU() if verbose.
+
+Wed Dec 15 09:56:58 1999    <reddy@MAGNOLIA>
+
+	* client_lib.c (top_of_loop): Use memcpy() instead of bcopy().
+	* disdefs.h: Don't include <syslog.h>
+	* test_it.c (main): Declare as int and return 0.
+	  Use memset() instead of bzero().
+
+1999-12-07  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* client_lib.c (net_open): Use PR_AF_INET instead of raw value.
+
+1999-10-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Revert 1999-10-04 automake changes.
+
+1999-10-04  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (EXTRA_PROGRAMS): Add test_it.
+	* Makefile.in: Regen
+	* aclocal.m4: Regen with automake 1.4a
+	* config.h.in: Regen.
+	* configure: Regen
+	
+	* client_lib.c: Convert to NSPR threads and networking.
+	* disdefs.h: Ditto.
+
+	* test_it.c: Remove specification of ethernet interface.
+	
+1999-09-08  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure: Regen based on changes to ../acinclude.m4

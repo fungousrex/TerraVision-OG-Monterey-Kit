@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+
+<HEAD>
+<TITLE>TerraVision User Guide</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<CENTER>
+<IMG SRC="../guide.gif" ALT="TerraVision User Guide">
+</CENTER>
+
+<H2>3. The "File/Open TV" Menu Option</H2>
+
+<P><CENTER>
+<IMG SRC="menu.gif">
+</CENTER><P>
+
+<H3>Advanced Connection Options</H3>
+
+<P>The Advanced Connection Options dialog lets you control the way
+that TerraVision selects the most appropriate dataset to connect to
+for either the Image or the DEM dataset.  It is accessed by clicking
+on one of the "Advanced..." button of the <B>File/Open TV</B> menu.
+
+<P><CENTER><IMG SRC="adv.gif" ALT="Advanced Connection Options window">
+</CENTER><P>
+
+The Image Format options let you specify if you want to use a dataset
+instance that is stored as a raw bitmap, JPEG compressed, or LZW
+compressed. By default, setting this option is a <B>hint</B> only. If
+the dataset does not exist in the requested image format, then
+TerraVision will try to find another image format to use. However, if
+you check the option "Fail if above options are not available", then
+TerraVision will fail to connect to the dataset if the requested image
+format is not available.
+
+<P>The Local Tile Format options let you specify if you want to use a
+dataset instance that is stored as a tiled TIFF files or raw tile
+files. The TIFF file representation stores all tiles for a single
+pyramid level in one tiled file. The raw tile files consist of a
+separate file for every tile in the entire pyramid. Raw tile files
+only exist in the raw image format (not JPEG or LZW).  By default,
+setting this option is a <B>hint</B> only. If the dataset does not
+exist in the requested tile format, then TerraVision will try to find
+another tile format to use. However, if you check the option "Fail if
+above options are not available", then TerraVision will fail to
+connect to the dataset if the requested tile format is not available.
+
+<P>The DPSS tspecs options let you specify where TerraVision should
+look for the tspec files for a DPSS dataset. Tspec files contain all
+of the metadata describing a dataset. For a DPSS dataset, these can
+reside on the DPSS itself, or on some separate (http or localdisk)
+server that the DPSS records in a list of Metadata URLs. By default,
+TerraVision will check to see if the tspec file exists on the DPSS. If
+it does, then it will use that metadata file.
+
+<P>Finally, the "Validate tspec file on load" option tells TerraVision
+to perform a number of consistency checks on the metadata that it
+reads in from the tspec file. For details on what checks this actually
+      performs, refer to the documentation for the
+<A HREF="http://www.ai.sri.com/TerraVision/tsmApi/api/tsmValidateTspec.html">
+tsmValidateTspec</A> function.  It is generally a good idea to keep
+this option checked.
+
+
+<P><BR><HR NOSHADE>
+
+<A HREF="index.html">The File Menu</A> /
+<A HREF="../index.html">User Guide Contents</A> /
+<A HREF="http://www.ai.sri.com/TerraVision" TARGET="_top">TerraVision
+      Home Page</A>
+</BODY>
+</HTML>

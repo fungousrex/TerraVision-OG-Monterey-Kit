@@ -1,0 +1,96 @@
+<html><!-- #BeginTemplate "/Templates/User Guide.dwt" -->
+<head>
+<title>Digital Earth: TerraVision: User Guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="http://www.ai.sri.com/digitalearth/styles.css">
+<script language="JavaScript" src="http://www.ai.sri.com/digitalearth/common.js"></script>
+</head>
+
+<!--#include virtual="../bodytag.inc"-->
+<!--#include virtual="../header.inc" -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="10" valign="top" align="left">&nbsp;</td>
+    <td width="121" valign="top" align="left" background="../images/bg_sidebar.gif"> 
+<!--#include virtual="sidebar.inc" -->
+      
+    </td>
+    <td width="10">&nbsp;</td>
+    <td valign="top"> 
+      <p><img src="../images/user_guide_title.gif" width="470" height="70"> </p>
+      <p><a href="http://www.ai.sri.com/digitalearth/" target="_top"><span class="history_link">Digital 
+        Earth</span></a> <span class="history_link">&gt; <a href="http://www.tvgeo.com/">Terravision<sup><font size="-2">TM</font></sup></a> 
+        &gt; <a href="../welcome.shtml">User Guide</a> &gt; 
+        <!-- #BeginEditable "Hierarchy" -->ActiveX<!-- #EndEditable --> </span></p>
+      <!-- #BeginEditable "content" -->
+      <h2>Embedding The TerraVision ActiveX Component in PPT</h2>
+
+<p>You can embed the TerraVision ActiveX control inside your
+PowerPoint slides to give you the capability to perform live,
+3D flythroughs in your presentations. In order to do this,
+you must first install the 
+<a href="http://www.tvgeo.com/download_ns.shtml">TerraVision Plugins</a>.
+This will deal with registering the TerraVision ActiveX
+control with your system.
+
+<p>Once installed, you can insert a TerraVision object in
+PowerPoint a couple of different ways. First, you can go to the 
+"Insert" menu and select the "Object..." option. Scrolling down
+the list of possible object types, you should find the 
+TerraVision Control. Select this entry and click OK.
+
+<p><center>
+<img src="../images/inserttv.jpg" alt="Insert TerraVision Object">
+</center></p>
+
+<p>Alternatively, you can use PowerPoint's Control Toolbox and 
+click over the icon for adding an ActiveX control.
+
+<p><center>
+<img src="../images/tvcontrol.jpg" alt="Insert TerraVision Control">
+</center></p>
+
+Once you have selected to insert the TerraVision object, you drag
+select the region on your slide that you want the control to 
+occupy. If you go to Slideshow mode now, then you will see the
+TerraVision window with a message saying that it is waiting for
+datasets. One way to tell the control which datasets to load is
+by sending it an event, for example, from a button click event.
+To do this, you should create a Command Button control from the
+Control Toolbox. You can then attach a script to this button
+by double clicking on it. Enter a script such as:
+
+<pre><FONT COLOR="#004400">
+Private Sub CommandButton1_Click()
+  Rem Load the sfbay terrain model from some web server
+  tvDemo.loadTerrain "http://..../sfbay.oi" "http://..../sfbay.dem"
+  tvDemo.startRendering
+End Sub
+</font></pre>
+
+In this script, we assume that you will fill in valid http or
+local disk URLs to your desired datasets. Also, note that we
+reference the TerraVision control via the name "tvDemo". In
+your slides, this name must match the "(Name)" property that you
+associate with the TerraVision control. You can modify this and many other
+properties by right clicking over the TerraVision control and
+selecting the Properties option. You will then be presented
+with a dialog as follows, where you can select and change any
+of the displayed entries.
+
+<p><center>
+<img src="../images/tvprops.jpg" alt="TerraVision Control Properties">
+</center></p>
+
+
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p align="center" class="description">
+        <!--#include virtual="../footer.inc" --><br>
+        Last updated: <!--#echo var="LAST_MODIFIED" -->.</p>
+      <!-- #EndEditable --></td>
+    <td width="20">&nbsp;</td>
+  </tr>
+</table>
+</body>
+<!-- #EndTemplate --></html>

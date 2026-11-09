@@ -1,0 +1,74 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(pthr_sproc.c)
+
+AM_INIT_AUTOMAKE(thread, 0.0)
+AM_CONFIG_HEADER(config.h)
+AM_MAINTAINER_MODE
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_RANLIB
+
+AC_PATH_PROG(AR, ar,, $PATH:/usr/ccs/bin)
+
+dnl Checks for library functions.
+AC_CHECK_FUNCS(strerror)
+
+dnl Checks for libraries.
+
+CPPFLAGS="-I$srcdir/.. $CPPFLAGS"
+
+AC_ARG_ENABLE(native-pthread, 
+[  --enable-native-pthread         Allow the use of native pthreads],,
+	enable_native_pthread=yes)
+
+if test "$enable_native_pthread" = yes; then
+  dnl Must ignore cached values to decide whether or not to build.
+  unset ac_cv_func_pthread_create
+  unset ac_cv_lib_pthread_pthread_create
+  AC_CHECK_FUNC(pthread_create)
+  native_pthread=$ac_cv_func_pthread_create
+  if test $native_pthread != yes; then
+    AC_CHECK_LIB(pthread, pthread_create)
+    native_pthread=$ac_cv_lib_pthread_pthread_create
+  fi
+fi
+
+rm -f pthread.h libpthread.a
+if test "$native_pthread" != yes; then
+  PTHREAD_LIBS=libpthread.a
+  AC_CHECK_FUNC(sproc, [
+	$LN_S $srcdir/pthr_sproc.h pthread.h
+	PTHREAD_HDRS=pthread.h
+	PTHREAD_SRCS=pthr_sproc.c
+	PTHREAD_OBJS=pthr_sproc.o])
+fi
+AC_SUBST(PTHREAD_LIBS)
+AC_SUBST(PTHREAD_SRCS)
+AC_SUBST(PTHREAD_OBJS)
+AC_SUBST(PTHREAD_HDRS)
+
+dnl Check to see if pthread_cleanup_push and sched_yield exists in
+dnl libpthread.a, if it doesn't  (e.g. on Solaris) then we don't want to
+dnl compile up the thr_ex3 example
+if test -z "$PTHREAD_LIBS"; then
+  AC_CHECK_LIB(pthread, pthread_cleanup_push,
+    AC_CHECK_LIB(pthread, sched_yield, THR_EX3=thr_ex3))
+fi
+AC_SUBST(THR_EX3)
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_HEADER_SYS_WAIT
+AC_CHECK_HEADERS(unistd.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_INLINE
+AC_TYPE_PID_T
+AC_TYPE_SIZE_T
+
+AC_OUTPUT(Makefile, [test -z "$CONFIG_HEADERS" || echo timestamp > stamp-h])

@@ -1,0 +1,94 @@
+#
+# Minimal makefile to generate the simple plugin example. This
+# file can be used by gmake under the Cygwin 20 environment.
+# 
+# Martin Reddy <reddy@ai.sri.com>, SRI International 1999.
+#
+
+# NPNAME is the name of the plugin, NPCLASS is the name of the
+# class file that is associated with the plugin.
+
+NPNAME  = nptervis
+NPCLASS = nptervis
+
+#
+# The following targets are used to compile up the plugin DLL
+#
+
+CC      = cl
+LINK    = link
+RC      = rc
+RM      = rm -f
+
+CFLAGS  = /nologo /MT /W3 /GX /O2 /Fo"build/" /Fd"build/"
+INCS    = /I src /I common /I include /I src/_gen /I src/_stubs
+DEFS    = /D WIN32 /D _WINDOWS /D XP_PC /D __WIN32__
+LIBS    = kernel32.lib user32.lib gdi32.lib advapi32.lib
+
+LDFLAGS = /nologo /subsystem:windows /dll /incremental:no
+
+OBJECTS = build/stubs.obj build/$(NPNAME).obj build/$(NPNAME)_win.obj \
+          build/npwin.obj
+
+default: all
+
+all: $(NPNAME).dll
+
+build/stubs.obj: $(NPCLASS).class src/stubs.c
+	$(CC) $(CFLAGS) $(INCS) $(DEFS) /c src/stubs.c
+
+build/$(NPNAME).obj: $(NPCLASS).class src/$(NPNAME).c
+	$(CC) $(CFLAGS) $(INCS) $(DEFS) /c src/$(NPNAME).c
+
+build/$(NPNAME)_win.obj: $(NPCLASS).class src/$(NPNAME)_win.c
+	$(CC) $(CFLAGS) $(INCS) $(DEFS) /c src/$(NPNAME)_win.c
+
+build/npwin.obj: common/npwin.cpp
+	$(CC) $(CFLAGS) $(INCS) $(DEFS) /c common/npwin.cpp
+
+$(NPNAME).dll: $(OBJECTS)
+	$(RC) /l 0x409 /fo"build/$(NPNAME).res" build/$(NPNAME).rc
+	$(LINK) $(LIBS) $(LDFLAGS) /pdb:"build/$(NPNAME).pdb" /machine:I386 \
+        /def:"build/$(NPNAME).def" /out:"$(NPNAME).dll" \
+        /implib:"build/$(NPNAME).lib" build/$(NPNAME).obj build/npwin.obj \
+        build/$(NPNAME)_win.obj build/$(NPNAME).res build/stubs.obj
+
+#
+# The following targets build the associated Java class file that
+# is required to do any LiveConnect communications with the plugin
+# 
+
+JAVA_HOME = C:/Progra~1/JDK1.1.6
+
+JAVAC     = $(JAVA_HOME)/bin/javac
+JAVAH     = bin/win/javah
+SYSJAR    = $(JAVA_HOME)/lib/classes.zip
+MOZJAR    = classes/java_30.zip
+CLASSPATH = -classpath "$(SYSJAR);$(MOZJAR);."
+
+$(NPCLASS).class: src/$(NPCLASS).java
+	CLASSPATH=; $(JAVAC) $(CLASSPATH) src/$(NPCLASS).java
+	$(JAVAH) -jri $(CLASSPATH) -o src/_gen/$(NPCLASS).h $(NPCLASS)
+	$(JAVAH) -jri -stubs $(CLASSPATH) -o src/_stubs/$(NPCLASS).c $(NPCLASS)
+
+#
+# The following targets are generic Makefile operations
+#
+
+clean:
+	$(RM) build/*.obj build/*.exp build/*.lib build/*.res build/*.pdb
+	$(RM) src/_gen/$(NPCLASS).h src/_stubs/$(NPCLASS).c
+	$(RM) $(NPNAME).dll $(NPCLASS).class *~ core
+
+NAVDIR = d:/Progra~1/Netscape/Communicator/Program/Plugins
+INSDIR = ../InstallShield/TerraVisionPlugin/plugins
+
+install: all
+	cp $(NPNAME).dll $(NAVDIR)
+	cp $(NPCLASS).class $(NAVDIR)
+	cp $(NPNAME).dll $(INSDIR)
+	cp $(NPCLASS).class $(INSDIR)
+	@echo "*** You did compile without NuTCracker didn't you?? ***"
+
+test: install
+	/Progra~1/Netscape/Communicator/Program/netscape test/test.html &

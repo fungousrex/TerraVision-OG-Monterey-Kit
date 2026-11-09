@@ -1,0 +1,443 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "ActiveX_TV"=.\ActiveX\TerraVision\TerraVision.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libconv
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libglt
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtv2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name tvutils
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libdis
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "PluginTV"=..\PluginTV\winbuild\PluginTV.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libconv
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libdis
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libGeoStatic_Core
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libGeoStatic_DiscClient
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libglt
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libTogl
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtv2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name tvutils
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "TclTV"=..\TclTV\winbuild\TclTV.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libconv
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libdis
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libGeoStatic_Core
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libGeoStatic_DiscClient
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libglt
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libjpg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpthr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libTogl
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtsm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libtv2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libungif
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libvrml2
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name tvutils
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libghttp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libgeotiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libpng
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name libz
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "TestActiveX"=".\ACTIVEX\TEST\C++\TestActiveX.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libTogl"=..\libTogl\winbuild\libtogl.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libconv"=..\conversions\winbuild\libconv.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libdis"=..\DIS\winbuild\libdis.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libgeotiff"=..\libgeotiff\winbuild\libgeotiff.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libghttp"=..\GHTTP\WINBUILD\libghttp.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libglt"=..\glt\winbuild\libglt.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libjpg"=..\jpeg\winbuild\libjpg.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libpng"=..\libpng\winbuild\libpng.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libpthr"=..\pthr\winbuild\libpthr.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libtiff"=..\tiff\winbuild\libtiff.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libtsm"=..\tsm\winbuild\libtsm.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libtv2"=..\TerraVision\winbuild\libtv2.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libungif"=..\libungif\winbuild\libungif.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libvrml2"=..\vrml2\winbuild\libvrml2.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libxml"=..\libxml\winbuild\libxml.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libz"=..\zlib\winbuild\libz.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "modTerraVision"=..\TSMUTILS\WINBUILD\modTerraVision.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "tvutils"=..\TVUTILS\WINBUILD\tvutils.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+

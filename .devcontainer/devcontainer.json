@@ -1,0 +1,24 @@
+{
+  "name": "TerraVision 6.0 original (Linux x86 + X11)",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "vscode",
+  "containerEnv": {
+    "DISPLAY": ":0",
+    "LIBGL_ALWAYS_SOFTWARE": "1",
+    "TV_JOBS": "4"
+  },
+  "forwardPorts": [
+    6080
+  ],
+  "portsAttributes": {
+    "6080": {
+      "label": "TerraVision original desktop (noVNC)",
+      "onAutoForward": "openBrowser",
+      "visibility": "private"
+    }
+  },
+  "postCreateCommand": "chmod +x scripts/*.sh",
+  "postStartCommand": "bash scripts/98-cloud-desktop.sh"
+}

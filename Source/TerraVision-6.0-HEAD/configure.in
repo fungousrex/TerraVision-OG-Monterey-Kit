@@ -1,0 +1,132 @@
+#  TerraVision: A 3D terrain visualization system.
+#
+#  Copyright SRI International (1993, 1994, 1995, 1996, 1997, 1998)
+#
+#  All rights reserved.
+#
+
+dnl Process this file with autoconf to produce a configure script.
+AC_REVISION($Revision: 2.37.2.2 $)dnl
+AC_INIT(RELEASE)
+
+# Determine the host, build, and target systems
+AC_CANONICAL_SYSTEM
+
+AM_INIT_AUTOMAKE(TerraVision, 4.1)
+AM_CONFIG_HEADER(config.h)
+AM_MAINTAINER_MODE
+
+dnl Although these do not do anything particular at this build level, 
+dnl they reflect configuration options in the subdirs.  Their presence here
+dnl ensures that accurate help is provided with --help
+AC_ARG_ENABLE(tracing, 
+[  --enable-tracing        Enable tracing output.],,[
+	enable_tracing=yes
+	ac_configure_args="--enable-tracing $ac_configure_args"
+	])
+
+dnl These enable, disable different features of NSPR library
+AC_ARG_WITH(pthreads,
+    [  --with-pthreads         Use system pthreads library as thread subsystem])
+AC_ARG_ENABLE(user-pthreads,
+    [  --enable-user-pthreads  Build using userland pthreads])
+AC_ARG_ENABLE(nspr-threads,
+    [  --enable-nspr-threads   Build using classic nspr threads])
+
+case "$target" in
+*-beos*)
+    AC_ARG_WITH(bthreads,
+    [  --with-bthreads         Use system bthreads library as thread subsystem (BeOS only)])
+    ;;
+
+*-solaris*)
+    AC_ARG_WITH(native-threads,
+    [  --with-native-threads   Use native system threads as thread subsystem (Solaris only)])
+    ;;
+esac
+
+AC_ARG_ENABLE(debug,
+[  --enable-debug	   Enable VRML parser debugging])
+AC_ARG_ENABLE(shared,
+[  --enable-shared	   Enable shared library builds],,[
+	enable_shared=no
+	ac_configure_args="--disable-shared $ac_configure_args"
+	])
+
+dnl AC_ARG_ENABLE(cplus,
+dnl     [  --enable-cplus          Use cplus for whatever reason],,[
+dnl     enable_cplus=no
+dnl     ac_configure_args="--disable-cplus $ac_configure_args"
+dnl     ])
+
+AC_ARG_ENABLE(target,
+    [  --enable-target=\$t      Turn on features for target \$t when build has multiple targets],
+    MOZ_TARGET=`echo $enableval | tr a-z A-Z`,[
+    case "$host" in
+    *-mingw*)
+      MOZ_TARGET=WIN95
+      ac_configure_args="--enable-target=WIN95 $ac_configure_args"
+      ;;
+    *)
+      MOZ_TARGET=
+      ;;
+    esac])
+
+AC_ARG_WITH(nspr,
+[  --with-nspr[=DIR]       Search for NSPR includes and libraries.],,[
+      ac_configure_args="--with-nspr=`pwd`/nsprnew/dist $ac_configure_args"
+])
+
+AC_ARG_WITH(dpss, 
+[  --with-dpss[=DIR]       Search for DPSS includes and libraries.])
+AC_ARG_WITH(cave,
+[  --with-cave[=DIR]       Search for CAVE includes and libraries.])
+AC_ARG_WITH(opengl,
+[  --with-opengl=DIR	   Provide a hint as to where to look for GL libs])
+AC_ARG_WITH(glut,
+[  --with-glut=DIR	   Provide a hint as to where to look for glut lib])
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_RANLIB
+
+# Check for libGeo libraries
+if test -d libGeo_Core; then
+  GEO_LIBS="libGeo_Core libGeo_DiscClient"
+fi
+
+TV_TCL_CONFIG
+
+if test "$ac_cv_header_tk_h" = yes; then
+  EXT_LIBS="libTogl"
+  FRONT_ENDS="$FRONT_ENDS TclTV"
+fi
+
+AC_PATH_X
+if test "$no_x" != yes; then
+  FRONT_ENDS="$FRONT_ENDS XmTV"
+fi
+
+FRONT_ENDS="$FRONT_ENDS PluginTV"
+
+AC_PATH_PROG(AR, ar)
+if test -z "$ac_cv_path_AR"; then
+  echo '***       Yowch!  You don't have ar in your path...       ***'
+  echo '    We will fix this for you if you're on Solaris, but       '
+  echo '    the real answer is to put the appropriate bin directory  '
+  echo '    for C/C++ development in your path.                      '
+  AC_PATH_PROG(AR, ar,, $PATH:/usr/ccs/bin)
+fi
+
+dnl These are externally provided libraries.
+EXT_LIBS="jpeg zlib libpng tiff libgeotiff libungif $EXT_LIBS"
+NSPR_EXT_LIBS="nsprnew ghttp libxml"
+TSM_LIBS="$EXT_LIBS $NSPR_EXT_LIBS pthr vrml2 tsm"
+TV_LIBS="$GEO_LIBS DIS glt TerraVision tvutils"
+UTIL_DIRS="tsmUtils"
+
+AC_CONFIG_SUBDIRS($TCL_SUBDIRS $TSM_LIBS $TV_LIBS $FRONT_ENDS $UTIL_DIRS)
+
+AC_OUTPUT(Makefile conversions/Makefile)
+

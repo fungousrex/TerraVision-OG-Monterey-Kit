@@ -1,0 +1,73 @@
+
+        The tsmUtils Directory - Utilities That Use The tsmApi Library
+
+                          http://www.tsmApi.com/
+
+
+This directory contains a number of C source code programs to perform
+various operations and manipulations on Pyramid data for the
+TerraVision terrain visualisation application. These utilities have
+been developed using the tsmAPI library - see the tsmApi web page at
+http://www.tsmApi.com/ for further details.
+
+The following programs are available:
+
+simple - simple main program to read in one tile and print it's
+   checksum. This illustrates the basic operations for using the
+   tsmApi. Note that no error checking is included in order to reduce
+   "clutter" for the example.
+
+gettile - Reads a single tile from a dataset and saves this out to a
+   PBM format file in the current directory called "tile.ppm". This will
+   also display various bits of information about the connection such as
+   it's dimensions, tile sizes, name, etc.
+
+copy_dataset - Copies tile and tspec data from one location to
+   another. The source and destination can be on different media,
+   e.g. localdisk or DPSS. Options are provided to selectively copy only
+   the tspec or only the tile data. When copying to a DPSS you can select
+   the server combination, image format, and tspec location(s).
+
+time_tiles - test program to time how long it takes to read in all of
+   the tiles in an entire pyramid, or just a single pyramid level. Used
+   to compare read speed for different dataset representations.
+
+database - This program provides various facilities for maintaining a
+   dataset database. This includes being able to list all of the server
+   names and dataset names in the database, add a new server to the
+   database, remove all instances of a server from the database, and
+   update the contents of the database with the datasets on all of the
+   servers that it knows about.
+
+make_oi - creates an entire OI pyramid (UTM). This can generate the
+   tspec file, the tiles for each level of the pyramid, and the
+   PyramidUrls database. The dataset can be written to localdisk or
+   directly to a DPSS, and in raw or JPEG compressed formats.
+
+make_dem - creates an entire DEM pyramid (UTM). This can generate the
+   tspec file, the tiles for each level of the pyramid, and the
+   PyramidUrls database. The dataset can be written to localdisk or
+   directly to a DPSS
+
+checksum - checksum management for a pyramid. The tspec for a pyramid can
+   hold a checksum for the entire pyramid and a checksum for each level of
+   the pyramid. This program lets you read the current values, calculate
+   the values from the pyramid, write these new computed values to the
+   pyramid's tspec, clear the pyramid's values, and do a comparison between
+   the current and computed checksums.
+
+jpegsizes - program to report statistics on the compressed sizes of JPEG
+   tiles in a pyramid. This reports the min, max, and mean filesize for
+   each tile, and gives a percentage compression value. Output can be for
+   just each pyramid level, or for every tile in every level.
+
+utm_conv - a simple coordinate conversion program that will let you
+   convert between UTM and Lat/Long coordinate systems using the
+   tsmApi's conversion functions.
+
+In order to compile these up, you will need the tsmApi library (available
+from the above URL).
+
+------
+Martin Reddy, SRI International
+<reddy@ai.sr.com>, 24 Mar 1998.

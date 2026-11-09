@@ -1,0 +1,80 @@
+; INF file for TerraVision.ocx
+; Type 'makecab /V3 /F TerraVision.ddf' to build TerraVision.cab file
+
+[Version]
+signature=$CHICAGO$
+AdvancedINF=2.0
+
+[Add.Code]
+TerraVision.ocx=TerraVision.ocx
+TerraVision.lic=TerraVision.lic
+; These are the necessary supporting DLLs for MFC 4.2 ActiveX Controls
+libnspr4_d.dll=libnspr4_d.dll
+mfc42.dll=mfc42.dll
+msvcrt.dll=msvcrt.dll
+olepro32.dll=olepro32.dll
+
+; thiscab is a keyword which, in this case, means that TerraVision.ocx
+; can be found in the same .cab file as this .inf file
+; file-win32-x86 is an x86 platform specific identifier
+; See the ActiveX SDK - ActiveX Controls - Internet Component Download -
+; Packaging component code for automatic download
+
+[TerraVision.ocx]
+; Lines below specify that the specified taTerraVision.ocx (clsid, version) needs to be
+; installed on the system. If it doesn't exist already, it can be downloaded from
+; the given location (a .CAB).
+; Note: if "thiscab" is specified instead of the file location, it is assumed that 
+; the desired file is present in the same .CAB cabinet that the INF originated from.
+; Otherwise, if the location pointed to is a different .CAB, the new cabinet
+; is also downloaded and unpacked in order to extract the desired file.
+file-win32-x86=thiscab
+RegisterServer=yes
+clsid={BEB6E5D6-5455-4BF2-A70B-8BCA1B241C2E}
+; Note that the {}s are required when entering a CLSID in the INF file.
+; This is slightly different from the HTML
+; syntax for inserting CLSIDs in an <OBJECT> tag.
+FileVersion=1,0,0,4
+DestDir=11
+
+[TerraVision.lic]
+file-win32-x86=thiscab
+FileVersion=
+DestDir=11
+
+; dependent DLLs
+[libnspr4_d.dll]
+; Lines below specify that the dllnspr3_d.dll needs to be installed in the system.
+; If this doesn't exist already, it can be downloaded from the given location.
+file-win32-x86=thiscab
+; Note that the FileVersion is optional, and it can also be left empty,
+; meaning that any version is ok.
+FileVersion=4,0,0,0
+; DestDir can be set to 10 or 11 ( LDID_WIN or LDID_SYS by INF convention).
+; This places files in \windows or \windows\system, respectively.
+; If no dest dir is specified (typical case), code is installed in the occache
+; directory.
+DestDir=11
+
+[msvcrt.dll]
+; This is an example of conditional hook. The hook only gets processed
+; if msvcrt.dll of the specified version is absent on client machine.
+FileVersion=6,0,8168,0
+hook=mfc42installer
+
+[mfc42.dll]
+FileVersion=6,0,8168,0
+hook=mfc42installer
+
+[olepro32.dll]
+FileVersion=5,0,4261,0
+hook=mfc42installer
+
+[mfc42installer]
+file-win32-x86=http://activex.microsoft.com/comtrols/vc/mfc42.cab 
+; If dependent DLLs are packaged directly into the above cabinet file
+; along with an .inf file, specify that .inf file to run as follows:
+;InfFile=mfc50.inf
+; The mfc50.cab file actually contains a self extracting executable.
+; In this case we specify a run= command.
+run=%EXTRACT_DIR%\mfc42.exe

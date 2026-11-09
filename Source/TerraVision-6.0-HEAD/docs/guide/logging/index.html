@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+
+<HEAD>
+<TITLE>TerraVision User Guide</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<CENTER>
+<IMG SRC="../guide.gif" ALT="TerraVision User Guide">
+</CENTER>
+
+<H2>4. The "Logging" Menu</H2>
+
+<P><CENTER>
+<IMG SRC="menu.gif">
+</CENTER><P>
+
+The logging facilities of TerraVision are useful for tracing the state
+of the application and the network over which the terrain data are
+being fetched.  We use the NetLogger tools from LBNL to implement our
+logging facility.  For further information about NetLogger, please
+refer to the <A HREF="http://www-didc.lbl.gov/NetLogger/">NetLogger
+Home Page</A>.
+
+<H3>Start Logging</H3>
+
+Selecting this option will initiate logging of TerraVision
+    events. This will cause log events to be sent to the ouput
+    specified by the "Set Logging Options" window, and will also allow
+    you to view data in the "View Logging Graphs" window. Once you
+    have selected this option, it will ghost so that you cannot select
+    it again until you select the "Stop Logging" option.
+
+<H3>Stop Logging</H3>
+
+Ceases logging, flushes all events out to their destination, and
+closes any currently open log files. If you select "Start Logging"
+again, then any local disk log files will be overwritten with the new
+event log.
+
+<H3>View Logging Graphs</H3>
+
+<P><CENTER>
+<IMG SRC="logwin.gif">
+</CENTER><P>
+
+<H3>Set Logging Options</H3>
+
+<TABLE WIDTH="100%">
+<TR>
+<TD VALIGN="top">
+<P>This window lets you specify where the log data are set
+to. NetLogger allows you to send log events to one of: a file on local
+disk, a port on a host, or to the syslog. The default option is to
+send log events to a log file on local disk. In this case, you can
+specify the directory to which the log files are written via the Log
+Directory text field (this defaults to "/usr/tmp").
+
+<P>When logging to local disk, TerraVision will create a single log
+file for each of the OI and DEM datasets that are being browsed. In
+addition, separate log files are created for the DPSS activities of
+each of these datasets, if these reside on a DPSS. The log files
+following the naming convention: "tvlog-&lt;datasetname&gt;[.dpss]",
+e.g. tvlog-yosemite.oi or tvlog-yosemite.oi.dpss.
+</TD>
+<TD>
+<P><CENTER>
+<IMG SRC="netlog.gif">
+</CENTER><P>
+</TD>
+</TR>
+</TABLE>
+
+<H3>Set Log Events</H3>
+
+This sub-menu lets you specify which events you wish to record log
+events for when logging is active.  You can then select the individual
+areas of the application that you wish to log by selecting or
+deselecting the appropriate <B>Log xxx</B> entry. By default, the
+system will log all areas of application.
+
+<H3>Clean Log Directory</H3>
+
+<P>When you select Log To File from the <B>Set Logging Output</B> menu
+option, all log files will be written to the specified directory on
+local disk. These files are not removed automatically as it is
+possible that the user may wish to visualize these after the current
+TerraVision session. You can therefore use this menu option to
+explicitly delete all TerraVision log files (tvlog-*) that exist in
+the currently specified Log Directory.
+
+<P><BR><HR NOSHADE>
+
+<A HREF="../index.html">User Guide Contents</A> /
+<A HREF="http://www.ai.sri.com/TerraVision" TARGET="_top">TerraVision Home Page</A>
+
+</BODY>
+</HTML>

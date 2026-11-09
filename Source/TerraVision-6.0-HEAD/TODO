@@ -1,0 +1,73 @@
+This file contains a list of potential things to do 
+for future versions of TerraVision:
+
+- Remove any dependency/reference to the $pathdotgeo
+  environment variable for compiling under Windows.
+
+- Update the Open Datasets GUI so that you can select
+  an OI with a DEM (and optionally set the elevation of
+  the default flat DEM that is created). Currently this
+  is only possible through the command line.
+
+- Support the same kind of request architecture used
+  for http connections when doing local disk connections.
+  This will have multiple request lists feeding into a
+  single master request list and reader. This will get
+  round the problem that under Windows you cannot open
+  two copies of the same dataset because it seems that
+  you cannot have different threads reading the same
+  file at the same time. 
+
+- Update the Paths/Save to Movie option with a GUI that
+  lets the user specify the output image size, frame
+  rate, output directory, output image format (GIF/PPM/
+  JPEG), and perhaps even include the ability to 
+  generate a movie film in situ.
+
+- Look at improving the navigation interface for novice
+  users, e.g. keep finger down to move instead of accel.
+  Also, add a navigation mode like the VRML examine mode
+
+- Integrate Tcl/Tk libraries into the TerraVision
+  repository so that a cleaner and more robust
+  connection can be made, also so that the Windows
+  icon can be customized, and that those strange
+  floating point Tcl error messages can be removed
+
+- Use quaternions for all rotations - avoid that vortex
+  of death behavior when navigating over the poles
+
+- Add a feature to measure distances between points
+
+- Add support for transaparency in terrain datasets (RGBA).
+  This should largely be there already, we just need to
+  do the sorting stage before rendering and then it should
+  just work!!
+
+- Update all of the stereo rendering code and make it 
+  more robust and user friendly
+
+- Support variable mesh resolutions within each DEM tile,
+  perhaps doing an adaptive simplificiation scheme.
+
+- Add support for more file format readers in tsmApi, e.g.
+  add .BT support, DTED levels > 0, STDS, ArcGrid, etc.
+
+- Support non-http proxies. Some users do not use http
+  proxies to get outside their firewall, but have a direct
+  socket proxy. TerraVision currently only supports http
+  proxies.
+
+- Reorganize the directory structure into something more like:
+  core, ui, 3rdparty. With all directories moved under this
+  hierarchy, e.g. TclTV, PluginTV, plugin, ActiveX, and XmTV
+  would move under "ui".
+
+- Solaris support. The Tcl/Tk interface has been compiled
+  up and run under Solaris 2.8. There were some graphics
+  artifacts which could be due to Sun's OpenGL implementation
+  but that would be worth looking into. Also, the autoconf
+  scripts could be a bit more Solaris aware.
+
+
+

@@ -1,0 +1,97 @@
+#
+# GeoTIFF Library source for Makefile
+#
+DEPTH	= ..
+
+srcdir  = @srcdir@
+top_srcdir  = @top_srcdir@
+VPATH = @srcdir@
+
+GEOTIFFDIR	= $(srcdir)/$(DEPTH)
+
+TOP = ${DEPTH}/@DIR_LIBTIFF@
+TIFFDIR = ${TOP}/libtiff
+TIFFSRCDIR = ${GEOTIFFDIR}/@DIR_LIBTIFF@/libtiff
+PORT    = ${TOP}
+LIBPORT = @LIBPORT@
+
+#
+# VERSION:	@VERSION@
+# DATE:		@DATE@
+# TARGET:	@TARGET@
+# CCOMPILER:	@CCOMPILER@
+#
+SHELL	= /bin/sh
+NULL	=
+CD      = cd
+CC      = @CC@
+CFLAGS  = @CFLAGS@
+LN      = @LN_S@
+RANLIB  = @RANLIB@
+INSTALL = @INSTALL@
+LDFLAGS = @LDFLAGS@
+RM      = rm -f
+#MAKE    = make
+
+#
+INCLUDES = -I. -I${DEPTH} -I${GEOTIFFDIR} -I${TIFFDIR} -I${TIFFSRCDIR} -I${PORT}
+
+COMPILE= $(CC) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
+LINK = $(CC) $(CFLAGS) $(LDFLAGS) -o $@
+#
+SRCS	= \
+	${NULL}
+OBJS	= \
+	makegeo.o \
+	listgeo.o \
+	geotifcp.o \
+	${NULL}
+
+LIBS=   -L${DEPTH} -L${TIFFDIR} -lgeotiff @LIBS@ ${LIBPORT}
+
+ALL=	makegeo listgeo geotifcp
+
+all:	${ALL} 
+
+.c.o:
+	$(COMPILE) -c $<
+
+makegeo: makegeo.o  ${DEPTH}/libgeotiff.a
+	${LINK} makegeo.o ${LIBS}
+
+geotifcp: geotifcp.o  ${DEPTH}/libgeotiff.a
+	${LINK} geotifcp.o ${LIBS}
+
+listgeo: listgeo.o  ${DEPTH}/libgeotiff.a
+	${LINK} listgeo.o ${LIBS}
+
+
+clean:
+	rm -f ${ALL} ${OBJS} core a.out newgeo.tif
+
+#
+top_builddir = $(DEPTH)
+
+Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES=bin/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+$(top_srcdir)/aclocal.m4:  configure.in  acinclude.m4
+	cd $(srcdir) && aclocal
+
+config.status: $(srcdir)/configure
+	$(SHELL) ./config.status --recheck
+$(srcdir)/configure: $(srcdir)/configure.in $(top_srcdir)/aclocal.m4
+	cd $(srcdir) && autoconf
+
+config.h: stamp-h
+	@:
+stamp-h: $(srcdir)/config.h.in $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES= CONFIG_HEADERS=config.h \
+	     $(SHELL) ./config.status
+	@echo timestamp > stamp-h
+$(srcdir)/config.h.in: $(srcdir)/stamp-h.in
+$(srcdir)/stamp-h.in: $(top_srcdir)/configure.in $(top_srcdir)/aclocal.m4 acconfig.h
+	cd $(top_srcdir) && autoheader
+	@echo timestamp > $(srcdir)/stamp-h.in

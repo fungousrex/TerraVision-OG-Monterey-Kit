@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>VRML Features</title>
+</head>
+
+<body>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"> 
+<h1>VRML Features</h1>
+
+
+<p>
+This portion of the API supports the integration of VRML features into 
+the geographical scene. Although general-purpose in nature, a typical 
+application is to incorporate building models from a site into the scene.
+
+<p>
+The subsystem must be initialized first with a call to 
+<a href="api/FeatureInit.html">FeatureInit()</a>, 
+before any of the other functions described here may be invoked.
+
+<p>
+Several steps are required for loading features.  First, 
+<a href="api/FeatureAlloc.html">FeatureAlloc()</a> 
+is called with the URL of the desired VRML file. This initializes and 
+returns an opaque pointer that is associated with the contents of the 
+VRML file for later reference (<b>ISSUE</b>: actually, this is not so
+opaque, as the client code needs to get a hold of the "id" field, which is
+used for all other operations;  see ISSUES discussion below). The VRML file is not actually load until the function 
+<a href="api/FeatureLoad.html">FeatureLoad()</a> is called with the opaque pointer as an argument. 
+
+<p>
+Visibility of the features in a scene is controlled independently of loading
+via calls to 
+<a href="api/FeatureAddToWidget.html">FeatureAddToWidget()</a> 
+to turn on drawing of features from a particular VRML file, and
+<a href="api/FeatureRemoveFromWidget.html">FeatureRemoveFromWidget()</a> 
+to turn them off.   
+
+<p>
+Several querying functions are provided. 
+<a href="api/GetFeatureFromUrl.html">GetFeatureFromUrl()</a>
+may be used to test if a particular URL has been previously loaded.
+Alternatively, the URL may serve as a key to obtain the opaque pointer of 
+preloaded VRML features.
+<a href="api/FeatureGetItem.html">FeatureGetItem()</a>
+is used to obtain the handle to loaded features based upon <i>ID</i>.
+
+<p>
+Finally, resources in use by a loaded VRML file may be released via a call to
+<a href="api/FeatureUnload.html">FeatureUnload()</a> (<b>ISSUE</b>: note this
+does not appear to release any OpenGL textures which may have been created 
+when the VRML file was loaded).
+
+<p>(<b>ISSUE</b>: Are there special requirements on the VRML files, in order 
+to be used here?  There's the following comments taken from the code:
+<br>
+<code>
+  /* currently we require a geoname field so that we can associate */<br>
+  /* a feature file with a terrain dataset. In the future, we will */<br>
+  /* want to have feature files that are not associated with any   */<br>
+  /* dataset and have the absolute geocentric or lat/long coords.  */
+</code>
+<br>).
+
+
+<p>
+(<b>ISSUE:</b>  The coupling and interaction between the UI side and the 
+backend side are rather tight, in part driven by the fact that on the Motif side, loading is done as part of a separate "busy thread".  The backend in turn
+wants to post updates to the associated dialog.   Not sure how this could be
+refactored, but its a bit awkward to describe to a newbie -- like me --RLB.
+(see functions
+FeatureGet() and FeatureLoadCB() in FeatureFE.c;   functions FeatureLoad(), GetFeatureFromURL(), FeatureAlloc(), FeatureInlineTraverse() in Features.c).
+<br>
+A suggested refactoring is to hide FeatureAlloc() from the public interface, and 
+have FeatureLoad() call it upon invocation.  There looks to be a memory leak
+currently in cases were/if FeatureLoad() fails.)
+
+<p>
+(<b>ISSUE:</b>  Note that FeatureInlineLoad(), which is called indirectly by FeatureLoad(), recursively allocates new FeatureItems, bypassing FeatureAlloc() in the process!).
+
+
+
+<hr>
+<p><IMG SRC="img/back.gif" ALT="Back to" HEIGHT=21 WIDTH=20>
+<A HREF="api-desc.html">API</A>
+<p>
+<address><a href="mailto:brownrig@erg.sri.com">Rick Brownrigg</a></address>
+<!-- Created: Mon Jan 10 23:42:18 CET 2000 -->
+<!-- hhmts start -->
+Last modified: Thu Jan 13 04:05:10 CET 2000
+<!-- hhmts end -->
+</body>
+</html>

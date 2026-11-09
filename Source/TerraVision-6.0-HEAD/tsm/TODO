@@ -1,0 +1,31 @@
+***********
+*** tsmUTM:
+
+o Support polar sterographic projection from NIMA MUSE code
+
+****************
+*** tsmDatabase:
+
+(07/08/99) Only check tspecs for a DPSS if modifed date is > last
+  contacted date
+o After an Update, if we have an OI with no associated DEM, then give
+  it one by finding the closest DEM that covers the entire OI
+
+*************
+*** tsmTspec:
+
+o Support the specification of data with an alpha channel (RGBA/YA)
+
+******************
+*** tsmConnection:
+
+o Add support for a new NetLogger event to monitor that ratio of
+  "tiles displayed this frame" to "tiles needed for this frame".
+
+**************
+*** tsmCreate:
+
+(07/01/99) Support 1 component LAS images in addition to 3 component
+o when downsampling DEMs, the round up and extrapolate so that we
+  never get a situation where an OI pixel has no associated height value
+ 

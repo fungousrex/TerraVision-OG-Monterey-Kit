@@ -1,0 +1,307 @@
+togl Subcommands:
+=================
+
+  Ex: set tvBase [togl .........]
+
+  <b>tvbase geoset add</b> <tsGeoPyramid>
+  
+  tvbase geoset remove <tsGeoPyramid>
+
+  tvbase geoset priority <tsGeoPyramid> <priority?>
+	 Sets the priority of the given tsGeoPyramid if the optional integer
+	 priority is given; otherwise returns the current priority.
+
+  tvbase geoset list 
+	 Returns a list of tsGeoPyramid objects currently associated with the
+	 tvbase
+
+  Set/Get subcommands:
+  --------------------
+
+  <b>tvbase set</b> <TV_VARIABLE> value
+  <b>tvbase get</b> <TV_VARIABLE>
+
+  Destructor:
+  -----------
+
+  <b>tvbase destroy</b>
+
+    NOTE: this should be called *before* the Togl window is destroyed.
+
+  View Subcommands:
+  -----------------
+
+  <b>tvbase view init</b>  tsGeoPyramid
+
+
+  <b>tvbase view current <i>tvViewpoint</i> <i>jump</i>
+	Without the option argument, returns the current viewpoint
+	Sets the current view if a tvViewPoint is given.
+	Jump is a boolean value, which advances the view immediately if == true.
+
+  <b>tvbase view set3D</b> x y z yaw pitch roll
+
+  <b>tvbase view adjust</b> tvViewpoint forward right up
+	viewer-centric adjustment.  Returns the modified viewpoint.
+	Apparently does not actually set the view, only returns a view-spec
+	appropriately modified,
+
+  <b>tvbase view delta</b> tvViewpoint forward right up
+        Similiar to above, but coordinate-system centric
+
+  <b>tvbase view move forward right up
+        Viewer-centric, relative adjustments to viewpoint.
+
+  <b>tvbase view rotate yaw pitch roll
+        Relative adjustment to viewpoint.
+
+  <b>tvbase view setFrozen</b>
+
+  <b>tvbase view setInitial</b> tvViewpoint
+
+  <b>tvbase view setCentral</b> tsGeoPyramid
+
+  <b>tvbase view update</b> {jump=true|false}
+  
+  <b>tvbase view accelerate</b>
+  <b>tvbase view deccelerate</b>
+
+  <b>tvbase view startMovement</b>
+  <b>tvbase view stopMovement</b>
+
+  <b>tvbase view flyto</b> x y z yaw pitch roll
+  <b>tvbase view flytoPick x y
+	The first form uses coordinates from the view
+	The second form uses screen coordinates
+
+  <b>tvbase view setgdc</b> lat long elev yaw pitch roll
+        lat/long in degrees, elev in meters, yrp in radians.
+
+  <b>tvbase view getgdc</b>
+	Returns current view as a list of 6 elements, structured as for 
+	"setgdc" above.
+
+
+  //////  <b>tvbase view set</b> tvViewpoint {jump=true|false}
+
+  ///////  tvViewpoint <b>[tvbase view get]</b>
+
+  Path subcommands:
+  -----------------
+
+  tvbase path new
+	Creates new path instance. Discards any previously established path
+
+  tvbase path load <path_filename>
+	Loads a path from a file.  Returns true if successful, false if not.
+
+  tvbase path play
+        Begins animated playback of the currently loaded path.
+ 
+  tvbase path stop
+
+  tvbase path continue
+
+  tvbase path goto <index>
+  tvbase path goto start
+  tvbase path goto end
+  tvbase path goto next
+  tvbase path goto prev
+	Advances the view to the indicated waypoint in the path
+
+  tvbase path add
+	Adds (appends?) the current viewpoint to the path list.
+
+  tvbase path delete <index>
+        Deletes the waypoint at <index> for the path list.
+
+  tvbase path up <index>
+  tvbase path down <index>
+	Moves the indexed waypoint up/down in the list.
+
+  tvbase path duplicate <index>
+        Duplicates the indexed waypoint, appending the copy to the end of
+	the path list.
+  
+  tvbase path update <index>
+        Replaces the indexed waypoint with the "current" viewpoint.
+
+  tvbase path record {xres} {yres}
+	Begins generating frames at the given resolution (default is 320x240)
+	for compilation into an MPEG movie.
+
+  tvbase path isActive
+	Returns true is there's a path associated with the thread.
+	NOTE: Not exactly the same semantics as the API function 
+	PathIsActive().
+
+  tvbase path isPlaying
+	Returns true is there's an active path that is playing
+
+  tvbase path list
+	Returns a list of strings that are the waypoints of the path
+
+  tvbase path velocity
+  tvbase path velocity <speed_m/s>
+ 	Either returns or sets the velocity for the current path.
+
+  tvbase path velocity scale
+  tvbase path velocity scale <on|off>
+	Sets or returns current "height/speed scaling" setting.
+
+  tvbase path loop
+  tvbase path loop <on|off>
+	Sets or returns the "loop animation" setting.
+
+  tvbase path loop close 
+  tvbase path loop close <on|off>
+	Sets or returns the "closed loop animation" setting.
+
+  tvbase path interpolate
+  tvbase path interpolate <none|linear|spline>
+  	Sets or returns the "animation interpolation" setting.
+
+  tvbase path name
+  tvbase path name <new_name>
+	Sets or returns the name associated with a path.
+  
+
+  Link subcommands...
+  -------------------
+
+  tvbase link add <view/frustum/tiles/paths> <instance_id>
+  tvbase link delete <view/frustum/tiles/paths> <instance_id>
+	Add/removes the indicated link-type between "this" window and the
+	given one.
+
+  Drawing subcommands...
+  ----------------------
+
+  tvbase stroke begin <x> <y>
+  tvbase stroke continue <x> <y>
+  tvbase stroke end <x> <y>
+  tvbase stroke timeout <timeout_secs>
+  tvbase stroke clear
+	 Clears any drawn annotations.
+ 
+=====================
+tsGeoPyramid Command:
+=====================
+
+  tsGeoPyramid create <imageUrl> <tsmParams> <demUrl> <tsmParams>
+	Returns the unique identifing string (i.e, the "name") of the 
+	newly created tsGeoPyramid.
+
+  tsGeoPyramid list
+        Returns a list of the names of all known tsGeoPyramids, created during
+	the runtime session, independent of any tvbase thread.
+
+  tsGeoPyramid destroy <tsGeoPyramid>
+	Nukes the given geo-pyramid, removing it from all opened views in the 
+	process.
+
+  tsGeoPyramid info <tsGeoPyramid>
+	Returns a multiline string describing various details about the 
+	connection for the given tsGeoPyramid.  If the optional argument
+	is not given, then returns aggregate statistics across all geosets.
+
+  tsGeoPyramid coords LCVStoGCC <tsGeoPyramid> {Lx Ly Lz}
+	Returns list {Gx Gy Gz};  converts local coordinate to geocentric 
+	coordinates, using <tsGeoPyramid> as a reference.
+  tsGeoPyramid coords GCCtoLCVS <tsGeoPyramid> {Gx Gy Gz}
+	Coordinate conversion from geocentric to local;  returns {Lx Ly Lz}
+
+
+
+=====================
+tsmDatabase Commands:
+=====================
+
+  tsmDatabase new <database_pathname>
+        Creates a new database file, and writes header information to the
+	file.
+
+  tsmDatabase open <database_pathname>
+	opens a singleton database; closes any currently open
+
+  tsmDatabase write <database_pathname>
+	writes the database back out to persistent store.  If the option
+	pathname is *not* given, it overrights the original database file.
+
+  tsmDatabase geoset list
+	returns a list of geosets
+
+  tsmDatabase geoset getDatasets <geoset>
+	returns list of datasets that make up a geoset.  Is a list with 
+	two elements, which are:  i) a list of the "image" datasets, and
+        ii) a list of the "dem" datasets.
+
+  tsmDatabase geoset getServers <geoset> <location>
+	returns list of servers for a geoset at the given location.
+
+  tsmDatabase server list
+        returns list of servers associated with the database
+
+  tsmDatabase server info <serverName>
+        returns the "last contacted" info associated with a server, formatted
+	as per Unix "ctime()" function.
+
+  tsmDatabase server up <serverName>
+        Moves the indicated server "up" in the Database's list.
+
+  tsmDatabase server down <serverName>
+        Moves the indicated server "up" in the Database's list.
+
+  tsmDatabase server add <serverName>
+        Adds the indicated server to the database.  Returns the "parsed" url
+	on success, returns error message on failure.
+
+  tsmDatabase server remove <serverName>
+
+  tsmDatabase server read <serverName>
+
+  /******** 
+  tsmDatabase server parseUrl <urlString>
+	Returns true if string is valid url, false otherwise
+  ********/
+
+
+=====================
+tsmUtil Commands:
+=====================
+
+  tsmUtil showUrl <url>
+
+
+=====================
+pthr Commands:
+=====================
+
+  pthr trace level <0|1|2|3|4>
+	Sets debug level
+
+  pthr trace mask <mask>
+	Sets debug mask.  "mask" is the bitwise or-ing of constants from pthr.
+
+  pthr trace logfile <filename>
+	Begin writing debug info to file "filename". 
+	filename=stdout|stderr does the obvious thing.
+	Only one logfile is active at most.
+	
+  pthr trace logfile close 
+	Closes the (presumably) opened logfile.  Quietly returns if logging 
+	was not active.
+	
+
+=================
+Data Structures:
+=================
+
+  tvViewpoint:
+
+        { {eyeX eyeY eyeZ} altitude {refX refY refZ}
+          {refpA refpB refpC refpD} nearPlane farPlane
+          fov aspect {yaw pitch roll} vel accel base_accel
+        }
+
+

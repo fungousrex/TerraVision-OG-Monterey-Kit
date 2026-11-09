@@ -1,0 +1,898 @@
+# Dataset Database - version 1.0
+# Created by tsmApi 2.1 on Mon Jan 29 23:05:24 2001
+# For file format info, see http://www.tsmApi.com/dataset-db.html
+
+<server>
+  location: http://terravision.dsi.internet2.edu/tvdata
+</server>
+
+<geoset>
+  name: Amazon223061r
+  imagery: amazon223061r.oi
+  dem: gtopo30.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Amazon223062r
+  imagery: amazon223062r.oi
+  dem: gtopo30.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Camp Pendleton
+  imagery: camp_1degree.oi
+  dem: camp_1degree.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Colorado
+  imagery: co.oi
+  dem: co.dem
+  model: co.cat.model
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Earth (Gtopo30)
+  imagery: gtopo30.oi
+  dem: gtopo30.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Ft Benning
+  imagery: benning.oi
+  dem: benning.dem
+  map: benning.map
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Ft Benning (Map)
+  imagery: benning_map.oi
+  dem: benning_map.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Ft Irwin (2scene)
+  imagery: ntc-1-utm-2scene.128.oi
+  dem: ntc-1-utm-2scene.33.dem
+  map: ntc-1-utm-2scene.map
+  map: ntc-1-utm-2scene.test.map
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Ft Irwin (30scene)
+  imagery: ntc-1-lvcs-30scene.128.oi
+  dem: ntc-1-lvcs-30scene.33.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Laguna Beach
+  imagery: laguna_beach.oi
+  dem: laguna_beach.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: lawrence
+  imagery: lawrence.oi
+  dem: lawrence.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Mars
+  imagery: Mars.oi
+  dem: gtopo30.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Mojave
+  imagery: mojave.oi
+  dem: mojave.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Mojave 30m
+  imagery: Mojave30m.oi
+  dem: us_boundaries_lat_long.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Monterey Bay
+  imagery: monterey.oi
+  dem: monterey.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Moon
+  imagery: Moon.oi
+  dem: gtopo30.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Night Earth
+  imagery: night_earth.oi
+  dem: gtopo30.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Oh
+  imagery: oh.oi
+  dem: oh.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Palo Alto
+  imagery: paloalto.oi
+  dem: paloalto.dem
+  model: paloalto.sri.model
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Philippines
+  imagery: philippines.oi
+  dem: gtopo30.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: San Clemente SW CA
+  imagery: san_clemente_sw_ca.oi
+  dem: san_clemente_sw_ca.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Scotland
+  imagery: scotland.oi
+  dem: gtopo30.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: SF Bay Area
+  imagery: sfbay.oi
+  dem: paloalto.dem
+  model: sfbay.surround.model
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: US Boundaries
+  imagery: us_boundaries_lat_long.oi
+  dem: us_boundaries_lat_long.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: WashingtonWestDC
+  imagery: dc_ne.oi
+  dem: dc.dem
+  planet: Earth
+</geoset>
+
+<geoset>
+  name: Yosemite
+  imagery: yosemite.oi
+  dem: yosemite.dem
+  map: yosemite.map
+  planet: Earth
+</geoset>
+
+<dataset>
+  name: Mars.oi
+  geo-name: Mars
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 0.08789 m
+  max-resolution: 2.81248 m
+  latlong-footprint: -90 -180  89.9987182617 -180  89.9987182617 179.997436523  -90 179.997436523
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/Mars.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: Mojave30m.oi
+  geo-name: Mojave 30m
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 30 m
+  max-resolution: 30720 m
+  utm-footprint: 324918.5625 3681567.5 11  324918.5625 4187457.5 11  916338.5 4187457.5 11  916338.5 3681567.5 11
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/Mojave30m.oi
+    formats: lrbt
+  </instance>
+</dataset>
+
+<dataset>
+  name: Moon.oi
+  geo-name: Moon
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 0.08789 m
+  max-resolution: 2.81248 m
+  latlong-footprint: -90 -180  89.9987182617 -180  89.9987182617 179.997436523  -90 179.997436523
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/Moon.oi
+    formats: lrbt jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: amazon223061r.oi
+  geo-name: Amazon223061r
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 33.3333 m
+  max-resolution: 4266.66 m
+  utm-footprint: 42456.9921875 -9725160 23  42456.9921875 -9462994 23  331290.0625 -9462994 23  331290.0625 -9725160 23
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/amazon223061r.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: amazon223062r.oi
+  geo-name: Amazon223062r
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 33.3333 m
+  max-resolution: 4266.66 m
+  utm-footprint: 675793 -9577110 22  675793 -9335810 22  965492.75 -9335810 22  965492.75 -9577110 22
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/amazon223062r.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: benning.dem
+  geo-name: Ft Benning
+  type: dem-pyramid
+  description: ""
+  min-resolution: 4.8 m
+  max-resolution: 38.4 m
+  lvcs-footprint: 32.375 -84.75 0 0 2841.60009766 2332.80004883
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/benning.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: benning.oi
+  geo-name: Ft Benning
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 0.15 m
+  max-resolution: 38.4 m
+  lvcs-footprint: 32.375 -84.75 0 0 2839.95019531 2330.10009766
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/benning.oi
+    formats: lrbt
+  </instance>
+</dataset>
+
+<dataset>
+  name: benning_map.dem
+  geo-name: Ft Benning (Map)
+  type: dem-pyramid
+  description: ""
+  min-resolution: 38.4 m
+  max-resolution: 38.4 m
+  lvcs-footprint: 32.375 -84.75 0 0 2841.60009766 2304
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/benning_map.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: benning_map.oi
+  geo-name: Ft Benning (Map)
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 1.2 m
+  max-resolution: 38.4 m
+  lvcs-footprint: 32.375 -84.75 0 0 2840.40014648 2330.40014648
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/benning_map.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: camp_1degree.dem
+  geo-name: Camp Pendleton
+  type: dem-pyramid
+  description: ""
+  min-resolution: 960 m
+  max-resolution: 960 m
+  utm-footprint: 406560.03125 3651150 11  406560.03125 3761550 11  499680.03125 3761550 11  499680.03125 3651150 11
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/camp_1degree.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: camp_1degree.oi
+  geo-name: Camp Pendleton
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 30 m
+  max-resolution: 960 m
+  utm-footprint: 406560.03125 3651150 11  406560.03125 3762450 11  499950.03125 3762450 11  499950.03125 3651150 11
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/camp_1degree.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: co.dem
+  geo-name: Colorado
+  type: dem-pyramid
+  description: ""
+  min-resolution: 960 m
+  max-resolution: 1920 m
+  utm-footprint: 310385 4361550 13  310385 4569870 13  542705 4569870 13  542705 4361550 13
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/co.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: co.oi
+  geo-name: Colorado
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 30 m
+  max-resolution: 1920 m
+  utm-footprint: 310385 4361550 13  310385 4570170 13  543035 4570170 13  543035 4361550 13
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/co.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: dc.dem
+  geo-name: Dc
+  type: dem-pyramid
+  description: ""
+  min-resolution: 30 m
+  max-resolution: 960 m
+  utm-footprint: 271035 4276275 18  271035 4320255 18  338055 4320255 18  338055 4276275 18
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/dc.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: dc_ne.dem
+  geo-name: Dc_ne
+  type: dem-pyramid
+  description: ""
+  min-resolution: 30 m
+  max-resolution: 960 m
+  utm-footprint: 271035 4276275 18  271035 4320255 18  338055 4320255 18  338055 4276275 18
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/dc_ne.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: dc_ne.oi
+  geo-name: WashingtonWestDC
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 1 m
+  max-resolution: 512 m
+  utm-footprint: 304654.5 4304661 18  304654.5 4319277 18  337929.5 4319277 18  337929.5 4304661 18
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/dc_ne.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: gtopo30.dem
+  geo-name: Earth (Gtopo30)
+  type: dem-pyramid
+  description: "USGS GTOPO30 global 30 arc sec elevation data"
+  min-resolution: 0.00833334 m
+  max-resolution: 8.53334 m
+  latlong-footprint: -90 -180  90.0001525879 -180  90.0001525879 180.000305176  -90 180.000305176
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/gtopo30.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: gtopo30.oi
+  geo-name: Earth (Gtopo30)
+  type: image-pyramid
+  source-type: "unknown"
+  description: "USGS 1km AVHRR imagery converted from Interrupted Goode Homolosine Projection"
+  min-resolution: 0.0166667 m
+  max-resolution: 4.26667 m
+  latlong-footprint: -90 -180  90.0003509521 -180  90.0003509521 180.000701904  -90 180.000701904
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/gtopo30.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: laguna_beach.dem
+  geo-name: Laguna Beach
+  type: dem-pyramid
+  description: ""
+  min-resolution: 78.0288 m
+  max-resolution: 156.058 m
+  utm-footprint: 417861 3705292.75 11  417861 3720742.5 11  430345.59375 3720742.5 11  430345.59375 3705292.75 11
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/laguna_beach.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: laguna_beach.oi
+  geo-name: Laguna Beach
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 2.4384 m
+  max-resolution: 156.058 m
+  utm-footprint: 417861 3705292.75 11  417861 3721708 11  431113.71875 3721708 11  431113.71875 3705292.75 11
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/laguna_beach.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: lawrence.dem
+  geo-name: Lawrence
+  type: dem-pyramid
+  description: ""
+  min-resolution: 32 m
+  max-resolution: 256 m
+  utm-footprint: 293841.1875 4304934.5 15  293841.1875 4319206.5 15  316177.1875 4319206.5 15  316177.1875 4304934.5 15
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/lawrence.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: lawrence.oi
+  geo-name: lawrence
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 1 m
+  max-resolution: 256 m
+  utm-footprint: 293841.6875 4304934.5 15  293841.6875 4319150.5 15  316142.6875 4319150.5 15  316142.6875 4304934.5 15
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/lawrence.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: mojave.dem
+  geo-name: Mojave
+  type: dem-pyramid
+  description: ""
+  min-resolution: 30 m
+  max-resolution: 7680 m
+  utm-footprint: 325486 3682763 11  325486 4184453 11  915855.9375 4184453 11  915855.9375 3682763 11
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/mojave.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: mojave.oi
+  geo-name: Mojave
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 120 m
+  max-resolution: 7680 m
+  utm-footprint: 325540 3682860 11  325540 4184340 11  915819.9375 4184340 11  915819.9375 3682860 11
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/mojave.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: monterey.dem
+  geo-name: Monterey Bay
+  type: dem-pyramid
+  description: "Bathymetry data for Monterey Bay from MBARI"
+  min-resolution: 20 m
+  max-resolution: 640 m
+  utm-footprint: 543833.875 4039277.5 10  543833.875 4095417.5 10  608293.875 4095417.5 10  608293.875 4039277.5 10
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/monterey.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: monterey.oi
+  geo-name: Monterey Bay
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 5.05045 m
+  max-resolution: 646.457 m
+  utm-footprint: 543559.5 4038671.75 10  543559.5 4095994.25 10  609013.3125 4095994.25 10  609013.3125 4038671.75 10
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/monterey.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: night_earth.oi
+  geo-name: Night Earth
+  type: image-pyramid
+  source-type: "unknown"
+  description: "USGS imagery of Earth's city lights created from DMSP satellites"
+  min-resolution: 0.15 m
+  max-resolution: 4.8 m
+  latlong-footprint: -90 -180  90 -180  90 180  -90 180
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/night_earth.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: ntc-1-lvcs-30scene.128.oi
+  geo-name: Ft Irwin (30scene)
+  type: image-pyramid
+  source-type: "unknown"
+  description: "40km x 25km area of Ft Irwin CA, grey-scale, 1 meter resolution, LVCS coordinate system"
+  min-resolution: 1 m
+  max-resolution: 512 m
+  lvcs-footprint: 35.1371002197 -116.712997437 0 0 38656 24448
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/ntc-1-lvcs-30scene.128.oi
+    formats: lrbt
+  </instance>
+</dataset>
+
+<dataset>
+  name: ntc-1-lvcs-30scene.33.dem
+  geo-name: Ft Irwin (30scene)
+  type: dem-pyramid
+  description: ""
+  min-resolution: 32 m
+  max-resolution: 512 m
+  lvcs-footprint: 35.1371002197 -116.712997437 0 0 41792 25984
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/ntc-1-lvcs-30scene.33.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: ntc-1-utm-2scene.128.oi
+  geo-name: Ft Irwin (2scene)
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 1 m
+  max-resolution: 128 m
+  utm-footprint: 528407 3900814 11  528407 3907745 11  539770 3907745 11  539770 3900814 11
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/ntc-1-utm-2scene.128.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: ntc-1-utm-2scene.33.dem
+  geo-name: Ft Irwin (2scene)
+  type: dem-pyramid
+  description: ""
+  min-resolution: 32 m
+  max-resolution: 128 m
+  utm-footprint: 528407 3900814 11  528407 3907726 11  539767 3907726 11  539767 3900814 11
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/ntc-1-utm-2scene.33.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: oh.dem
+  geo-name: Oh
+  type: dem-pyramid
+  description: ""
+  min-resolution: 240 m
+  max-resolution: 7680 m
+  utm-footprint: 126060 4230690 17  126060 4742370 17  574380 4742370 17  574380 4230690 17
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/oh.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: oh.oi
+  geo-name: Oh
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 30 m
+  max-resolution: 7680 m
+  utm-footprint: 126060 4230690 17  126060 4742220 17  574440 4742220 17  574440 4230690 17
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/oh.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: paloalto.dem
+  geo-name: Palo Alto
+  type: dem-pyramid
+  description: ""
+  min-resolution: 30 m
+  max-resolution: 3840 m
+  utm-footprint: 434850 3998219.75 10  434850 4330709.5 10  679140 4330709.5 10  679140 3998219.75 10
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/paloalto.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: paloalto.oi
+  geo-name: Palo Alto
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 1 m
+  max-resolution: 128 m
+  utm-footprint: 565947.75 4136425 10  565947.75 4150915 10  577710.75 4150915 10  577710.75 4136425 10
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/paloalto.oi
+    formats: lrbt
+  </instance>
+</dataset>
+
+<dataset>
+  name: philippines.oi
+  geo-name: Philippines
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 0.00833333 m
+  max-resolution: 0.533333 m
+  latlong-footprint: -10 100  39.9999809265 100  39.9999809265 139.999984741  -10 139.999984741
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/philippines.oi
+    formats: lrbt jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: san_clemente_sw_ca.dem
+  geo-name: San Clemente SW CA
+  type: dem-pyramid
+  description: ""
+  min-resolution: 32 m
+  max-resolution: 64 m
+  utm-footprint: 441561 3692500 11  441561 3700116 11  448121 3700116 11  448121 3692500 11
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/san_clemente_sw_ca.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: san_clemente_sw_ca.oi
+  geo-name: San Clemente SW CA
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 1 m
+  max-resolution: 64 m
+  utm-footprint: 441561 3692500 11  441561 3700090 11  448101 3700090 11  448101 3692500 11
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/san_clemente_sw_ca.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: scotland.oi
+  geo-name: Scotland
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 15 m
+  max-resolution: 1920 m
+  utm-footprint: 291915 6237000 30  291915 6468300 30  524715 6468300 30  524715 6237000 30
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/scotland.oi
+    formats: lrbt
+  </instance>
+</dataset>
+
+<dataset>
+  name: sfbay.dem
+  geo-name: Sfbay
+  type: dem-pyramid
+  description: ""
+  min-resolution: 30 m
+  max-resolution: 3840 m
+  utm-footprint: 434850 3998219.75 10  434850 4330709.5 10  679140 4330709.5 10  679140 3998219.75 10
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/sfbay.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: sfbay.oi
+  geo-name: SF Bay Area
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 25 m
+  max-resolution: 3200 m
+  utm-footprint: 489100.03125 4040635.5 10  489100.03125 4261310.5 10  645525 4261310.5 10  645525 4040635.5 10
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/sfbay.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: us_boundaries_lat_long.dem
+  geo-name: US Boundaries
+  type: dem-pyramid
+  description: ""
+  min-resolution: 0.00833333 m
+  max-resolution: 0.533333 m
+  latlong-footprint: 22.4832992554 -128.516998291  48.4166221619 -128.516998291  48.4166221619 -65.3836898804  22.4832992554 -65.3836898804
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/us_boundaries_lat_long.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: us_boundaries_lat_long.oi
+  geo-name: US Boundaries
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 0.00833333 m
+  max-resolution: 0.533333 m
+  latlong-footprint: 22.4832992554 -128.516998291  48.4166221619 -128.516998291  48.4166221619 -65.3836898804  22.4832992554 -65.3836898804
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/us_boundaries_lat_long.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<dataset>
+  name: yosemite.dem
+  geo-name: Yosemite
+  type: dem-pyramid
+  description: ""
+  min-resolution: 32 m
+  max-resolution: 256 m
+  utm-footprint: 258126 4167780 11  258126 4194884 11  279278 4194884 11  279278 4167780 11
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/yosemite.dem
+  </instance>
+</dataset>
+
+<dataset>
+  name: yosemite.oi
+  geo-name: Yosemite
+  type: image-pyramid
+  source-type: "unknown"
+  description: ""
+  min-resolution: 1 m
+  max-resolution: 256 m
+  utm-footprint: 258126 4167780 11  258126 4194870 11  279261 4194870 11  279261 4167780 11
+  <instance>
+    location: http://terravision.dsi.internet2.edu/tvdata/yosemite.oi
+    formats: jpeg
+  </instance>
+</dataset>
+
+<map>
+  name: benning.map
+  geo-name: Ft Benning
+  location: http://terravision.dsi.internet2.edu/tvdata/benning.map/benning.jpg
+  uv-corners: 0 0 2839.2 2329.2
+</map>
+
+<map>
+  name: ntc-1-utm-2scene.map
+  geo-name: Ft Irwin (2scene)
+  location: http://terravision.dsi.internet2.edu/tvdata/ntc-1-utm-2scene.map/fort-irwin-utm.jpg
+  uv-corners: 520000 3.88e+006 570000 3.92e+006
+</map>
+
+<map>
+  name: ntc-1-utm-2scene.test.map
+  geo-name: Ft Irwin (2scene)
+  location: http://terravision.dsi.internet2.edu/tvdata/ntc-1-utm-2scene.test.map/fort-irwin-small.gif
+  uv-corners: 526150 3.89488e+006 551400 3.9132e+006
+</map>
+
+<map>
+  name: yosemite.map
+  geo-name: Yosemite
+  location: http://terravision.dsi.internet2.edu/tvdata/yosemite.map/yosemite.jpg
+  uv-corners: 249607 4.16518e+006 286081 4.19693e+006
+</map>
+
+<model>
+  name: benning.mout.model
+  location: http://terravision.dsi.internet2.edu/tvdata/benning.mout.model/model.wrl
+</model>
+
+<model>
+  name: benning.texmout.model
+  location: http://terravision.dsi.internet2.edu/tvdata/benning.texmout.model/model.wrl
+</model>
+
+<model>
+  name: camp_1degree.wind.model
+  location: http://terravision.dsi.internet2.edu/tvdata/camp_1degree.wind.model/model.wrl
+</model>
+
+<model>
+  name: co.cat.model
+  title: Clear Air Turbulence
+  geo-name: Colorado
+  location: http://terravision.dsi.internet2.edu/tvdata/co.cat.model/model.wrl
+</model>
+
+<model>
+  name: paloalto.sri.model
+  title: SRI Campus
+  geo-name: Palo Alto
+  location: http://terravision.dsi.internet2.edu/tvdata/paloalto.sri.model/model.wrl
+</model>
+
+<model>
+  name: sfbay.surround.model
+  title: The Bridges
+  geo-name: SF Bay Area
+  location: http://terravision.dsi.internet2.edu/tvdata/sfbay.surround.model/model.wrl
+</model>
+

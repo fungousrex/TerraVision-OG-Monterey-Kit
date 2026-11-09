@@ -1,0 +1,79 @@
+<html><!-- #BeginTemplate "/Templates/User Guide.dwt" -->
+<head>
+<title>Digital Earth: TerraVision: User Guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="http://www.ai.sri.com/digitalearth/styles.css">
+<script language="JavaScript" src="http://www.ai.sri.com/digitalearth/common.js"></script>
+</head>
+
+<!--#include virtual="../bodytag.inc"-->
+<!--#include virtual="../header.inc" -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="10" valign="top" align="left">&nbsp;</td>
+    <td width="121" valign="top" align="left" background="../images/bg_sidebar.gif"> 
+<!--#include virtual="sidebar.inc" -->
+      
+    </td>
+    <td width="10">&nbsp;</td>
+    <td valign="top"> 
+      <p><img src="../images/user_guide_title.gif" width="470" height="70"> </p>
+      <p><a href="http://www.ai.sri.com/digitalearth/" target="_top"><span class="history_link">Digital 
+        Earth</span></a> <span class="history_link">&gt; <a href="http://www.tvgeo.com/">Terravision<sup><font size="-2">TM</font></sup></a> 
+        &gt; <a href="../welcome.shtml">User Guide</a> &gt; 
+        <a href="welcome.shtml">X/Motif</a> &gt; 
+        <a href="chapter_file.shtml">&quot;File&quot; 
+        Menu</a> &gt; The &quot;File/Open TV&quot; Menu Option </span></p>
+      <!-- #BeginEditable "content" --> 
+      <h2>The "File/Open TV" Menu Option</h2>
+      <p>
+        <center>
+          <img src="../images/menu2.gif" width="348" height="252"> 
+        </center>
+      <p> 
+      <h3>Database Options</h3>
+      <p>The Database Options dialog lets you manage the contents of your Dataset 
+        Database. It is accessed by clicking on the "Options..." button of the 
+        <b>File/Open TV</b> menu. 
+      <p>
+        <center>
+          <img src="../images/options.gif" alt="Database Options window" width="452" height="390"> 
+        </center>
+      <p> The main display is a list of servers that holds one or more TerraVision<sup><font size="-2">TM</font></sup>  
+        style terrain datasets. For a localdisk server, this will be something 
+        like <tt>/homedir/magic/TileSets</tt>; for an http server, this will look 
+        like <tt>http://www.ai.sri.com/TileSets</tt>; and for a DPSS server this 
+        will look like <tt>x-dpss://iss-1.sri.magic.net/</tt>. 
+      <p>You can add and remove servers from the database by using the "Add Server" 
+        and "Remove Server" buttons. When you add a new server, you will be asked 
+        if you wish to read the server now and update the database with all of 
+        the datasets stored at that location. When you remove a server, you will 
+        be asked to confirm the operation before it is completed. 
+      <p>You can re-order a server in the list, i.e. make it the first server 
+        or the last server, by using the "Move Up" and "Move Down". The effect 
+        of this is not immediately evident; however, when you next do a "Re-read 
+        All" all of the dataset instances in the Open TV dialog will be listed 
+        in the order you specify here. 
+      <p>The "Re-read Server" and "Re-read All" buttons are used to tell TerraVision<sup><font size="-2">TM</font></sup>  
+        to connect to the specified server(s) and read all of the datasets on 
+        that server. If the server is contactable, then TerraVision<sup><font size="-2">TM</font></sup>  will first 
+        delete all instances already in the database that describe datasets on 
+        that server. The new list is then built from scratch. This ensures, that 
+        any dataset removals will propagate from the server to the database. If 
+        a server cannot be contacted, then the database will not be changed. This 
+        ensures that we don't delete information from the database just because 
+        a server is temporarily down. 
+      <p>The "Last contacted:" display at the bottom of the dialog states the 
+        date and time when the selected server was last successfully contacted. 
+        This will be n/a if the server has not been contacted at all. 
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p align="center" class="description">
+        <!--#include virtual="../footer.inc" --><br>
+        Last updated: <!--#echo var="LAST_MODIFIED" -->.</p>
+      <!-- #EndEditable --></td>
+    <td width="20">&nbsp;</td>
+  </tr>
+</table>
+</body>
+<!-- #EndTemplate --></html>

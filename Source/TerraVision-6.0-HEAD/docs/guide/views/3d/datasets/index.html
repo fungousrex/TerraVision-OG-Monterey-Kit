@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+
+<HEAD>
+<TITLE>TerraVision User Guide</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<CENTER>
+<IMG SRC="../../../guide.gif" ALT="TerraVision User Guide">
+</CENTER>
+
+<H2>The 3-D Viewer "Datasets" Menu</H2>
+
+<P><CENTER>
+<IMG SRC="../menu-3d.gif">
+</CENTER><P>
+
+The Datasets menu provides facilities for managing the
+display of multiple datasets for a single 3-D viewer.
+
+<p><img src="display.gif" align="right">
+
+<H3>Dataset Display</H3>
+
+The Dataset Display dialog lets you select which subset of all the
+currently loaded datasets that you would like to display in a 3-D
+viewer. By default, the viewer will display all datasets that you have
+opened. However, you can choose to not display certain datasets if you
+wish.
+
+<p>For example, in the screen shot opposite we can see that the user
+has loaded 3 datasets into TerraVision. However, the user has removed
+the Gtopo30 dataset from the current view so only the Palo Alto and
+Colorado dataset will be displayed. You remove a dataset from the view
+by clicking on its name in the right pane and clicking "&lt;&lt;
+Remove". It will then be moved from the right pane to the left
+pane. You can redisplay a dataset by clicking on its name in the left
+pane and then clicking "&gt;&gt; Add". It will then be moved to the
+right pane and you will be able to view the dataset once more in the
+viewer.
+
+<H3>Dataset Priority</H3>
+
+<table width="100%" cellspacing=0 cellpadding=0>
+<tr>
+<td><img src="prio.gif" align="left">&nbsp;&nbsp;&nbsp;&nbsp;
+<td valign="top" align="left">
+The Dataset Priority dialog lets you alter the priority which is used
+to display multiple datasets. In other words, the order in which
+datasets are displayed. For example, if you have a model of the earth
+and a model of the San Francisco Bay Area, then if you display the
+model of the earth last then it will obliterate the Bay Area model.
+
+<p>Therefore, this dialog lets you interactively change the display
+priority for all datasets in a particular 3-D viewer. The highest
+priority datasets (rendered last) show appear at the top of this list.
+For example, in the screenshot to the left, the Gtopo30 (World)
+dataset is displayed first, then the Bay Area is displayed on top of
+that, then Palo Alto is displayed on top of that. The Colorado dataset
+is not overlapping with either the Bay Area or the Palo Alto dataset
+so it can appear anywhere higher up than Gtopo30.
+
+</td>
+<tr>
+</table>
+
+<H3>Z-Buffer Hack</H3>
+
+This feature is enabled by default. It provides an interm solution to
+the problem or rendering datasets embedded within other
+datasets. Ordinarily, if you were to render two overlapping and nearly
+co-planar surfaces then you would see a lot of "flimmering" effects.
+That is, parts of one dataset would jut through the other because of
+lack of Z-buffer resolution. The Z-Buffer Hack solution basically
+clears the Z-Buffer (depth buffer) between the rendering of each
+dataset. This produces a solid and faithful display when looking from
+above, but can introduce some visual artifacts when close to the
+ground looking out along the horizon.
+
+<P><BR><HR NOSHADE>
+
+<A HREF="http://www.ai.sri.com/TerraVision">TerraVision Home Page</A>
+
+</BODY>
+</HTML>

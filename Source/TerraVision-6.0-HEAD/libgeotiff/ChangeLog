@@ -1,0 +1,39 @@
+Thu May  4 09:11:47 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* configure.in (JUNK): the libgeotiff configure process would
+ 	always ignore the -n32 part if you tried to set CC='cc -n32'.
+  	This was because checkCompiler only looks at the first arg of the
+ 	CC string. Updated to include the full user-defined compiler
+	command line.
+
+2000-02-03  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Duplicate LIBPORT setting code from tiff/configure
+          in order to determine whether it is needed.  AC_SUBST(LIBPORT).
+	* configure: Regen
+	* bin/Makefile.in: Use @LIBPORT@ subst for libport.a
+
+Mon Dec 06 15:43:58 1999    <reddy@MAGNOLIA>
+
+	* configure.in: Correct tests for possibility of .exe executables.
+	* configure: Regen
+	* config.guess config.sub: Update
+	* bin/Makefile.in: Add LIBPORT reference in case of missing funcs.
+	
+1999-08-27  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure: Regen.
+
+1999-02-26  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Regenerate configure
+
+1998-03-23  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.in, bin/Makefile.in: Add targets for automatic
+	  rebuilding of Makefile and configuration files.
+
+1998-03-20  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Start this.
+

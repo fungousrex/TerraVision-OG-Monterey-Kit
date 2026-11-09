@@ -1,0 +1,3 @@
+#define TSMAPI_RELEASE 2.3
+static char tsmApiRelease[] = "$Release: 2.3 $";
+static char tsmApiReleaseDate[] = "$Date: 2002/08/02 04:29:00 $";

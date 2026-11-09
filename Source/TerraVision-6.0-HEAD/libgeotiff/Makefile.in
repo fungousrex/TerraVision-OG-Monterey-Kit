@@ -1,0 +1,123 @@
+#
+# GeoTIFF Library source for Makefile
+#
+DEPTH   = .
+
+srcdir  = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+
+TOP = ${DEPTH}/@DIR_LIBTIFF@
+TIFFDIR = ${TOP}/libtiff
+PORT    = ${TOP}/port
+
+TOPSRC = ${srcdir}/${DEPTH}/@DIR_LIBTIFF@
+TIFFSRCDIR = ${TOPSRC}/libtiff
+PORTSRC    = ${TOPSRC}/port
+
+#
+# VERSION:      @VERSION@
+# DATE:         @DATE@
+# TARGET:       @TARGET@
+# CCOMPILER:    @CCOMPILER@
+#
+SHELL   = /bin/sh
+NULL    =
+CD      = cd
+CC      = @CC@
+CFLAGS  = @CFLAGS@
+LN      = @LN_S@
+CP      = cp
+RANLIB  = @RANLIB@
+INSTALL = @INSTALL@
+LDFLAGS = @LDFLAGS@
+LIBS    = @LIBS@
+RM      = rm -f
+#MAKE    = make
+
+LIB_XTIFF=${srcdir}/libxtiff
+XTIFF=xtiff.o
+XTIFFINC= xtiffio.h xtiffiop.h
+
+#
+INCLUDES = -I. -I${srcdir} -I${TIFFDIR} -I${TIFFSRCDIR} 
+
+COMPILE= $(CC) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
+LINK = $(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $@
+#
+SRCS    = \
+	${NULL}
+OBJS    = \
+	${XTIFF} \
+	geo_free.o \
+	geo_get.o \
+	geo_names.o \
+	geo_new.o \
+	geo_print.o \
+	geo_set.o \
+	geo_tiffp.o \
+	geo_write.o \
+	${NULL}
+TARGETS = libgeotiff.a
+
+all:    ${TARGETS} Progs
+
+libgeotiff.a: ${OBJS}
+	${AR} ${ARFLAGS} libgeotiff.a $?
+	${RANLIB} libgeotiff.a
+
+Progs:
+	${CD} bin; ${MAKE}
+
+.c.o:
+	$(COMPILE) -c $<
+
+${OBJS}: ${srcdir}/geotiff.h ${srcdir}/geotiffio.h
+
+${XTIFFINC}:
+	${RM} ${XTIFFINC}
+	${CP} ${LIB_XTIFF}/*.h .
+
+${XTIFF}: ${LIB_XTIFF}/xtiff.c  ${XTIFFINC}
+	$(COMPILE) -c $< -o ${XTIFF}
+
+geo_free.o: ${srcdir}/geo_free.c
+geo_get.o: ${srcdir}/geo_get.c
+geo_names.o: ${srcdir}/geo_names.c
+geo_new.o: ${srcdir}/geo_new.c
+geo_print.o: ${srcdir}/geo_print.c
+geo_set.o: ${srcdir}/geo_set.c
+geo_tiffp.o: ${srcdir}/geo_tiffp.c
+geo_write.o: ${srcdir}/geo_write.c
+
+clean:
+	rm -f ${TARGETS} ${OBJS} ${XTIFFINC} core a.out
+	${CD} bin; ${MAKE} clean
+
+install:
+#
+top_builddir = $(DEPTH)
+
+Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+$(top_srcdir)/aclocal.m4:  configure.in  acinclude.m4
+	cd $(srcdir) && aclocal
+
+config.status: $(srcdir)/configure
+	$(SHELL) ./config.status --recheck
+$(srcdir)/configure: $(srcdir)/configure.in $(top_srcdir)/aclocal.m4
+	cd $(srcdir) && autoconf
+
+config.h: stamp-h
+	@:
+stamp-h: $(srcdir)/config.h.in $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES= CONFIG_HEADERS=config.h \
+	     $(SHELL) ./config.status
+	@echo timestamp > stamp-h
+$(srcdir)/config.h.in: $(srcdir)/stamp-h.in
+$(srcdir)/stamp-h.in: $(top_srcdir)/configure.in $(top_srcdir)/aclocal.m4 acconfig.h
+	cd $(top_srcdir) && autoheader
+	@echo timestamp > $(srcdir)/stamp-h.in

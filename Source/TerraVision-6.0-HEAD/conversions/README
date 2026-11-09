@@ -1,0 +1,53 @@
+SEDRIS Release 2.5:
+
+These files are consistent with the SEDRIS 2.5 data model.
+
+se_conv.c -  implements color conversion functions, and some utility functions.
+
+se_conv.h - declares coordinate conversion, color conversion, and
+            utility functions (e.g. meters/feet conversion), and includes
+            all other .h files defined here. This is the .h file that
+            the user should include.
+
+se_conv_default.c - implements "default variables" for all struct types defined
+                    in se_conv_types.h
+
+se_conv_default.h - declares "default variables" for all struct types defined
+                    in se_conv_types.h
+
+se_conv_print.c - implements printing functions for all conversions API
+                  types (which are defined in se_stds.h and se_conv_types.h).
+
+se_conv_print.h - declares printing functions for all conversions API
+                  types (which are defined in se_stds.h and se_conv_types.h).
+
+se_conv_types.h - declares all types exported by the conversions API
+                  (other than the atomic types defined in se_stds.h)
+
+se_conv_util.c - implements utility functions declared in se_conv_util.h
+
+se_conv_util.h - declares utility functions (equality of
+                 SE_COORD_SYSTEM_PARAMETERS, extract distance units
+                 from SE_COORD_SYSTEM_PARAMETERS, whether a given
+                 coordinate system has a 2D equivalent). Included
+                 by se_conv.h
+
+se_conv_valid.c - implements validation/checking routines defined in
+                  se_conv_valid.h
+
+se_conv_valid.h - declares validation/checking routines for all
+                  applicable types declared in se_conv_types.h;
+                  included by se_conv.h
+
+se_coord_conv.c - implements coordinate conversion functions
+
+se_datums.c - defines horizontal datum information for se_coord_conv.c's
+              coordinate conversion functions
+
+se_datums.h - internal header file; not to be included by users. Defines
+              horizontal datums for se_coord_conv.c's coordinate conversion
+              functions
+
+se_stds.c - defines infinity values for numeric atomic types
+
+se_stds.h - defines atomic types (e.g. SE_FLOAT64, SE_BOOLEAN)

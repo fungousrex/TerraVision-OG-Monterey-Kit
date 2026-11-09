@@ -1,0 +1,1054 @@
+2002-02-15  Lee Iverson  <leei@ece.ubc.ca>
+
+	* Makefile.in: Regen with automake 1.5
+	* aclocal.m4: Ditto
+	* config.h.in: Ditto
+	* config.guess, config.sub, missing: Update to automake 1.5 version.
+
+	* configure.in: Use TV_NSPR(../nsprnew)
+	* configure: Regen with autoconf 2.52
+
+2001-07-12  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* list_inline.h (list_remove): Return correct value, even if
+	  list_delete creates an empty list.
+
+2001-07-09  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* heap.c (heap_pop): Call h->update and heap_update properly.
+
+Thu Jun  7 14:25:29 2001  Lee Iverson  <leei@AI.SRI.COM>
+
+	* heap.c (heap_forall): New. Walk through entries on heap.
+	* heap.h (heap_forall): New decl.
+
+Wed Jun  6 22:51:58 2001  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* eqhash.h: Move "istack.h" inclusion inside inline guard.
+	* eqhash_inline.c: Include "istack.h"
+	
+	* eqlhash.h: Move "istack.h" inclusion inside inline guard.
+	* eqlhashI.h: Fix guard to not use _eqhashI_h_
+	* eqlhash_inline.c: Include "istack.h"
+	* eqlhash_inline.h (eqlhash_lookup): Mask hash value by size of
+	  table.
+
+2001-03-09  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (AC_CHEC_FUNCS): Add setlinebuf.
+	* config.h.in: Regen
+	* configure: Regen
+	* report.c (pthr_trace_stream): Call setlinebuf for new trace
+	  stream.
+
+Fri Dec  1 00:03:28 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* list.c (list_delete): return NULL if we have deleted the last
+ 	element in the list. This used to wrap round to the first node
+ 	which, if the list is now empty, would cause a crash when the
+ 	client tried to use the pointer.
+
+2000-11-22  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* heap.c (heap_recost_idx): New.  Reset the cost of an element
+	  already in the heap.  Adjust heap upon so doing.
+	* heap.h (heap_recost_idx): New decl.
+
+2000-11-09  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* istack.h (istack_finish): Make p into void*
+
+2000-11-01  Michael A. Eriksen  <eriksen@ai.sri.com>
+
+	* aqueue.h: Renamed _MSVC to MSVC
+	* eqhash.h: Renamed _MSVC to MSVC
+	* eqlhash.h: Renamed _MSVC to MSVC
+	* heap.h: Renamed _MSVC to MSVC
+	* istack.h: Renamed _MSVC to MSVC
+	* list.h: Renamed _MSVC to MSVC
+	* lru.h: Renamed _MSVC to MSVC
+	* lru_hash.h: Renamed _MSVC to MSVC
+	* report.c: Renamed _MSVC to MSVC
+	* trace.h: Renamed _MSVC to MSVC
+	* Removed winbuild/unistd.h
+	* Removed winbuild/config.h
+
+2000-09-29  Lee Iverson  <leei@Mission.AI.SRI.COM>
+
+	* aqueue_inline.h: Move data structures to
+	* aqueueI.h: ...here.  New file.
+	* aqueue.c: Include "eqlhashI.h"
+
+	* eqlhash_inline.h: Move data structures to
+	* eqlhashI.h: ...here.  New file.
+	* eqlhash.c: Include "eqlhashI.h"
+
+	* eqhash_inline.h: Move data structures to
+	* eqhashI.h: ...here.  New file.
+	* eqhash.c: Include "eqlhashI.h"
+	
+	* list_inline.h: Move data structures to
+	* listI.h: ...here.  New file.
+	* list.c: Include "eqlhashI.h"
+	
+	* lru_inline.h: Move data structures to
+	* lruI.h: ...here.  New file.
+	* lrut.c: Include "eqlhashI.h"
+
+	* lru_hash_inline.h: Move data structures to
+	* lru_hashI.h: ...here.  New file.
+	* lru_hasht.c: Include "eqlhashI.h"
+	
+2000-09-25  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* eqhash.c (eqhash_delete): Return TRUE/FALSE for success.
+	* eqhash.h (eqhash_delete): Change return  to type int.
+
+2000-09-20  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* eqhash.c (print_table): New.  Dump the hash table.
+	* eqhash_inline.h (EQHASH_A, EQHASH): Cast through PRUint32
+	(eqhash_hash): Use middle bits instead of high.
+
+	* heap.c (heap_size): New.  Return number of elements in heap.
+	(heap_is_empty): Externalize.
+	(heap_maybe_resize): Protect against full range of possible nelems
+	  values.
+	(heap_add_nocheck): Add size assertion.
+	(heap_add_noadjust): Modify so heap_maybe_resize call is nonzero.
+	(heap_add): Ditto.
+	(heap_pop): Robustify.  Returns NULL if called with empty heap.
+	* heap.h (heap_size): New decl.
+	(heap_is_empty): New decl
+	
+2000-09-08  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* heap.h: New file.  Interfaces for generic priority queue.
+	* heap.c: New file.  Implementation of generic priority queue.
+
+Mon Aug 14 17:14:52 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* list.h (list_last): [new func] begin an iterator at the end of
+ 	a list
+	(list_prev): [new func] iterate back through a list
+
+2000-06-27  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* list.c (list_delete): Properly return 0 on failure.
+	* list_inline.h (list_remove): Use list_find()
+	
+	* trace.h (FUNCNAME): New macro.  Define the function name.  With
+	  gcc, uses __PRETTY_FUNCTION__.
+
+2000-04-05  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* eqhash*: Correct revision history.
+	
+	* list_inline.h (struct list_elem): Track list of which the elem
+	  is a member.  This allows an iterator to be self-contained.
+	(list_next): Delete unnecessary list arg.
+	(list_find, list_remove): Update for change to list_next() and
+	  list_delete().
+	* list.h (list_next): Remove list argument.
+	(list_delete, list_insert_after, list_insert_before): Ditto.
+	* list.c (elem_new): Take list and val arguments to initialize.
+	(list_insert_after, list_insert_before): Remove first arg. 
+	  Update for change to elem_new().
+	(list_push, list_shift): Update for change to elem_new().
+	(list_delete): Remove first argument.
+	* test_list.c: Update for list interface changes.
+
+	* Makefile.am, Makefile.in (libpthrutil_a_SOURCES): Add eqlhash.c
+	  and eqlhash_inline.c
+	(pkginclude_HEADERS): Add eqlhash.h and eqlhash_inline.h
+	* eqlhash.c, eqlhash.h, eqlhash_inline.c, eqlhash_inline.h:
+	  New implementation of a non-eq hash table with a user-defined
+	  hash function.
+
+2000-03-13  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* aqueue.c, eqhash.c, istack.c, list.c, lru.c, lru_hash.c:
+	  Retract last change.  Don't use exinline in .c files.
+
+2000-02-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Remove check for ../thread/pthread.h
+	  Don't check for valloc
+	* configure, config.h.in: Regen
+	* list.c (elems_make_curr_valid): Use malloc instead of
+	non-portable valloc().
+	(list_delete): Remove success variable.
+
+1999-12-22  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* test_list.c: NSPR-ize threads.
+	(writer_thread1): Return no value for PR_CreateThread()
+	(writer_thread2): Ditto.
+	(test_list_threads): Renamed from test_list_pthread().
+	  Call PR_CreateThread() for tests.
+	(main): Call test_list_threads().
+
+Tue Dec 21 11:11:10 1999    <reddy@MAGNOLIA>
+
+	* aqueue.c list.c lru.c lru_hash.c test_list.c: Unconditionally 
+	  use <prthread.h>
+	  Remove #ifdef HAVE_PTHREAD_H defines.
+
+1999-12-16  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* obstack.c obstack.h vobstack.h: Delete files.
+	
+	* Makefile.am (libpthrutil_a_SOURCES): Delete obstack references.
+	(pkginclude_HEADERS): Delete obstack references.
+	* Makefile.in: Regen
+	* acconfig.h: Move alloca() definition here.
+	* config.h.in: Regen
+	* timestamp.c: Move alloca() def to acconfig.h
+	(TRACING): Move this block up.
+	* timestamp.h: Disable the TRACING defines.
+
+1999-12-14  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* list_inline.h (list_empty): A NULL list is empty.
+	(list_forall): Don't iterate over an empty list.
+	(list_count): An empty list has count zero.
+	(list_first): A NULL list is empty.
+
+1999-12-06  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* lru_hash.c (l_lock): Correct spelling of PR_Lock().
+
+1999-10-30  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* istack.h (istack_alloc_notify): Declare.
+
+1999-10-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* report.c (init): Use implicit initialization to zero.
+	(names_init): Ditto.
+	
+1999-09-08  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am: Remove CLASSIC_NSPR definition.
+	* Makefile.in: Regen
+	* configure: Regen based on change to TV_NSPR in ../acinclude.m4
+
+1999-08-27  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure: Regen based on change to TV_NSPR in ../acinclude.m4
+
+	* report.c (pthr_create): Make default thread scope be
+	  PR_GLOBAL_THREAD.
+	
+1999-08-24  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (cfginclude_DATA): Delete
+	* Makefile.in: Regen
+	* configure.in (AM_CONFIG_HEADER): Remove sysconfig.h
+	* configure: Regen
+	* config.h.in: Regen
+
+	* eqhash_inline.h: Remove "sysconfig.h" include.
+	* lru_hash.c: #include <prtypes.h> for PRUint32.
+	  Remove "sysconfig.h" include.
+
+1999-08-24  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* acconfig.h (_REENTRANT): Add #undef pattern
+	(_THREAD_SAFE): Ditto.
+	* configure.in (AC_CANONICAL_SYSTEM): Add.
+	  Check whether cc accepts -pthread arg and/or define _REENTRANT.
+	
+	* html_gen.c (html__stream): Don't assume that stdout is constant.
+	(html_html_start): Initialize html__stream if NULL.
+	* report.c (trace_stream): Don't assume that stderr is constant.
+	(pthr_trace_stream): Initialize trace_stream if NULL.
+	
+1999-08-20  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* list.c (elem_lock): Don't use statement exprs so we're not
+	  dependent on gcc.
+	(list_shift): Constify val.
+	
+	* timestamp.c (LOCK, UNLOCK): New macros for conditionally locking
+	  a mutex.
+	(list_add, list_find, list_forall, list_remove, list_destroy): Use
+	  LOCK() and UNLOCK().
+	(pthr_cond_broadcast): Delete quibbling comments.
+	(pthr_cond_wait): Delete // comment.
+
+	* configure: Regen (oops)
+	* config.h.in: Regen.
+
+1999-08-19  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Merge in changes from main branch.
+	
+1999-07-31  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* eqhash_inline.h (eqhash_hash): Replace system u_int32_t types with 
+	  NSPR equivalents.
+	* lru_hash.c:  Ditto.
+
+1999-07-22  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* istack.c (istack_create): Make default alignment be to 8 byte
+	  boundaries.
+
+	* list.c (list_check): Remove unused var.
+	* lru.c (lru_decache): Remove unused var.
+	* lru_hash.c (lru_hash_lookup1): Remove unused var.
+	(lru_hash_decache): Remove unused var.
+	* lru_hash_inline.h (lru_hash_key_equal): Make int return
+	  explicit.
+	* report.c: Include <unistd.h> for getpid()
+	(trace_newline): Delete unused static.
+	(vtrace): Cast getpid() to int for printf()
+	(name_slot): Remove unused var.
+	(pthr_set_name): Remove unnecessary call to pthr_name().
+	* timestamp.c (all_conds): Delete unused.
+	(next_timestamp): Delete unused var.
+	* trace.h (pthr_trace1): Add declaration.
+	
+1999-06-24  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* list.c (*): Change list_elem_t to list_iter_t.
+	(list_detach): Call list_iter_valid().
+	(list_insert_after, list_insert_before): Add list argument and
+	  reorder args.
+	(list_push, list_shift): Return list_iter_t.
+	(list_pop, list_unshift): Cast away const of val for return.
+	(list_delete, list_remove): Add list argument.
+	* list.h (list_iter_t): Redefine as simple pointer to increase
+	  efficiency and felxibility.
+	(list_shift, list_push): Declare list_iter_t return.  Take void
+	  const * for opaque data.
+	(list_find, list_remove): Take void const * for opaque data.
+	(list_next, list_delete): Add list argument.
+	(list_iter_valid): Expose.
+	(list_insert_after, list_insert_before): Add list argument and
+	  reorder args.
+	* list_inline.h (*): Change list_elem_t to list_iter_t.
+	(struct list_elem): Make val (void const *) for increased opacity.
+	(list_iter_valid): Renamed from list_elem_valid().  Check for
+	  NULL.
+	(list_empty): Call list_iter_valid().
+	(list_forall): Cast away const of val field when calling func.
+	(list_first): Simply return NULL or l->top.next.
+	(list_next): Add list argument so that iterator can be a simple
+	  pointer.  Return NULL at end.
+	(list_done): Just call list_iter_valid (iter)
+	(list_value): Cast away const from val.
+	(list_find, list_remove): Take (void const *) comparison value.
+	* test_list.c (test_list): Add list arg to list_next() calls.
+
+1999-06-21  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Recognize --enable-tracing and define TRACING
+	* acconfig.h (TRACING): Provide #undef template
+	* config.h.in: Regen
+	* configure: Regen.
+
+	* Makefile.am (CLASSIC_NSPR): Conditionally define in order to
+	  bypass native threads.
+	* Makefile.in: Regen.
+
+	* aqueue.c (aq_lock, aq_unlock, aq_notempty): Return 0.
+	(aq_wait): Break out of loop on error return from
+	  PR_WaitCondVar().  Return TRUE if queue not empty.
+	* aqueue_inline.h (typedef aqueue_shared_f): Return int.
+	(aqueue_dequeue): Return NULL with shared aqueue and error return
+	  from aq_wait().
+
+	* list.c (l_lock, l_unlock, l_notempty): Return 0.
+	(l_wait): Break out of loop on error return from
+	  PR_WaitCondVar().  Return TRUE if list not empty.
+	(list_pop, list_unshift): Return NULL with shared list and error
+	  return from l_wait().
+	* list_inline.h (typedef list_shared_f): Return int.
+	
+	* timestamp.c: Include <assert.h> and <prerror.h>
+	(typedef list_f): Add closure argument.
+	(list_add, list_find, list_forall, list_remove, list_destroy):
+	  Make mutex second arg for consistency.
+	(list_forall, list_destroy): Add closurr argument and pass back to
+	  callback.
+	(struct _pthr_cond): Add cond_mutex field for storing associated
+	  mutex.
+	(pthr_timestamp_create, pthr_timestamp_destroy,
+	 timestamp_add_cond): Reflect reordering of list_* args.
+	(pthr_timestamp_update): Add mutex argument specifying mutex
+	  currently held (or none).  Pass on to pthr_cond_broadcast() via
+	  closure on list_forall().
+	(cond_invalidate): Pass NULL closure to list_forall().
+	(pthr_cond_broadcast): Add mutex argument specifying mutex
+	  currently held (or none).  If cond->mutex is not held, then hold
+	  it while broadcasting.  Pass holding on to pthr_cond_broadcast()
+	  via closure in list_forall().
+	(pthr_cond_wait): Check that mutex arg is cond_mutex of cond via
+	  assert(). Return PRStatus returned from PR_WaitCondVar() or
+	  recursive pthr_cond_wait().
+	(cond_init): Add mutex arg and use it to initialize cond_mutex
+	  field.
+	(pthr_cond, pthr_cond_timestamp_newer, pthr_cond_all,
+	 pthr_cond_any): Add mutex arg to associate with condition
+	  expression. Create PRCondVar with this mutex.
+	(pthr_timestamp_wait): Pass ts->mutex to
+	pthr_cond_timestamp_newer(). Return PRStatus of pthr_cond_wait().
+	(pthr_PR_Lock, pthr_PR_Unlock, pthr_PR_WaitCondVar): Shadow NSPR
+	  locking primitives for debug tracing.
+	* timestamp.h (PR_Lock, PR_Unlock, PR_WaitCondVar): Define macros
+	  to allow tracing of these calls.
+	(pthr_timestamp_update, pthr_cond_broadcast): Add mutex argument
+	  specifying lock currently held.
+	(pthr_timestamp_wait, pthr_cond_wait): Return PRStatus.
+	(pthr_cond_timestamp_newer, pthr_cond_all, pthr_cond_any): Add
+	  argument specifying mutex to associate with cond.
+	
+1999-06-15  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* acconfig.h: Add NO_NSPR_10_SUPPORT.
+	* configure.in (TV_NSPR): Move to final position.
+	* configure: Regen.
+	
+Wed Jun  9 15:26:34 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* list.c (list_insert_elem_after): renamed from list_insert_after
+	(list_insert_elem_before): renamed from list_insert_before
+	(list_insert_after): [new func] creates a new element and inserts
+	it after the element specified by the list_iter_t structure
+	(list_insert_before): [new func] creates a new element and inserts
+	it before the element specified by the list_iter_t structure
+
+1999-05-26  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* aqueue.c: Integrate NSPR threads, replacing Posix implementation.
+	* list.c: Ditto.
+	* lru.c: Ditto.
+	* lru_hash.c: Ditto.
+	* report.[h,c]:  Ditto.
+	* timestamp.[h,c]: Ditto.
+
+1999-05-24  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (TV_NSPR): Reference.
+	* configure: Regen.
+
+1999-05-07  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* aqueue.c: Move include <pthread.h> directly after "config.h"
+	* list.c: Ditto.
+	* lru.c: Ditto.
+	* lru_hash.c: Ditto.
+	* test_list.c: Ditto.
+
+	* list_inline.h (list_count): Fix to correctly test end condition.
+	
+	* timestamp.c (pthr_timestamp_newer): New.  Tests for ts1 > ts2.
+	(pthr_cond_broadcast): Propagate broadcasts up the parent chain.
+	* timestamp.h (pthr_timestamp_newer): Declare.
+
+1999-03-30  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* istack.h (istack_blank_fast): Return void * if !__GNUC__.
+
+1999-03-30  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* eqhash.c: Copy over from vrml2 directory.
+	(TABLE_ALLOC, eqhash_create, eqhash_destroy, eqhash_clear): Use
+	  istack functions on tbl->data.
+	* eqhash.h: Copy over from vrml2 directory.
+	  Include "istack.h" here.
+	* eqhash_inline.c: Copy over from vrml2 directory.
+	* eqhash_inline.h: Copy over from vrml2 directory.
+	  Don't include "vobstack.h"
+	(struct eqhash): Change field `obstack *data' to `istack *data'.
+	(eqhash_lookup): Parenthesize `for' condition to avoid warning.
+	
+	* istack.c (_istack_unwind): Bug fixes when unwinding completely
+	  (p == NULL).
+	* istack.h (istack_blank): Return p with last value in GNUC
+	  expression statement.
+	(istack_finish): Clean up code in expressions statement.
+	* istack_inline.h (istack_finish): Don't define if __GNUC__ set,
+	  since it is then a macro.
+
+1999-03-25  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* istack.h (istack_blank_fast): Add _GNUC_ version.
+	* test_istack.c: New file.
+
+1999-03-24  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* istack.[ch] istack_inline.[ch]: New files.  Reimplementation of
+	  the functionality of obstack.h without hairy licensing problems.
+
+1999-03-20  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* eqhash_inline.h: Don't include <stddef.h>
+	(eqhash_get): Avoid use of NULL.
+	
+1999-03-16  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* configure.in (AM_MAINTAINER_MODE): Add.
+	* report.c (pthr_vtrace1): New.  Prefixed trace with va_list args.
+	(pthr_trace1): New. Prefixed trace with variable args list.
+	* trace.h (pthr_trace_bylevel): Call pthr_trace1().
+
+1999-03-02  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (libpthrutil_a_SOURCES): Add trace_inline.c,
+	  list_inline.c, aqueue_inline.c, eqhash_inline.c, lru_inline.c,
+	  lru_hash_inline.c
+	* aqueue.c: Don't instantiate functions in aqueue_inline.h
+	* aqueue.h: Update conditional inclusion of aqueue_inline.h
+	* aqueue_inline.c: Add.  Instantiate functions in aqueue_inline.h
+	* eqhash.c: Don't instantiate functions in eqhash_inline.h
+	* eqhash.h: Update conditional inclusion of eqhash_inline.h
+	* eqhash_inline.c: Add.  Instantiate functions in eqhash_inline.h
+	* list.c: Don't instantiate functions in list_inline.h
+	* list.h: Update conditional inclusion of list_inline.h
+	* list_inline.c: Add.  Instantiate functions in list_inline.h
+	* lru.c: Don't instantiate functions in lru_inline.h
+	* lru.h: Update conditional inclusion of lru_inline.h
+	* lru_inline.c: Add.  Instantiate functions in lru_inline.h
+	* lru_hash.c: Don't instantiate functions in lru_hash_inline.h
+	* lru_hash.h: Update conditional inclusion of lru_hash_inline.h
+	* lru_hash_inline.c: Add.  Instantiate functions in lru_hash_inline.h
+	* report.c (ptrace_mask): Renamed from trace_mask and made global.
+	(ptrace_level): Renamed from trace_level and made global.
+	(vtrace): Add cast to avoid warning.
+	(pthr_tracep): Moved to trace_inline.h.
+	(pthr_trace_mask): Ditto.
+	(pthr_trace_indent): Ditto.
+	(pthr_trace_bylevel): Undefine macro before defining.
+	(pthr_trace_indent1): New function rolled out of
+	  pthr_trace_indent().
+	* trace_inline.h: Add.  Inlineable tracing functions moved from
+	  report.c
+	* trace.h: Optionally include trace_inline.h.
+	(pthr_trace_bylevel): Provide GNUC-specific version that checks
+	  pthr_tracep() before function call. 
+	(pthr_trace_indent1): New declaration.
+
+Thu Feb 11 14:17:12 1999  Nathaniel Bletter  <bletter@Silver.AI.SRI.COM>
+
+	* list_inline.h (list_count): added list_count function to get
+ 	size of list.
+
+1998-12-24  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* eqhash.h (eqhash_used): New declaration.
+	* eqhash_inline.h (eqhash_used): New.  Return number of entries in
+	  hash table.
+
+Tue Dec  8 09:06:56 1998  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* html_gen.c (html_body_start): changed the html generator to
+	produce html pages with a white background and black text - that
+	default gray is so.... gray! (used by tsmWeb interface)
+	(html_hr): make the horizontal line solid (<HR NOSHADE>)
+
+Fri Nov 20 09:40:04 1998  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* acinclude.m4: Fixed the generation of the intxx_t and u_intxx_t
+	defines. Previously these put a dollar symbol into the config
+	file, such as "#define int32 $int32". These appears to be because
+	the AC_CHECK_TYPE was taking $int32 as a literal string and not a
+	variable. This problem only raises it's head on non-sgi platforms.
+
+	* acconfig.h: added comment to describe the fixed bit-size defines
+
+	* configure.in: added an AC_TRY_COMPILE check to see if the
+ 	compiler can handle static initialisations with stderr and
+ 	stdout. Under WinNT, because of the way the Nutcracker stdio.h
+ 	defines stdio and stderr, you cannot do this. configure will now
+ 	set the value of HAVE_STATIC_INIT accordingly in config.h.
+
+	* report.c: if the compiler can perform static initialisations
+ 	with stderr then do it for trace_stream, otherwise we use #define
+ 	trace_stream to stderr.
+	(pthr_trace_stream): if we don't have static initialisations, then
+	we can't change the thread stream because it's a define.
+
+	* html_gen.c (html__stream): if the compiler can perform static
+ 	initialisations with stdout then do it for html__stream, otherwise
+ 	we use #define html__stream to stdout. Added #include for config.h
+	in order to get HAVE_STATIC_INIT define.
+	(html__set_html_stream): if we don't have static initialisations,
+ 	then we can't change the http stream because it's a define.
+
+	* report.c (pthr_set_name): cast slot->name to (void*) for the
+	free call to avoid a compiler warning due to name being a const
+
+	* timestamp.c: include trace.h for pthr_trace and pthr_trace_indent
+
+	* report.c: include stdlib.h for malloc/free etc.
+
+	* list.c: added stdlib.h include for malloc/free etc. and string.h
+	for memset
+
+	* aqueue.c: added stdlib.h include for malloc/free etc. and string.h
+	for memcpy
+
+1998-10-27  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* lru_hash.c (lru_hash_assign1): Call lru_hash_use1().
+	(lru_hash_lookup1): Remove call to lru_hash_use().
+	* lru_hash.h (lru_hash_lookup): Clarify comment that this call
+	  dose not "use" the hash entry.
+	(lru_hash_use): Declare newly exposed interface.
+	* lru_hash_inline.h (lru_hash_use1): Renamed from lru_hash_use().
+	(lru_hash_use): Modify to allow for passing a list of
+	  lru_hash_handle values to "use" thus minimizing lock/unlock
+	  overhead.
+	(lru_hash_assign): Call lru_hash_use1().
+	(lru_hash_lookup): Reorganize so verifications are done w/o
+	  locking.  Reflects clarification of semantics to not constitute
+	  a "use".
+
+1998-10-21  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* lru_hash.c (lru_hash_lookup1): Modify to return the
+	  lru_hash_handle or NULL.
+	(lru_hash_decache): Lookup if h is NULL as documented.
+	* lru_hash_inline.h (lru_hash_lookup1): Fix forward declaration.
+	(lru_hash_lookup): Reflect change in lru_hash_lookup1().
+	
+1998-10-15  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* aqueue.c: Define NO_aqueue_INLINE before including aqueue.h
+	  Change local_inline to inline.
+	* aqueue.h: Make inclusion of aqueue_inline.h depend on
+	  !defined(NO_aqueue_INLINE).
+
+	* list.c (list_tail): Correct offset of next field to recover
+	  start of element.
+	* list_inline.h (list_empty): Empty if top node is invalid.
+
+	* acinclude.m4: New.  Define SRI_INT8_T, SRI_INT16_T, SRI_INT32_T,
+	  SRI_INT64_T.
+	* configure.in (AM_CONFIG_HEADER): Add sysconfig.h.
+	  (SRI_INT32_T):  Use new macro to define u_int32_t in sysconfig.h.
+	  (AC_OUTPUT): Remove sysconfig.h
+	* lru_hash.c (HASH): Undo Oct 14 change.
+	* sysconfig.h.in: Provide #undef's since now generated by
+	  AM_CONFIG_HEADER.
+
+Wed Oct 14 13:43:18 1998  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* lru_hash.c (HASH): change u_int32_t to unsigned int as sysconfig
+	is not explicity inlined. Somehow this worked under IRIX, but not
+	under Solaris.
+
+	* aqueue.c (local_inline): make an empty definition of
+	local_inline if HAVE_INLINE is not defined otherwise we get a
+	compile error when the compiler doesn't support inlines.
+
+1998-08-31  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* list.c (list_shift): Return list_elem_t pointer.
+	  (list_push): Ditto.
+	* list.h (list_shift): Declare return of list_elem_t value.
+	  (list_push): Ditto.
+
+	* lru_hash.c (lru_hash_assign1): Use an eqhash behaviour when
+	  hashf is NULL.
+	  (lru_hash_lookup1): Ditto.
+	
+1998-08-25  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* eqhash.c: #include "config.h" for HAVE_INLINE.
+	  (eqhash_clear): New. Empties hash table.
+	  (maybe_grow): Split into inlined test and then call grow_table().
+	  (grow_table): New.  Moved from maybe_grow().
+	  (eqhash_put): Returns true/false depending on whether val is
+	  already bound.
+	* eqhash.h (eqhash_put): Declare returning int.
+	
+	* eqhash.h: New.  Interface to EQ hash table.
+	* eqhash_inline.h: New.  Fast interface to EQ hash table.
+	* eqhash.c: New.  Implement an EQ hash table.
+
+	* Makefile.am (libpthrutil_a_SOURCES): Add eqhash.c
+	  (pkginclude_HEADERS): Add eqhash.h and eqhash_inline.h
+	  (cfginclude_DATA): Install sysconfig.h
+
+	* configure.in: Determine INT16, INT32 and INT64 values and
+	  substitute into sysconfig.h
+	* sysconfig.h.in: Definitions for size-specific integer types.
+
+	* list.c: Define NO_list_INLINE.
+	  (elem_free): Use circularity to invalidate.
+	  (elem_check): New. 
+	  (list_create): Initialize l->top.
+	  (list_detach): New.  Bypass element with prev/next pointers.
+	  (list_check): New.  Checks validity of whole list, including
+	  circularity with fox/rabbit check.
+	  (list_destroy): Change iteration.
+	  (list_head): New. Return first element or NULL.
+	  (list_tail): New. Return last element or NULL.
+	  (list_insert_after): New. Basic building block.
+	  (list_insert_before): New. Basic building block.
+	  (list_push): Use list_insert_before().
+	  (list_pop): Use list_tail() and list_detach().
+	  (list_shift): Use list_insert_after().
+	  (list_unshift): Use list_head() and list_detach().
+	  (list_delete): Use list_detach().
+	* list.h: Only include list_inline.h if !defined(NO_list_INLINE)
+	* list_inline.h (struct list): Create top element as start/end of
+	  list.
+	  (list_elem_valid): Check for circularity.
+	  (list_empty): Check for circularity of &l->top.
+	  (list_forall): Use l->top.next as start of list.
+	  (list_first): Ditto.
+	  (list_next): Check list_elem_valid() and signal end with el = 0.
+	  (list_done): Use el == 0 as end test.
+	
+	* lru.c: Functions above deleted.
+	* lru.h: Optionally include lru_inline.h.
+	* lru_inline.h (struct lru_handle): Moved from lru.c
+	  (struct lru_cache): Ditto.
+	  (lru_first): Ditto.
+	  (lru_last): Ditto.
+	  (lru_detach): Ditto.
+	  (lru_decache_lru): Ditto.
+	  (lru_insert_after): Ditto.
+	  (lru_insert_before): Ditto.
+	  (lru_handle_value): Ditto.
+
+	* lru_hash.c: Define NO_lru_hash_INLINE.
+	* lru_hash.h: Inlining conditional on !defined(NO_lru_hash_INLINE)
+	* lru_hash_inline.h (lru_hash_key_equal): Check for NULL lru->equalf.
+
+	* report.c (pthr_report_start, pthr_report_end): Remove optional
+	  implementation when pthr_sproc.h is used.
+	  (pthr_trace_indent): Use pthr_tracep() to test applicability.
+	  (pthr_name): Check for NULL ptr.
+
+	* test_list.c (test_list): More extensive testing of list_empty()
+	  tests and other conditions.
+
+	* timestamp.c (pthr_timestamp_wait): New.  Wait until timestamp is
+	  updated.
+	* timestamp.h (pthr_timestamp_wait): Declare.
+
+	* vobstack.h (vobstack_begin): Reserve 8 bytes for maximum
+	  alignment.
+	  (vobstack_unwind): New.  Unwind without deleting.
+
+1998-05-27  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* All files: Add copyright statement.
+	
+	* obstack.h, obstack.c, vobstack.h: Add files.
+
+	* aqueue.c (aqueue_expand): Return zero if unable to reallocate
+	  contents.
+
+	* lru.c (lru_destroy): Carefult destruction of mutex.
+	  (lru_decache_lru): Don't reset h->p.
+	  (lru_use): Check h->prev and h->next before updating.
+	  (lru_decache): Don't reset h->p.
+	  (lru_reuse): New function.  Take LRU handle, move to start of
+	  list and return for reassignment.
+	  (lru_handle_value): New function.  Return value associated with
+	  handle.
+
+	* lru.h (lru_reuse): Declare.
+	  (lru_handle_value): Declare.
+
+1998-04-28  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* timestamp.c (list_destroy): Correct free memory reads for list
+	  traversal.
+
+Mon Apr  6 14:49:22 1998  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* report.c (report_init): Make sure only defined once for
+	  !defined(pthr_sproc_h).
+
+1998-04-06  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* report.c (pthr_tracep): Treat level parameter as a combination
+	  of a level and mask.  If mask is non-zero, then use it to select
+	  whether or not this trace condition succeeds.
+	  (pthr_trace_level): Only accept levels >= 0 and < PTRACE_MASK.
+	  (pthr_trace_mask): New function.  Sets the value of the trace
+	  mask for finer selection of tracing conditions.
+	  (name_slot, pthr_set_name): Remove tracing.
+
+	* trace.h (PTRACE_MASK): #define as the smallest mask usable as a
+	  ptrace mask.  This gives a potential of 7 trace levels.
+	  (pthr_trace_mask): Declare new function.
+
+1998-04-03  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* lru.c (struct lru_cache): Add free pointer.
+	  (lru_create): Initialize free list to empty.
+	  (lru_use): Check free list for new handle.
+	  (lru_decache): Add to free list instead of shuffling end of
+	  contents list.
+
+	* lru_hash_inline.h (struct lru_hashtable): Add free list pointer.
+	  (lru_hash_newhandle): Try taking handle off free list first.
+	  (lru_hash_handle_key): New function far accessing key of handle.
+	  (lru_hash_handle_value): New function far accessing value of handle.
+
+	* lru_hash.c (lru_hash_create): Initialize free list to empty.
+	  (lru_hash_decache): Add to free list instead of shuffling end of
+	  contents list.
+
+	* lru_hash.h (lru_hash_handle_key): Declare new function.
+	  (lru_hash_handle_value): Declare new function.
+
+1998-04-01  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* lru_hash_inline.h (lru_hashtable): Remove bitfield specifier for
+	  len.
+
+	* lru_hash_inline.h (lru_hash_key_equal): New function
+	  encapsulating equality test.
+	  (lru_hash_assign): Use lru_hash_key_equal().
+	  (lru_hash_lookup): Ditto.
+
+	* lru_hash.c (lru_hash_assign1): Use lru_hash_key_equal().
+	  (lru_hash_lookup1): Ditto.
+	  (lru_hash_decache): Ditto.
+	  (lru_hash_check_lookup): Ditto.
+
+	* lru_hash.c: Various fixes to management of LRU last pointer.
+	
+	* lru_hash.c: Functions moved to lru_hash_inline.h.
+	* lru_hash_inline.h: New file contains structures and inlineable
+	  functions moved from lru_hash.c.
+	* lru_hash.h: When inlining of functions is available, #include
+	  "lru_hash_inline.h"
+
+1998-03-30  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* list.c (list_delete): Treat list_iter_t as value type.
+	  Return incremented list_iter_t as value.
+
+	* list_inline.h (list_next, list_done, list_value): Treat
+	  list_iter_t as value type.
+	  (list_next): Return updated list_iter_t as value.
+
+	* list.h (list_next, list_done, list_value, list_delete): Update
+	  delcarations to treat list_iter_t as value type.
+
+	* lru_hash.c (struct lru_hash_handle, struct lru_hashtable,
+	  lru_hash_create, lru_hash_decache_lru, lru_hash_use,
+	  lru_hash_newhandle): Change lru_prev pointers and last to be
+	  pointers to the lru_next or first slots.  Simplifies management
+	  of first and last pointers in lru_hashtable.
+
+	  (lru_hash_assign): Use equalf equality test to check
+	  for validity of provided handle.
+
+	  (lru_hash_lookup): Change third argument to be a handle pointer
+	  which is updated on lookup.
+	
+	  (lru_hash_clear): New function.  Clears (decaches) all entries
+	  in the hash table.
+	
+	* lru_hash.h (lru_hash_lookup): Update declaration to reflect
+	  change in third argument.
+	  (lru_hash_clear): Add declaration.
+
+1998-03-23  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (pkginclude_HEADERS): Export list_inline.h and
+	  aqueue_inline.h.
+
+	* configure.in (AC_C_INLINE): Determine whether C compiler will
+	  inline, and define HAVE_INLINE of it will.
+	  (AC_CHECK_FUNCS(valloc)): Added for optimization of list elem
+	  allocation.
+
+	* aqueue.c: Reconstruct in order to enable inlining of certain
+	  functions.  This is done by making the the shared component of
+	  the aqueue object a vector of function pointers which is
+	  initialized depending on shared/local and HAVE_PTHREAD_H.
+
+	* aqueue_inline.h: New file exported to allow inlining of some aqueue
+	  traversal and modification functions.  All pthread-specific
+	  conditionalization of code is in aqueue.c and is reflected here in
+	  a generic form by access to the shared component of the aqueue
+	  object, a vector of function pointers for mutex locking and
+	  condition wait/signalling.
+
+	* aqueue.h: Optionally include "aqueue_inline.h" for inline support.
+
+	* list.c: Reconstruct in order to enable inlining of certain
+	  functions.  This is done by making the the shared component of
+	  the list object a vector of function pointers which is
+	  initialized depending on shared/local and HAVE_PTHREAD_H.
+	  (elems_make_curr_valid): New function which ensures that
+	  elems.curr++ will return a valid new list element.
+	  (elem_new): Simplified with elems_make_curr_valid. Declared
+	  local_inline. 
+
+	* list_inline.h: New file exported to allow inlining of some list
+	  traversal and modification functions.  All pthread-specific
+	  conditionalization of code is in list.c and is reflected here in
+	  a generic form by access to the shared component of the list
+	  object, a vector of function pointers for mutex locking and
+	  condition wait/signalling.
+
+	* list.h: Optionally include "list_inline.h" for inline support.
+
+1998-03-19  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* lru_hash.c: (struct lru_hashtable): Move shared flag into
+	  bitfield above len.
+	  (lru_hash_destroy): Protect lru_{,un}lock() with lru_shared().
+	  (lru_hash_assign): Ditto.
+	  (lru_hash_lookup): Ditto.
+	  (lru_hash_decache): Ditto.
+
+	* lru.c (struct lru_cache): Move shared flag into bitfield above
+	  len.
+	  (lru_destroy): Protect lru_{,un}lock() with lru_shared().
+	  (lru_use): Ditto.
+	  (lru_decache): Ditto.
+
+	* list.h (list_iter_t): New structure.  Iterator for a list_t.
+	  (list_first): Declare.
+	  (list_next): Declare.
+	  (list_delete): Declare.
+	  (list_done): Declare.
+	  (list_value): Declare.
+
+	* list.c (elem_valid): New function.  Tests whether or not element
+	  is in the free list.  Should this test if it is a specified list?
+	  (list_pop): Protect l_unlock() with l_shared() test.
+	  (list_unshift): Ditto.
+	  (list_forall): Ditto.
+
+	  (list_first): New function.  Implementation of list iterator.
+	  (list_next): New function. Increment list iterator.
+	  (list_delete): New function. Delete element at list iterator.
+	  (list_done): New function. Test for end of list_iterator.
+	  (list_value): New function. Extract value from list iterator.
+
+1998-03-13  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* list.c (list_unshift): Make sure that tail gets zeroed when empty.
+
+	* test_list.c: Test threading.
+
+1998-03-12  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (EXTRA_PROGRAMS, TESTS): Update to add test_list to
+	  'make check'.
+
+	* test_list.c: Test executable.  Currently tests list push/pop and
+	  shift/unshift behaviour, but no threading.
+
+	* list.[ch]: Complete rewrite.
+
+1998-03-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* lru.c (lru_use): Correct management of lru->first and lru->last.
+
+	* Makefile.am (EXTRA_PROGRAMS, LDADD, TESTS): Update to support
+	  'make check' execution of test_lru.
+
+	* test_lru.c (test_lru): Test executable.  Currently tests LRU
+	  behavior of lru_cache datatype.
+
+1998-03-10  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* lru_hash.[ch]: A new constant-sized, hashtable with an LRU
+	  policy for decaching.  Same LRU implementation as lru.c, but
+	  accessing is via a hashtable.
+
+1998-03-05  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* lru.[ch]: A new constant-sized thread-locked LRU cache.  Usable
+	  in either single- or multi-threaded contexts.
+
+	* aqueue.[ch]: A new array-based thread-locked queue
+	  implementation.  Can be operated in either a shared or
+	  single-threaded environment with same interface.  In threaded &
+	  shared mode blocks on dequeue.
+
+	* Makefile.am: Add references to new files: aqueue.[ch], lru.[ch]
+
+1997-12-05  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* list.c: Add HAVE_PTHREAD_H conditionalization throughout to
+	  selectively disable locking when unavailable.
+	
+	* list.c (pthr_list): Add component selecting whether list is
+	  shared between processes or not.
+	(list_lock): New function.  Locks the list head when shared.
+	(list_unlock): New function.  Unlocks the list head when shared.
+	(pthr_list_forall): New function.  Walk through list, calling func
+	  for every element.
+	(pthr_list_find): New function.  Walk through list, returns
+	  iterator for whichever element first returns True.
+
+	* list.h (pthr_list_new): Optionally designate as shared or not.
+	(pthr_list_forall): New function declaration.
+	(pthr_list_find): New function declaration.
+
+1997-10-28  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* timestamp.c (pthr_cond_test): Remove superfluous break commands.
+
+Fri Oct 17 18:06:24 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* configure.in (AC_PATH_PROG(AR)): Search in /usr/ccs/bin under
+	  Solaris.
+
+	* list.c (new_elem): New function for allocating l_elem_t
+	  entries.  Caches entries for speed.
+	(free_elem): New function returns l_elem_t to free list.
+	(pthr_list_push): Call new_elem() for l_elem_t.
+	(pthr_list_pop): Call free_elem() for l_elem_t.
+	(pthr_list_trypop): Pop from list or return NULL if empty.
+	(pthr_list_shift): Call new_elem() for l_elem_t.
+	(pthr_list_unshift): Call free_elem() for l_elem_t.
+	(pthr_list_tryunshift): Unshift from list or return NULL if empty.
+	(pthr_list_flush): Call free_elem() for l_elem_t.
+
+	* list.h: Declare new functions pthr_list_trypop() and
+	  pthr_list_tryunshift().
+
+	* report.c (vtrace): Show either PID or thread id depending on
+	  whether we are using sproc() threads.
+
+Fri Oct  3 15:53:48 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* report.c (pthr_verror): Add function.
+	(pthr_verror1): Add function.
+
+	* report.h (TRACING): Change name of trace controlling definition
+	  from PTHR_TRACING to TRACING.
+	(pthr_verror): Add declaration.
+	(pthr_verror1): Add declaration.
+
+Wed Oct  1 11:47:39 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* report.c (pthr_trace_indent): Ensure that old_indent is not
+	  returned uninitialized.
+
+Mon Sep  8 12:15:40 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* timestamp.c (pthr_cond_all, pthr_cond_any): Don't write beyond
+	  end of list.
+
+	* report.c (pthr_trace_indent): Add level argument.
+
+Thu Jul  3 14:31:39 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* list.c list.h: New files.  Implementation of a general
+	  thread-locked list manipulation facility with an interface taken
+	  from Perl (shift/unshift for front and push/pop for end).
+
+Fri Jun  6 16:36:04 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* report.c (pthr_trace_indent): Don't use pthr_report_start/end
+	  for interlocking indent increments.

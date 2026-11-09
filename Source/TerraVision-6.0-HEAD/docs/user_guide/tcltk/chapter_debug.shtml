@@ -1,0 +1,157 @@
+<html><!-- #BeginTemplate "/Templates/User Guide.dwt" -->
+<head>
+<title>Digital Earth: TerraVision: User Guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="http://www.ai.sri.com/digitalearth/styles.css">
+<script language="JavaScript" src="http://www.ai.sri.com/digitalearth/common.js"></script>
+</head>
+
+<!--#include virtual="../bodytag.inc"-->
+<!--#include virtual="../header.inc" -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="10" valign="top" align="left">&nbsp;</td>
+    <td width="121" valign="top" align="left" background="../images/bg_sidebar.gif"> 
+<!--#include virtual="sidebar.inc" -->
+      
+    </td>
+    <td width="10">&nbsp;</td>
+    <td valign="top"> 
+      <p><img src="../images/user_guide_title.gif" width="470" height="70"> </p>
+      <p><a href="http://www.ai.sri.com/digitalearth/" target="_top"><span class="history_link">Digital 
+        Earth</span></a> <span class="history_link">&gt; <a href="http://www.tvgeo.com/">Terravision<sup><font size="-2">TM</font></sup></a> 
+        &gt; <a href="../welcome.shtml">User Guide</a> &gt; 
+        <a href="welcome.shtml">Tcl/Tk</a> &gt; 
+        Debug Menu</span></p>
+      <!-- #BeginEditable "content" --> 
+	  
+      <br>
+      <h2>The Debug Menu</h2>
+
+<h3>Debug Level</h3>
+
+      <p>TerraVision<sup><font size="-2">TM</font></sup> is an
+      extremely complex application and it is often useful to know
+      what it is doing at certain times. The debugging facility makes
+      TerraVision<sup><font size="-2">TM</font></sup> output a stream
+      of diagnostic information to the shell window that it was run
+      from, or to a file on disk. TerraVision<sup><font
+      size="-2">TM</font></sup> supports a number of levels of
+      debugging output from Level 1 (most terse) to Level 4 (most
+      verbose). This option is primarily available for the developers
+      to effect debugging of the application.
+
+<h3>Debug Masks</h3>
+
+        <img src="../images/tcl_debugopts.jpg" alt="Debug/Debug Masks"
+            align="right" hspace="10" vspace="10">
+
+      <p>In addition to setting the verbosity of debug output that
+      would like, you can also restrict the debug output to specific
+      areas of the TerraVision<sup><font size="-2">TM</font></sup>
+      system. These areas are defined below. It is also possible to
+      select whether you would like debug output to go to the console
+      (not applicable under Windows) or to a file on local disk.
+
+
+      <ol>
+        <li> <b>Tiles</b> - the requesting and reading of tile data
+        from the remote dataset.</li><p>
+
+        <li> <b>Texture</b> - the management of the texture cache </li><p>
+
+        <li> <b>Initialization</b> - initialisation routines </li><p>
+
+        <li> <b>Visibility</b> - the scene visibility calculation </li><p>
+
+        <li> <b>2-D Viewer</b> - the management of the 2-D (overhead)
+        viewer</li><p>
+
+        <li> <b>3-D Viewer</b> - the management of the 3-D (out the
+        window) viewer</li><p>
+
+        <li> <b>Map Viewer</b> - the management of the Map window </li><p>
+
+        <li> <b>OpenGL</b> - the major graphics functions </li><p>
+
+        <li> <b>OAA</b> - Open Agent Architecture messages </li><p>
+
+        <li> <b>Logging</b> - Diagnostic logging debug messages </li><p>
+
+        <li> <b>Cache</b> - Tile and texture-map cache status </li><p>
+
+        <li> <b>.geo</b> - the .geo discovery diagnostics</li><p>
+      </ol>
+
+
+<h3>Debug Settings</h3>
+
+        The Debug Options dialog contains a number of features that
+        have been useful in debugging the 3-D Viewer of
+        TerraVision. However, they are also useful for demonstrating
+        how TerraVision works.
+
+        <img src="../images/tcl_debug.jpg" alt="Debug/Debug Settings"
+         align="right" hspace="10" vspace="10"> 
+
+        <ul>
+
+        <li><b> Freeze Tiles </b> -- for every frame, TerraVision
+        works out the smallest subset of tiles that it requires for
+        that viewpoint by culling against the view frustum and
+        employing lower resolution tiles farther from the viewer. This
+        option let's you freeze the tile selection that TerraVision
+        made for a particular view. You can then fly around and
+        examine this tile subset to see how TerraVision performs its
+        optimizations. It is useful here to turn on the view frustum
+        display and the tile bounding boxes via the <a
+        href="3d_link.shtml">Link</a> menu.  <p>The "Return to Frozen
+        View" button will reset the viewpoint to the location and
+        orientation when you turned the Freeze Tiles feature on.
+                <p>
+
+        <li><b> Debug HUD </b> -- The Heads Up Display (HUD) provides
+        a textual overlay in the bottom-left corner of the display
+        with various useful pieces of information. There are two HUD
+        modes, debug and normal. The debug mode provides a lot more
+        information, while the normal mode provides a more concise
+        readout. The following information is displayed in the debug
+        HUD, with only the first two items being shown under normal
+        circumstances.
+
+<ul>
+<p><li> The (latitude, long, elevation) of your viewpoint
+<p><li> Your (yaw, pitch, roll) orientation
+<p><li> The effective near and far clipping planes.
+<p><li> The current frame number and the number of tiles in the scene
+<p><li> The 1 second data burst rate into the application (MBit/s) and the
+	total amount of data read so far
+<p><li> The frame rate of the graphics system (instantaneous and averaged
+        over 5 second)
+</ul>
+
+        <p><center>
+          <img src="../images/tcl_debughud.jpg"
+               alt="Debug/Debug Settings/Debug HUD"> 
+        </center></p>
+
+        <li><b> Debug Tiles </b> -- this option will display a
+        wireframe overlay over every tile in order to show the
+        polygonal structure for each tile. The colour used for each
+        adjacent tile is changed in order to show tile boundaries more
+        clearly. Also, a different pair of colours is used for tiles
+        at different resolution.
+
+        </ul>
+
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p align="center" class="description">
+        <!--#include virtual="../footer.inc" --><br>
+        Last updated: <!--#echo var="LAST_MODIFIED" -->.</p>
+      <!-- #EndEditable --></td>
+    <td width="20">&nbsp;</td>
+  </tr>
+</table>
+</body>
+<!-- #EndTemplate --></html>

@@ -1,0 +1,3 @@
+#define TVU_RELEASE 1.0
+static char tvuRelease[] = "$Release: 1.0 $";
+static char tvuReleaseDate[] = "$Date: 2000/11/14 07:18:29 $";

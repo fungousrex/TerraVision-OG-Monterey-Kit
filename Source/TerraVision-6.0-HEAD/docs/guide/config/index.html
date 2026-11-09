@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+
+<HEAD>
+<TITLE>TerraVision User Guide</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000">
+
+<CENTER>
+<IMG SRC="../guide.gif" ALT="TerraVision User Guide">
+</CENTER>
+
+<H2>7. Configuration</H2>
+
+<H3>$TVHOME</H3>
+
+<P>The $TVHOME directory is the directory that you installed the
+TerraVision distribution into.  This is used to help TerraVision find
+various support files such as images, help files, master config files,
+etc. If you do not set a $TVHOME environment variable, then
+TerraVision will use the current directory where you ran TerraVision
+from.
+
+<H3>$HOME/.TerraVision</H3>
+
+<P>The .TerraVision file is used to store any user-specific
+configuration options for TerraVision. The most common use for this
+file is to store the filename of the Dataset Database that you were
+last using for the <B>File/Open TV</B> dialog. However, you can
+include any X/Motif resource settings here that you wish to override
+the default settings. For example, if you wanted to always have the
+Airplane Controls setting of the 3-D Viewer to be off by default, then
+      you could place the following line in your .TerraVision file,
+
+<FONT COLOR="#004400"><PRE>
+   *threeDPanelAirplaneWidget*set: False
+</PRE></FONT>
+
+For a full list of the resources that you can set like this, please
+refer to the default $TVHOME/etc/TerraVision resources file.
+
+<H3>$HOME/.TerraVisionDB</H3>
+
+<P>This is the default and recommended file to use for storing your
+local copy of the Dataset Database. This records all of the datasets
+that TerraVision is able to access. It is this file that TerraVision
+uses when you select the <B>File/Open TV</B> option (although you can tell
+TerraVision to use a different file if you wish).
+
+<H3>$HOME/.TerraVisionViewpoints</H3>
+
+<P>The .TerraVisionViewpoints file in the user's home directory is
+used to store all of the viewpoints that the user has bookmarked in
+the 3-D viewer. That is, via the <B>Viewpoints / Viewpoint
+Bookmarks</B> menu of the Out The Window viewer. This information is
+kept separate from the .TerraVision file to promote interchange of
+Viewpoint Bookmark files. Also, these data are stored in an tagged,
+SGML-like notation to allow for future expansion.
+
+<H3>$HOME/.TerraVisionPaths/</H3>
+
+The .TerraVisionPaths directory in the user's home directory is used
+to store all of their flight path files. Inside this directory,
+TerraVision will look for a sub-directory with the name of a
+particular dataset (e.g. "Ft Irwin (2scene)"). This directory will
+contain all of the path files for that dataset.
+
+<P><BR><HR NOSHADE>
+
+<A HREF="../index.html">User Guide Contents</A> /
+<A HREF="http://www.ai.sri.com/TerraVision" TARGET="_top">TerraVision Home Page</A>
+
+</BODY>
+</HTML>

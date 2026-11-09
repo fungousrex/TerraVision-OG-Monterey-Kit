@@ -1,0 +1,76 @@
+2000-11-01  Michael A. Eriksen  <eriksen@ai.sri.com>
+
+	* src/nptervis_all.h: Renamed __WIN32__ to WIN32
+
+Mon Aug 07 13:13:30 2000    <reddy@MAGNOLIA>
+
+	* src/nptervis_win.c (GetTerraVisionBinaryName): looks up the
+ 	location of the TerraVision Netscape plugin .exe from the registry
+ 	(or falls back to a hardwired C: path if no registry entry)
+
+Thu Feb  3 17:07:10 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* src/nptervis_unix.c (RunTerraVision): should be using
+ 	(PRFileDesc *) not (PRFileDesc).
+
+Tue Feb 08 15:30:41 2000    <reddy@MAGNOLIA>
+
+	* src/nptervis_unix.c (TalkToTerraVision): Moved this Unix
+ 	specific function from nptervis.c
+	(RunTerraVision): ditto
+
+	* src/nptervis_win.c (TalkToTerraVision): Moved this Windows
+ 	specific function from nptervis.c.
+	(RunTerraVision): ditto
+
+	* src/nptervis_unix.c (PlatformNew): [new func] performs platform
+ 	specific plugin intialization for Unix
+	(PlatformDestroy): [new func] performs platform specific plugin
+ 	cleanup for Unix
+	(PlatformEventLoop): [new func] does nothing right now.
+
+	* src/nptervis_win.c (PlatformNew): [new func] performs platform
+ 	specific plugin initialization for Windows
+	(PlatformDestroy): [new func] performs platform specific plugin
+ 	cleanup for Unix
+	(PlatformEventLoop): [new func] installs a Windows event loop to
+ 	catch events that aren't filtered through automatically to the
+ 	TerraVision child window.
+	(PluginWindowProc): [new func] a Windows event loop that
+ 	essentially catches repaint events and sends them on to
+ 	TerraVision
+
+Tue Jan 25 14:39:31 2000    <reddy@MAGNOLIA>
+
+	* src/nptervis.c (NPP_New): make sure we allocate enough entries
+ 	in the argv array to hold all of the plugin args
+	(DebugMessage): increase the string size from 512bytes to 2K for
+ 	creating the debug string that is output to the Java console. Was
+ 	getting core dumps when the debug message was very long.
+
+Wed Jan 19 12:29:17 2000  Martin Reddy  <reddy@MAGNOLIA>
+
+	* Makefile.win: on a "make install" also copy the plugin files
+ 	into the directory for the InstallShield program to pull in.
+
+	* nptervis.java: change the name of the Java JNI interface
+ 	function from strToPlugin to the more simple cmd
+
+	* nptervis.c (GetTerraVisionBinaryName): added a new search
+ 	directory for the TV plugin binary. We know install everything
+ 	into C:\Program Files\SRI International\TerraVision Plugin\
+	(RunTerraVision): remove the "Say Hello TerraVision" test message
+
+Tue Dec 21 11:12:41 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* src/nptervis.c (NPP_New): pass any param/value arguments from
+ 	the EMBED tag into TerraVision as command line arguments.
+
+Mon Dec 20 22:27:28 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* plugin/src/nptervis.c (GetTerraVisionBinaryName): attemps a
+ 	number of different locations to find the TerraVision binary to
+ 	spawn from the plugin. Can be easily extended to hardwire more
+ 	locations. This can be done cleaner in the future.
+	(FileExists): simple check to see if a file exists
+

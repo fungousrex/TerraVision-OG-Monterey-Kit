@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Rendering Options</title>
+</head>
+
+<body>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"> 
+<h1>Rendering Options</h1>
+
+<p>
+The overall appearance of a rendered scene, such as whether or not texturing is used, wireframe vs. 
+solidshading, lighting, etc, may be controlled at runtime through appropriate parameter settings.  In general, rendering options are set and retrieved using the 
+appropriate <code>tvGetXXX()/tvSetXXX()</code> functions described in the
+<a href="init.html">Initialization/Control of Visualization Threads</a> 
+section. 
+
+<p>
+A particular rendering option to be set/retrieved is referenced by name,
+using the enum type <a href="api/tvVariable.html">tvVariable</a>.
+See that type description for complete details, but a sampling of the types
+of rendering options available is:
+<blockquote><code>
+  TV_SHOW_LIGHTING,		/* Boolean => showLighting */<br>
+  TV_SHOW_HEADS_UP,		/* Boolean => showHeadsUp */<br>
+  TV_SHOW_WIREFRAME,		/* Boolean => showWireframe */<br>
+  TV_SHOW_TEXTURES,		/* Boolean => showTextures */<br>
+  TV_SHOW_MODELS,		/* Boolean => showModels */<br>
+  TV_SHOW_SKY,			/* Boolean => showSky */<br>
+  TV_SHOW_GROUND,		/* Boolean => showGround */<br>
+  TV_SHOW_DATASETS,		/* Boolean => showDatasets */<br>
+  TV_SHOW_FRUSTUMS,		/* Boolean => showFrustums */<br>
+  TV_SHOW_TILES,		/* Boolean => showTiles */<br>
+  TV_SHOW_PATHS,		/* Boolean => showPaths  */<br>
+  TV_SHOW_LOGO,			/* Boolean => showLogo */<br>
+</code></blockquote>
+For example, to turn on rendering of the sky in a scene, one would call
+<blockquote><code>
+tvSetBoolean(tvBasePtr, TV_SHOW_SKY, TRUE);
+</code></blockquote>
+
+<hr>
+<p><IMG SRC="img/back.gif" ALT="Back to" HEIGHT=21 WIDTH=20>
+<A HREF="api-desc.html">API</A>
+<p>
+<address><a href="mailto:brownrig@erg.sri.com">Rick Brownrigg</a></address>
+<!-- Created: Mon Jan 10 23:40:31 CET 2000 -->
+<!-- hhmts start -->
+Last modified: Fri Jun 30 10:15:26 CDT 2000
+<!-- hhmts end -->
+</body>
+</html>

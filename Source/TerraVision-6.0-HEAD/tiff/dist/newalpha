@@ -1,0 +1,8 @@
+#! /bin/sh
+#	$Header: /homedir/magic/software/CVS/TerraVision/tiff/dist/newalpha,v 1.3 2000/05/26 23:47:56 leei Exp $
+if test -r tiff.alpha; then
+    ALPHA=`cat tiff.alpha`; rm -f tiff.alpha
+    echo "$ALPHA" | awk '{ printf "define ALPHA %1d\n", $3+1}' > tiff.alpha
+else
+    echo "define ALPHA 001" >tiff.alpha
+fi

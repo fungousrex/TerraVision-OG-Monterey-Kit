@@ -1,0 +1,31 @@
+#!/bin/csh
+#
+# Shell script to run the Tcl/Tk TerraVision interface.
+#
+# Makes sure that the tcl libs are in the library path
+# and points TerraVision to the the scripts it needs
+#
+# N.B. this assumes that you have set $TVHOME to point
+# to the root directory of the TerraVision distribution
+#
+
+if (! $?TVHOME) then
+  echo "TerraVision: TVHOME environment varibale is not set! Aborting..."
+  exit
+endif
+
+if (! -d $HOME/.tv) then
+  echo "Creating initial TerraVision configuration..."
+  mkdir $HOME/.tv
+  cp $TVHOME/etc/*xml $HOME/.tv
+endif
+
+if ($?LD_LIBRARY_PATH) then
+  setenv LD_LIBRARY_PATH $TVHOME/lib:$LD_LIBRARY_PATH
+else
+  setenv LD_LIBRARY_PATH $TVHOME/lib
+endif
+
+setenv LD_LIBRARY_PATH $TVHOME/lib:$LD_LIBRARY_PATH
+$TVHOME/bin/TclTV -tcldir $TVHOME/tcl $*
+

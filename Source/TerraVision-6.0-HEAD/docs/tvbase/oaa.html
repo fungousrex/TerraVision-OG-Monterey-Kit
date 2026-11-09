@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>OAA Interface</title>
+</head>
+
+<body>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"> 
+<h1>OAA Interface</h1>
+
+
+<p>
+TerraVision supports interaction with SRI's OAA (Open Agent Architecture),
+and an API exists for application control over this interaction.
+
+<p>
+The host and port number of the OAA facilitator are set by calls to
+<a href="api/SetOAAHost.html">SetOAAHost()</a>
+and
+<a href="api/SetOAAPort.html">SetOAAPort()</a>
+respectively.  A convenience function, 
+<a href="api/SetOAAHostPort.html">SetOAAHostPort()</a>
+allows both parameters to be set with a string argument of the form 
+<code>hostname:port</code>.
+
+<p>
+Doodles drawn on the screen may be sent to the OAA facilitator for further
+interpretation.  
+<a href="api/tvBeginStroke.html">tvBeginStroke()</a> 
+marks the begining of a doodle. Additional
+coordinates are added incrementally to the doodle with calls to
+<a href="api/tvContinueStroke.html">tvContinueStroke()</a>
+and the collection is terminated with a call to
+<a href="api/tvEndStroke.html">tvEndStroke()</a>.
+After a timeout period, the doodle is sent to the OAA facilitator and erased
+from the screen.  That timeout duration is set and queried via
+<a href="api/SetDrawTimeout.html">SetDrawTimeout()</a> and 
+<a href="api/GetDrawTimeout.html">GetDrawTimeout()</a>.
+The OAA notion of a <i>sentence</i> is cleared by calling
+<a href="api/ClearSentence.html">ClearSentence()</a>.
+
+
+<p>
+The OAA facilitator may also control several aspects of a render thread's view.
+<a href="api/tvMoveViewpoint.html">tvMoveViewpoint()</a>
+can be called to set the viewpoint, while
+<a href="api/tvResetView.html">tvResetView()</a>
+returns the view to the thread's <i>initial</i> view.  The view may be rotated
+with 
+<a href="api/tvRotate.html">tvRotate()</a>, 
+or translated via <a href="api/tvTranslate.html">tvTranslate()</a>.
+<a href="api/tvFlyTo.html">tvFlyTo()</a> provides a convenient means to perform
+a smooth, animated flight to a specified point.
+Any animated motion in the scene is halted with
+<a href="api/tvStopMotion.html">tvStopMotion()</a>.
+<br>(<b>ISSUE</b>: how is motion established?).
+
+<hr>
+<p><IMG SRC="img/back.gif" ALT="Back to" HEIGHT=21 WIDTH=20>
+<A HREF="api-desc.html">API</A>
+<p>
+<address><a href="mailto:brownrig@erg.sri.com">Rick Brownrigg</a></address>
+<!-- Created: Mon Jan 10 23:44:32 CET 2000 -->
+<!-- hhmts start -->
+Last modified: Mon Jun 19 16:32:12 CDT 2000
+<!-- hhmts end -->
+</body>
+</html>

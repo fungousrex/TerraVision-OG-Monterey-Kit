@@ -1,0 +1,40 @@
+The 3.0 version of the DIS Network Library differs in significant ways from
+previous versions.
+
+1) Functionally, the library no longer uses a linked list of incoming PDUs.
+It uses two circular buffers, one for incoming PDUs, the other for the
+application to read from. When the application exhausts the PDUs in its
+buffer, it forces a buffer swap. This method allows the application to
+consume PDUs without tying up the network read process, as previous
+versions did. The only contention for the controlling semaphore is when the
+buffer swap takes place, but this is simply a quick switch of state.
+
+The disadvantages to this approach are that PDUs are lost when the net read
+process overwrites its circular buffer by wrapping around to the beginning.
+But this must be weighed against the application's inability to keep up
+with the rate of incoming PDUs. Under the old method, memory consumption
+would continue without check.
+
+2) There has also been change to the application interface to the network
+library. Coded examples of the use of the library are in test_it.c, a
+sample front end. Compiling guidance is encoded in the makefile. The actual
+changes are as follows:
+
+a) old: int net_open(char *interf)
+   new:	int net_open(char *interf, int buf_len)
+
+        interf: ptr to ethernet interface, e.g. "et0"
+	buf_len: number of PDU unions (array elements) in buffers
+
+a) old: int net_read(char **buf, PDUType *type)
+   new:	union PDU *net_read(struct readstat *rstat)
+
+	rstat: struct of read status info
+
+a) old: int net_write(char *pdu, PDUType type)
+   new:	no change
+
+a) old: void net_close()
+   new:	no change
+
+3) The library is now written in ANSI-compatible C.

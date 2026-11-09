@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Logging</title>
+</head>
+
+<body>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"> 
+<h1>Logging</h1>
+
+
+<p>
+Certain dynamical behaviors of a TerraVision application may be logged for
+later analysis. In particular, logs of network accesses, or logs of tileset
+caching and accesses may be created.
+
+<p>
+Logging of geoset statistics is controlled via alternating calls to
+<a href="api/TsGeoLogging.html">TsGeoLogging()</a>, which simply toggles
+logging on and off.
+
+<p>
+To log various behaviors about the caching mechanisms, etc., the system
+must first be initialized by calling
+<a href="api/CreateTsLog.html">CreateTsLog()</a>.
+Once initialized, the application may independently obtain log data of
+certain behaviors by calling 
+<a href="api/TsLogStartLogging.html">TsLogStartLogging()</a>, to turn on
+data capture, and
+<a href="api/TsLogEndLogging.html">TsLogEndLogging()</a>
+to turn it off.  The types of behavior which can be logged are:
+<blockquote>
+	PREDICT_LOG<br>
+	REQUEST_LOG<br>
+	VISIBLE_LOG<br>
+	RENDER_LOG<br>
+	CACHE_LOG<br>
+	TEXTURE_CACHE_LOG<br>
+	READER_LOG
+</blockquote>
+(<b>ISSUE:</b> this needs better explanation as to i) what these statistics
+are, and ii) where the results end up at).
+
+<p>
+(<b>ISSUE:</b>  There appears to be an interface to LBL's "NetLogger", but 
+not clear how to use it (?))
+
+
+
+
+<hr>
+<p><IMG SRC="img/back.gif" ALT="Back to" HEIGHT=21 WIDTH=20>
+<A HREF="api-desc.html">API</A>
+<p>
+<address><a href="mailto:brownrig@erg.sri.com">Rick Brownrigg</a></address>
+<!-- Created: Mon Jan 10 23:43:02 CET 2000 -->
+<!-- hhmts start -->
+Last modified: Fri Jun  2 15:10:43 CDT 2000
+<!-- hhmts end -->
+</body>
+</html>

@@ -1,0 +1,12 @@
+#ifndef _pthr_sysconfig_h_
+#define _pthr_sysconfig_h_
+
+#include <sys/types.h>
+
+#undef int32_t
+#undef u_int32_t
+
+#undef int64_t
+#undef u_int64_t
+
+#endif /* _pthr_sysconfig_h_ */

@@ -1,0 +1,294 @@
+<html><!-- #BeginTemplate "/Templates/User Guide.dwt" -->
+<head>
+<title>Digital Earth: TerraVision: User Guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="http://www.ai.sri.com/digitalearth/styles.css">
+<script language="JavaScript" src="http://www.ai.sri.com/digitalearth/common.js"></script>
+</head>
+
+<!--#include virtual="../bodytag.inc"-->
+<!--#include virtual="../header.inc" -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="10" valign="top" align="left">&nbsp;</td>
+    <td width="121" valign="top" align="left" background="../images/bg_sidebar.gif"> 
+<!--#include virtual="sidebar.inc" -->
+      
+    </td>
+    <td width="10">&nbsp;</td>
+    <td valign="top"> 
+      <p><img src="../images/user_guide_title.gif" width="470" height="70"> </p>
+      <p><a href="http://www.ai.sri.com/digitalearth/" target="_top"><span class="history_link">Digital 
+        Earth</span></a> <span class="history_link">&gt; <a href="http://www.tvgeo.com/">Terravision<sup><font size="-2">TM</font></sup></a> 
+        &gt; <a href="../welcome.shtml">User Guide</a> &gt; 
+        <a href="welcome.shtml">X/Motif</a> &gt; 
+        <a href="chapter_views.shtml">&quot;Views&quot; 
+        Menu</a> &gt; <a href="3dviewer.shtml">The 3-D Viewer</a> &gt; &quot;Options&quot; 
+        Menu  </span></p>
+      <!-- #BeginEditable "content" --> 
+      <h2>The 3-D Viewer "Options" Menu</h2>
+      <p>
+        <center>
+          <img src="../images/menu-3d.gif" width="548" height="69"> 
+        </center>
+      <p> 
+      <table width="100%" cellpadding=0 cellspacing=10>
+        <tr>
+          <td> 
+            <p><br>
+            <h3>Navigation Options</h3>
+            <p><img src="../images/nav.gif" align="RIGHT" width="196" height="425"> 
+              The Navigation Options widget lets you control a number of attributes 
+              of the TerraVision system that relate to how you the user can interact 
+              with the data. The following options can be controlled from this 
+              window. 
+            <ul>
+              <p>
+              <li><i> Airplane Controls </i> -- toggles the way that the mouse 
+                controls pitch. With it checked, moving the mouse away from you 
+                pitches down (like an airplane joystick), and vice-versa. 
+                <p>
+              <li><i> Height scaled navigation </i> -- when this option is checked, 
+                the a user's velocity will be scaled by altitude. This is done 
+                in an attempt to maintain a constant visual flow no matter where 
+                the user is. For example, without this feature, if you travel 
+                at 1000 km/s over terrain then this will appear relatively fast; 
+                however, moving through space towards the earth at this speed 
+                will be painfully slow. 
+                <p>
+              <li><i> 2D Navigation </i> -- when this option is checked, then 
+                the viewpoint is always constrained to face straight down and 
+                be aligned with the lat/long graticule. In addition, a "Slide" 
+                navigation mode is enforced. This in effect gives a pan and zoom 
+                type interface. When you select the "Views/2-D Viewer" option 
+                from the main TerraVision menu, you are actually opening a 3-D 
+                Viewer with this option on by default. 
+                <p>
+              <li><i> Fly To Mode </i> -- when this mode is active, clicking the 
+                left mouse button will be treated as a request to fly towards 
+                the part of the terrain that you selected. 
+                <p>
+              <li><i> Doodle on Screen </i> -- the doodle on screen option lets 
+                you write on the 3-D window using your mouse. The coordinates 
+                for the text that you write will be sent to an OAA facilitator 
+                for interpretation after the specified timeout delay (only if 
+                you are connected to an OAA facilitator, e.g. you used the -oaa 
+                command line option). N.B. If you set the timeout to 0, then the 
+                text will remain on the screen until you clear it using the "Clear" 
+                button. 
+                <p>
+              <li><i> Project to Terrain </i> -- when this option is on, and the 
+                Doodle on Screen option is also on, then once you have finished 
+                a doodled it will be projected onto the terrain underneath it. 
+                This can be used to create temporary annotations directly on the 
+                terrain. 
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td> 
+            <h3>Render Options</h3>
+            <p><img src="../images/render.gif" align="RIGHT" width="199" height="1022"> 
+              The Render Options widget lets you control a number of attributes 
+              of the TerraVision system that relate to how the data are displayed. 
+              The following options can be controlled from this window 
+            <blockquote> <b>Check boxes:</b> 
+              <ul>
+                <li><i>Terrain Lighting </i> -- toggles the use of lit or unlit 
+                  geometry and textures. </li>
+                <p>
+                <li><i>HUD </i> -- toggles the display of the heads-up display 
+                  on the 3-D viewer. This includes a textual display with various 
+                  useful information about the 3-D viewer process. 
+                  <p>
+                <li><i>Mipmap </i> -- toggles the use of mipmaps for texture-mapping. 
+                  Mipmapping is a technique for improving the display of textures, 
+                  and can greatly reduce "swimming effects" that happen at low 
+                  incident angles. 
+                  <p>
+                <li><i>Wireframe </i> -- toggles wireframe view of tile set. </li>
+                <p>
+                <li><i>Textured </i> -- toggles display of texture data. </li>
+                <p>
+                <li><i>Show Models </i> -- toggles the display of all VRML features 
+                </li>
+                <p>
+                <li><i>Show Clouds </i> -- toggles the display of the clouds texture 
+                  map when you are close to the ground </li>
+                <p>
+                <li><i>Show Ground </i> -- toggles the display of the ground plane. 
+                  This will not be required when browsing an entire earth model. 
+                </li>
+                <p>
+                <li><i>Outline Datasets </i> -- toggles the display of a bounding 
+                  box around all datasets that are currently loaded, along with 
+                  a label giving the name of the dataset. This is an extremely 
+                  useful feature for locating very small datasets that are embedded 
+                  in the globe.</li>
+                <p>
+                <li><i>Horizon Culling </i> -- toggles the culling of all tiles 
+                  that are over the horizon. In effect, this is a special case 
+                  of occlusion culling for entire earth models so that you don't 
+                  render tiles on the other side of the planet. </li>
+                <p>
+                <li><i>Stereo Mode </i> -- toggles the use of stereo mode </li>
+                <p>
+                <li><i>Scale IPD w/Distance </i> -- in stereo mode, this option 
+                  will scale the inter-pupillary distance with altitude in order 
+                  to maintain a fused 3-D illusion.</li>
+              </ul>
+              <b>Selections:</b> 
+              <ul>
+                <p>
+                <li> <i>Popping</i> -- this widget lets you specify how TerraVision 
+                  managed the progressive display of higher resolution data. TerraVision 
+                  uses a quadtree structure so that each (non-leaf) tile has four 
+                  higher resolution tiles. The following options are available: 
+                  <ol>
+                    <p>
+                    <li> <i>LowFrag</i> : this option will display all higher 
+                      resolution children as they are available. For areas of 
+                      the quadtree where TerraVision has not yet received the 
+                      high resolution children, it will cut out the correct quarter 
+                      from the parent tile. Currently, no tile stitching is done 
+                      between the high resolution tiles and the low resolution 
+                      fragment so some tearing may be evident temporarily. 
+                      <p>
+                    <li> <i>LowRes</i> : display the lower resolution parent along 
+                      with all of the available higher resolution children. This 
+                      mode can cause some artifacts when children tiles fight 
+                      between the lower resolution tile for priority. 
+                      <p>
+                    <li> <i>None</i> : the four high resolution children are displayed 
+                      all at once and only when they have all completely loaded. 
+                      This means that higher resolution data are not displayed 
+                      as soon as it is received. Also artifacts can occur when 
+                      you move around such that tiles switch to very low resolution 
+                      because TerraVision has not yet loaded all of the high resolution 
+                      data for the tiles adjacent to those that were at the edge 
+                      of the previous view frustum. 
+                  </ol>
+              </ul>
+              <b>Sliders:</b> 
+              <ul>
+                <p>
+                <li><i>Inter-pupillary Distance (cm) </i> -- this slider lets 
+                  you alter the distance that TerraVision believes exists between 
+                  the two pupils of the viewer. This is during stereo mode to 
+                  control the degree of overlap for the left and right image. 
+                  Alter this can help users to fuse the stereo image for their 
+                  visual system. 
+                  <p>
+                <li><i>Resolution Adjustment </i> -- alters the level-of-detail 
+                  threshold used to evaluate the number of tiles to display for 
+                  a particular viewpoint 
+                  <p>
+                <li><i>Elev Scale </i> -- changes the scale of the elevation data, 
+                  allowing you to exaggerate vertical heights for improved visual 
+                  effect </li>
+                <p>
+                <li><i>Field of View </i> -- changes the solid field of view angle 
+                  for your viewpoint. (2 to 180 degrees.) </li>
+                <p>
+                <li><i>Fog Density </i> -- changes amount of fog. </li>
+                <p>
+                <li><i>Time of Day </i> -- changes lighting to simulate time of 
+                  day. </li>
+              </ul>
+            </blockquote>
+          </td>
+        </tr>
+        <tr>
+          <td> 
+            <p><br>
+            <h3>Debug Options</h3>
+            <p><img src="../images/debug.gif" align="RIGHT" width="169" height="273"> 
+              The Debug Options dialog contains a number of features that have 
+              been useful in debugging the 3-D Viewer of TerraVision. However, 
+              they are also useful for demonstrating how TerraVision works. 
+            <ul>
+              <li><i> Freeze Tiles </i> -- for every frame, TerraVision works 
+                out the smallest subset of tiles that it requires for that viewpoint 
+                by culling against the view frustum and employing lower resolution 
+                tiles farther from the viewer. This option let's you freeze the 
+                tile selection that TerraVision made for a particular view. You 
+                can then fly around and examine this tile subset to see how TerraVision 
+                performs its optimizations. It is useful here to turn on the view 
+                frustum display and the tile bounding boxes via the <a href="3d_link.shtml">Link</a> menu. 
+                <p>The "Return to Frozen View" button will reset the viewpoint 
+                  to the location and orientation when you turned the Freeze Tiles 
+                  feature on. 
+                <p>
+              <li><i> Debug Tiles </i> -- this option will display a wireframe 
+                overlay over every tile in order to show the polygonal structure 
+                for each tile. The colour used for each adjacent tile is changed 
+                in order to show tile boundaries more clearly. Also, a different 
+                pair of colours is used for tiles at different resolution. 
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td> 
+            <p><br>
+            <h3>Feature Selection</h3>
+            The Feature Selection dialog lets you control the loading and display 
+            of VRML models that can be overlayed on the terrain. The list view 
+            in the window displays all of the VRML models that are available for 
+            the set of GeoSets that have been loaded. You can load a model by 
+            clicking on the toggle button before its name. The "Info" button is 
+            used to display various metadata in the text window at the bottom 
+            of the dialog. 
+            <p>
+              <center>
+                <img src="../images/feature.gif" width="497" height="415"> 
+              </center>
+            <p> The toggle widgets on the right side of the dialog have the following 
+              behaviour: 
+            <ul>
+              <li><i> Textured </i> -- toggles whether all models will be texture 
+                mapped or not. If a model has no textures, then this option will 
+                have no visual effect. 
+                <p>
+              <li><i> Lighting </i> -- toggles the use of an additional light 
+                for the VRML scene. This light is located at the viewer's location 
+                at the time the option is selected. This behaviour will likely 
+                change in the future. 
+                <p>
+              <li><i> Wireframe </i> -- toggles whether all models are displayed 
+                in wireframe or solid rendering mode. 
+                <p>
+              <li><i> Load Textures </i> -- when on, this option says that whenever 
+                you load a new VRML model then you should also load all of its 
+                texture maps. When this option is off, then we do not load the 
+                textures. This option is useful to speed up loading when you do 
+                not care about a textured model. 
+                <p>
+              <li><i> Backface Cull </i> -- toggles whether all models are backface 
+                culled. Individual models can define whether they have backface 
+                culling (e.g. the solid field of the VRML IndexedFaceSet). This 
+                option is useful to force all models to backface cull and hence 
+                reduce the polygon count, as well as look for any polygons that 
+                are facing the wrong way. 
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td> 
+            <p><br>
+            <h3>Dismiss</h3>
+            Selecting this option will close the current 3-D Viewer window. You 
+            can also achieve this by pressing 'Esc' on the keyboard, or by double-clicking 
+            on the window's close widget in the top-left corner. </td>
+        </tr>
+      </table>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p align="center" class="description">
+        <!--#include virtual="../footer.inc" --><br>
+        Last updated: <!--#echo var="LAST_MODIFIED" -->.</p>
+      <!-- #EndEditable --></td>
+    <td width="20">&nbsp;</td>
+  </tr>
+</table>
+</body>
+<!-- #EndTemplate --></html>

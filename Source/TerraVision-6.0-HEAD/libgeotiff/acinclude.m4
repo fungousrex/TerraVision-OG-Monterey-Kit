@@ -1,0 +1,2 @@
+sinclude(../acinclude.m4)
+

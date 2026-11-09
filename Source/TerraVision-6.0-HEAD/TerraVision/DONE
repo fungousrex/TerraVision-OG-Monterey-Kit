@@ -1,0 +1,74 @@
+************
+*** TsCache:
+
+(06/25/99) Complete implementation of two-tiered caching mechanism.
+  1) First tier is a reference count so that we can track busy tiles.
+  2) Second is a global LRU list of tiles and a hash table associating
+     tiles and their list_iter_t (to recover a tile from the reused
+     list).
+(06/25/99) Use above architecture to globally manage tile memory.
+
+*****************
+*** TsGeoPyramid:
+
+(06/09/99) Add solid angle to represent range of normals for backface culling 
+(06/11/99) Improve calculation of normals by adding them to DEM tile
+  aux and updating them as DEM tiles are loaded.  Access is then as for
+  elevations.
+(03/01/00) Redo LVCS as per normals.
+(03/09/00) Move geometry generation out of here.
+
+****************
+*** ThreeDWidget:
+
+(06/04/99) Implement next piece of tile popping strategy, fragments. 
+(06/11/99) Improve tile backface culling by incorporating into
+  GenVisibleList calculation (Since this is abit more expensive than
+  we'd hoped, I've added a button to the render panel).
+(06/17/99) The frustums on the View Paths option are not oriented correctly.
+(06/25/99) Replace complicated and fragile timestamping system with simple
+  condition variable and flags.
+(07/01/99) Implement horizon culling using an estimate of where the
+  horizon is from a particular eye point.  Since this should work
+  better than the conservative backfacing, the default is to turn this
+  on and turn off backfacing.
+(07/20/99) Implement automatic calculation of near/far planes.
+
+************
+*** Texture:
+
+(7/12/99) Reconstruct the TextureCache with the same reference count,
+  LRU list scheme as TsCache.  This includes a genericizing of the
+  TextureHandles and TextureBind() calls such that they are no longer
+  tile-specfic.  This should allow the use of the TextureCache in the
+  VRML model display.
+
+***************
+*** TwoDWidget:
+
+(06/16/99) Remove all TwoDWidget code. We now only ever use the ThreeDWidget.
+
+***************
+*** ScannedMap:
+
+
+************
+*** Dataset:
+
+(06/25/99) Add the ability to remove (unload) datasets
+(06/28/99) Create a GUI for selecting loaded datasets in a ThreeDWidget
+
+*********
+*** VRML:
+
+(06/24/99) Fix the bug that causes concave polygons to be rendered
+  incorrectly
+(06/24/99) Do the concave->convex conversion once, instead of every time.
+(07/07/99) include VRML model bbox in near/far plane calculations by
+  using them for culling and changing the minZ value with them.
+
+*********
+*** Info:
+
+(06/30/99) In the Dataset Info window, have a tab for All Datasets so
+  that we can get aggregate figures such as size of all datasets loaded.

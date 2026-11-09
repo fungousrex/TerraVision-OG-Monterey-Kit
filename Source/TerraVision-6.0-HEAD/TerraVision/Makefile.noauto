@@ -1,0 +1,1487 @@
+CC	    = cc -fullwarn
+
+MODULE      = TerraVision
+SOURCE.cxx  = 
+SOURCE.C    = $(SOURCE.cxx:.cxx=.C)
+SOURCE.c    = AboutDialog.c Clock.c Dialogs.c DrawModel.c \
+	      TsmWidget.c Gats.c GATSDialogs.c Model.c ModelAnim.c \
+	      ScannedMap.c \
+              TerraVision.c TerraVisionAvs.c TerraVisionCAVE.c \
+	      Texture.c ThreeDControl.c ThreeDPanel.c \
+	      ThreeDWidget.c ThreeDWidget1.c TileManager.c \
+	      TileRequester.c TwoDWidget.c \
+              Visible.c RequestGenerator.c X11FrameGrab.c \
+	      matrix.c pixmaps.c xpmhash.c xpmread.c xcolor.c xv24to8.c \
+	      # SpaceBall.c
+
+SRCDIR 	    = ..
+
+include $(SRCDIR)/etc/make.cfg
+
+TRACE_FLAG  = -DPTHR_TRACING
+
+INCLUDE     = -I$(SRCDIR)/cave/include -I$(SRCDIR)/include -Ibitmaps \
+	      $(ISS_INC) -I$(SRCDIR)/include/tsm
+CFLAGS      = -D_SGI_MP_SOURCE -DGATS ${ISS_CFLAG} $(TRACE_FLAG)
+LDFLAGS     = -L$(SRCDIR)/cave/lib -L$(SRCDIR)/lib ${ISS_LDFLAG} \
+      -L$(SRCDIR)/mips-sgi-irix5/lib
+
+# Unnecessary libraries:
+#             -lcave -limage -lspaceball -lspkm -lcrypto -lssh -lgmp \
+
+LIBRARY     = -lGats -lTileSvc -lMagic -lList -lreport -lpthread \
+	      -l$(TSM_LIBNAME) -lrtp -lwww -lvideo \
+	      -lgutil -limage -lglt -lGLw -lGL -lGLU -lXm -lXt -lX11 \
+	      -lspaceball -lfastm -lm -lcginm -lm \
+	      $(ISS_LIBS)
+
+LIBHOME     = ../lib
+LIBS        = $(LIBHOME)/libMagic.a \
+	      $(LIBHOME)/libTileSvc.a \
+	      $(LIBHOME)/libGats.a
+
+CC       = cc -xansi
+G_CFLAGS = -DXTFUNCPROTO -DFUNCPROTO
+OPTFLAGS = -g
+
+CC       = gcc -mcpu=r4000
+G_CFLAGS = -DXTFUNCPROTO -DFUNCPROTO \
+	-Wall -Wformat -Wno-unused -Wreturn-type -Wmissing-prototypes
+OPTFLAGS = -g -O2
+
+# ---------------------------------------------------
+
+all debug optimize: $(MODULE)
+
+$(MODULE): $(OBJECTS) $(LIBS)
+	$(CC) $(OPTFLAGS) $(G_LDFLAGS) $(LDFLAGS) $(OBJECTS) $(LIBRARY) -o $(MODULE)
+
+$(MODULE).pure: $(OBJECTS) $(LIBS)
+	purify $(CC) $(OPTFLAGS) $(G_LDFLAGS) $(LDFLAGS) $(OBJECTS) $(LIBRARY) -o $(MODULE).pure
+
+depend:
+	$(MAKEDEPEND) $(INCLUDE) $(MDFLAGS) $(SOURCE)
+
+lint:
+	$(LINT) $(LINTFLAGS) $(SOURCE)
+
+clean:
+	$(RM) *.bak *.def.cxx *.def.c *.ixx *.i
+	$(CLEAN_O)
+
+realclean:
+	$(RM) *.bak *.def.cxx *.def.c *.ixx *.i *.o
+
+# For testing
+
+test_opengl: test_opengl.o ppm.o
+	$(CC) $(OPTFLAGS) $(G_LDFLAGS) $(LDFLAGS) test_opengl.o ppm.o -o test_opengl\
+	  -lGLw -lGLU -lGL -lXm -lXt -lX11
+
+test_opengl.o: test_opengl.c test_opengl.ad.h
+
+tresize: tresize.o
+	$(CC) $(OPTFLAGS) $(G_LDFLAGS) $(LDFLAGS) -o tresize \
+	   tresize.o gl_utils.o -lMagic -lgthread -lgutil -limage \
+	   -lglut -lGLU -lGL -lXt -lXmu -lX11
+
+%.ad.h: %.ad
+	ad2c < $< > $@
+
+
+# DO NOT DELETE THIS LINE -- make depend depends on it.
+
+AboutDialog.o: AboutDialog.h TerraVisionInc.h ../include/pthread.h
+AboutDialog.o: /usr/include/time.h /usr/include/sys/types.h
+AboutDialog.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+AboutDialog.o: /usr/include/sys/select.h X11Include.h
+AboutDialog.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+AboutDialog.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+AboutDialog.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+AboutDialog.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+AboutDialog.o: /usr/include/string.h /usr/include/X11/Core.h
+AboutDialog.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+AboutDialog.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+AboutDialog.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+AboutDialog.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+AboutDialog.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+AboutDialog.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+AboutDialog.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+AboutDialog.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+AboutDialog.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+AboutDialog.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+AboutDialog.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+AboutDialog.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+AboutDialog.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+AboutDialog.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+AboutDialog.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+AboutDialog.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+AboutDialog.o: /usr/include/stdio.h /usr/include/stdarg.h
+AboutDialog.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+AboutDialog.o: /usr/include/math.h /usr/include/device.h
+AboutDialog.o: /usr/include/stdlib.h /usr/include/sys/wait.h
+AboutDialog.o: /usr/include/sys/procset.h /usr/include/sys/signal.h
+AboutDialog.o: /usr/include/sys/siginfo.h /usr/include/sys/resource.h
+AboutDialog.o: /usr/include/sys/time.h /usr/include/ulocks.h
+AboutDialog.o: /usr/include/limits.h /usr/include/task.h
+AboutDialog.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+AboutDialog.o: /usr/include/malloc.h /usr/include/signal.h
+AboutDialog.o: /usr/include/errno.h /usr/include/sys/errno.h
+AboutDialog.o: ../include/glt/glt.h /usr/include/GL/gl.h
+AboutDialog.o: /usr/include/GL/glu.h /usr/include/GL/glx.h
+AboutDialog.o: /usr/include/X11/Xmd.h /usr/include/GL/glxtokens.h
+AboutDialog.o: /usr/include/GL/GLwMDrawA.h /usr/include/GL/GLwDrawA.h
+AboutDialog.o: ../include/glt/glm.h ../include/tsm/tsm.h
+AboutDialog.o: ../include/tsm/TsTileSpec.h /usr/include/rpc/types.h
+AboutDialog.o: ../include/tsm/TsTileSpecDecs.h /usr/include/rpc/xdr.h
+AboutDialog.o: ../include/tsm/tsmPurl.h ../include/tsm/tsmPurlDefns.h
+AboutDialog.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+AboutDialog.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+AboutDialog.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+AboutDialog.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+AboutDialog.o: ../include/tsm/tsmExtProts.h ../include/Ts.h
+AboutDialog.o: /usr/include/values.h /usr/include/bstring.h
+AboutDialog.o: ../include/Timer.h /usr/include/unistd.h
+AboutDialog.o: ../include/getconfig.h /usr/include/ctype.h
+AboutDialog.o: /usr/include/sys/stat.h /usr/include/sys/dir.h
+AboutDialog.o: /usr/include/sys/file.h /usr/include/sys/fcntl.h
+AboutDialog.o: ../include/tsm/tsm.h ../include/TsLogging.h Gats.h
+AboutDialog.o: X11FrameGrab.h /usr/include/Xm/DrawingA.h matrix.h mo.h
+AboutDialog.o: TerraVisionGlobals.h
+Clock.o: Clock.h TerraVisionInc.h ../include/pthread.h /usr/include/time.h
+Clock.o: /usr/include/sys/types.h /usr/include/sgidefs.h
+Clock.o: /usr/include/sys/bsd_types.h /usr/include/sys/select.h X11Include.h
+Clock.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+Clock.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+Clock.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+Clock.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+Clock.o: /usr/include/string.h /usr/include/X11/Core.h
+Clock.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+Clock.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+Clock.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+Clock.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+Clock.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+Clock.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+Clock.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+Clock.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+Clock.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+Clock.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+Clock.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+Clock.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+Clock.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+Clock.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+Clock.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+Clock.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+Clock.o: /usr/include/stdio.h /usr/include/stdarg.h
+Clock.o: ../include/pthr/timestamp.h /usr/include/mutex.h /usr/include/math.h
+Clock.o: /usr/include/device.h /usr/include/stdlib.h /usr/include/sys/wait.h
+Clock.o: /usr/include/sys/procset.h /usr/include/sys/signal.h
+Clock.o: /usr/include/sys/siginfo.h /usr/include/sys/resource.h
+Clock.o: /usr/include/sys/time.h /usr/include/ulocks.h /usr/include/limits.h
+Clock.o: /usr/include/task.h /usr/include/sys/prctl.h ../include/log.h
+Clock.o: ../include/List.h /usr/include/malloc.h /usr/include/signal.h
+Clock.o: /usr/include/errno.h /usr/include/sys/errno.h ../include/glt/glt.h
+Clock.o: /usr/include/GL/gl.h /usr/include/GL/glu.h /usr/include/GL/glx.h
+Clock.o: /usr/include/X11/Xmd.h /usr/include/GL/glxtokens.h
+Clock.o: /usr/include/GL/GLwMDrawA.h /usr/include/GL/GLwDrawA.h
+Clock.o: ../include/glt/glm.h ../include/tsm/tsm.h
+Clock.o: ../include/tsm/TsTileSpec.h /usr/include/rpc/types.h
+Clock.o: ../include/tsm/TsTileSpecDecs.h /usr/include/rpc/xdr.h
+Clock.o: ../include/tsm/tsmPurl.h ../include/tsm/tsmPurlDefns.h
+Clock.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+Clock.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+Clock.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+Clock.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+Clock.o: ../include/tsm/tsmExtProts.h ../include/Ts.h /usr/include/values.h
+Clock.o: /usr/include/bstring.h ../include/Timer.h /usr/include/unistd.h
+Clock.o: ../include/getconfig.h /usr/include/ctype.h /usr/include/sys/stat.h
+Clock.o: /usr/include/sys/dir.h /usr/include/sys/file.h
+Clock.o: /usr/include/sys/fcntl.h ../include/tsm/tsm.h ../include/TsLogging.h
+Clock.o: Gats.h X11FrameGrab.h /usr/include/Xm/DrawingA.h matrix.h mo.h
+Clock.o: TerraVisionGlobals.h
+Dialogs.o: Dialogs.h TerraVisionInc.h ../include/pthread.h
+Dialogs.o: /usr/include/time.h /usr/include/sys/types.h
+Dialogs.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+Dialogs.o: /usr/include/sys/select.h X11Include.h
+Dialogs.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+Dialogs.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+Dialogs.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+Dialogs.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+Dialogs.o: /usr/include/string.h /usr/include/X11/Core.h
+Dialogs.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+Dialogs.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+Dialogs.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+Dialogs.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+Dialogs.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+Dialogs.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+Dialogs.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+Dialogs.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+Dialogs.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+Dialogs.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+Dialogs.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+Dialogs.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+Dialogs.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+Dialogs.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+Dialogs.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+Dialogs.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+Dialogs.o: /usr/include/stdio.h /usr/include/stdarg.h
+Dialogs.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+Dialogs.o: /usr/include/math.h /usr/include/device.h /usr/include/stdlib.h
+Dialogs.o: /usr/include/sys/wait.h /usr/include/sys/procset.h
+Dialogs.o: /usr/include/sys/signal.h /usr/include/sys/siginfo.h
+Dialogs.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+Dialogs.o: /usr/include/ulocks.h /usr/include/limits.h /usr/include/task.h
+Dialogs.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+Dialogs.o: /usr/include/malloc.h /usr/include/signal.h /usr/include/errno.h
+Dialogs.o: /usr/include/sys/errno.h ../include/glt/glt.h /usr/include/GL/gl.h
+Dialogs.o: /usr/include/GL/glu.h /usr/include/GL/glx.h /usr/include/X11/Xmd.h
+Dialogs.o: /usr/include/GL/glxtokens.h /usr/include/GL/GLwMDrawA.h
+Dialogs.o: /usr/include/GL/GLwDrawA.h ../include/glt/glm.h
+Dialogs.o: ../include/tsm/tsm.h ../include/tsm/TsTileSpec.h
+Dialogs.o: /usr/include/rpc/types.h ../include/tsm/TsTileSpecDecs.h
+Dialogs.o: /usr/include/rpc/xdr.h ../include/tsm/tsmPurl.h
+Dialogs.o: ../include/tsm/tsmPurlDefns.h ../include/tsm/TsTileSpecExtProts.h
+Dialogs.o: ../include/tsm/tsmTrace.h ../include/tsm/sih.h
+Dialogs.o: ../include/tsm/sihDecs.h ../include/tsm/sihProts.h
+Dialogs.o: ../include/tsm/tsmArray.h ../include/tsm/tsmDecs.h
+Dialogs.o: ../include/tsm/tsmAutoStructs.h ../include/tsm/tsmExtProts.h
+Dialogs.o: ../include/Ts.h /usr/include/values.h /usr/include/bstring.h
+Dialogs.o: ../include/Timer.h /usr/include/unistd.h ../include/getconfig.h
+Dialogs.o: /usr/include/ctype.h /usr/include/sys/stat.h
+Dialogs.o: /usr/include/sys/dir.h /usr/include/sys/file.h
+Dialogs.o: /usr/include/sys/fcntl.h ../include/tsm/tsm.h
+Dialogs.o: ../include/TsLogging.h Gats.h X11FrameGrab.h
+Dialogs.o: /usr/include/Xm/DrawingA.h matrix.h mo.h TerraVisionGlobals.h
+DrawModel.o: DrawModel.h TerraVisionInc.h ../include/pthread.h
+DrawModel.o: /usr/include/time.h /usr/include/sys/types.h
+DrawModel.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+DrawModel.o: /usr/include/sys/select.h X11Include.h
+DrawModel.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+DrawModel.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+DrawModel.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+DrawModel.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+DrawModel.o: /usr/include/string.h /usr/include/X11/Core.h
+DrawModel.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+DrawModel.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+DrawModel.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+DrawModel.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+DrawModel.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+DrawModel.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+DrawModel.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+DrawModel.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+DrawModel.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+DrawModel.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+DrawModel.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+DrawModel.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+DrawModel.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+DrawModel.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+DrawModel.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+DrawModel.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+DrawModel.o: /usr/include/stdio.h /usr/include/stdarg.h
+DrawModel.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+DrawModel.o: /usr/include/math.h /usr/include/device.h /usr/include/stdlib.h
+DrawModel.o: /usr/include/sys/wait.h /usr/include/sys/procset.h
+DrawModel.o: /usr/include/sys/signal.h /usr/include/sys/siginfo.h
+DrawModel.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+DrawModel.o: /usr/include/ulocks.h /usr/include/limits.h /usr/include/task.h
+DrawModel.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+DrawModel.o: /usr/include/malloc.h /usr/include/signal.h /usr/include/errno.h
+DrawModel.o: /usr/include/sys/errno.h ../include/glt/glt.h
+DrawModel.o: /usr/include/GL/gl.h /usr/include/GL/glu.h /usr/include/GL/glx.h
+DrawModel.o: /usr/include/X11/Xmd.h /usr/include/GL/glxtokens.h
+DrawModel.o: /usr/include/GL/GLwMDrawA.h /usr/include/GL/GLwDrawA.h
+DrawModel.o: ../include/glt/glm.h ../include/tsm/tsm.h
+DrawModel.o: ../include/tsm/TsTileSpec.h /usr/include/rpc/types.h
+DrawModel.o: ../include/tsm/TsTileSpecDecs.h /usr/include/rpc/xdr.h
+DrawModel.o: ../include/tsm/tsmPurl.h ../include/tsm/tsmPurlDefns.h
+DrawModel.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+DrawModel.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+DrawModel.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+DrawModel.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+DrawModel.o: ../include/tsm/tsmExtProts.h ../include/Ts.h
+DrawModel.o: /usr/include/values.h /usr/include/bstring.h ../include/Timer.h
+DrawModel.o: /usr/include/unistd.h ../include/getconfig.h
+DrawModel.o: /usr/include/ctype.h /usr/include/sys/stat.h
+DrawModel.o: /usr/include/sys/dir.h /usr/include/sys/file.h
+DrawModel.o: /usr/include/sys/fcntl.h ../include/tsm/tsm.h
+DrawModel.o: ../include/TsLogging.h Gats.h X11FrameGrab.h
+DrawModel.o: /usr/include/Xm/DrawingA.h matrix.h mo.h TerraVisionGlobals.h
+TsmWidget.o: TsmWidget.h TerraVisionInc.h ../include/pthread.h
+TsmWidget.o: /usr/include/time.h /usr/include/sys/types.h
+TsmWidget.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+TsmWidget.o: /usr/include/sys/select.h X11Include.h
+TsmWidget.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+TsmWidget.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+TsmWidget.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+TsmWidget.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+TsmWidget.o: /usr/include/string.h /usr/include/X11/Core.h
+TsmWidget.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+TsmWidget.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+TsmWidget.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+TsmWidget.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+TsmWidget.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+TsmWidget.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+TsmWidget.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+TsmWidget.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+TsmWidget.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+TsmWidget.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+TsmWidget.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+TsmWidget.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+TsmWidget.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+TsmWidget.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+TsmWidget.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+TsmWidget.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+TsmWidget.o: /usr/include/stdio.h /usr/include/stdarg.h
+TsmWidget.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+TsmWidget.o: /usr/include/math.h /usr/include/device.h /usr/include/stdlib.h
+TsmWidget.o: /usr/include/sys/wait.h /usr/include/sys/procset.h
+TsmWidget.o: /usr/include/sys/signal.h /usr/include/sys/siginfo.h
+TsmWidget.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+TsmWidget.o: /usr/include/ulocks.h /usr/include/limits.h /usr/include/task.h
+TsmWidget.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+TsmWidget.o: /usr/include/malloc.h /usr/include/signal.h /usr/include/errno.h
+TsmWidget.o: /usr/include/sys/errno.h ../include/glt/glt.h
+TsmWidget.o: /usr/include/GL/gl.h /usr/include/GL/glu.h /usr/include/GL/glx.h
+TsmWidget.o: /usr/include/X11/Xmd.h /usr/include/GL/glxtokens.h
+TsmWidget.o: /usr/include/GL/GLwMDrawA.h /usr/include/GL/GLwDrawA.h
+TsmWidget.o: ../include/glt/glm.h ../include/tsm/tsm.h
+TsmWidget.o: ../include/tsm/TsTileSpec.h /usr/include/rpc/types.h
+TsmWidget.o: ../include/tsm/TsTileSpecDecs.h /usr/include/rpc/xdr.h
+TsmWidget.o: ../include/tsm/tsmPurl.h ../include/tsm/tsmPurlDefns.h
+TsmWidget.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+TsmWidget.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+TsmWidget.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+TsmWidget.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+TsmWidget.o: ../include/tsm/tsmExtProts.h ../include/Ts.h
+TsmWidget.o: /usr/include/values.h /usr/include/bstring.h ../include/Timer.h
+TsmWidget.o: /usr/include/unistd.h ../include/getconfig.h
+TsmWidget.o: /usr/include/ctype.h /usr/include/sys/stat.h
+TsmWidget.o: /usr/include/sys/dir.h /usr/include/sys/file.h
+TsmWidget.o: /usr/include/sys/fcntl.h ../include/tsm/tsm.h
+TsmWidget.o: ../include/TsLogging.h Gats.h X11FrameGrab.h
+TsmWidget.o: /usr/include/Xm/DrawingA.h matrix.h mo.h TerraVisionGlobals.h
+TsmWidget.o: ThreeDWidget.h Model.h DrawModel.h Texture.h ThreeDPanel.h
+TsmWidget.o: TwoDWidget.h TileRequester.h
+Gats.o: Gats.h TerraVisionInc.h ../include/pthread.h /usr/include/time.h
+Gats.o: /usr/include/sys/types.h /usr/include/sgidefs.h
+Gats.o: /usr/include/sys/bsd_types.h /usr/include/sys/select.h X11Include.h
+Gats.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+Gats.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+Gats.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+Gats.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+Gats.o: /usr/include/string.h /usr/include/X11/Core.h
+Gats.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+Gats.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+Gats.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+Gats.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+Gats.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+Gats.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+Gats.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+Gats.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+Gats.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+Gats.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+Gats.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+Gats.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+Gats.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+Gats.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+Gats.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+Gats.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+Gats.o: /usr/include/stdio.h /usr/include/stdarg.h
+Gats.o: ../include/pthr/timestamp.h /usr/include/mutex.h /usr/include/math.h
+Gats.o: /usr/include/device.h /usr/include/stdlib.h /usr/include/sys/wait.h
+Gats.o: /usr/include/sys/procset.h /usr/include/sys/signal.h
+Gats.o: /usr/include/sys/siginfo.h /usr/include/sys/resource.h
+Gats.o: /usr/include/sys/time.h /usr/include/ulocks.h /usr/include/limits.h
+Gats.o: /usr/include/task.h /usr/include/sys/prctl.h ../include/log.h
+Gats.o: ../include/List.h /usr/include/malloc.h /usr/include/signal.h
+Gats.o: /usr/include/errno.h /usr/include/sys/errno.h ../include/glt/glt.h
+Gats.o: /usr/include/GL/gl.h /usr/include/GL/glu.h /usr/include/GL/glx.h
+Gats.o: /usr/include/X11/Xmd.h /usr/include/GL/glxtokens.h
+Gats.o: /usr/include/GL/GLwMDrawA.h /usr/include/GL/GLwDrawA.h
+Gats.o: ../include/glt/glm.h ../include/tsm/tsm.h ../include/tsm/TsTileSpec.h
+Gats.o: /usr/include/rpc/types.h ../include/tsm/TsTileSpecDecs.h
+Gats.o: /usr/include/rpc/xdr.h ../include/tsm/tsmPurl.h
+Gats.o: ../include/tsm/tsmPurlDefns.h ../include/tsm/TsTileSpecExtProts.h
+Gats.o: ../include/tsm/tsmTrace.h ../include/tsm/sih.h
+Gats.o: ../include/tsm/sihDecs.h ../include/tsm/sihProts.h
+Gats.o: ../include/tsm/tsmArray.h ../include/tsm/tsmDecs.h
+Gats.o: ../include/tsm/tsmAutoStructs.h ../include/tsm/tsmExtProts.h
+Gats.o: ../include/Ts.h /usr/include/values.h /usr/include/bstring.h
+Gats.o: ../include/Timer.h /usr/include/unistd.h ../include/getconfig.h
+Gats.o: /usr/include/ctype.h /usr/include/sys/stat.h /usr/include/sys/dir.h
+Gats.o: /usr/include/sys/file.h /usr/include/sys/fcntl.h ../include/tsm/tsm.h
+Gats.o: ../include/TsLogging.h X11FrameGrab.h /usr/include/Xm/DrawingA.h
+Gats.o: matrix.h mo.h TerraVisionGlobals.h
+GATSDialogs.o: GATSDialogs.h Gats.h TerraVisionInc.h ../include/pthread.h
+GATSDialogs.o: /usr/include/time.h /usr/include/sys/types.h
+GATSDialogs.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+GATSDialogs.o: /usr/include/sys/select.h X11Include.h
+GATSDialogs.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+GATSDialogs.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+GATSDialogs.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+GATSDialogs.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+GATSDialogs.o: /usr/include/string.h /usr/include/X11/Core.h
+GATSDialogs.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+GATSDialogs.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+GATSDialogs.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+GATSDialogs.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+GATSDialogs.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+GATSDialogs.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+GATSDialogs.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+GATSDialogs.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+GATSDialogs.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+GATSDialogs.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+GATSDialogs.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+GATSDialogs.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+GATSDialogs.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+GATSDialogs.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+GATSDialogs.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+GATSDialogs.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+GATSDialogs.o: /usr/include/stdio.h /usr/include/stdarg.h
+GATSDialogs.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+GATSDialogs.o: /usr/include/math.h /usr/include/device.h
+GATSDialogs.o: /usr/include/stdlib.h /usr/include/sys/wait.h
+GATSDialogs.o: /usr/include/sys/procset.h /usr/include/sys/signal.h
+GATSDialogs.o: /usr/include/sys/siginfo.h /usr/include/sys/resource.h
+GATSDialogs.o: /usr/include/sys/time.h /usr/include/ulocks.h
+GATSDialogs.o: /usr/include/limits.h /usr/include/task.h
+GATSDialogs.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+GATSDialogs.o: /usr/include/malloc.h /usr/include/signal.h
+GATSDialogs.o: /usr/include/errno.h /usr/include/sys/errno.h
+GATSDialogs.o: ../include/glt/glt.h /usr/include/GL/gl.h
+GATSDialogs.o: /usr/include/GL/glu.h /usr/include/GL/glx.h
+GATSDialogs.o: /usr/include/X11/Xmd.h /usr/include/GL/glxtokens.h
+GATSDialogs.o: /usr/include/GL/GLwMDrawA.h /usr/include/GL/GLwDrawA.h
+GATSDialogs.o: ../include/glt/glm.h ../include/tsm/tsm.h
+GATSDialogs.o: ../include/tsm/TsTileSpec.h /usr/include/rpc/types.h
+GATSDialogs.o: ../include/tsm/TsTileSpecDecs.h /usr/include/rpc/xdr.h
+GATSDialogs.o: ../include/tsm/tsmPurl.h ../include/tsm/tsmPurlDefns.h
+GATSDialogs.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+GATSDialogs.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+GATSDialogs.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+GATSDialogs.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+GATSDialogs.o: ../include/tsm/tsmExtProts.h ../include/Ts.h
+GATSDialogs.o: /usr/include/values.h /usr/include/bstring.h
+GATSDialogs.o: ../include/Timer.h /usr/include/unistd.h
+GATSDialogs.o: ../include/getconfig.h /usr/include/ctype.h
+GATSDialogs.o: /usr/include/sys/stat.h /usr/include/sys/dir.h
+GATSDialogs.o: /usr/include/sys/file.h /usr/include/sys/fcntl.h
+GATSDialogs.o: ../include/tsm/tsm.h ../include/TsLogging.h X11FrameGrab.h
+GATSDialogs.o: /usr/include/Xm/DrawingA.h matrix.h mo.h TerraVisionGlobals.h
+Model.o: Model.h TerraVisionInc.h ../include/pthread.h /usr/include/time.h
+Model.o: /usr/include/sys/types.h /usr/include/sgidefs.h
+Model.o: /usr/include/sys/bsd_types.h /usr/include/sys/select.h X11Include.h
+Model.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+Model.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+Model.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+Model.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+Model.o: /usr/include/string.h /usr/include/X11/Core.h
+Model.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+Model.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+Model.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+Model.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+Model.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+Model.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+Model.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+Model.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+Model.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+Model.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+Model.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+Model.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+Model.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+Model.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+Model.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+Model.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+Model.o: /usr/include/stdio.h /usr/include/stdarg.h
+Model.o: ../include/pthr/timestamp.h /usr/include/mutex.h /usr/include/math.h
+Model.o: /usr/include/device.h /usr/include/stdlib.h /usr/include/sys/wait.h
+Model.o: /usr/include/sys/procset.h /usr/include/sys/signal.h
+Model.o: /usr/include/sys/siginfo.h /usr/include/sys/resource.h
+Model.o: /usr/include/sys/time.h /usr/include/ulocks.h /usr/include/limits.h
+Model.o: /usr/include/task.h /usr/include/sys/prctl.h ../include/log.h
+Model.o: ../include/List.h /usr/include/malloc.h /usr/include/signal.h
+Model.o: /usr/include/errno.h /usr/include/sys/errno.h ../include/glt/glt.h
+Model.o: /usr/include/GL/gl.h /usr/include/GL/glu.h /usr/include/GL/glx.h
+Model.o: /usr/include/X11/Xmd.h /usr/include/GL/glxtokens.h
+Model.o: /usr/include/GL/GLwMDrawA.h /usr/include/GL/GLwDrawA.h
+Model.o: ../include/glt/glm.h ../include/tsm/tsm.h
+Model.o: ../include/tsm/TsTileSpec.h /usr/include/rpc/types.h
+Model.o: ../include/tsm/TsTileSpecDecs.h /usr/include/rpc/xdr.h
+Model.o: ../include/tsm/tsmPurl.h ../include/tsm/tsmPurlDefns.h
+Model.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+Model.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+Model.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+Model.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+Model.o: ../include/tsm/tsmExtProts.h ../include/Ts.h /usr/include/values.h
+Model.o: /usr/include/bstring.h ../include/Timer.h /usr/include/unistd.h
+Model.o: ../include/getconfig.h /usr/include/ctype.h /usr/include/sys/stat.h
+Model.o: /usr/include/sys/dir.h /usr/include/sys/file.h
+Model.o: /usr/include/sys/fcntl.h ../include/tsm/tsm.h ../include/TsLogging.h
+Model.o: Gats.h X11FrameGrab.h /usr/include/Xm/DrawingA.h matrix.h mo.h
+Model.o: TerraVisionGlobals.h DrawModel.h ModelAnim.h ThreeDWidget.h
+Model.o: Texture.h ThreeDPanel.h
+ModelAnim.o: ModelAnim.h TerraVisionInc.h ../include/pthread.h
+ModelAnim.o: /usr/include/time.h /usr/include/sys/types.h
+ModelAnim.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+ModelAnim.o: /usr/include/sys/select.h X11Include.h
+ModelAnim.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+ModelAnim.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+ModelAnim.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+ModelAnim.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+ModelAnim.o: /usr/include/string.h /usr/include/X11/Core.h
+ModelAnim.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+ModelAnim.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+ModelAnim.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+ModelAnim.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+ModelAnim.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+ModelAnim.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+ModelAnim.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+ModelAnim.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+ModelAnim.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+ModelAnim.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+ModelAnim.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+ModelAnim.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+ModelAnim.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+ModelAnim.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+ModelAnim.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+ModelAnim.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+ModelAnim.o: /usr/include/stdio.h /usr/include/stdarg.h
+ModelAnim.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+ModelAnim.o: /usr/include/math.h /usr/include/device.h /usr/include/stdlib.h
+ModelAnim.o: /usr/include/sys/wait.h /usr/include/sys/procset.h
+ModelAnim.o: /usr/include/sys/signal.h /usr/include/sys/siginfo.h
+ModelAnim.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+ModelAnim.o: /usr/include/ulocks.h /usr/include/limits.h /usr/include/task.h
+ModelAnim.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+ModelAnim.o: /usr/include/malloc.h /usr/include/signal.h /usr/include/errno.h
+ModelAnim.o: /usr/include/sys/errno.h ../include/glt/glt.h
+ModelAnim.o: /usr/include/GL/gl.h /usr/include/GL/glu.h /usr/include/GL/glx.h
+ModelAnim.o: /usr/include/X11/Xmd.h /usr/include/GL/glxtokens.h
+ModelAnim.o: /usr/include/GL/GLwMDrawA.h /usr/include/GL/GLwDrawA.h
+ModelAnim.o: ../include/glt/glm.h ../include/tsm/tsm.h
+ModelAnim.o: ../include/tsm/TsTileSpec.h /usr/include/rpc/types.h
+ModelAnim.o: ../include/tsm/TsTileSpecDecs.h /usr/include/rpc/xdr.h
+ModelAnim.o: ../include/tsm/tsmPurl.h ../include/tsm/tsmPurlDefns.h
+ModelAnim.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+ModelAnim.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+ModelAnim.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+ModelAnim.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+ModelAnim.o: ../include/tsm/tsmExtProts.h ../include/Ts.h
+ModelAnim.o: /usr/include/values.h /usr/include/bstring.h ../include/Timer.h
+ModelAnim.o: /usr/include/unistd.h ../include/getconfig.h
+ModelAnim.o: /usr/include/ctype.h /usr/include/sys/stat.h
+ModelAnim.o: /usr/include/sys/dir.h /usr/include/sys/file.h
+ModelAnim.o: /usr/include/sys/fcntl.h ../include/tsm/tsm.h
+ModelAnim.o: ../include/TsLogging.h Gats.h X11FrameGrab.h
+ModelAnim.o: /usr/include/Xm/DrawingA.h matrix.h mo.h TerraVisionGlobals.h
+ScannedMap.o: ScannedMap.h TerraVisionInc.h ../include/pthread.h
+ScannedMap.o: /usr/include/time.h /usr/include/sys/types.h
+ScannedMap.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+ScannedMap.o: /usr/include/sys/select.h X11Include.h
+ScannedMap.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+ScannedMap.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+ScannedMap.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+ScannedMap.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+ScannedMap.o: /usr/include/string.h /usr/include/X11/Core.h
+ScannedMap.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+ScannedMap.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+ScannedMap.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+ScannedMap.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+ScannedMap.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+ScannedMap.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+ScannedMap.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+ScannedMap.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+ScannedMap.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+ScannedMap.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+ScannedMap.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+ScannedMap.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+ScannedMap.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+ScannedMap.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+ScannedMap.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+ScannedMap.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+ScannedMap.o: /usr/include/stdio.h /usr/include/stdarg.h
+ScannedMap.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+ScannedMap.o: /usr/include/math.h /usr/include/device.h /usr/include/stdlib.h
+ScannedMap.o: /usr/include/sys/wait.h /usr/include/sys/procset.h
+ScannedMap.o: /usr/include/sys/signal.h /usr/include/sys/siginfo.h
+ScannedMap.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+ScannedMap.o: /usr/include/ulocks.h /usr/include/limits.h /usr/include/task.h
+ScannedMap.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+ScannedMap.o: /usr/include/malloc.h /usr/include/signal.h
+ScannedMap.o: /usr/include/errno.h /usr/include/sys/errno.h
+ScannedMap.o: ../include/glt/glt.h /usr/include/GL/gl.h /usr/include/GL/glu.h
+ScannedMap.o: /usr/include/GL/glx.h /usr/include/X11/Xmd.h
+ScannedMap.o: /usr/include/GL/glxtokens.h /usr/include/GL/GLwMDrawA.h
+ScannedMap.o: /usr/include/GL/GLwDrawA.h ../include/glt/glm.h
+ScannedMap.o: ../include/tsm/tsm.h ../include/tsm/TsTileSpec.h
+ScannedMap.o: /usr/include/rpc/types.h ../include/tsm/TsTileSpecDecs.h
+ScannedMap.o: /usr/include/rpc/xdr.h ../include/tsm/tsmPurl.h
+ScannedMap.o: ../include/tsm/tsmPurlDefns.h
+ScannedMap.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+ScannedMap.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+ScannedMap.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+ScannedMap.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+ScannedMap.o: ../include/tsm/tsmExtProts.h ../include/Ts.h
+ScannedMap.o: /usr/include/values.h /usr/include/bstring.h ../include/Timer.h
+ScannedMap.o: /usr/include/unistd.h ../include/getconfig.h
+ScannedMap.o: /usr/include/ctype.h /usr/include/sys/stat.h
+ScannedMap.o: /usr/include/sys/dir.h /usr/include/sys/file.h
+ScannedMap.o: /usr/include/sys/fcntl.h ../include/tsm/tsm.h
+ScannedMap.o: ../include/TsLogging.h Gats.h X11FrameGrab.h
+ScannedMap.o: /usr/include/Xm/DrawingA.h matrix.h mo.h TerraVisionGlobals.h
+ScannedMap.o: ThreeDWidget.h Model.h DrawModel.h Texture.h ThreeDPanel.h
+ScannedMap.o: TwoDWidget.h
+TerraVision.o: Visible.h TwoDWidget.h ../include/glt/glt.h
+TerraVision.o: /usr/include/GL/gl.h /usr/include/GL/glu.h
+TerraVision.o: /usr/include/GL/glx.h /usr/include/X11/Xlib.h
+TerraVision.o: /usr/include/sys/types.h /usr/include/sgidefs.h
+TerraVision.o: /usr/include/sys/bsd_types.h /usr/include/sys/select.h
+TerraVision.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+TerraVision.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+TerraVision.o: /usr/include/X11/Xutil.h /usr/include/X11/Xmd.h
+TerraVision.o: /usr/include/GL/glxtokens.h /usr/include/X11/Intrinsic.h
+TerraVision.o: /usr/include/X11/Xresource.h /usr/include/string.h
+TerraVision.o: /usr/include/X11/Core.h /usr/include/X11/Composite.h
+TerraVision.o: /usr/include/X11/Constraint.h /usr/include/X11/Object.h
+TerraVision.o: /usr/include/X11/RectObj.h /usr/include/GL/GLwMDrawA.h
+TerraVision.o: /usr/include/GL/GLwDrawA.h ../include/glt/glm.h
+TerraVision.o: TerraVisionInc.h ../include/pthread.h /usr/include/time.h
+TerraVision.o: X11Include.h /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+TerraVision.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+TerraVision.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+TerraVision.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+TerraVision.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+TerraVision.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+TerraVision.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+TerraVision.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+TerraVision.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+TerraVision.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+TerraVision.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+TerraVision.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+TerraVision.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+TerraVision.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+TerraVision.o: /usr/include/stdio.h /usr/include/stdarg.h
+TerraVision.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+TerraVision.o: /usr/include/math.h /usr/include/device.h
+TerraVision.o: /usr/include/stdlib.h /usr/include/sys/wait.h
+TerraVision.o: /usr/include/sys/procset.h /usr/include/sys/signal.h
+TerraVision.o: /usr/include/sys/siginfo.h /usr/include/sys/resource.h
+TerraVision.o: /usr/include/sys/time.h /usr/include/ulocks.h
+TerraVision.o: /usr/include/limits.h /usr/include/task.h
+TerraVision.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+TerraVision.o: /usr/include/malloc.h /usr/include/signal.h
+TerraVision.o: /usr/include/errno.h /usr/include/sys/errno.h
+TerraVision.o: ../include/tsm/tsm.h ../include/tsm/TsTileSpec.h
+TerraVision.o: /usr/include/rpc/types.h ../include/tsm/TsTileSpecDecs.h
+TerraVision.o: /usr/include/rpc/xdr.h ../include/tsm/tsmPurl.h
+TerraVision.o: ../include/tsm/tsmPurlDefns.h
+TerraVision.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+TerraVision.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+TerraVision.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+TerraVision.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+TerraVision.o: ../include/tsm/tsmExtProts.h ../include/Ts.h
+TerraVision.o: /usr/include/values.h /usr/include/bstring.h
+TerraVision.o: ../include/Timer.h /usr/include/unistd.h
+TerraVision.o: ../include/getconfig.h /usr/include/ctype.h
+TerraVision.o: /usr/include/sys/stat.h /usr/include/sys/dir.h
+TerraVision.o: /usr/include/sys/file.h /usr/include/sys/fcntl.h
+TerraVision.o: ../include/tsm/tsm.h ../include/TsLogging.h Gats.h
+TerraVision.o: X11FrameGrab.h /usr/include/Xm/DrawingA.h matrix.h mo.h
+TerraVision.o: TerraVisionGlobals.h Model.h DrawModel.h Texture.h
+TerraVision.o: ThreeDWidget.h ThreeDPanel.h TileManager.h Clock.h
+TerraVision.o: TileRequester.h AboutDialog.h ScannedMap.h GATSDialogs.h
+TerraVision.o: Dialogs.h TsmWidget.h bitmaps/tv.xbm bitmaps/sri.xbm
+TerraVision.o: bitmaps/arpa.xbm bitmaps/sprint.xbm bitmaps/magic.xbm
+TerraVision.o: ../RELEASE /usr/include/X11/keysym.h
+TerraVision.o: /usr/include/X11/keysymdef.h /usr/include/X11/SGIkeysym.h
+TerraVision.o: /usr/include/Xm/MenuShell.h /usr/include/X11/IntrinsicP.h
+TerraVision.o: /usr/include/X11/CoreP.h /usr/include/X11/CompositeP.h
+TerraVision.o: /usr/include/X11/ConstrainP.h /usr/include/X11/ObjectP.h
+TerraVision.o: /usr/include/X11/RectObjP.h /usr/include/X11/ShellP.h
+TerraVision.o: /usr/include/X11/VendorP.h /usr/include/X11/Vendor.h
+Texture.o: Texture.h TerraVisionInc.h ../include/pthread.h
+Texture.o: /usr/include/time.h /usr/include/sys/types.h
+Texture.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+Texture.o: /usr/include/sys/select.h X11Include.h
+Texture.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+Texture.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+Texture.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+Texture.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+Texture.o: /usr/include/string.h /usr/include/X11/Core.h
+Texture.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+Texture.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+Texture.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+Texture.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+Texture.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+Texture.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+Texture.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+Texture.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+Texture.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+Texture.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+Texture.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+Texture.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+Texture.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+Texture.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+Texture.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+Texture.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+Texture.o: /usr/include/stdio.h /usr/include/stdarg.h
+Texture.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+Texture.o: /usr/include/math.h /usr/include/device.h /usr/include/stdlib.h
+Texture.o: /usr/include/sys/wait.h /usr/include/sys/procset.h
+Texture.o: /usr/include/sys/signal.h /usr/include/sys/siginfo.h
+Texture.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+Texture.o: /usr/include/ulocks.h /usr/include/limits.h /usr/include/task.h
+Texture.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+Texture.o: /usr/include/malloc.h /usr/include/signal.h /usr/include/errno.h
+Texture.o: /usr/include/sys/errno.h ../include/glt/glt.h /usr/include/GL/gl.h
+Texture.o: /usr/include/GL/glu.h /usr/include/GL/glx.h /usr/include/X11/Xmd.h
+Texture.o: /usr/include/GL/glxtokens.h /usr/include/GL/GLwMDrawA.h
+Texture.o: /usr/include/GL/GLwDrawA.h ../include/glt/glm.h
+Texture.o: ../include/tsm/tsm.h ../include/tsm/TsTileSpec.h
+Texture.o: /usr/include/rpc/types.h ../include/tsm/TsTileSpecDecs.h
+Texture.o: /usr/include/rpc/xdr.h ../include/tsm/tsmPurl.h
+Texture.o: ../include/tsm/tsmPurlDefns.h ../include/tsm/TsTileSpecExtProts.h
+Texture.o: ../include/tsm/tsmTrace.h ../include/tsm/sih.h
+Texture.o: ../include/tsm/sihDecs.h ../include/tsm/sihProts.h
+Texture.o: ../include/tsm/tsmArray.h ../include/tsm/tsmDecs.h
+Texture.o: ../include/tsm/tsmAutoStructs.h ../include/tsm/tsmExtProts.h
+Texture.o: ../include/Ts.h /usr/include/values.h /usr/include/bstring.h
+Texture.o: ../include/Timer.h /usr/include/unistd.h ../include/getconfig.h
+Texture.o: /usr/include/ctype.h /usr/include/sys/stat.h
+Texture.o: /usr/include/sys/dir.h /usr/include/sys/file.h
+Texture.o: /usr/include/sys/fcntl.h ../include/tsm/tsm.h
+Texture.o: ../include/TsLogging.h Gats.h X11FrameGrab.h
+Texture.o: /usr/include/Xm/DrawingA.h matrix.h mo.h TerraVisionGlobals.h
+Texture.o: DrawModel.h
+ThreeDControl.o: ThreeDControl.h TerraVisionInc.h ../include/pthread.h
+ThreeDControl.o: /usr/include/time.h /usr/include/sys/types.h
+ThreeDControl.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+ThreeDControl.o: /usr/include/sys/select.h X11Include.h
+ThreeDControl.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+ThreeDControl.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+ThreeDControl.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+ThreeDControl.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+ThreeDControl.o: /usr/include/string.h /usr/include/X11/Core.h
+ThreeDControl.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+ThreeDControl.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+ThreeDControl.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+ThreeDControl.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+ThreeDControl.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+ThreeDControl.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+ThreeDControl.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+ThreeDControl.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+ThreeDControl.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+ThreeDControl.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+ThreeDControl.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+ThreeDControl.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+ThreeDControl.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+ThreeDControl.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+ThreeDControl.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+ThreeDControl.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+ThreeDControl.o: /usr/include/stdio.h /usr/include/stdarg.h
+ThreeDControl.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+ThreeDControl.o: /usr/include/math.h /usr/include/device.h
+ThreeDControl.o: /usr/include/stdlib.h /usr/include/sys/wait.h
+ThreeDControl.o: /usr/include/sys/procset.h /usr/include/sys/signal.h
+ThreeDControl.o: /usr/include/sys/siginfo.h /usr/include/sys/resource.h
+ThreeDControl.o: /usr/include/sys/time.h /usr/include/ulocks.h
+ThreeDControl.o: /usr/include/limits.h /usr/include/task.h
+ThreeDControl.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+ThreeDControl.o: /usr/include/malloc.h /usr/include/signal.h
+ThreeDControl.o: /usr/include/errno.h /usr/include/sys/errno.h
+ThreeDControl.o: ../include/glt/glt.h /usr/include/GL/gl.h
+ThreeDControl.o: /usr/include/GL/glu.h /usr/include/GL/glx.h
+ThreeDControl.o: /usr/include/X11/Xmd.h /usr/include/GL/glxtokens.h
+ThreeDControl.o: /usr/include/GL/GLwMDrawA.h /usr/include/GL/GLwDrawA.h
+ThreeDControl.o: ../include/glt/glm.h ../include/tsm/tsm.h
+ThreeDControl.o: ../include/tsm/TsTileSpec.h /usr/include/rpc/types.h
+ThreeDControl.o: ../include/tsm/TsTileSpecDecs.h /usr/include/rpc/xdr.h
+ThreeDControl.o: ../include/tsm/tsmPurl.h ../include/tsm/tsmPurlDefns.h
+ThreeDControl.o: ../include/tsm/TsTileSpecExtProts.h
+ThreeDControl.o: ../include/tsm/tsmTrace.h ../include/tsm/sih.h
+ThreeDControl.o: ../include/tsm/sihDecs.h ../include/tsm/sihProts.h
+ThreeDControl.o: ../include/tsm/tsmArray.h ../include/tsm/tsmDecs.h
+ThreeDControl.o: ../include/tsm/tsmAutoStructs.h ../include/tsm/tsmExtProts.h
+ThreeDControl.o: ../include/Ts.h /usr/include/values.h /usr/include/bstring.h
+ThreeDControl.o: ../include/Timer.h /usr/include/unistd.h
+ThreeDControl.o: ../include/getconfig.h /usr/include/ctype.h
+ThreeDControl.o: /usr/include/sys/stat.h /usr/include/sys/dir.h
+ThreeDControl.o: /usr/include/sys/file.h /usr/include/sys/fcntl.h
+ThreeDControl.o: ../include/tsm/tsm.h ../include/TsLogging.h Gats.h
+ThreeDControl.o: X11FrameGrab.h /usr/include/Xm/DrawingA.h matrix.h mo.h
+ThreeDControl.o: TerraVisionGlobals.h ThreeDWidget.h Model.h DrawModel.h
+ThreeDControl.o: Texture.h ThreeDPanel.h bitmaps/dirPixs bitmaps/zoomIn2
+ThreeDControl.o: bitmaps/zoomOut2
+ThreeDPanel.o: ThreeDPanel.h TerraVisionInc.h ../include/pthread.h
+ThreeDPanel.o: /usr/include/time.h /usr/include/sys/types.h
+ThreeDPanel.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+ThreeDPanel.o: /usr/include/sys/select.h X11Include.h
+ThreeDPanel.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+ThreeDPanel.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+ThreeDPanel.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+ThreeDPanel.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+ThreeDPanel.o: /usr/include/string.h /usr/include/X11/Core.h
+ThreeDPanel.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+ThreeDPanel.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+ThreeDPanel.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+ThreeDPanel.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+ThreeDPanel.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+ThreeDPanel.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+ThreeDPanel.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+ThreeDPanel.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+ThreeDPanel.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+ThreeDPanel.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+ThreeDPanel.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+ThreeDPanel.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+ThreeDPanel.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+ThreeDPanel.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+ThreeDPanel.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+ThreeDPanel.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+ThreeDPanel.o: /usr/include/stdio.h /usr/include/stdarg.h
+ThreeDPanel.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+ThreeDPanel.o: /usr/include/math.h /usr/include/device.h
+ThreeDPanel.o: /usr/include/stdlib.h /usr/include/sys/wait.h
+ThreeDPanel.o: /usr/include/sys/procset.h /usr/include/sys/signal.h
+ThreeDPanel.o: /usr/include/sys/siginfo.h /usr/include/sys/resource.h
+ThreeDPanel.o: /usr/include/sys/time.h /usr/include/ulocks.h
+ThreeDPanel.o: /usr/include/limits.h /usr/include/task.h
+ThreeDPanel.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+ThreeDPanel.o: /usr/include/malloc.h /usr/include/signal.h
+ThreeDPanel.o: /usr/include/errno.h /usr/include/sys/errno.h
+ThreeDPanel.o: ../include/glt/glt.h /usr/include/GL/gl.h
+ThreeDPanel.o: /usr/include/GL/glu.h /usr/include/GL/glx.h
+ThreeDPanel.o: /usr/include/X11/Xmd.h /usr/include/GL/glxtokens.h
+ThreeDPanel.o: /usr/include/GL/GLwMDrawA.h /usr/include/GL/GLwDrawA.h
+ThreeDPanel.o: ../include/glt/glm.h ../include/tsm/tsm.h
+ThreeDPanel.o: ../include/tsm/TsTileSpec.h /usr/include/rpc/types.h
+ThreeDPanel.o: ../include/tsm/TsTileSpecDecs.h /usr/include/rpc/xdr.h
+ThreeDPanel.o: ../include/tsm/tsmPurl.h ../include/tsm/tsmPurlDefns.h
+ThreeDPanel.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+ThreeDPanel.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+ThreeDPanel.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+ThreeDPanel.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+ThreeDPanel.o: ../include/tsm/tsmExtProts.h ../include/Ts.h
+ThreeDPanel.o: /usr/include/values.h /usr/include/bstring.h
+ThreeDPanel.o: ../include/Timer.h /usr/include/unistd.h
+ThreeDPanel.o: ../include/getconfig.h /usr/include/ctype.h
+ThreeDPanel.o: /usr/include/sys/stat.h /usr/include/sys/dir.h
+ThreeDPanel.o: /usr/include/sys/file.h /usr/include/sys/fcntl.h
+ThreeDPanel.o: ../include/tsm/tsm.h ../include/TsLogging.h Gats.h
+ThreeDPanel.o: X11FrameGrab.h /usr/include/Xm/DrawingA.h matrix.h mo.h
+ThreeDPanel.o: TerraVisionGlobals.h ThreeDWidget.h Model.h DrawModel.h
+ThreeDPanel.o: Texture.h
+ThreeDWidget.o: ThreeDWidgetI.h ThreeDWidget.h ../include/glt/glt.h
+ThreeDWidget.o: /usr/include/GL/gl.h /usr/include/GL/glu.h
+ThreeDWidget.o: /usr/include/GL/glx.h /usr/include/X11/Xlib.h
+ThreeDWidget.o: /usr/include/sys/types.h /usr/include/sgidefs.h
+ThreeDWidget.o: /usr/include/sys/bsd_types.h /usr/include/sys/select.h
+ThreeDWidget.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+ThreeDWidget.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+ThreeDWidget.o: /usr/include/X11/Xutil.h /usr/include/X11/Xmd.h
+ThreeDWidget.o: /usr/include/GL/glxtokens.h /usr/include/X11/Intrinsic.h
+ThreeDWidget.o: /usr/include/X11/Xresource.h /usr/include/string.h
+ThreeDWidget.o: /usr/include/X11/Core.h /usr/include/X11/Composite.h
+ThreeDWidget.o: /usr/include/X11/Constraint.h /usr/include/X11/Object.h
+ThreeDWidget.o: /usr/include/X11/RectObj.h /usr/include/GL/GLwMDrawA.h
+ThreeDWidget.o: /usr/include/GL/GLwDrawA.h ../include/glt/glm.h
+ThreeDWidget.o: TerraVisionInc.h ../include/pthread.h /usr/include/time.h
+ThreeDWidget.o: X11Include.h /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+ThreeDWidget.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+ThreeDWidget.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+ThreeDWidget.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+ThreeDWidget.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+ThreeDWidget.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+ThreeDWidget.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+ThreeDWidget.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+ThreeDWidget.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+ThreeDWidget.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+ThreeDWidget.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+ThreeDWidget.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+ThreeDWidget.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+ThreeDWidget.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+ThreeDWidget.o: /usr/include/stdio.h /usr/include/stdarg.h
+ThreeDWidget.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+ThreeDWidget.o: /usr/include/math.h /usr/include/device.h
+ThreeDWidget.o: /usr/include/stdlib.h /usr/include/sys/wait.h
+ThreeDWidget.o: /usr/include/sys/procset.h /usr/include/sys/signal.h
+ThreeDWidget.o: /usr/include/sys/siginfo.h /usr/include/sys/resource.h
+ThreeDWidget.o: /usr/include/sys/time.h /usr/include/ulocks.h
+ThreeDWidget.o: /usr/include/limits.h /usr/include/task.h
+ThreeDWidget.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+ThreeDWidget.o: /usr/include/malloc.h /usr/include/signal.h
+ThreeDWidget.o: /usr/include/errno.h /usr/include/sys/errno.h
+ThreeDWidget.o: ../include/tsm/tsm.h ../include/tsm/TsTileSpec.h
+ThreeDWidget.o: /usr/include/rpc/types.h ../include/tsm/TsTileSpecDecs.h
+ThreeDWidget.o: /usr/include/rpc/xdr.h ../include/tsm/tsmPurl.h
+ThreeDWidget.o: ../include/tsm/tsmPurlDefns.h
+ThreeDWidget.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+ThreeDWidget.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+ThreeDWidget.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+ThreeDWidget.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+ThreeDWidget.o: ../include/tsm/tsmExtProts.h ../include/Ts.h
+ThreeDWidget.o: /usr/include/values.h /usr/include/bstring.h
+ThreeDWidget.o: ../include/Timer.h /usr/include/unistd.h
+ThreeDWidget.o: ../include/getconfig.h /usr/include/ctype.h
+ThreeDWidget.o: /usr/include/sys/stat.h /usr/include/sys/dir.h
+ThreeDWidget.o: /usr/include/sys/file.h /usr/include/sys/fcntl.h
+ThreeDWidget.o: ../include/tsm/tsm.h ../include/TsLogging.h Gats.h
+ThreeDWidget.o: X11FrameGrab.h /usr/include/Xm/DrawingA.h matrix.h mo.h
+ThreeDWidget.o: TerraVisionGlobals.h Model.h DrawModel.h Texture.h
+ThreeDWidget.o: ThreeDPanel.h ThreeDControl.h
+ThreeDWidget1.o: ThreeDWidgetI.h ThreeDWidget.h ../include/glt/glt.h
+ThreeDWidget1.o: /usr/include/GL/gl.h /usr/include/GL/glu.h
+ThreeDWidget1.o: /usr/include/GL/glx.h /usr/include/X11/Xlib.h
+ThreeDWidget1.o: /usr/include/sys/types.h /usr/include/sgidefs.h
+ThreeDWidget1.o: /usr/include/sys/bsd_types.h /usr/include/sys/select.h
+ThreeDWidget1.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+ThreeDWidget1.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+ThreeDWidget1.o: /usr/include/X11/Xutil.h /usr/include/X11/Xmd.h
+ThreeDWidget1.o: /usr/include/GL/glxtokens.h /usr/include/X11/Intrinsic.h
+ThreeDWidget1.o: /usr/include/X11/Xresource.h /usr/include/string.h
+ThreeDWidget1.o: /usr/include/X11/Core.h /usr/include/X11/Composite.h
+ThreeDWidget1.o: /usr/include/X11/Constraint.h /usr/include/X11/Object.h
+ThreeDWidget1.o: /usr/include/X11/RectObj.h /usr/include/GL/GLwMDrawA.h
+ThreeDWidget1.o: /usr/include/GL/GLwDrawA.h ../include/glt/glm.h
+ThreeDWidget1.o: TerraVisionInc.h ../include/pthread.h /usr/include/time.h
+ThreeDWidget1.o: X11Include.h /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+ThreeDWidget1.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+ThreeDWidget1.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+ThreeDWidget1.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+ThreeDWidget1.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+ThreeDWidget1.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+ThreeDWidget1.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+ThreeDWidget1.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+ThreeDWidget1.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+ThreeDWidget1.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+ThreeDWidget1.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+ThreeDWidget1.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+ThreeDWidget1.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+ThreeDWidget1.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+ThreeDWidget1.o: /usr/include/stdio.h /usr/include/stdarg.h
+ThreeDWidget1.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+ThreeDWidget1.o: /usr/include/math.h /usr/include/device.h
+ThreeDWidget1.o: /usr/include/stdlib.h /usr/include/sys/wait.h
+ThreeDWidget1.o: /usr/include/sys/procset.h /usr/include/sys/signal.h
+ThreeDWidget1.o: /usr/include/sys/siginfo.h /usr/include/sys/resource.h
+ThreeDWidget1.o: /usr/include/sys/time.h /usr/include/ulocks.h
+ThreeDWidget1.o: /usr/include/limits.h /usr/include/task.h
+ThreeDWidget1.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+ThreeDWidget1.o: /usr/include/malloc.h /usr/include/signal.h
+ThreeDWidget1.o: /usr/include/errno.h /usr/include/sys/errno.h
+ThreeDWidget1.o: ../include/tsm/tsm.h ../include/tsm/TsTileSpec.h
+ThreeDWidget1.o: /usr/include/rpc/types.h ../include/tsm/TsTileSpecDecs.h
+ThreeDWidget1.o: /usr/include/rpc/xdr.h ../include/tsm/tsmPurl.h
+ThreeDWidget1.o: ../include/tsm/tsmPurlDefns.h
+ThreeDWidget1.o: ../include/tsm/TsTileSpecExtProts.h
+ThreeDWidget1.o: ../include/tsm/tsmTrace.h ../include/tsm/sih.h
+ThreeDWidget1.o: ../include/tsm/sihDecs.h ../include/tsm/sihProts.h
+ThreeDWidget1.o: ../include/tsm/tsmArray.h ../include/tsm/tsmDecs.h
+ThreeDWidget1.o: ../include/tsm/tsmAutoStructs.h ../include/tsm/tsmExtProts.h
+ThreeDWidget1.o: ../include/Ts.h /usr/include/values.h /usr/include/bstring.h
+ThreeDWidget1.o: ../include/Timer.h /usr/include/unistd.h
+ThreeDWidget1.o: ../include/getconfig.h /usr/include/ctype.h
+ThreeDWidget1.o: /usr/include/sys/stat.h /usr/include/sys/dir.h
+ThreeDWidget1.o: /usr/include/sys/file.h /usr/include/sys/fcntl.h
+ThreeDWidget1.o: ../include/tsm/tsm.h ../include/TsLogging.h Gats.h
+ThreeDWidget1.o: X11FrameGrab.h /usr/include/Xm/DrawingA.h matrix.h mo.h
+ThreeDWidget1.o: TerraVisionGlobals.h Model.h DrawModel.h Texture.h
+ThreeDWidget1.o: ThreeDPanel.h ThreeDControl.h Visible.h TwoDWidget.h
+TileManager.o: TileManager.h TerraVisionInc.h ../include/pthread.h
+TileManager.o: /usr/include/time.h /usr/include/sys/types.h
+TileManager.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+TileManager.o: /usr/include/sys/select.h X11Include.h
+TileManager.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+TileManager.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+TileManager.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+TileManager.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+TileManager.o: /usr/include/string.h /usr/include/X11/Core.h
+TileManager.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+TileManager.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+TileManager.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+TileManager.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+TileManager.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+TileManager.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+TileManager.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+TileManager.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+TileManager.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+TileManager.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+TileManager.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+TileManager.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+TileManager.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+TileManager.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+TileManager.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+TileManager.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+TileManager.o: /usr/include/stdio.h /usr/include/stdarg.h
+TileManager.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+TileManager.o: /usr/include/math.h /usr/include/device.h
+TileManager.o: /usr/include/stdlib.h /usr/include/sys/wait.h
+TileManager.o: /usr/include/sys/procset.h /usr/include/sys/signal.h
+TileManager.o: /usr/include/sys/siginfo.h /usr/include/sys/resource.h
+TileManager.o: /usr/include/sys/time.h /usr/include/ulocks.h
+TileManager.o: /usr/include/limits.h /usr/include/task.h
+TileManager.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+TileManager.o: /usr/include/malloc.h /usr/include/signal.h
+TileManager.o: /usr/include/errno.h /usr/include/sys/errno.h
+TileManager.o: ../include/glt/glt.h /usr/include/GL/gl.h
+TileManager.o: /usr/include/GL/glu.h /usr/include/GL/glx.h
+TileManager.o: /usr/include/X11/Xmd.h /usr/include/GL/glxtokens.h
+TileManager.o: /usr/include/GL/GLwMDrawA.h /usr/include/GL/GLwDrawA.h
+TileManager.o: ../include/glt/glm.h ../include/tsm/tsm.h
+TileManager.o: ../include/tsm/TsTileSpec.h /usr/include/rpc/types.h
+TileManager.o: ../include/tsm/TsTileSpecDecs.h /usr/include/rpc/xdr.h
+TileManager.o: ../include/tsm/tsmPurl.h ../include/tsm/tsmPurlDefns.h
+TileManager.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+TileManager.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+TileManager.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+TileManager.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+TileManager.o: ../include/tsm/tsmExtProts.h ../include/Ts.h
+TileManager.o: /usr/include/values.h /usr/include/bstring.h
+TileManager.o: ../include/Timer.h /usr/include/unistd.h
+TileManager.o: ../include/getconfig.h /usr/include/ctype.h
+TileManager.o: /usr/include/sys/stat.h /usr/include/sys/dir.h
+TileManager.o: /usr/include/sys/file.h /usr/include/sys/fcntl.h
+TileManager.o: ../include/tsm/tsm.h ../include/TsLogging.h Gats.h
+TileManager.o: X11FrameGrab.h /usr/include/Xm/DrawingA.h matrix.h mo.h
+TileManager.o: TerraVisionGlobals.h
+TileRequester.o: TileRequester.h TerraVisionInc.h ../include/pthread.h
+TileRequester.o: /usr/include/time.h /usr/include/sys/types.h
+TileRequester.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+TileRequester.o: /usr/include/sys/select.h X11Include.h
+TileRequester.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+TileRequester.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+TileRequester.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+TileRequester.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+TileRequester.o: /usr/include/string.h /usr/include/X11/Core.h
+TileRequester.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+TileRequester.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+TileRequester.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+TileRequester.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+TileRequester.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+TileRequester.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+TileRequester.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+TileRequester.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+TileRequester.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+TileRequester.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+TileRequester.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+TileRequester.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+TileRequester.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+TileRequester.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+TileRequester.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+TileRequester.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+TileRequester.o: /usr/include/stdio.h /usr/include/stdarg.h
+TileRequester.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+TileRequester.o: /usr/include/math.h /usr/include/device.h
+TileRequester.o: /usr/include/stdlib.h /usr/include/sys/wait.h
+TileRequester.o: /usr/include/sys/procset.h /usr/include/sys/signal.h
+TileRequester.o: /usr/include/sys/siginfo.h /usr/include/sys/resource.h
+TileRequester.o: /usr/include/sys/time.h /usr/include/ulocks.h
+TileRequester.o: /usr/include/limits.h /usr/include/task.h
+TileRequester.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+TileRequester.o: /usr/include/malloc.h /usr/include/signal.h
+TileRequester.o: /usr/include/errno.h /usr/include/sys/errno.h
+TileRequester.o: ../include/glt/glt.h /usr/include/GL/gl.h
+TileRequester.o: /usr/include/GL/glu.h /usr/include/GL/glx.h
+TileRequester.o: /usr/include/X11/Xmd.h /usr/include/GL/glxtokens.h
+TileRequester.o: /usr/include/GL/GLwMDrawA.h /usr/include/GL/GLwDrawA.h
+TileRequester.o: ../include/glt/glm.h ../include/tsm/tsm.h
+TileRequester.o: ../include/tsm/TsTileSpec.h /usr/include/rpc/types.h
+TileRequester.o: ../include/tsm/TsTileSpecDecs.h /usr/include/rpc/xdr.h
+TileRequester.o: ../include/tsm/tsmPurl.h ../include/tsm/tsmPurlDefns.h
+TileRequester.o: ../include/tsm/TsTileSpecExtProts.h
+TileRequester.o: ../include/tsm/tsmTrace.h ../include/tsm/sih.h
+TileRequester.o: ../include/tsm/sihDecs.h ../include/tsm/sihProts.h
+TileRequester.o: ../include/tsm/tsmArray.h ../include/tsm/tsmDecs.h
+TileRequester.o: ../include/tsm/tsmAutoStructs.h ../include/tsm/tsmExtProts.h
+TileRequester.o: ../include/Ts.h /usr/include/values.h /usr/include/bstring.h
+TileRequester.o: ../include/Timer.h /usr/include/unistd.h
+TileRequester.o: ../include/getconfig.h /usr/include/ctype.h
+TileRequester.o: /usr/include/sys/stat.h /usr/include/sys/dir.h
+TileRequester.o: /usr/include/sys/file.h /usr/include/sys/fcntl.h
+TileRequester.o: ../include/tsm/tsm.h ../include/TsLogging.h Gats.h
+TileRequester.o: X11FrameGrab.h /usr/include/Xm/DrawingA.h matrix.h mo.h
+TileRequester.o: TerraVisionGlobals.h
+TwoDWidget.o: TwoDWidgetI.h TwoDWidget.h ../include/glt/glt.h
+TwoDWidget.o: /usr/include/GL/gl.h /usr/include/GL/glu.h
+TwoDWidget.o: /usr/include/GL/glx.h /usr/include/X11/Xlib.h
+TwoDWidget.o: /usr/include/sys/types.h /usr/include/sgidefs.h
+TwoDWidget.o: /usr/include/sys/bsd_types.h /usr/include/sys/select.h
+TwoDWidget.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+TwoDWidget.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+TwoDWidget.o: /usr/include/X11/Xutil.h /usr/include/X11/Xmd.h
+TwoDWidget.o: /usr/include/GL/glxtokens.h /usr/include/X11/Intrinsic.h
+TwoDWidget.o: /usr/include/X11/Xresource.h /usr/include/string.h
+TwoDWidget.o: /usr/include/X11/Core.h /usr/include/X11/Composite.h
+TwoDWidget.o: /usr/include/X11/Constraint.h /usr/include/X11/Object.h
+TwoDWidget.o: /usr/include/X11/RectObj.h /usr/include/GL/GLwMDrawA.h
+TwoDWidget.o: /usr/include/GL/GLwDrawA.h ../include/glt/glm.h
+TwoDWidget.o: TerraVisionInc.h ../include/pthread.h /usr/include/time.h
+TwoDWidget.o: X11Include.h /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+TwoDWidget.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+TwoDWidget.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+TwoDWidget.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+TwoDWidget.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+TwoDWidget.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+TwoDWidget.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+TwoDWidget.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+TwoDWidget.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+TwoDWidget.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+TwoDWidget.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+TwoDWidget.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+TwoDWidget.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+TwoDWidget.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+TwoDWidget.o: /usr/include/stdio.h /usr/include/stdarg.h
+TwoDWidget.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+TwoDWidget.o: /usr/include/math.h /usr/include/device.h /usr/include/stdlib.h
+TwoDWidget.o: /usr/include/sys/wait.h /usr/include/sys/procset.h
+TwoDWidget.o: /usr/include/sys/signal.h /usr/include/sys/siginfo.h
+TwoDWidget.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+TwoDWidget.o: /usr/include/ulocks.h /usr/include/limits.h /usr/include/task.h
+TwoDWidget.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+TwoDWidget.o: /usr/include/malloc.h /usr/include/signal.h
+TwoDWidget.o: /usr/include/errno.h /usr/include/sys/errno.h
+TwoDWidget.o: ../include/tsm/tsm.h ../include/tsm/TsTileSpec.h
+TwoDWidget.o: /usr/include/rpc/types.h ../include/tsm/TsTileSpecDecs.h
+TwoDWidget.o: /usr/include/rpc/xdr.h ../include/tsm/tsmPurl.h
+TwoDWidget.o: ../include/tsm/tsmPurlDefns.h
+TwoDWidget.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+TwoDWidget.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+TwoDWidget.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+TwoDWidget.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+TwoDWidget.o: ../include/tsm/tsmExtProts.h ../include/Ts.h
+TwoDWidget.o: /usr/include/values.h /usr/include/bstring.h ../include/Timer.h
+TwoDWidget.o: /usr/include/unistd.h ../include/getconfig.h
+TwoDWidget.o: /usr/include/ctype.h /usr/include/sys/stat.h
+TwoDWidget.o: /usr/include/sys/dir.h /usr/include/sys/file.h
+TwoDWidget.o: /usr/include/sys/fcntl.h ../include/tsm/tsm.h
+TwoDWidget.o: ../include/TsLogging.h Gats.h X11FrameGrab.h
+TwoDWidget.o: /usr/include/Xm/DrawingA.h matrix.h mo.h TerraVisionGlobals.h
+TwoDWidget.o: Model.h DrawModel.h Texture.h ../libTileSvc/TsPrivate.h
+TwoDWidget.o: TileRequester.h ScannedMap.h Visible.h ThreeDWidget.h
+TwoDWidget.o: ThreeDPanel.h bitmaps/dirPixs bitmaps/zoomIn bitmaps/zoomOut
+Visible.o: Visible.h TwoDWidget.h ../include/glt/glt.h /usr/include/GL/gl.h
+Visible.o: /usr/include/GL/glu.h /usr/include/GL/glx.h
+Visible.o: /usr/include/X11/Xlib.h /usr/include/sys/types.h
+Visible.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+Visible.o: /usr/include/sys/select.h /usr/include/X11/X.h
+Visible.o: /usr/include/X11/Xfuncproto.h /usr/include/X11/Xosdefs.h
+Visible.o: /usr/include/stddef.h /usr/include/X11/Xutil.h
+Visible.o: /usr/include/X11/Xmd.h /usr/include/GL/glxtokens.h
+Visible.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xresource.h
+Visible.o: /usr/include/string.h /usr/include/X11/Core.h
+Visible.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+Visible.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+Visible.o: /usr/include/GL/GLwMDrawA.h /usr/include/GL/GLwDrawA.h
+Visible.o: ../include/glt/glm.h TerraVisionInc.h ../include/pthread.h
+Visible.o: /usr/include/time.h X11Include.h /usr/include/Xm/CascadeB.h
+Visible.o: /usr/include/Xm/Xm.h /usr/include/X11/Shell.h
+Visible.o: /usr/include/X11/SM/SMlib.h /usr/include/X11/SM/SM.h
+Visible.o: /usr/include/X11/ICE/ICElib.h /usr/include/X11/ICE/ICE.h
+Visible.o: /usr/include/X11/Xatom.h /usr/include/Xm/XmStrDefs.h
+Visible.o: /usr/include/X11/StringDefs.h /usr/include/Xm/VirtKeys.h
+Visible.o: /usr/include/Xm/VendorS.h /usr/include/Xm/Form.h
+Visible.o: /usr/include/Xm/BulletinB.h /usr/include/Xm/Label.h
+Visible.o: /usr/include/Xm/List.h /usr/include/Xm/MainW.h
+Visible.o: /usr/include/Xm/MessageB.h /usr/include/Xm/PushB.h
+Visible.o: /usr/include/Xm/RowColumn.h /usr/include/Xm/Scale.h
+Visible.o: /usr/include/Xm/SelectioB.h /usr/include/Xm/Separator.h
+Visible.o: /usr/include/Xm/TextF.h /usr/include/Xm/ToggleB.h
+Visible.o: /usr/include/Xm/DialogS.h /usr/include/X11/cursorfont.h
+Visible.o: ../include/pthr/report.h /usr/include/stdio.h
+Visible.o: /usr/include/stdarg.h ../include/pthr/timestamp.h
+Visible.o: /usr/include/mutex.h /usr/include/math.h /usr/include/device.h
+Visible.o: /usr/include/stdlib.h /usr/include/sys/wait.h
+Visible.o: /usr/include/sys/procset.h /usr/include/sys/signal.h
+Visible.o: /usr/include/sys/siginfo.h /usr/include/sys/resource.h
+Visible.o: /usr/include/sys/time.h /usr/include/ulocks.h
+Visible.o: /usr/include/limits.h /usr/include/task.h /usr/include/sys/prctl.h
+Visible.o: ../include/log.h ../include/List.h /usr/include/malloc.h
+Visible.o: /usr/include/signal.h /usr/include/errno.h
+Visible.o: /usr/include/sys/errno.h ../include/tsm/tsm.h
+Visible.o: ../include/tsm/TsTileSpec.h /usr/include/rpc/types.h
+Visible.o: ../include/tsm/TsTileSpecDecs.h /usr/include/rpc/xdr.h
+Visible.o: ../include/tsm/tsmPurl.h ../include/tsm/tsmPurlDefns.h
+Visible.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+Visible.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+Visible.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+Visible.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+Visible.o: ../include/tsm/tsmExtProts.h ../include/Ts.h /usr/include/values.h
+Visible.o: /usr/include/bstring.h ../include/Timer.h /usr/include/unistd.h
+Visible.o: ../include/getconfig.h /usr/include/ctype.h
+Visible.o: /usr/include/sys/stat.h /usr/include/sys/dir.h
+Visible.o: /usr/include/sys/file.h /usr/include/sys/fcntl.h
+Visible.o: ../include/tsm/tsm.h ../include/TsLogging.h Gats.h X11FrameGrab.h
+Visible.o: /usr/include/Xm/DrawingA.h matrix.h mo.h TerraVisionGlobals.h
+Visible.o: Model.h DrawModel.h Texture.h ThreeDWidget.h ThreeDPanel.h
+RequestGenerator.o: Visible.h TwoDWidget.h ../include/glt/glt.h
+RequestGenerator.o: /usr/include/GL/gl.h /usr/include/GL/glu.h
+RequestGenerator.o: /usr/include/GL/glx.h /usr/include/X11/Xlib.h
+RequestGenerator.o: /usr/include/sys/types.h /usr/include/sgidefs.h
+RequestGenerator.o: /usr/include/sys/bsd_types.h /usr/include/sys/select.h
+RequestGenerator.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+RequestGenerator.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+RequestGenerator.o: /usr/include/X11/Xutil.h /usr/include/X11/Xmd.h
+RequestGenerator.o: /usr/include/GL/glxtokens.h /usr/include/X11/Intrinsic.h
+RequestGenerator.o: /usr/include/X11/Xresource.h /usr/include/string.h
+RequestGenerator.o: /usr/include/X11/Core.h /usr/include/X11/Composite.h
+RequestGenerator.o: /usr/include/X11/Constraint.h /usr/include/X11/Object.h
+RequestGenerator.o: /usr/include/X11/RectObj.h /usr/include/GL/GLwMDrawA.h
+RequestGenerator.o: /usr/include/GL/GLwDrawA.h ../include/glt/glm.h
+RequestGenerator.o: TerraVisionInc.h ../include/pthread.h /usr/include/time.h
+RequestGenerator.o: X11Include.h /usr/include/Xm/CascadeB.h
+RequestGenerator.o: /usr/include/Xm/Xm.h /usr/include/X11/Shell.h
+RequestGenerator.o: /usr/include/X11/SM/SMlib.h /usr/include/X11/SM/SM.h
+RequestGenerator.o: /usr/include/X11/ICE/ICElib.h /usr/include/X11/ICE/ICE.h
+RequestGenerator.o: /usr/include/X11/Xatom.h /usr/include/Xm/XmStrDefs.h
+RequestGenerator.o: /usr/include/X11/StringDefs.h /usr/include/Xm/VirtKeys.h
+RequestGenerator.o: /usr/include/Xm/VendorS.h /usr/include/Xm/Form.h
+RequestGenerator.o: /usr/include/Xm/BulletinB.h /usr/include/Xm/Label.h
+RequestGenerator.o: /usr/include/Xm/List.h /usr/include/Xm/MainW.h
+RequestGenerator.o: /usr/include/Xm/MessageB.h /usr/include/Xm/PushB.h
+RequestGenerator.o: /usr/include/Xm/RowColumn.h /usr/include/Xm/Scale.h
+RequestGenerator.o: /usr/include/Xm/SelectioB.h /usr/include/Xm/Separator.h
+RequestGenerator.o: /usr/include/Xm/TextF.h /usr/include/Xm/ToggleB.h
+RequestGenerator.o: /usr/include/Xm/DialogS.h /usr/include/X11/cursorfont.h
+RequestGenerator.o: ../include/pthr/report.h /usr/include/stdio.h
+RequestGenerator.o: /usr/include/stdarg.h ../include/pthr/timestamp.h
+RequestGenerator.o: /usr/include/mutex.h /usr/include/math.h
+RequestGenerator.o: /usr/include/device.h /usr/include/stdlib.h
+RequestGenerator.o: /usr/include/sys/wait.h /usr/include/sys/procset.h
+RequestGenerator.o: /usr/include/sys/signal.h /usr/include/sys/siginfo.h
+RequestGenerator.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+RequestGenerator.o: /usr/include/ulocks.h /usr/include/limits.h
+RequestGenerator.o: /usr/include/task.h /usr/include/sys/prctl.h
+RequestGenerator.o: ../include/log.h ../include/List.h /usr/include/malloc.h
+RequestGenerator.o: /usr/include/signal.h /usr/include/errno.h
+RequestGenerator.o: /usr/include/sys/errno.h ../include/tsm/tsm.h
+RequestGenerator.o: ../include/tsm/TsTileSpec.h /usr/include/rpc/types.h
+RequestGenerator.o: ../include/tsm/TsTileSpecDecs.h /usr/include/rpc/xdr.h
+RequestGenerator.o: ../include/tsm/tsmPurl.h ../include/tsm/tsmPurlDefns.h
+RequestGenerator.o: ../include/tsm/TsTileSpecExtProts.h
+RequestGenerator.o: ../include/tsm/tsmTrace.h ../include/tsm/sih.h
+RequestGenerator.o: ../include/tsm/sihDecs.h ../include/tsm/sihProts.h
+RequestGenerator.o: ../include/tsm/tsmArray.h ../include/tsm/tsmDecs.h
+RequestGenerator.o: ../include/tsm/tsmAutoStructs.h
+RequestGenerator.o: ../include/tsm/tsmExtProts.h ../include/Ts.h
+RequestGenerator.o: /usr/include/values.h /usr/include/bstring.h
+RequestGenerator.o: ../include/Timer.h /usr/include/unistd.h
+RequestGenerator.o: ../include/getconfig.h /usr/include/ctype.h
+RequestGenerator.o: /usr/include/sys/stat.h /usr/include/sys/dir.h
+RequestGenerator.o: /usr/include/sys/file.h /usr/include/sys/fcntl.h
+RequestGenerator.o: ../include/tsm/tsm.h ../include/TsLogging.h Gats.h
+RequestGenerator.o: X11FrameGrab.h /usr/include/Xm/DrawingA.h matrix.h mo.h
+RequestGenerator.o: TerraVisionGlobals.h Model.h DrawModel.h Texture.h
+RequestGenerator.o: ThreeDWidget.h ThreeDPanel.h
+X11FrameGrab.o: X11FrameGrab.h TerraVisionInc.h ../include/pthread.h
+X11FrameGrab.o: /usr/include/time.h /usr/include/sys/types.h
+X11FrameGrab.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+X11FrameGrab.o: /usr/include/sys/select.h X11Include.h
+X11FrameGrab.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+X11FrameGrab.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+X11FrameGrab.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+X11FrameGrab.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+X11FrameGrab.o: /usr/include/string.h /usr/include/X11/Core.h
+X11FrameGrab.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+X11FrameGrab.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+X11FrameGrab.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+X11FrameGrab.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+X11FrameGrab.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+X11FrameGrab.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+X11FrameGrab.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+X11FrameGrab.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+X11FrameGrab.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+X11FrameGrab.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+X11FrameGrab.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+X11FrameGrab.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+X11FrameGrab.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+X11FrameGrab.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+X11FrameGrab.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+X11FrameGrab.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+X11FrameGrab.o: /usr/include/stdio.h /usr/include/stdarg.h
+X11FrameGrab.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+X11FrameGrab.o: /usr/include/math.h /usr/include/device.h
+X11FrameGrab.o: /usr/include/stdlib.h /usr/include/sys/wait.h
+X11FrameGrab.o: /usr/include/sys/procset.h /usr/include/sys/signal.h
+X11FrameGrab.o: /usr/include/sys/siginfo.h /usr/include/sys/resource.h
+X11FrameGrab.o: /usr/include/sys/time.h /usr/include/ulocks.h
+X11FrameGrab.o: /usr/include/limits.h /usr/include/task.h
+X11FrameGrab.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+X11FrameGrab.o: /usr/include/malloc.h /usr/include/signal.h
+X11FrameGrab.o: /usr/include/errno.h /usr/include/sys/errno.h
+X11FrameGrab.o: ../include/glt/glt.h /usr/include/GL/gl.h
+X11FrameGrab.o: /usr/include/GL/glu.h /usr/include/GL/glx.h
+X11FrameGrab.o: /usr/include/X11/Xmd.h /usr/include/GL/glxtokens.h
+X11FrameGrab.o: /usr/include/GL/GLwMDrawA.h /usr/include/GL/GLwDrawA.h
+X11FrameGrab.o: ../include/glt/glm.h ../include/tsm/tsm.h
+X11FrameGrab.o: ../include/tsm/TsTileSpec.h /usr/include/rpc/types.h
+X11FrameGrab.o: ../include/tsm/TsTileSpecDecs.h /usr/include/rpc/xdr.h
+X11FrameGrab.o: ../include/tsm/tsmPurl.h ../include/tsm/tsmPurlDefns.h
+X11FrameGrab.o: ../include/tsm/TsTileSpecExtProts.h ../include/tsm/tsmTrace.h
+X11FrameGrab.o: ../include/tsm/sih.h ../include/tsm/sihDecs.h
+X11FrameGrab.o: ../include/tsm/sihProts.h ../include/tsm/tsmArray.h
+X11FrameGrab.o: ../include/tsm/tsmDecs.h ../include/tsm/tsmAutoStructs.h
+X11FrameGrab.o: ../include/tsm/tsmExtProts.h ../include/Ts.h
+X11FrameGrab.o: /usr/include/values.h /usr/include/bstring.h
+X11FrameGrab.o: ../include/Timer.h /usr/include/unistd.h
+X11FrameGrab.o: ../include/getconfig.h /usr/include/ctype.h
+X11FrameGrab.o: /usr/include/sys/stat.h /usr/include/sys/dir.h
+X11FrameGrab.o: /usr/include/sys/file.h /usr/include/sys/fcntl.h
+X11FrameGrab.o: ../include/tsm/tsm.h ../include/TsLogging.h Gats.h matrix.h
+X11FrameGrab.o: mo.h TerraVisionGlobals.h /usr/include/Xm/DrawingA.h
+matrix.o: matrix.h /usr/include/math.h /usr/include/GL/gl.h
+matrix.o: /usr/include/bstring.h
+pixmaps.o: mo.h /usr/include/stdio.h /usr/include/string.h
+pixmaps.o: /usr/include/ctype.h /usr/include/unistd.h /usr/include/stdlib.h
+pixmaps.o: /usr/include/sgidefs.h /usr/include/sys/types.h
+pixmaps.o: /usr/include/sys/bsd_types.h /usr/include/sys/select.h
+pixmaps.o: /usr/include/malloc.h /usr/include/X11/Intrinsic.h
+pixmaps.o: /usr/include/X11/Xlib.h /usr/include/X11/X.h
+pixmaps.o: /usr/include/X11/Xfuncproto.h /usr/include/X11/Xosdefs.h
+pixmaps.o: /usr/include/stddef.h /usr/include/X11/Xutil.h
+pixmaps.o: /usr/include/X11/Xresource.h /usr/include/X11/Core.h
+pixmaps.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+pixmaps.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+pixmaps.o: /usr/include/X11/StringDefs.h /usr/include/X11/cursorfont.h
+pixmaps.o: /usr/include/Xm/Xm.h /usr/include/X11/Shell.h
+pixmaps.o: /usr/include/X11/SM/SMlib.h /usr/include/X11/SM/SM.h
+pixmaps.o: /usr/include/X11/ICE/ICElib.h /usr/include/X11/ICE/ICE.h
+pixmaps.o: /usr/include/X11/Xatom.h /usr/include/Xm/XmStrDefs.h
+pixmaps.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h pixmaps.h
+pixmaps.o: pixmaps/1.xpm pixmaps/2.xpm pixmaps/3.xpm pixmaps/4.xpm
+pixmaps.o: pixmaps/5.xpm pixmaps/6.xpm pixmaps/7.xpm pixmaps/8.xpm
+pixmaps.o: pixmaps/9.xpm pixmaps/10.xpm pixmaps/11.xpm pixmaps/12.xpm
+pixmaps.o: pixmaps/13.xpm pixmaps/14.xpm pixmaps/15.xpm pixmaps/16.xpm
+pixmaps.o: pixmaps/17.xpm pixmaps/18.xpm pixmaps/19.xpm pixmaps/20.xpm
+pixmaps.o: /usr/include/X11/IntrinsicP.h /usr/include/X11/CoreP.h
+pixmaps.o: /usr/include/X11/CompositeP.h /usr/include/X11/ConstrainP.h
+pixmaps.o: /usr/include/X11/ObjectP.h /usr/include/X11/RectObjP.h
+pixmaps.o: /usr/include/X11/ShellP.h /usr/include/X11/VendorP.h
+pixmaps.o: /usr/include/X11/Vendor.h
+xpmhash.o: xpm.h /usr/include/stdio.h /usr/include/X11/Xlib.h
+xpmhash.o: /usr/include/sys/types.h /usr/include/sgidefs.h
+xpmhash.o: /usr/include/sys/bsd_types.h /usr/include/sys/select.h
+xpmhash.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+xpmhash.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+xpmhash.o: /usr/include/X11/Xutil.h
+xpmread.o: mo.h /usr/include/stdio.h /usr/include/string.h
+xpmread.o: /usr/include/ctype.h /usr/include/unistd.h /usr/include/stdlib.h
+xpmread.o: /usr/include/sgidefs.h /usr/include/sys/types.h
+xpmread.o: /usr/include/sys/bsd_types.h /usr/include/sys/select.h
+xpmread.o: /usr/include/malloc.h /usr/include/X11/Intrinsic.h
+xpmread.o: /usr/include/X11/Xlib.h /usr/include/X11/X.h
+xpmread.o: /usr/include/X11/Xfuncproto.h /usr/include/X11/Xosdefs.h
+xpmread.o: /usr/include/stddef.h /usr/include/X11/Xutil.h
+xpmread.o: /usr/include/X11/Xresource.h /usr/include/X11/Core.h
+xpmread.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+xpmread.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+xpmread.o: /usr/include/X11/StringDefs.h /usr/include/X11/cursorfont.h
+xpmread.o: /usr/include/Xm/Xm.h /usr/include/X11/Shell.h
+xpmread.o: /usr/include/X11/SM/SMlib.h /usr/include/X11/SM/SM.h
+xpmread.o: /usr/include/X11/ICE/ICElib.h /usr/include/X11/ICE/ICE.h
+xpmread.o: /usr/include/X11/Xatom.h /usr/include/Xm/XmStrDefs.h
+xpmread.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+xpmread.o: /usr/include/X11/Xos.h /usr/include/fcntl.h
+xpmread.o: /usr/include/sys/fcntl.h /usr/include/sys/time.h xpm.h
+xcolor.o: TerraVisionInc.h ../include/pthread.h /usr/include/time.h
+xcolor.o: /usr/include/sys/types.h /usr/include/sgidefs.h
+xcolor.o: /usr/include/sys/bsd_types.h /usr/include/sys/select.h X11Include.h
+xcolor.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+xcolor.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+xcolor.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+xcolor.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+xcolor.o: /usr/include/string.h /usr/include/X11/Core.h
+xcolor.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+xcolor.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+xcolor.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+xcolor.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+xcolor.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+xcolor.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+xcolor.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+xcolor.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+xcolor.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+xcolor.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+xcolor.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+xcolor.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+xcolor.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+xcolor.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+xcolor.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+xcolor.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+xcolor.o: /usr/include/stdio.h /usr/include/stdarg.h
+xcolor.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+xcolor.o: /usr/include/math.h /usr/include/device.h /usr/include/stdlib.h
+xcolor.o: /usr/include/sys/wait.h /usr/include/sys/procset.h
+xcolor.o: /usr/include/sys/signal.h /usr/include/sys/siginfo.h
+xcolor.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+xcolor.o: /usr/include/ulocks.h /usr/include/limits.h /usr/include/task.h
+xcolor.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+xcolor.o: /usr/include/malloc.h /usr/include/signal.h /usr/include/errno.h
+xcolor.o: /usr/include/sys/errno.h ../include/glt/glt.h /usr/include/GL/gl.h
+xcolor.o: /usr/include/GL/glu.h /usr/include/GL/glx.h /usr/include/X11/Xmd.h
+xcolor.o: /usr/include/GL/glxtokens.h /usr/include/GL/GLwMDrawA.h
+xcolor.o: /usr/include/GL/GLwDrawA.h ../include/glt/glm.h
+xcolor.o: ../include/tsm/tsm.h ../include/tsm/TsTileSpec.h
+xcolor.o: /usr/include/rpc/types.h ../include/tsm/TsTileSpecDecs.h
+xcolor.o: /usr/include/rpc/xdr.h ../include/tsm/tsmPurl.h
+xcolor.o: ../include/tsm/tsmPurlDefns.h ../include/tsm/TsTileSpecExtProts.h
+xcolor.o: ../include/tsm/tsmTrace.h ../include/tsm/sih.h
+xcolor.o: ../include/tsm/sihDecs.h ../include/tsm/sihProts.h
+xcolor.o: ../include/tsm/tsmArray.h ../include/tsm/tsmDecs.h
+xcolor.o: ../include/tsm/tsmAutoStructs.h ../include/tsm/tsmExtProts.h
+xcolor.o: ../include/Ts.h /usr/include/values.h /usr/include/bstring.h
+xcolor.o: ../include/Timer.h /usr/include/unistd.h ../include/getconfig.h
+xcolor.o: /usr/include/ctype.h /usr/include/sys/stat.h /usr/include/sys/dir.h
+xcolor.o: /usr/include/sys/file.h /usr/include/sys/fcntl.h
+xcolor.o: ../include/tsm/tsm.h ../include/TsLogging.h Gats.h X11FrameGrab.h
+xcolor.o: /usr/include/Xm/DrawingA.h matrix.h mo.h TerraVisionGlobals.h
+xv24to8.o: X11FrameGrab.h TerraVisionInc.h ../include/pthread.h
+xv24to8.o: /usr/include/time.h /usr/include/sys/types.h
+xv24to8.o: /usr/include/sgidefs.h /usr/include/sys/bsd_types.h
+xv24to8.o: /usr/include/sys/select.h X11Include.h
+xv24to8.o: /usr/include/X11/Intrinsic.h /usr/include/X11/Xlib.h
+xv24to8.o: /usr/include/X11/X.h /usr/include/X11/Xfuncproto.h
+xv24to8.o: /usr/include/X11/Xosdefs.h /usr/include/stddef.h
+xv24to8.o: /usr/include/X11/Xutil.h /usr/include/X11/Xresource.h
+xv24to8.o: /usr/include/string.h /usr/include/X11/Core.h
+xv24to8.o: /usr/include/X11/Composite.h /usr/include/X11/Constraint.h
+xv24to8.o: /usr/include/X11/Object.h /usr/include/X11/RectObj.h
+xv24to8.o: /usr/include/Xm/CascadeB.h /usr/include/Xm/Xm.h
+xv24to8.o: /usr/include/X11/Shell.h /usr/include/X11/SM/SMlib.h
+xv24to8.o: /usr/include/X11/SM/SM.h /usr/include/X11/ICE/ICElib.h
+xv24to8.o: /usr/include/X11/ICE/ICE.h /usr/include/X11/Xatom.h
+xv24to8.o: /usr/include/Xm/XmStrDefs.h /usr/include/X11/StringDefs.h
+xv24to8.o: /usr/include/Xm/VirtKeys.h /usr/include/Xm/VendorS.h
+xv24to8.o: /usr/include/Xm/Form.h /usr/include/Xm/BulletinB.h
+xv24to8.o: /usr/include/Xm/Label.h /usr/include/Xm/List.h
+xv24to8.o: /usr/include/Xm/MainW.h /usr/include/Xm/MessageB.h
+xv24to8.o: /usr/include/Xm/PushB.h /usr/include/Xm/RowColumn.h
+xv24to8.o: /usr/include/Xm/Scale.h /usr/include/Xm/SelectioB.h
+xv24to8.o: /usr/include/Xm/Separator.h /usr/include/Xm/TextF.h
+xv24to8.o: /usr/include/Xm/ToggleB.h /usr/include/Xm/DialogS.h
+xv24to8.o: /usr/include/X11/cursorfont.h ../include/pthr/report.h
+xv24to8.o: /usr/include/stdio.h /usr/include/stdarg.h
+xv24to8.o: ../include/pthr/timestamp.h /usr/include/mutex.h
+xv24to8.o: /usr/include/math.h /usr/include/device.h /usr/include/stdlib.h
+xv24to8.o: /usr/include/sys/wait.h /usr/include/sys/procset.h
+xv24to8.o: /usr/include/sys/signal.h /usr/include/sys/siginfo.h
+xv24to8.o: /usr/include/sys/resource.h /usr/include/sys/time.h
+xv24to8.o: /usr/include/ulocks.h /usr/include/limits.h /usr/include/task.h
+xv24to8.o: /usr/include/sys/prctl.h ../include/log.h ../include/List.h
+xv24to8.o: /usr/include/malloc.h /usr/include/signal.h /usr/include/errno.h
+xv24to8.o: /usr/include/sys/errno.h ../include/glt/glt.h /usr/include/GL/gl.h
+xv24to8.o: /usr/include/GL/glu.h /usr/include/GL/glx.h /usr/include/X11/Xmd.h
+xv24to8.o: /usr/include/GL/glxtokens.h /usr/include/GL/GLwMDrawA.h
+xv24to8.o: /usr/include/GL/GLwDrawA.h ../include/glt/glm.h
+xv24to8.o: ../include/tsm/tsm.h ../include/tsm/TsTileSpec.h
+xv24to8.o: /usr/include/rpc/types.h ../include/tsm/TsTileSpecDecs.h
+xv24to8.o: /usr/include/rpc/xdr.h ../include/tsm/tsmPurl.h
+xv24to8.o: ../include/tsm/tsmPurlDefns.h ../include/tsm/TsTileSpecExtProts.h
+xv24to8.o: ../include/tsm/tsmTrace.h ../include/tsm/sih.h
+xv24to8.o: ../include/tsm/sihDecs.h ../include/tsm/sihProts.h
+xv24to8.o: ../include/tsm/tsmArray.h ../include/tsm/tsmDecs.h
+xv24to8.o: ../include/tsm/tsmAutoStructs.h ../include/tsm/tsmExtProts.h
+xv24to8.o: ../include/Ts.h /usr/include/values.h /usr/include/bstring.h
+xv24to8.o: ../include/Timer.h /usr/include/unistd.h ../include/getconfig.h
+xv24to8.o: /usr/include/ctype.h /usr/include/sys/stat.h
+xv24to8.o: /usr/include/sys/dir.h /usr/include/sys/file.h
+xv24to8.o: /usr/include/sys/fcntl.h ../include/tsm/tsm.h
+xv24to8.o: ../include/TsLogging.h Gats.h matrix.h mo.h TerraVisionGlobals.h
+xv24to8.o: /usr/include/Xm/DrawingA.h

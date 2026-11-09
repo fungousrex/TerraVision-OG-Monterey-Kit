@@ -1,0 +1,1000 @@
+2002-02-15  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* Makefile.in: Regen with automake 1.5
+	* aclocal.m4: Ditto
+	* config.g.in: Ditto
+
+	* configure.in: Provide .. argument to TV_TCL
+	* configure: Regen with autoconf 2.52
+
+	* glmXt.c (xtWorkProc): Upgrade debug mask to GLT_MASK|2
+	(xtPostRedraw): Ditto
+
+Tue Nov 20 10:45:50 2001  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* glmX.c (glmXChooseContext): when listmodes is specified in the
+	properties, output the list of visual modes to stderr.
+	(glmXChooseContext): if forceid is set then give the visual with
+	the ID matching visualid a massive score so that it is selected.
+
+	* glm.h: add 3 new fields to the properties structure: listmodes,
+	forceid, and visualid.
+
+	* glm.c (glmContextMatchProperties): don't enforce the overlay and
+	underlay visual requirements - these do not seem to be available
+	under Solaris and hence no visual can be found on that platform.
+
+2001-02-01  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* glmTcl.c (tclAddTimer): increased redraw-refresh rate from 50 to
+ 	10 milliseconds.  NOTE that its been observed that refreshing too
+ 	fast causes a bad interaction with Tk's response to UI events. The
+ 	new rate seems to provide a reasonable balance.
+
+Thu Jan 11 18:03:43 2001    <reddy@MAGNOLIA>
+
+	* glt.c (gltOGLGetVersion): change #ifndef GL_VERSION_1_2 with
+	#if (!defined(GL_VERSION_1_2)) && defined(GL_EXT_texture_object)
+	so that we check for the existence of the various EXT GL functions
+	before trying to compile against them.
+	
+Wed Jan 10 14:50:58 2001    <reddy@MAGNOLIA>
+
+	* glt.h: remove the definition for GL_POLYGON_OFFSET_EXT
+
+2000-12-15  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (AC_C_CONST): Move test up.
+	(TV_NSPR): Remove duplicate test.
+	* configure: Regen.
+	
+	* glmXt.c (struct xtWindow):  Add thread field.
+	(glmXtCreateWindow): Save active thread at creation time.
+	(xtDestroyWindow): Check for same thread as created under.
+	(xtMakeCurrent): Ditto.
+	(xtRelease): Ditto.
+
+Tue Dec 12 13:19:07 2000    <reddy@MAGNOLIA>
+
+	* glmWin.c (glmWChoosePixelFmt): new function - finds a good
+ 	accelerated visual under Windows.
+	(glmWChooseContext): if no custom selection callback is specified,
+ 	then use the new function above to select the visual.
+	(PFD_GENERIC_ACCELERATED): add define for this token (ifndef) as
+ 	it does not seem to be defined under mingwin32
+	(glmWGetPixelFormat): new public function under Windows - returns
+ 	the pixel format ID for a glmContext.
+
+2000-12-11  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* Makefile.in: Regen
+	
+	* glm.h: Define TRUE and FALSE if not already.
+	* glm.c: Protect config.h inclusion
+
+	* glmXt.c (xtDestroyWindow): Must walk up hierarchy for
+	  XtRemoveEventHandler as well, otherwise we get the notification
+	  after the window has been destroyed.
+
+Wed Dec  6 12:30:00 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* glmXt.c (glmXtCreateWindow): re-enable the code which searched
+ 	back through the widget hierarchy until it found a Shell widget,
+ 	then use that for the xtTrackMapped event handler. StructureNotify
+ 	events are only generated for Shell widgets. The result was that
+ 	the Map Viewer in TerraVision never rendered anything because it
+ 	never received a mapped notification message. This code was
+ 	previously commented out - are there any issues with re-enabling
+ 	it? Everything seems to work fine with the other viewers if I do
+ 	this.
+
+Thu Nov 30 09:46:38 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* glmWin.c (winContextPropertiesFromPFD): remove SUPPORT-GDI from
+	colorIndex property as this seems to imply software-only rendering
+	on nVidia and Oxygen-based graphics cards.
+
+Wed Nov 22 14:16:58 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* glmTcl.c (tclCreateSharedContext): convert fprintf to TSMTRACE
+	(tclDestroyContext): convert fprintf to TSMTRACE
+	(tclTimerProc): convert fprintf to TSMTRACE
+	(tclRegisterRedraw): convert fprint/PTRACE to TSMTRACE
+	(tclPostRedraw): convert fprintf to TSMTRACE
+	(tclRegisterMapNotify): convert fprint/PTRACE to TSMTRACE
+	(tclMakeCurrent): convert fprint/PTRACE to TSMTRACE
+	(tclRelease): convert fprint/PTRACE to TSMTRACE
+	(tclTimerDispatch): convert fprintf to TSMTRACE
+	(tclAddTimer): convert fprintf to TSMTRACE
+
+Tue Nov 21 13:33:26 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* configure.in: replace Tcl/Tk config with call to TV_TCL
+
+Tue Nov 21 11:25:24 2000    <reddy@MAGNOLIA>
+
+	* configure.in (TCL_FOUND): don't try to run the tkConfig.sh and
+ 	tclConfig.sh scripts if not exist. Also, AC_CHECK_HEADERS does not
+ 	seem to find tk.h. Use another approach to find whether to compile
+ 	glmTcl.c
+
+2000-11-01  Michael A. Eriksen  <eriksen@ai.sri.com>
+
+	* glm.h: Renamed __WIN32__ to WIN32
+	* glt.c: Renamed __WIN32__ to WIN32
+	* glt.h: Renamed _WIN32 to WIN32
+	* Removed winbuild/config.h
+
+2000-11-07  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (AC_ARG_WITH(tcl)): Add default check of
+	  /usr/lib/tclConfig.sh and /usr/local/lib/tclConfig.sh
+	* configure: Regen
+
+Mon Oct 30 10:33:44 2000  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* glmil.h (glmWindowNoFlush): new func - returns value of noflush
+
+	* glmXt.c (xtRelease): implement the "noflush" glmWindow field. If
+	set, do not do a swap or glFlush. Then clear the noflush field so
+	that the next call will do the flush.
+
+	* glmWin.c (winRelease): ditto for Windows
+
+	* glmTcl.c (tclRelease): ditto for TclTk
+
+	* glm.c (glmSetWindowNoFlush): new function to set the value of
+	the noflush field - this is used to stop glmReleaseWindow doing a
+	swap buffer or glFlush.
+
+	* glmXt.c (glmXtCreateWindow): initialise noflush for X
+
+	* glmWin.c (glmWCreateWindow): initialise noflush for Windows
+
+	* glmTcl.c (glmTclCreateWindow): initialise noflush for TclTk
+
+	* glmimpl.h: added a noflush field to the _glmWindow structure
+
+Tue Oct 24 16:48:56 2000    <reddy@MAGNOLIA>
+
+	* glmWin.c (winTimerHandler): Don't grab (and clear) timer until
+	  we've determined that it has expired!
+
+2000-10-10  Rick Brownrigg  <brownrig@erg.sri.com>
+
+	* glmTcl.c (glmTclCreateWindow): Refactored the treatment of
+ 	fonts. At present, with unshared contexts, fonts in the previous
+ 	version applied only to the glmw for which they were
+ 	initialized. Now fonts are initialized for all glmw's.  NOTE: this
+ 	is most likely not correct, as it would certainly be unnecessary
+ 	in a shared-context implementation. But at the present, there is
+ 	no shared context. Even if so, its not clear the implications on
+ 	the Windoze side, where there's no shared contexts period.
+
+2000-09-29  Lee Iverson  <leei@Mission.AI.SRI.COM>
+
+	* glt_inline.h: Move data structures to
+	* gltI.h: ...here.  New file.
+	* glt.c: Include "eqlhashI.h"
+
+2000-09-20  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.h: Start adding Doc++ headers.
+
+2000-08-30  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (libglt_a_SOURCES): Add glt_state.c
+	* Makefile.in: Regen
+	* glt_state.c: New file.  Primitives for tracking OpenGL state
+	  information.
+	* glt.h (struct gltGLState): New opaque typedef.
+	(gltTraceState): New.  Describes a given state on the specified
+	  trace stream.
+	(gltGetState): New. Grab a snapshot of current OpenGL state.
+	(gltFreeState): New. Free that snapshot.
+	(gltTraceStateDiff): New.  Describes the differences between two
+	  states on the specified trace stream.
+
+Mon Aug 28 14:12:49 2000   Lee Iverson  <leei@MAGNOLIA>
+
+	* glmWin.c (winContextPropertiesFromPFD): A non-GDI enabled
+	  context is flagged as colorIndex.
+
+2000-08-28  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glmWin.c (struct winContextData): Add field for glt vtable.
+	(winCreateContext): Initialize it...
+	(winMakeCurrent): and bind it.
+
+2000-08-25  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* glm.h (struct glmContextProperties): Add documentation.
+
+2000-08-23  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* glmTcl.c: Use PTRACE instead of fprintf values.
+
+	* glmX.c (xContextPropertiesFromVisual): Avoid DirectColor
+	  visuals.
+	* glt.c (gltOGLGetVersion): Only look for texture_object extension
+	  if !defined(GL_VERSION_1_2)
+	
+2000-08-23  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glmTcl.c (tclMakeCurrent): Return glmContext.
+
+	* Makefile.am (GLMT_C): Add glmTcl.c conditionally on HAVE_TCL
+	(GLM_C): Add $(GLMT_C)
+	(libglt_a_SOURCES): Add glm.c
+	* Makefile.in, aclocal.m4: Regen (with automake 1.4 -i)
+	* configure.in (AC_ARG_WITH(tcl)): Add --with-tcl arg
+	(AC_CHECK_HEADERS(tk.h)): New.
+	(AM_CONDITIONAL(HAVE_TCL)): New.
+	* configure, config.h.in: Regen
+	* glmTcl.c: Temporarily include "libTogl/togl.h"
+
+	* glmXt.c (xtTrackMapped): Tweak tracing.
+	
+Tue Aug 22 14:08:36 2000  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.h (glmWCreateContext): Add iFormat arg.
+	* glmWin.c (winCreateContext): Check for SetPixelFormat failure.
+	(glmWCreateContext): Add iFormat arg.  Select if zero, otherwise
+	  use that format.  Check for SetPixelFormat failure.
+	(winDestroyContext): Improve tracing.
+	(winDestroyWindow): Ditto.
+	
+2000-08-22  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glmXt.c (glmXtCreateWindow): Fix funcName.  Use
+	  SubstructureNotifyMask on current window.
+	(xtDestroyWindow): Remove SubstructureNotifyMask handler from
+	  current window.
+	(xtRegisterMapNotify):Fix funcName.
+	
+2000-08-21  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glmWin.c (winContextPropertiesFromPFD): Pass in iFormat to bind
+	  id early on.
+	(winCreateContext): Don't rebind id.
+	(glmWChooseContext): Pass iFormat to winContextPropertiesFromPFD
+	* glmX.c (glmXChooseContext): Demote tracing output to level 2.
+
+Fri Aug 18 09:45:51 2000  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.h (glmWChooseContext, glmWCreateContext, glmWFindContext):
+	  Revert to passing in HWND objects instead of HDC.
+	* glmWin.c (struct winContextData): Add fields for HWND and
+	  PIXELFORMATDESCRIPTOR.
+	(winCreateContext): Take HWND/HDC pair as descriptor.
+	  SetPixelFormat prior to wglCreateContext.
+	  Stoe hWnd and pfd in winContextData.
+	(glmWChooseContext): Revert to HWND as argument.  Fix use of
+	  choosef.  Call ReleaseDC on failure.
+	(glmWCreateContext): Revert to HWND as argument.
+	  Adjust call to winCreateContext
+	(glmWFindContext): Ditto.
+	(winShareContext): Adjust call to winCreateContext
+	(winDestroyContext): Call ReleaseDC
+	(winDestroyWindowContext): Delete.
+	(winDestroyWindow): Call winDestroyContext instead of
+	  winDestroyWindowContext.
+
+	(winbuild/libglt.dsp): Add glt_inline.[ch]
+	
+2000-08-16  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.c (glmContextMatchProperties): New.  Match a template of
+	  glmContextProperties preferences against a description.  Pulled
+	  out of ...
+	(glmContextChooseDefault): here.  Use glmContextMatchProperties.
+	(glmBaseContext): New.  Returns an unshared context that this was
+	  derived from.
+	* glm.h (glmContextMatchProperties): Declare.
+	(glmBaseContext): Declare.
+	* glmWin.c (winCreateContext): Save the shared context we're
+	  derived from in share field.
+	(glmWFindContext): Match preferences using
+	  glmContextMatchProperties if provided.
+	* glmX.c (xCreateContext): Take glmContext argument for sharing
+	  and save the value in share field.
+	(xShareContext): Pass glmContext and not GLXContext to
+	  xCreateContext.
+	(glmXFindContext): Match preferences using
+	  glmContextMatchProperties if provided.
+	* glmimpl.h (struct _glmContext): Add share field for reference
+	  and recognizing base contexts.
+
+2000-08-15  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.h (glmXFindContext): New.  Find a shareable context or
+	  create one with a glmContextProperties template.
+	(glmXContextVisualInfo): Declare.
+	(glmWFindContext): New. Windows version of glmXFindContext
+	* glmil.h (glmWindowContext): Implement.
+	* glmWin.c (baseContexts): New.  List of contexts created w/o
+	  specifying a sharing context.
+	(winCreateContext): Maybe add context to baseContexts.
+	(glmWChooseContext): Use glmContextChooseDefault if scoref not
+	  set.
+	(glmWFindContext): New.  Either find a shareable context or create
+	  a new one.
+	(winDestroyContext): Maybe delete context from baseContexts.
+	* glmx.h (struct xContextData): Make vinfo direct, not a pointer.
+	* glmX.c (baseContexts): New.  List of contexts created w/o
+	  specifying a sharing context.
+	(glmXChooseContext): Use glmContextChooseDefault if scoref not
+	  set.  Pass best to xCreateContext and then free visuals.
+	(glmXChooseVisualByScore): Comment out (obsolete).
+	(xCreateContext): Maybe add context to baseContexts.  Copy into
+	  vinfo.
+	(xShareContext): Pass pointer to vinfo.
+	(xDestroyContext): Maybe delete context from baseContexts.
+	  Don't free vinfo.
+	(glmXFindContext): New. Either find a shareable context or create
+	  a new one.
+	(glmXContextVisualInfo): Return address of vinfo.
+
+Mon Aug 14 14:23:06 2000  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.h: Clean up extern "C" encaps
+	  Remove WIN32-specific exinline defs.
+	(glmWChooseContext): Pass in HDC arg instead of HWND.
+	(glmWCreateContext): Ditto.
+	(glmWCreateWindow): Pass in HWND, since no longer attached
+ 	  to context.
+	* glmWin.c (struct winContextData): Remove HWND.
+	(winCreateContext, glmWChooseContext, glmWCreateContext):
+ 	  Pass in HDC instead of HWND
+	(winDestroyContext): Don't release DC.
+	(winDestroyWindowContext): New.  Release DC and then destroy.
+	(struct winWindowData): Store HWND here.
+	(glmWCreateWindow): Pass in HWND and store in winWindowData.
+	(winDestroyWindow): Call winDestroyWindowContext
+	(winGetWidget): Get HWND from winWindowData
+	* glmil.h: Don't define APIENTRY
+	* glt.h: Properly nest extern "C"
+	
+2000-08-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glmX.c (xCreateContext): glmContextProperties only has
+	  singleBuffer.
+
+Fri Aug 11 17:21:52 2000    <reddy@MAGNOLIA>
+
+	* glm.c (glmContextChooseDefault): New. Default visual chooser.
+	* glm.h (glmContextProperties): Change fields so that a zero field is
+	  the default preference.
+	(glmContextChooseDefault): Declare.
+	* glmWin.c (struct winContextData): Add iFormat entry.
+	(winContextPropertiesFromPFD): New.
+	(glmWChooseContext): New.  Use generic callback to choose a pixel
+	  format.
+	(winCreateContext): New.  Pull glmContext initialization together.
+	(glmWCreateContext): Adapt to call winCreateContext.
+	(winShareContex): Ditto.
+	(TimerHandler): Avoid race condition with...
+	(winRemoveTimer): ...
+	* glmX.c (xCreateContext): Reflect name changes in
+	  glmContextProperties.
+	
+2000-08-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (GLM_C): Define as combination of all window system
+	  dependent sources.
+	* Makefile.in: Regen (w/ unfortunate manual tweak)
+	* configure: Regen.
+
+	* glm.h: More studiously wrap with extern "C"
+	(struct glmContextProperties): New.  Window-system independent
+	  description of OpenGL properties.
+	(glmChooseContextFunc): New. Callback type for evaluating
+	  glmContextProperties descriptions.
+	(glmXChooseContext): New. Create a new GLXContext based on a
+	  glmChooseContextFunc scoring function.
+	(glmWChooseContext): New. Similarly for MS Windows.
+	(glmContextProps): New decl.
+	* glmX.c (xContextPropertiesFromVisual): New. Fill in
+	  glmContextProperties from XVisualInfo using glXGetConfig.
+	(glmXChooseContext): New.  Create a context based on scoring
+	  against glmContextProperties of XVisualInfo values.
+	(xCreateContext): New. Pull out common context creation code.
+	  Fill in glmContextProperties if not passed in.
+	(glmXCreateContext): Call xCreateContext().
+	(xShareContext): Ditto.
+	(xDestroyContext): Free XVisualInfo.
+	(glmXContextVisualInfo): Renamed from glmContextVisualInfo.
+	* glmil.h: Wrap with extern "C"
+	(glmContextProps): New.  Return props.
+	* glmimpl.h (struct _glmContext): Add props.
+
+2000-08-10  Michael A. Eriksen  <eriksen@AI.SRI.COM>
+
+	* glm.h: added extern "C" to external functions
+
+2000-08-10  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+  * glm.h (_glmWindow, _glmContext): Fix bloody MS semi-c++ bogosity
+    with structure names.
+  * glmWin.c: Fix various winContextData/_glmContext mismatches.
+    Change Boolean to int.
+    Change arg order for winMakeCurrent and winRelease
+    Define winGetWidget and glmWRunWorkProcs
+
+2000-08-10  Michael A. Eriksen  <eriksen@Canada.AI.SRI.COM>
+
+	* Under Windows the #include <windows.h> must be before #include <gl.h> 
+
+2000-08-10  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (pkginclude_HEADERS): Add glmimpl.h
+	* Makefile.in: Regen
+	* glmimpl.h: New file.  Basic implementation data structures.
+	* glmil.h: Include it.
+	* glmWin.h: Ditto.
+	* glmX.h: Ditto.
+
+2000-08-09  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (GLM_C): Conditionally define based on HAVE_X11 and
+	  HAVE_WINDOWS.
+	(libglt_a_SOURCES): Add glmil.c
+	(pkginclude_HEADERS): Add glmil.h
+	(configincludedir, configinclude_DATA): Delete
+	* Makefile.in: Regen
+	* configure.in (AM_CONFIG_HEADER): Remove glm.h
+	* configure, config.h.in: Regen
+	* glm.h.in: Delete
+	
+	* glmWin.c: New file. Implementation of glmWindow and
+	  glmContext for MS Windows.
+	* glmXt.c: New file. Implementation of glmWindow for Xt.
+	* glmX.c: New file. Implementation of glmContext for Xt.
+
+2000-08-07  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glmXt.c (wakeupID): New static.  Hold XtAppAddInput id.
+	(workPipe): New static. Holds Xt wakeup pipe.
+	(glmWakeupCB): New.  Callback fro XtAppAddInput(), read data from
+	  wakeupPipe.
+	(glmWakeup): New. Write data to wakeupPipe.
+	(glmInit): New. Initialize glmWindow support infrastructure.  Some
+	  code extracted from glmCreateWindow().  Rest initializes wakeup
+	  pipe mechanism.
+	(glmCreateWindow): Call glmInit().
+	(glmPostRedraw): Call glmWakeup() after adding workproc in case we
+	  need to wake up the XtAppNextEvent() loop.
+
+2000-06-27  Michael A. Eriksen    <eriksen@ai.sri.com>
+
+	* glmWin.c (glmStartWorkProc, glmStopWorkProc and glmWorkProcExt):
+	  removed since they are no longer used
+	(glmWorkProc):
+	  changed to non static function and removed function arguments
+	* glm.h (glmWorkProc):
+	  added glmWorkProc to glm.h as extern function
+
+2000-06-08  Michael A. Eriksen    <eriksen@ai.sri.com>
+
+	* removed return from glmStartWorkProc and glmStopWorkProc
+
+2000-03-30  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glmXt.c (redrawLock): New var.  Protects updates to redrawQ and
+	  workProc.
+	(glmCreateWindow): Initialize redrawLock and make redrawQ
+	  unshared.
+	(glmWorkProc, glmRemoveRedraw1, glmPostRedraw): Protect updates to
+	  workProc and redrawQ with redrawLock.
+
+2000-03-21  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glt.c: Conditionalize windows-specific defines.
+	* glt_inline.h (APIENTRY): Define to empty if not defined.
+	(struct gltVTable): Correct proto for genTextures.
+
+Tue Jan 25 14:51:27 2000  Martin Reddy  <reddy@MAGNOLIA>
+
+	* glt.h (glDeleteTexturesEXT): convert null definitions from
+ 	(void)(0) to (void *)(0)
+
+	* glt.c (gltGenTexturesOLD): make return: void APIENTRY
+	(gltBeginTextureOLD): make return: void APIENTRY
+	(gltDeleteTexturesOLD): make return: void APIENTRY
+	(gltBindTextureOLD): make return: void APIENTRY
+
+2000-01-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glt.c (gltOGLGetVersion): Check for V1.1 if GL_VERSION_1_1 is
+	  defined, but don't fail if only 1.0.
+
+1999-12-15  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.h.in: Renamed from glm.h and conditionalized for HAVE_X11
+	* glmXt.c: Renamed from glm.c.
+	
+	* Makefile.am (GLM_C): Define based on HAVE_X11 conditional.
+	(libglt_a_SOURCES): Replace glm.c with $(GLM_C)
+	(pkginclude_HEADERS): Delete glm.h
+	(configincludedir): Define to $(pkgincludedir)
+	(configinclude_DATA): Define so that glm.h is installed.
+	* Makefile.in: Regen
+	* aclocal.m4: Regen
+	* configure.in (AM_CONFIG_HEADER): Add glm.h
+	(AC_PATH_X): Test for X11 and AC_DEFINE(HAVE_X11) if available.
+	(AM_CONDITIONAL(HAVE_X11)): Add Makefile condition.
+	* configure: Regen
+	* acconfig.h (HAVE_X11): Add.
+	* config.h.in: Regen
+
+1999-12-05  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in: Remove ../thread checks.
+	(AC_ARG_WITH(opengl)): Extend LDFLAGS and CPPFLAGS paths if
+	  provided.
+	* configure: Regen
+	* config.h.in: Regen
+
+1999-10-30  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glt.h (gltOGLExtensions): Declare.
+
+1999-10-21  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.c (glmInitCharstr): Use XLoadQueryFont() to get font from X
+	  if not yet defined.
+	(glmCharstr): Call glmInitCharstr() if needed then render string.
+	* glm.h (GL_FONT_R, GL_FONT_I, GL_FONT_B, GL_FONT_BI): Moved here
+	  from glt.h
+	(glmCharstr): Moved here from glt.h with glmWindow arg.
+	* glt.c (gltCharstr): Move this and support funcs to glm.c
+	* glt.h (GL_FONT_R, GL_FONT_I, GL_FONT_B, GL_FONT_BI): Moved
+	(gltCharstr): Renamed to glmCharstr() and moved.
+
+1999-09-08  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am: Remove CLASSIC_NSPR definition.
+	* Makefile.in: Regen
+	* configure: Regen based on changes to ../acinclude.m4
+
+1999-09-03  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (AC_CHECK_HEADERS(pthr/trace.h)): Delete.
+	* config.h.in: Regen
+	* configure: Regen.
+
+1999-08-27  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure: Regen based on changes to TV_NSPR in ../acinclude.m4
+
+1999-08-20  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (TV_NSPR): Add call to point to NSPR includes and
+	  libraries.
+	* configure: Regen
+
+1999-08-19  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+        * glm.[ch] glt.[ch]: Convert to NSPR locking etc.
+
+	* Makefile.am (libglt_a_SOURCES): Remove glm_inline.c
+	(pkginclude_HEADERS): Remove glm_inline.h
+	* Makefile.in: Regen.
+	* glm_inline.c: Delete file.
+	* glm_inline.h: Delete file.
+	* glm.c (glmCurrentState): Delete.
+	(glmStackLen, glmStackStart, glmStackTop, glmStackEnd): Delete.
+	(glmEnableTranslate): Delete.
+	(glmEnableNames): Delete.
+	(glmMakeCurrent): Don't recover glmCurrentState.
+	(glmRelease): Don't save glmCurrentState.
+	(glmCheckState): Delete.
+	(glmResetState): Delete.
+	* glm.h (glmCurrentState): Delete declaration.
+	(enum glmEnableEnum): Delete.
+	(glmEnableTranslate): Delete declaration.
+	(glmDestroyWindow): Correct spelling.
+	(glmSetMode, glmForceMode, glmEnable, glmDisable, glmPushState,
+	 glmPopState, glmCheckState, glmResetState): Delete declarations.
+	  Don't include glm_inline.h
+	
+	* acconfig.h: Place alloca definition at end of config.h
+	* config.h.in: Regen.
+	* glm.c: Move alloca definition to acconfig.h
+	* glt.c: Move alloca definition to acconfig.h
+
+1999-07-20  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.c (glmMakeCurrent): Only call glXMakeCurrent() if context
+	  changed from last invocation.
+	(glmPendingRedraw): New.  Returns TRUE if the window has a pending
+	  redraw command.
+	* glm.h (glmPendingRedraw): Declare.
+
+1999-06-21  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* Makefile.am (CLASSIC_NSPR): Conditionally define in order to
+	  bypass native threads.
+	* Makefile.in: Regen.
+	* configure: Regen.
+
+1999-06-15  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (TV_NSPR): Add reference.
+	* configure: Regen
+	* Makefile.in: Regen
+	* aclocal.m4: Regen
+	
+1999-05-10  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.c (redrawQ): Make static.
+	(workProc): Extract from glmWindow and make static.
+	(struct glmWindow): Delete workProc field.
+	(glmDestroyWindow): Use static workProc.
+	(glmWorkProc): Complete restructure.  We now assume that non-zero
+	  pendingRedraw implies that glmw is on the redrawQ list.  There
+	  is a single workProc for all redraws.  If redrawQ is empty, then
+	  don't reestablish the workProc.
+	(glmRemoveRedraw1): When setting pendingRedraw to zero, delete
+	  from list if was non-zero.  If redrawQ becomes empty, remove
+	  workProc.
+	(glmRemoveRedraw): Use static workProc.
+	(glmPostRedraw): If making pendingRedraw non-zero, push the
+	  glmWindow onto redrawQ and add workProc if zero.
+
+Mon May  3 18:12:45 1999  Nathaniel Bletter  <bletter@Silver.AI.SRI.COM>
+
+	* glm.c (glmPostRedraw): put a glmw on the queue to do the redraw on
+	(glmWorkProc): pop a glmw off the queue for the redraw
+
+Wed Apr 14 11:14:48 1999  Nathaniel Bletter  <bletter@Silver.AI.SRI.COM>
+
+	* glt.h (glDeleteTextures): undefined glGenTextures,
+ 	glBindTextures, glDeleteTextures if less than GL version 1.1 since
+ 	they don't exist!
+
+1999-04-30  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.c: Include <errno.h> and <assert.h>
+	(struct glmWindow): Add redraw_lock, which will be locked as long
+	  as a redraw is pending. Add destroying, which is set while in the
+	  process of destroying a glmWindow.
+	(glmCreateWindow): Initialize redraw_lock and destroying.
+	(glmDestroyWindow): Wrap almost everything in lock of glmw->lock.
+	  Set destroying flag. Call glmRemoveRedraw1(). Destroy redraw_lock.
+	(glmWorkProc): Lock redraw_lock while redrawing.  Don't reinvoke
+	  workProc if destroying flag is set.
+	(glmRemoveRedraw1): New.  Body of glmRemoveRedraw(), but assumes
+	  lock is already held (checks with an assert).
+	(glmRemoveRedraw): Lock and then call glmRemoveRedraw1().
+	(glmPostRedraw): Don't do anything if destroying set.
+	
+	* glt.c (gltOGLGetVersion): Add compile-time condition for
+	  GL_VERSION_1_1 before checking for glVersionNum >= 1.1.
+
+Mon Apr 19 09:41:12 1999    <reddy@MAGNOLIA>
+
+	* glt.c: add an array of alternative font names that use the
+ 	misc-fixed font instead of adobe-courier. N.B. the fixed width
+ 	font does not exist in italics form.
+	(gltCharstr): use XLoadQueryFont to load a font instead of
+ 	XLoadFont. Now we can check the size of the loaded font. If the
+ 	font is smaller than we asked for, then try using the alternative
+        misc-fixed font instead.
+
+Thu Mar 25 13:52:03 1999  Martin Reddy  <reddy@MAGNOLIA>
+
+	* glt/glt.c (gltOGLGetVersion): do the check for texture objects
+ 	right. Previously we only ever used the EXT functions or the
+ 	emulation functions. However, as of OGL1.1, texture object support
+ 	is in the main API so now we use these if the version number is >=
+ 	1.1, otherwise we check for the EXT functions, otherwise we do our
+ 	emulation stuff.
+	(gltOGLGetVersion): 
+
+1999-03-25  Lee Iverson  <leei@canoe.ai.sri.com>
+
+	* configure.in (AM_MAINTAINER_MODE): Add.
+
+1999-03-02  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.c: Don't instantiate functions in glm_inline.h
+	* glm_inline.c: Correct inclusion of glm_inline.h
+	* glt.c: Don't instantiate functions in glt_inline.h
+	* glt_inline.c: Correct inclusion of glt_inline.h
+
+1999-03-01  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glt_inline.h (gltEnableCheckErrors): New.   Enables/disables
+	  OpenGL error checking.
+	(gltCheckErrors): Only checks if gltCheckErrorsEnabled is TRUE.
+	* glt.h (gltEnableCheckErrors): New declaration.
+	* glt.c (gltCheckErrorsEnabled): New variable.  True when we want
+	  to enable OpenGL error checking.
+
+1999-02-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.c (glmCurrentContext): New variable.  Tracks current
+	  glmContext.
+	(struct glmContext): New. Encapsulates GLXContext, current glt
+	  state and gltVTable.
+	(glmCreateContext): New. Create a new glmContext and initialize
+	  context-specific data.
+	(glmShareContext): New. Create a new glmContext shared with a
+	  previous one.
+	(glmDestroyContext): New. Delete glmContext.
+	(glmContextVisualInfo): New.  Return the XVisualInfo* associated
+	  with a context.
+	(glmMakeCurrent): Redefine to make glmContext current.
+	(glmRelease): Redefine to release current glmContext.
+	(struct glmWindow): Use glmContext and remove all context-specific
+	  fields now used by glmContext.
+	(glmCreateWindow): Takes a glmContext instead of XVisualInfo* and
+	  GLXContext.
+	(glmDestroyWindow): Revise for new glmWindow structure.
+	(glmMakeCurrentWindow): New.  Call glmMakeCurrent() for window's
+	  glmContext. 
+	(glmReleaseWindow): New. Call glmRelease() for window's
+	  glmContext.
+	* glm.h (struct glmContext): New typedef.
+	(glmCreateContext): Declare.
+	(glmDestroyContext): Declare.
+	(glmContextVisualInfo): Declare.
+	(glmMakeCurrent): Modify declaration for glmContext.
+	(glmRelease): Ditto.
+	(glmCreateWindow): Use glmContext as argument.
+	(glmMakeCurrentWindow): Declare.  Replaces glmMakeCurrent().
+	(glmReleaseWindow): Declare.  Replaces glmRelease().
+	* glt.c (gltOGLGetVersion): Initialize gltCurrVTable values.
+	(gltGenTexturesINIT): Dispatch through gltCurrVTable.
+	(gltBeginTextureINIT): Ditto.
+	(gltEndTextureINIT): Ditto.
+	(gltDeleteTexturesINIT): Ditto.
+	(gltBindTextureINIT): Ditto.
+	(gltHasExtension): Use extension string in gltCurrVTable.
+	* glt_inline.h (struct gltVTable): Encapsulate glmContext-specific
+	  configuration information in a single table.  For example OpenGL
+	  version information and function pointers for texture object
+	  functions/emulation.
+	(gltVTableINIT): New variable. Initial state of a gltVTable.
+	(gltCurrVTable): Currently bound gltVTable.
+	(gltOGLVersion): Optionally initialize OpenGL identification and
+	  the return value.
+	(gltOGLVersionNum): Ditto.
+	(gltOGLRenderer): Ditto.
+	(gltOGLExtensions): Ditto.
+	(gltGenTextures): Use gltCurrVTable for dispatch.
+	(gltBeginTexture): Ditto.
+	(gltEndTexture): Ditto.
+	(gltDeleteTextures): Ditto.
+	(gltBindTexture): Ditto.
+	* glt.h: Reflect movement chagnes to texture object dispatch.
+
+1999-02-09  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.c (struct _glmWindow): Add vinfo, mapNotify, and
+	  mapNotifyClosure fields.
+	(glmCreateWindow): Initialize vinfo to glxInfo passed in.  Use
+	  calloc() for memory allocation.  Find shell above widget and
+	  track mapped state by enabling StructureNotify events.
+	(glmwDestroyWindow): Remove event handler for StructureNotify
+	  events from shell above widget.
+	(glmRegisterMapNotify): Register a mapNotify callback to track
+	  changes in mapped state.
+	(glmTrackMapped): Call (*mapNotify)(glmw, closure) when mapping
+	  status changes.
+	* glm.h (glmMapNotifyFunc): Define callback function type.
+	(glmRegisterMapNotify): Declare.
+
+Thu Feb  4 16:56:17 1999  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* glm.h: added include for report.h which is needed for the
+	definition of pthr_error1 in glm_inline.h
+
+1998-10-16  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.c: Move glt.h include before glm_inline.h
+
+Thu Aug 20 23:54:29 1998  Martin Reddy  <reddy@Lomond.AI.SRI.COM>
+
+	* glt.h: changed include GL/GLwMDrawA.h to X11/GLw/GLwMDrawA.h.
+ 	The X11/GLw directory is the correct place to look for these - the
+ 	GL/ directory was used by mistake in the release of IRIX 5.2.
+
+1998-06-09  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.c (glmWindow): Add mapped component.
+	  (glmCreateWindow): Add glmTrackMapped() as event handler for
+	  StructureNotify events.
+	  (glmTrackMapped): Modify glmw->mapped to track window status.
+	  (glmIsMapped): Return glmw->mapped.
+
+1998-05-27  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* All files: Add copyright statement.
+
+1998-04-06  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glt.h (GLT_MASK): Define a mask to be used for ptrace masking.
+	  glt.h, glm.h: Use GLT_MASK to restrict tracing output.
+
+1998-03-06  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.c (glmEnableTranslate): Add GLM_DEPTH_TEST.
+	  (glmEnableNames): Add "GLM_DEPTH_TEST".
+
+	* glm.h (enum glmEnableEnum): Add GLM_DEPTH_TEST.
+
+1998-03-05  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glm.c (glmChooseVisualByScore): New function for automating
+	  visual selection.  Uses callback to score visuals and then
+	  chooses the visual with the maximal score.  Automatically
+	  collects a list of attribute values to pass back to callback.
+	  (glmChooseVisual): Try to select multisample visual if not
+	  penalized.
+	* glm.h (glmChooseVisualByScore): Declare new function.
+
+	* glt.c (gltOGLVersion): Modify texture object handling so that
+	  main functions are passed directly through to OpenGL functions
+	  when version >= 1.1 or texture_object extension available.
+	  (gltBindTextureOLD): Function added to call encapsulating list
+	  to emulate texture objects.
+	  (gltGenTexturesOBJ): Deleted.
+	  (gltBeginTextureOBJ): Deleted.
+	  (gltDeleteTexturesOBJ): Deleted.
+	  (gltBindTextureINIT): New function to test then vector to
+	  correct bindTexture implementation.
+	  (gltBindTexture): New function pointer.
+	  (gltScaleImage, gltScaleImagePow2): Add arguments for declaring
+	  span of in/out images.
+
+	* glt.h (gltBindTexture): Declare as function pointer, adding
+	  which_tex argument.
+	  (gltScaleImage): Modify declaration to reflect new span arguments.
+
+	* glt_inline.h: Remove gltBindTexture().
+
+1997-12-04  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glt_inline.h: Restore reference to <pthr/report.h>
+
+	* glm.c, glt.c: Include <pthr/trace.h> for tracing.
+
+	* configure.in: Change checks for pthread.h and pthr/trace.h to
+	  reflect split in directories.
+
+	* Makefile.am (glt): No longer create symbolic link to this
+	  directory.
+
+1997-11-11  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* configure.in (AC_C_INLINE): Check for compiler-specific means of
+	  declaring inline functions and AC_DEFINE(HAVE_INLINE) if
+	  available.
+	(AC_FUNC_ALLOCA): Recognize need for alloca() declarations.
+
+	* glm.c (glmCurrentWindow): Global bound to current window
+	  inside glmMakeCurrent/glmRelease pair.
+	(glmCurrentState): Global bound to current glmEnable state
+	  inside glmMakeCurrent/glmRelease pair.
+	(glmStack*): Global definitions for stack of glmEnable state
+	  vectors.  Manipulated by glm{Push,Pop}State().
+	(glmEnableTranslate): Global defining translation from
+	  glmEnableEnum states to glEnable() arguments.
+	(glmEnableNames): Translation table for names of glmEnableEnums.
+	(glmChooseVisual): Change logic to allow a more specific
+	  enumeration of possible attribute sets to be sought.
+	(struct _glmWindow): Add component state to hold glmEnableEnum
+	  state vector for glmWindow context.
+	(glmCreateWindow): Start with a clear state vector.
+	(glmCheckState): New function.  Compares glmCurrentState with
+	  OpenGL state bit obtained by querying server.  Raises error and
+	  corrects OpenGL state in case of disagreement.
+	(glmResetState): New function. Iterates through glmCheckState()
+	  with all state bits in glmCurrentState.
+	(glmMakeCurrent): Update globals glmCurrentWindow and
+	  glmCurrentState instead of deleted static curr_ctx.
+	(glmRelease): Save glCurrentState in glmWindow context.  Set
+	  glmCurrentWindow to 0 on exit.
+
+	* glm.h (glmCurrentWindow): Declare extern.
+	(glmCurrentState): Declare extern.
+	(glmEnableEnum): Define arguments valid for glmEnable() and
+	  friends.
+	(glmEnableTranslate): Declare extern.
+	(glmSetMode): Ditto.
+	(glmForceMode): Ditto.
+	(glmEnable): Ditto.
+	(glmDisable): Ditto.
+	(glmPushState): Ditto.
+	(glmPopState): Ditto.
+	(glmCheckState): Ditto.
+	(glmResetState): Ditto.
+	(glm_inline.h inclusion): Opt for a less gcc-specific method of
+	  inlining functions in glm_inline.h.
+
+	* glm_inline.h (glmForceMode): New function.  Set glmEnable bit
+	  `which' to value specified in `enable'.  Always calls
+	  glEnable/glDisable to set OpenGL mode.
+	(glmSetMode): New function.  Set glmEnable bit `which' to value
+	  specified in `enable'.  Call glEnable/glDisable only if
+	  changing.
+	(glmDisable): New function.  Disable glmEnable bit `which'.
+	(glmEnable): New function.  Enable glmEnable bit `which'.
+	(glmPushState): New function.  Push current glmEnable state onto
+	  global stack.
+	(glmPopState): New function.  Pop current glmEnable state off of
+	  global stack.
+
+	* glm_inline.c: New file.  Contains non-inlined versions of
+	  functions in glm_inline.h.
+
+	* glt.c (alloca): Use autoconf-recommended declaration.
+	(gltGenTexturesOBJ): Remove unused variable v.
+	(gltOGLVersion): Cast glGetString() returns to (char const *).
+	(gltScaleImage): Change name from gltScaleABGRImage() and
+	  generalize for arbitrary number of GLubyte components.  
+	(gltScaleImagePow2): Change name from gltScaleABGRImagePow2() and
+	  generalize as above.
+	(gltInvertImage): New function.  Up/down inversion of GLubyte
+	  component images.  Necessary for conversion to OpenGL native
+	  image orientation.
+
+	* glt.h (power2size): Declare with GLuint argument/return.
+	(gltScaleABGRImage): Remove reference.
+	(gltScaleImage): New function name.  Fast scaling of unsigned byte
+	  component images.
+	(gltInvertImage): New function.  Fast up/down inversion (into
+	  OpenGL-specific orientation) of GLubyte component images.
+
+	* glt_inline.h (All): Declare as exinline to less gcc-specific
+	  inlining.
+	(power2size): Change argument and return to (GLuint).
+	(gltBindTexture): Don't enable texturing by default.
+
+	* glt_inline.c:  New file.  Contains non-inlined versions of
+	  functions in glt_inline.h.
+
+1997-10-28  Lee Iverson  <leei@Canada.AI.SRI.COM>
+
+	* glt_inline.h: Redefine all inline functions with exinline which
+	  is appropriately defined either in glt.h or glt_inline.c.
+	(gltTextureSize): New function.  Returns power of 2 larger than
+	  or equal to argument, which maximum of 512.
+	(gltTexture2D): Function removed.  Mechanism now replaced by
+	  glmEnable().
+
+Fri Oct 17 18:24:12 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* configure.in(AC_PATH_PROG(AR)): Search in /usr/ccs/bin under
+	  Solaris. 
+
+	* glm.c (glmChooseVisual): Slightly reduce debug output.
+
+	* glt.h: Declare new functions gltGenList() and gltDeleteList().
+
+Tue Oct 14 15:23:00 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* glt.c (gltGenList): New function to provide an unused display
+	  list.  Attached to gltDeleteList() which may be called outside a
+	  valid glxContext.
+	  (gltDeleteList): New function to free an OpenGL display list
+	  either in or outside of a valid glxContext.
+
+	* glt_inline.h (gltCheckErrors): Call pthr_error1() so that prefix
+	  *and* formatted args are printed.
+
+Fri Oct  3 16:01:02 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* configure.in (--enable-tracing): Use AC_DEFINE(TRACING).
+
+Tue Sep  9 14:06:14 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* glt.c (gltScaleABGRImage): Update to fix data overflows.
+	(gltScaleABGRImagePow2): Update to fix data overflows.
+
+Wed Jun 25 13:36:07 1997  Lee Iverson  <leei@Crazypete.AI.SRI.COM>
+
+	* Created.  Initially moved from TerraVision.
+

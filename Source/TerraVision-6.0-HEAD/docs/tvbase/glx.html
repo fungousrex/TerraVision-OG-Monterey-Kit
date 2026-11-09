@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>GLX Interface</title>
+</head>
+
+<body>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"> 
+<h1>GLX Interface</h1>
+
+
+<p>
+Interface functions exist to provide access to various esoteria of the OpenGL
+Windowing Extension to X Window (GLX).
+
+<p>
+The OpenGL notion of a <i>context</i> is encapsulated in a higher
+order construct, <a href="api/tvGLXContext.html"><code>tvGLXContext</code></a>.  A suitable
+context for TerraVision may be found by calling
+<a href="api/tvGLX_FindContext.html">tvGLX_FindContext()</a>, which returns a
+tvGLXContext structure.  From this, the OpenGL context can be retrieved 
+by calling 
+<a href="api/tvGLX_GetContext.html">tvGLX_GetContext()</a>.
+
+<p>
+Additional functions support setting and retrieving values in the tvGLXContext
+structure.  
+<a href="api/tvGLX_SetTextureCache.html">tvGLX_SetTextureCache()</a>
+sets the texture cache, while
+<a href="api/tvGLX_GetTextureCache.html">tvGLX_GetTextureCache()</a>
+returns it.  Likewise,
+<a href="api/tvGLX_SetRenderPrimitiveCache.html">tvGLX_SetRenderPrimitiveCache()</a>
+sets the RenderPrimitiveCache, and
+<a href="api/tvGLX_GetRenderPrimitiveCache.html">tvGLX_GetRenderPrimitiveCache()</a>
+retrieves it.
+<br>(<b>ISSUE</b>: need discussion here on what these things are and how they 
+in turn are created).
+
+<p>
+Other function pairs are
+<a href="api/tvGLX_UseSharing.html">tvGLX_UseSharing()</a>/
+<a href="api/tvGLX_Sharing.html">tvGLX_Sharing()</a> 
+for controlling the state of cache sharing (<b>ISSUE:</b>  huh?), 
+<a href="api/tvGLX_UseDoubleBuffer.html">tvGLX_UseDoubleBuffer()</a>/
+<a href="api/tvGLX_DoubleBuffer.html">tvGLX_DoubleBuffer()</a> 
+for setting OpenGL's double-buffering state, and
+<a href="api/tvGLX_UseStereo.html">tvGLX_UseStereo()</a>/
+<a href="api/tvGLX_Stereo.html">tvGLX_Stereo()</a> 
+for controlling whether stereo views are to be generated.
+
+
+<p>
+The list of extensions supported by the local GLX implementation may be queried
+by calling
+<a href="api/tvGLX_GetGLXExtensions.html">tvGLX_GetGLXExtensions()</a>.
+
+
+<hr>
+<p><IMG SRC="img/back.gif" ALT="Back to" HEIGHT=21 WIDTH=20>
+<A HREF="api-desc.html">API</A>
+<p>
+<address><a href="mailto:brownrig@erg.sri.com">Rick Brownrigg</a></address>
+<!-- Created: Mon Jan 10 23:43:53 CET 2000 -->
+<!-- hhmts start -->
+Last modified: Fri Jun  2 15:19:22 CDT 2000
+<!-- hhmts end -->
+</body>
+</html>

@@ -1,0 +1,673 @@
+# Makefile.in generated automatically by automake 1.4-p6 from Makefile.am
+
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+#  tsmUtils: External utilities using the tsm library
+#
+#  Copyright SRI International (1993-2000)
+#
+#  All rights reserved.
+#
+
+#
+# Build the tsmUtils programs
+#
+
+
+SHELL = @SHELL@
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+DESTDIR =
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = .
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+transform = @program_transform_name@
+
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+CC = @CC@
+MAINT = @MAINT@
+MAKEINFO = @MAKEINFO@
+NSPR_LIBS = @NSPR_LIBS@
+PACKAGE = @PACKAGE@
+RANLIB = @RANLIB@
+TSMLIB = @TSMLIB@
+TSMNAME = @TSMNAME@
+VERSION = @VERSION@
+
+bin_PROGRAMS =  	simple 	copy_dataset 	get_tile 	get_url 	get_tspec 	untile 	log_info 	time_tiles 	calc_stats 	database 	tv2geo 	make_oi 	make_dem 	make_geovrml 	text2geovrml 	checksum 	utm_conv 	calc_bbox 	dem_to_pgm         html_database
+
+
+#
+# Create a library out of the TerraServer module
+#
+
+DEPS = @DEPS@
+
+#
+# Definitions for compiling Apache modules under IRIX
+#
+
+APACHE_DEFS = -DIRIX -DUSE_HSREGEX -DUSE_EXPAT -DSHARED_MODULE
+APACHE_LIBS = -L. -lterraserver -ltsmApi -lgeotiff -lse_conv -lungif -lghttp               -lxml -lvrml2 -lpthrutil -ltiff -ljpeg -lz -lnspr4 -lm -lc
+
+
+# EXTRA_PROGRAMS = test get_http_tile
+
+EXTRA_PROGRAMS = test_inmem test_inmem3 test_req tvlaunch test_wms
+
+simple_DEPENDENCIES = $(DEPS)
+copy_dataset_DEPENDENCIES = $(DEPS)
+get_tile_DEPENDENCIES = $(DEPS)
+get_url_DEPENDENCIES = $(DEPS)
+get_tspec_DEPENDENCIES = $(DEPS)
+untile_DEPENDENCIES = $(DEPS)
+log_info_DEPENDENCIES = $(DEPS)
+time_tiles_DEPENDENCIES = $(DEPS)
+calc_stats_DEPENDENCIES = $(DEPS)
+database_DEPENDENCIES = $(DEPS)
+tv2geo_DEPENDENCIES = $(DEPS)
+make_oi_DEPENDENCIES = $(DEPS)
+make_dem_DEPENDENCIES = $(DEPS)
+checksum_DEPENDENCIES = $(DEPS)
+utm_conv_DEPENDENCIES = $(DEPS)
+dem_to_pgm_DEPENDENCIES = $(DEPS)
+make_geovrml_DEPENDENCIES = $(DEPS)
+test_inmem_DEPENDENCIES = $(DEPS)
+test_inmem3_DEPENDENCIES = $(DEPS)
+test_req_DEPENDENCIES = $(DEPS)
+test_wms_DEPENDENCIES = $(DEPS)
+ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+mkinstalldirs = $(SHELL) $(top_srcdir)/../mkinstalldirs
+CONFIG_HEADER = config.h
+CONFIG_CLEAN_FILES = 
+PROGRAMS =  $(bin_PROGRAMS)
+
+
+DEFS = @DEFS@ -I. -I$(srcdir) -I.
+CPPFLAGS = @CPPFLAGS@
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+test_inmem_SOURCES = test_inmem.c
+test_inmem_OBJECTS =  test_inmem.o
+test_inmem_LDADD = $(LDADD)
+test_inmem_LDFLAGS = 
+test_inmem3_SOURCES = test_inmem3.c
+test_inmem3_OBJECTS =  test_inmem3.o
+test_inmem3_LDADD = $(LDADD)
+test_inmem3_LDFLAGS = 
+test_req_SOURCES = test_req.c
+test_req_OBJECTS =  test_req.o
+test_req_LDADD = $(LDADD)
+test_req_LDFLAGS = 
+tvlaunch_SOURCES = tvlaunch.c
+tvlaunch_OBJECTS =  tvlaunch.o
+tvlaunch_LDADD = $(LDADD)
+tvlaunch_DEPENDENCIES = 
+tvlaunch_LDFLAGS = 
+test_wms_SOURCES = test_wms.c
+test_wms_OBJECTS =  test_wms.o
+test_wms_LDADD = $(LDADD)
+test_wms_LDFLAGS = 
+simple_SOURCES = simple.c
+simple_OBJECTS =  simple.o
+simple_LDADD = $(LDADD)
+simple_LDFLAGS = 
+copy_dataset_SOURCES = copy_dataset.c
+copy_dataset_OBJECTS =  copy_dataset.o
+copy_dataset_LDADD = $(LDADD)
+copy_dataset_LDFLAGS = 
+get_tile_SOURCES = get_tile.c
+get_tile_OBJECTS =  get_tile.o
+get_tile_LDADD = $(LDADD)
+get_tile_LDFLAGS = 
+get_url_SOURCES = get_url.c
+get_url_OBJECTS =  get_url.o
+get_url_LDADD = $(LDADD)
+get_url_LDFLAGS = 
+get_tspec_SOURCES = get_tspec.c
+get_tspec_OBJECTS =  get_tspec.o
+get_tspec_LDADD = $(LDADD)
+get_tspec_LDFLAGS = 
+untile_SOURCES = untile.c
+untile_OBJECTS =  untile.o
+untile_LDADD = $(LDADD)
+untile_LDFLAGS = 
+log_info_SOURCES = log_info.c
+log_info_OBJECTS =  log_info.o
+log_info_LDADD = $(LDADD)
+log_info_LDFLAGS = 
+time_tiles_SOURCES = time_tiles.c
+time_tiles_OBJECTS =  time_tiles.o
+time_tiles_LDADD = $(LDADD)
+time_tiles_LDFLAGS = 
+calc_stats_SOURCES = calc_stats.c
+calc_stats_OBJECTS =  calc_stats.o
+calc_stats_LDADD = $(LDADD)
+calc_stats_LDFLAGS = 
+database_SOURCES = database.c
+database_OBJECTS =  database.o
+database_LDADD = $(LDADD)
+database_LDFLAGS = 
+tv2geo_SOURCES = tv2geo.c
+tv2geo_OBJECTS =  tv2geo.o
+tv2geo_LDADD = $(LDADD)
+tv2geo_LDFLAGS = 
+make_oi_SOURCES = make_oi.c
+make_oi_OBJECTS =  make_oi.o
+make_oi_LDADD = $(LDADD)
+make_oi_LDFLAGS = 
+make_dem_SOURCES = make_dem.c
+make_dem_OBJECTS =  make_dem.o
+make_dem_LDADD = $(LDADD)
+make_dem_LDFLAGS = 
+make_geovrml_SOURCES = make_geovrml.c
+make_geovrml_OBJECTS =  make_geovrml.o
+make_geovrml_LDADD = $(LDADD)
+make_geovrml_LDFLAGS = 
+text2geovrml_SOURCES = text2geovrml.c
+text2geovrml_OBJECTS =  text2geovrml.o
+text2geovrml_LDADD = $(LDADD)
+text2geovrml_DEPENDENCIES = 
+text2geovrml_LDFLAGS = 
+checksum_SOURCES = checksum.c
+checksum_OBJECTS =  checksum.o
+checksum_LDADD = $(LDADD)
+checksum_LDFLAGS = 
+utm_conv_SOURCES = utm_conv.c
+utm_conv_OBJECTS =  utm_conv.o
+utm_conv_LDADD = $(LDADD)
+utm_conv_LDFLAGS = 
+calc_bbox_SOURCES = calc_bbox.c
+calc_bbox_OBJECTS =  calc_bbox.o
+calc_bbox_LDADD = $(LDADD)
+calc_bbox_DEPENDENCIES = 
+calc_bbox_LDFLAGS = 
+dem_to_pgm_SOURCES = dem_to_pgm.c
+dem_to_pgm_OBJECTS =  dem_to_pgm.o
+dem_to_pgm_LDADD = $(LDADD)
+dem_to_pgm_LDFLAGS = 
+html_database_SOURCES = html_database.c
+html_database_OBJECTS =  html_database.o
+html_database_LDADD = $(LDADD)
+html_database_DEPENDENCIES = 
+html_database_LDFLAGS = 
+CFLAGS = @CFLAGS@
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
+DIST_COMMON =  README ./stamp-h.in ChangeLog Makefile.am Makefile.in \
+acconfig.h acinclude.m4 aclocal.m4 config.h.in configure configure.in
+
+
+DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+
+TAR = tar
+GZIP_ENV = --best
+DEP_FILES =  .deps/calc_bbox.P .deps/calc_stats.P .deps/checksum.P \
+.deps/copy_dataset.P .deps/database.P .deps/dem_to_pgm.P \
+.deps/get_tile.P .deps/get_tspec.P .deps/get_url.P \
+.deps/html_database.P .deps/log_info.P .deps/make_dem.P \
+.deps/make_geovrml.P .deps/make_oi.P .deps/simple.P .deps/test_inmem.P \
+.deps/test_inmem3.P .deps/test_req.P .deps/test_wms.P \
+.deps/text2geovrml.P .deps/time_tiles.P .deps/tv2geo.P .deps/tvlaunch.P \
+.deps/untile.P .deps/utm_conv.P
+SOURCES = test_inmem.c test_inmem3.c test_req.c tvlaunch.c test_wms.c simple.c copy_dataset.c get_tile.c get_url.c get_tspec.c untile.c log_info.c time_tiles.c calc_stats.c database.c tv2geo.c make_oi.c make_dem.c make_geovrml.c text2geovrml.c checksum.c utm_conv.c calc_bbox.c dem_to_pgm.c html_database.c
+OBJECTS = test_inmem.o test_inmem3.o test_req.o tvlaunch.o test_wms.o simple.o copy_dataset.o get_tile.o get_url.o get_tspec.o untile.o log_info.o time_tiles.o calc_stats.o database.o tv2geo.o make_oi.o make_dem.o make_geovrml.o text2geovrml.o checksum.o utm_conv.o calc_bbox.o dem_to_pgm.o html_database.o
+
+all: all-redirect
+.SUFFIXES:
+.SUFFIXES: .S .c .o .s
+$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOMAKE) --foreign Makefile
+
+Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+$(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ configure.in  acinclude.m4
+	cd $(srcdir) && $(ACLOCAL)
+
+config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
+	$(SHELL) ./config.status --recheck
+$(srcdir)/configure: @MAINTAINER_MODE_TRUE@$(srcdir)/configure.in $(ACLOCAL_M4) $(CONFIGURE_DEPENDENCIES)
+	cd $(srcdir) && $(AUTOCONF)
+
+config.h: stamp-h
+	@if test ! -f $@; then \
+		rm -f stamp-h; \
+		$(MAKE) stamp-h; \
+	else :; fi
+stamp-h: $(srcdir)/config.h.in $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES= CONFIG_HEADERS=config.h \
+	     $(SHELL) ./config.status
+	@echo timestamp > stamp-h 2> /dev/null
+$(srcdir)/config.h.in: @MAINTAINER_MODE_TRUE@$(srcdir)/stamp-h.in
+	@if test ! -f $@; then \
+		rm -f $(srcdir)/stamp-h.in; \
+		$(MAKE) $(srcdir)/stamp-h.in; \
+	else :; fi
+$(srcdir)/stamp-h.in: $(top_srcdir)/configure.in $(ACLOCAL_M4) acconfig.h
+	cd $(top_srcdir) && $(AUTOHEADER)
+	@echo timestamp > $(srcdir)/stamp-h.in 2> /dev/null
+
+mostlyclean-hdr:
+
+clean-hdr:
+
+distclean-hdr:
+	-rm -f config.h
+
+maintainer-clean-hdr:
+
+mostlyclean-binPROGRAMS:
+
+clean-binPROGRAMS:
+	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+
+distclean-binPROGRAMS:
+
+maintainer-clean-binPROGRAMS:
+
+install-binPROGRAMS: $(bin_PROGRAMS)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(bindir)
+	@list='$(bin_PROGRAMS)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    echo "  $(INSTALL_PROGRAM) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
+	     $(INSTALL_PROGRAM) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
+	  else :; fi; \
+	done
+
+uninstall-binPROGRAMS:
+	@$(NORMAL_UNINSTALL)
+	list='$(bin_PROGRAMS)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
+	done
+
+.s.o:
+	$(COMPILE) -c $<
+
+.S.o:
+	$(COMPILE) -c $<
+
+mostlyclean-compile:
+	-rm -f *.o core *.core
+
+clean-compile:
+
+distclean-compile:
+	-rm -f *.tab.c
+
+maintainer-clean-compile:
+
+test_inmem: $(test_inmem_OBJECTS) $(test_inmem_DEPENDENCIES)
+	@rm -f test_inmem
+	$(LINK) $(test_inmem_LDFLAGS) $(test_inmem_OBJECTS) $(test_inmem_LDADD) $(LIBS)
+
+test_inmem3: $(test_inmem3_OBJECTS) $(test_inmem3_DEPENDENCIES)
+	@rm -f test_inmem3
+	$(LINK) $(test_inmem3_LDFLAGS) $(test_inmem3_OBJECTS) $(test_inmem3_LDADD) $(LIBS)
+
+test_req: $(test_req_OBJECTS) $(test_req_DEPENDENCIES)
+	@rm -f test_req
+	$(LINK) $(test_req_LDFLAGS) $(test_req_OBJECTS) $(test_req_LDADD) $(LIBS)
+
+tvlaunch: $(tvlaunch_OBJECTS) $(tvlaunch_DEPENDENCIES)
+	@rm -f tvlaunch
+	$(LINK) $(tvlaunch_LDFLAGS) $(tvlaunch_OBJECTS) $(tvlaunch_LDADD) $(LIBS)
+
+test_wms: $(test_wms_OBJECTS) $(test_wms_DEPENDENCIES)
+	@rm -f test_wms
+	$(LINK) $(test_wms_LDFLAGS) $(test_wms_OBJECTS) $(test_wms_LDADD) $(LIBS)
+
+simple: $(simple_OBJECTS) $(simple_DEPENDENCIES)
+	@rm -f simple
+	$(LINK) $(simple_LDFLAGS) $(simple_OBJECTS) $(simple_LDADD) $(LIBS)
+
+copy_dataset: $(copy_dataset_OBJECTS) $(copy_dataset_DEPENDENCIES)
+	@rm -f copy_dataset
+	$(LINK) $(copy_dataset_LDFLAGS) $(copy_dataset_OBJECTS) $(copy_dataset_LDADD) $(LIBS)
+
+get_tile: $(get_tile_OBJECTS) $(get_tile_DEPENDENCIES)
+	@rm -f get_tile
+	$(LINK) $(get_tile_LDFLAGS) $(get_tile_OBJECTS) $(get_tile_LDADD) $(LIBS)
+
+get_url: $(get_url_OBJECTS) $(get_url_DEPENDENCIES)
+	@rm -f get_url
+	$(LINK) $(get_url_LDFLAGS) $(get_url_OBJECTS) $(get_url_LDADD) $(LIBS)
+
+get_tspec: $(get_tspec_OBJECTS) $(get_tspec_DEPENDENCIES)
+	@rm -f get_tspec
+	$(LINK) $(get_tspec_LDFLAGS) $(get_tspec_OBJECTS) $(get_tspec_LDADD) $(LIBS)
+
+untile: $(untile_OBJECTS) $(untile_DEPENDENCIES)
+	@rm -f untile
+	$(LINK) $(untile_LDFLAGS) $(untile_OBJECTS) $(untile_LDADD) $(LIBS)
+
+log_info: $(log_info_OBJECTS) $(log_info_DEPENDENCIES)
+	@rm -f log_info
+	$(LINK) $(log_info_LDFLAGS) $(log_info_OBJECTS) $(log_info_LDADD) $(LIBS)
+
+time_tiles: $(time_tiles_OBJECTS) $(time_tiles_DEPENDENCIES)
+	@rm -f time_tiles
+	$(LINK) $(time_tiles_LDFLAGS) $(time_tiles_OBJECTS) $(time_tiles_LDADD) $(LIBS)
+
+calc_stats: $(calc_stats_OBJECTS) $(calc_stats_DEPENDENCIES)
+	@rm -f calc_stats
+	$(LINK) $(calc_stats_LDFLAGS) $(calc_stats_OBJECTS) $(calc_stats_LDADD) $(LIBS)
+
+database: $(database_OBJECTS) $(database_DEPENDENCIES)
+	@rm -f database
+	$(LINK) $(database_LDFLAGS) $(database_OBJECTS) $(database_LDADD) $(LIBS)
+
+tv2geo: $(tv2geo_OBJECTS) $(tv2geo_DEPENDENCIES)
+	@rm -f tv2geo
+	$(LINK) $(tv2geo_LDFLAGS) $(tv2geo_OBJECTS) $(tv2geo_LDADD) $(LIBS)
+
+make_oi: $(make_oi_OBJECTS) $(make_oi_DEPENDENCIES)
+	@rm -f make_oi
+	$(LINK) $(make_oi_LDFLAGS) $(make_oi_OBJECTS) $(make_oi_LDADD) $(LIBS)
+
+make_dem: $(make_dem_OBJECTS) $(make_dem_DEPENDENCIES)
+	@rm -f make_dem
+	$(LINK) $(make_dem_LDFLAGS) $(make_dem_OBJECTS) $(make_dem_LDADD) $(LIBS)
+
+make_geovrml: $(make_geovrml_OBJECTS) $(make_geovrml_DEPENDENCIES)
+	@rm -f make_geovrml
+	$(LINK) $(make_geovrml_LDFLAGS) $(make_geovrml_OBJECTS) $(make_geovrml_LDADD) $(LIBS)
+
+text2geovrml: $(text2geovrml_OBJECTS) $(text2geovrml_DEPENDENCIES)
+	@rm -f text2geovrml
+	$(LINK) $(text2geovrml_LDFLAGS) $(text2geovrml_OBJECTS) $(text2geovrml_LDADD) $(LIBS)
+
+checksum: $(checksum_OBJECTS) $(checksum_DEPENDENCIES)
+	@rm -f checksum
+	$(LINK) $(checksum_LDFLAGS) $(checksum_OBJECTS) $(checksum_LDADD) $(LIBS)
+
+utm_conv: $(utm_conv_OBJECTS) $(utm_conv_DEPENDENCIES)
+	@rm -f utm_conv
+	$(LINK) $(utm_conv_LDFLAGS) $(utm_conv_OBJECTS) $(utm_conv_LDADD) $(LIBS)
+
+calc_bbox: $(calc_bbox_OBJECTS) $(calc_bbox_DEPENDENCIES)
+	@rm -f calc_bbox
+	$(LINK) $(calc_bbox_LDFLAGS) $(calc_bbox_OBJECTS) $(calc_bbox_LDADD) $(LIBS)
+
+dem_to_pgm: $(dem_to_pgm_OBJECTS) $(dem_to_pgm_DEPENDENCIES)
+	@rm -f dem_to_pgm
+	$(LINK) $(dem_to_pgm_LDFLAGS) $(dem_to_pgm_OBJECTS) $(dem_to_pgm_LDADD) $(LIBS)
+
+html_database: $(html_database_OBJECTS) $(html_database_DEPENDENCIES)
+	@rm -f html_database
+	$(LINK) $(html_database_LDFLAGS) $(html_database_OBJECTS) $(html_database_LDADD) $(LIBS)
+
+tags: TAGS
+
+ID: $(HEADERS) $(SOURCES) $(LISP)
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	here=`pwd` && cd $(srcdir) \
+	  && mkid -f$$here/ID $$unique $(LISP)
+
+TAGS:  $(HEADERS) $(SOURCES) config.h.in $(TAGS_DEPENDENCIES) $(LISP)
+	tags=; \
+	here=`pwd`; \
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(ETAGS_ARGS)config.h.in$$unique$(LISP)$$tags" \
+	  || (cd $(srcdir) && etags -o $$here/TAGS $(ETAGS_ARGS) $$tags config.h.in $$unique $(LISP))
+
+mostlyclean-tags:
+
+clean-tags:
+
+distclean-tags:
+	-rm -f TAGS ID
+
+maintainer-clean-tags:
+
+distdir = $(PACKAGE)-$(VERSION)
+top_distdir = $(distdir)
+
+# This target untars the dist file and tries a VPATH configuration.  Then
+# it guarantees that the distribution is self-contained by making another
+# tarfile.
+distcheck: dist
+	-rm -rf $(distdir)
+	GZIP=$(GZIP_ENV) $(TAR) zxf $(distdir).tar.gz
+	mkdir $(distdir)/=build
+	mkdir $(distdir)/=inst
+	dc_install_base=`cd $(distdir)/=inst && pwd`; \
+	cd $(distdir)/=build \
+	  && ../configure --srcdir=.. --prefix=$$dc_install_base \
+	  && $(MAKE) $(AM_MAKEFLAGS) \
+	  && $(MAKE) $(AM_MAKEFLAGS) dvi \
+	  && $(MAKE) $(AM_MAKEFLAGS) check \
+	  && $(MAKE) $(AM_MAKEFLAGS) install \
+	  && $(MAKE) $(AM_MAKEFLAGS) installcheck \
+	  && $(MAKE) $(AM_MAKEFLAGS) dist
+	-rm -rf $(distdir)
+	@banner="$(distdir).tar.gz is ready for distribution"; \
+	dashes=`echo "$$banner" | sed s/./=/g`; \
+	echo "$$dashes"; \
+	echo "$$banner"; \
+	echo "$$dashes"
+dist: distdir
+	-chmod -R a+r $(distdir)
+	GZIP=$(GZIP_ENV) $(TAR) chozf $(distdir).tar.gz $(distdir)
+	-rm -rf $(distdir)
+dist-all: distdir
+	-chmod -R a+r $(distdir)
+	GZIP=$(GZIP_ENV) $(TAR) chozf $(distdir).tar.gz $(distdir)
+	-rm -rf $(distdir)
+distdir: $(DISTFILES)
+	-rm -rf $(distdir)
+	mkdir $(distdir)
+	-chmod 777 $(distdir)
+	here=`cd $(top_builddir) && pwd`; \
+	top_distdir=`cd $(distdir) && pwd`; \
+	distdir=`cd $(distdir) && pwd`; \
+	cd $(top_srcdir) \
+	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --foreign Makefile
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  if test -d $$d/$$file; then \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
+	  else \
+	    test -f $(distdir)/$$file \
+	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+	  fi; \
+	done
+
+DEPS_MAGIC := $(shell mkdir .deps > /dev/null 2>&1 || :)
+
+-include $(DEP_FILES)
+
+mostlyclean-depend:
+
+clean-depend:
+
+distclean-depend:
+	-rm -rf .deps
+
+maintainer-clean-depend:
+
+%.o: %.c
+	@echo '$(COMPILE) -c $<'; \
+	$(COMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
+	@-cp .deps/$(*F).pp .deps/$(*F).P; \
+	tr ' ' '\012' < .deps/$(*F).pp \
+	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
+	    >> .deps/$(*F).P; \
+	rm .deps/$(*F).pp
+
+%.lo: %.c
+	@echo '$(LTCOMPILE) -c $<'; \
+	$(LTCOMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
+	@-sed -e 's/^\([^:]*\)\.o[ 	]*:/\1.lo \1.o :/' \
+	  < .deps/$(*F).pp > .deps/$(*F).P; \
+	tr ' ' '\012' < .deps/$(*F).pp \
+	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
+	    >> .deps/$(*F).P; \
+	rm -f .deps/$(*F).pp
+info-am:
+info: info-am
+dvi-am:
+dvi: dvi-am
+check-am: all-am
+check: check-am
+installcheck-am:
+installcheck: installcheck-am
+all-recursive-am: config.h
+	$(MAKE) $(AM_MAKEFLAGS) all-recursive
+
+install-exec-am: install-binPROGRAMS
+install-exec: install-exec-am
+
+install-data-am:
+install-data: install-data-am
+
+install-am: all-am
+	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+install: install-am
+uninstall-am: uninstall-binPROGRAMS
+uninstall: uninstall-am
+all-am: Makefile $(PROGRAMS) config.h
+all-redirect: all-am
+install-strip:
+	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
+installdirs:
+	$(mkinstalldirs)  $(DESTDIR)$(bindir)
+
+
+mostlyclean-generic:
+
+clean-generic:
+
+distclean-generic:
+	-rm -f Makefile $(CONFIG_CLEAN_FILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+
+maintainer-clean-generic:
+mostlyclean-am:  mostlyclean-hdr mostlyclean-binPROGRAMS \
+		mostlyclean-compile mostlyclean-tags mostlyclean-depend \
+		mostlyclean-generic
+
+mostlyclean: mostlyclean-am
+
+clean-am:  clean-hdr clean-binPROGRAMS clean-compile clean-tags \
+		clean-depend clean-generic mostlyclean-am
+
+clean: clean-am
+
+distclean-am:  distclean-hdr distclean-binPROGRAMS distclean-compile \
+		distclean-tags distclean-depend distclean-generic \
+		clean-am
+
+distclean: distclean-am
+	-rm -f config.status
+
+maintainer-clean-am:  maintainer-clean-hdr maintainer-clean-binPROGRAMS \
+		maintainer-clean-compile maintainer-clean-tags \
+		maintainer-clean-depend maintainer-clean-generic \
+		distclean-am
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+maintainer-clean: maintainer-clean-am
+	-rm -f config.status
+
+.PHONY: mostlyclean-hdr distclean-hdr clean-hdr maintainer-clean-hdr \
+mostlyclean-binPROGRAMS distclean-binPROGRAMS clean-binPROGRAMS \
+maintainer-clean-binPROGRAMS uninstall-binPROGRAMS install-binPROGRAMS \
+mostlyclean-compile distclean-compile clean-compile \
+maintainer-clean-compile tags mostlyclean-tags distclean-tags \
+clean-tags maintainer-clean-tags distdir mostlyclean-depend \
+distclean-depend clean-depend maintainer-clean-depend info-am info \
+dvi-am dvi check check-am installcheck-am installcheck all-recursive-am \
+install-exec-am install-exec install-data-am install-data install-am \
+install uninstall-am uninstall all-redirect all-am all installdirs \
+mostlyclean-generic distclean-generic clean-generic \
+maintainer-clean-generic clean mostlyclean distclean maintainer-clean
+
+
+libterraserver.a: terraserver.o
+	$(AR) cru libterraserver.a terraserver.o
+	$(RANLIB) libterraserver.a
+
+#
+# explicit targets for compiling TerraVision Apache module
+#
+
+mod_terravision.so: libterraserver.a mod_terravision.o
+	$(LD) -shared -o mod_terravision.so mod_terravision.o \
+		$(LDFLAGS) $(APACHE_LIBS)
+
+mod_terravision.o: mod_terravision.c
+	$(COMPILE) -c -I$(srcdir)/apache/ $(DEFS) $(APACHE_DEFS) \
+		$(srcdir)/mod_terravision.c
+
+#
+# explicit targets for compiling Web Mapping Server Apache module
+#
+
+mod_wms.so: libterraserver.a mod_wms.o
+	$(LD) -shared -o mod_wms.so mod_wms.o \
+		 $(LDFLAGS) $(APACHE_LIBS)
+
+mod_wms.o: mod_wms.c
+	$(COMPILE) -c -I$(srcdir)/apache/ $(DEFS) $(APACHE_DEFS) \
+		$(srcdir)/mod_wms.c
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:

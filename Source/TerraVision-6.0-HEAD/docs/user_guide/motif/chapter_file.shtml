@@ -1,0 +1,143 @@
+<html><!-- #BeginTemplate "/Templates/User Guide.dwt" -->
+<head>
+<title>Digital Earth: TerraVision: User Guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="http://www.ai.sri.com/digitalearth/styles.css">
+<script language="JavaScript" src="http://www.ai.sri.com/digitalearth/common.js"></script>
+</head>
+
+<!--#include virtual="../bodytag.inc"-->
+<!--#include virtual="../header.inc" -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="10" valign="top" align="left">&nbsp;</td>
+    <td width="121" valign="top" align="left" background="../images/bg_sidebar.gif"> 
+<!--#include virtual="sidebar.inc" -->
+      
+    </td>
+    <td width="10">&nbsp;</td>
+    <td valign="top"> 
+      <p><img src="../images/user_guide_title.gif" width="470" height="70"> </p>
+      <p><a href="http://www.ai.sri.com/digitalearth/" target="_top"><span class="history_link">Digital 
+        Earth</span></a> <span class="history_link">&gt; <a href="http://www.tvgeo.com/">Terravision<sup><font size="-2">TM</font></sup></a> 
+        &gt; <a href="../welcome.shtml">User Guide</a> &gt; 
+        <a href="welcome.shtml">X/Motif</a> &gt; 
+        &quot;File&quot; 
+        Menu </span></p>
+      <!-- #BeginEditable "content" --> 
+      <center>
+      </center>
+      <h2>The "File" Menu</h2>
+      <p> 
+        <center>
+          <img src="../images/menu2.gif" width="348" height="252"> 
+        </center>
+      <p> 
+      <h3>Open Database</h3>
+      <p>This option lets you load a TerraVision<sup><font size="-2">TM</font></sup>  style dataset using the Dataset 
+        Database interface. From here you can select a dataset from the database, 
+        control various advanced connection settings, manage the contents of the 
+        database, and refresh the contents of the database by recontacting the 
+        specified servers. The Open TV window looks like: 
+      <p> 
+        <center>
+          <img src="../images/open.gif" alt="Open TV window" width="656" height="528"> 
+        </center>
+      <p> At the top of this dialog, there is a text widget with the filename 
+        of your Dataset Database. The Dataset Database contains all of the instances 
+        of all of the datasets that TerraVision<sup><font size="-2">TM</font></sup>  can access. You can enter a new 
+        filename here and press RETURN in order to load a different database. 
+        If the filename does not exist, then you will be asked if you want to 
+        create it. To the right of the database text widget there is a button 
+        marked "Options...". Clicking on this button will bring up the <a href="options.shtml">Database 
+        Options</a> dialog. 
+      <p>The main window contains the dataset selection area. To the left side 
+        you will see a list of "GeoSets". A GeoSet is simply a region for which 
+        both DEM and imagery datasets are available. If you select one of the 
+        names in this list then you will see all of the locations for all of the 
+        DEM and Image instances. For example, in the above image we have selected 
+        the "Ft Irwin (2scene)" GeoSet and we see that there are 3 instances of 
+        the DEM and Imagery for this set: two on local disk and one on a DPSS. 
+        We have selected the DPSS instance for the imagery and one of the localdisk 
+        instances for the DEM. 
+      <p>The two lists on the far right specify the available server combinations 
+        for the selected dataset instances. For a localdisk instance this will 
+        just be "localhost", but for a DPSS instance this could be a list of sets 
+        with different server combinations. In the above example, the DPSS set 
+        is set 68 and exists on a single server (sri-server1). Below each of these 
+        lists there is a button called "Advanced...". Clicking on these will bring 
+        up the <a
+href="adv.shtml">Advanced Connection Options</a> for either the DEM or the Image 
+        dataset. 
+      <p>Once you have selected the dataset you wish to browse, you can press 
+        "Open Dataset". Once TerraVision<sup><font size="-2">TM</font></sup>  connects to this dataset you can go to 
+        the Views menu in order to view the terrain. 
+      <h3>Debug Level</h3>
+      <p>TerraVision<sup><font size="-2">TM</font></sup>  is an extremely complex application and it is often useful 
+        to know what it is doing at certain times. The debugging facility makes 
+        TerraVision<sup><font size="-2">TM</font></sup>  output a stream of diagnostic information to the shell window 
+        that it was run from. TerraVision<sup><font size="-2">TM</font></sup>  supports a number of levels of debugging 
+        output from Level 1 (most terse) to Level 4 (most verbose). This option 
+        is primarily available for the developers to effect debugging of the application. 
+      <h3>Debug Masks</h3>
+      <p>In addition to setting the verbosity of debug output that would like, 
+        you can also restrict the debug output to specific areas of the TerraVision<sup><font size="-2">TM</font></sup>  
+        system. Currently these are: 
+      <ol>
+        <li> <b>Tiles</b> - the requesting and reading of tile data from the remote 
+          dataset. 
+        <li> <b>Texture</b> - the management of the texture cache 
+        <li> <b>Init</b> - initialisation routines 
+        <li> <b>2-D Viewer</b> - the management of the 2-D (overhead) viewer 
+        <li> <b>3-D Viewer</b> - the management of the 3-D (out the window) viewer 
+        <li> <b>Map Viewer</b> - the management of the Map window 
+        <li> <b>OpenGL</b> - the major graphics functions 
+        <li> <b>Visibility</b> - the scene visibility calculation 
+        <li> <b>OAA</b> - Open Agent Architecture messages 
+        <li> <b>Logging</b> - Diagnostic logging debug messages 
+        <li> <b>Cache</b> - Tile and texture-map cache status 
+        <li> <b>.geo</b> - the .geo discovery diagnostics
+        <li> <b>DPSS</b> - debugging of the DPSS transactions 
+        <li> <b>Timestamps</b> - low-level timestamps used for pthread syncronization 
+      </ol>
+      <table width="100%">
+        <tr> 
+          <td valign="top"> 
+            <h3>Dataset Information</h3>
+            This facility lets you find out various pieces of information about 
+            the datasets that TerraVision<sup><font size="-2">TM</font></sup>  is currently connected to. This includes 
+            details such as the name of the dataset, its type (image, dem, or 
+            vrml), the total pyramid size, the ground resolution in pixels and 
+            ground units (meters or degrees), the location of the dataset including 
+            server and set information for DPSS datasets, etc. 
+            <p>The opposite image shows an example of the Dataset Information 
+              window for a DPSS dataset on iss-1-spans.sri.magic.net. 
+            <p>The Dataset option menu at the bottom of the window lets you select 
+              which of the datasets TerraVision<sup><font size="-2">TM</font></sup>  is connected to that you wish 
+              to find out about. For a traditional TerraVision<sup><font size="-2">TM</font></sup>  dataset this will 
+              normally just be the OI (ortho-imagery) and DEM datasets. 
+            <p>In addition to information for each dataset, the Dataset Info window 
+              can display an Aggregate Report. This tells the user how many GeoSets 
+              are currently loaded, and what the total size is of all these DEM 
+              and OI datasets. The Aggregate Report also lists the total number 
+              of pixels in all of the loaded OI datasets, and the total number 
+              of DEM postings from all of the loaded DEM datasets. 
+          </td>
+          <td>&nbsp;&nbsp;</td>
+          <td valign="top"><img src="../images/info.gif" alt="Dataset Info window" width="400" height="462"> 
+          <td> 
+        </tr>
+      </table>
+      <h3>Exit (Ctrl+Q)</h3>
+      Good-bye TerraVision; hello shell prompt. 
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p align="center" class="description">
+        <!--#include virtual="../footer.inc" --><br>
+        Last updated: <!--#echo var="LAST_MODIFIED" -->.</p>
+      <!-- #EndEditable --></td>
+    <td width="20">&nbsp;</td>
+  </tr>
+</table>
+</body>
+<!-- #EndTemplate --></html>

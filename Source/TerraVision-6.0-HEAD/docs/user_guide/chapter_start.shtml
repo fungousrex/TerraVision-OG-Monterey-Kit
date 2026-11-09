@@ -1,0 +1,230 @@
+<html><!-- #BeginTemplate "/Templates/User Guide.dwt" -->
+<head>
+<title>Digital Earth: TerraVision: User Guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="http://www.ai.sri.com/digitalearth/styles.css">
+<script language="JavaScript" src="http://www.ai.sri.com/digitalearth/common.js"></script>
+</head>
+
+<!--#include virtual="bodytag.inc"-->
+<!--#include virtual="header.inc" -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="10" valign="top" align="left">&nbsp;</td>
+    <td width="121" valign="top" align="left" background="../images/bg_sidebar.gif"> 
+<!--#include virtual="sidebar.inc" -->
+      
+    </td>
+    <td width="10">&nbsp;</td>
+    <td valign="top"> 
+      <p><img src="images/user_guide_title.gif" width="470" height="70"> </p>
+      <p><a href="http://www.ai.sri.com/digitalearth/" target="_top"><span class="history_link">Digital 
+        Earth</span></a> <span class="history_link">&gt; <a href="http://www.tvgeo.com/">Terravision<sup><font size="-2">TM</font></sup></a> 
+        &gt; <a href="welcome.shtml">User Guide</a> &gt; 
+        <!-- #BeginEditable "Hierarchy" -->Getting 
+        Started <!-- #EndEditable --> </span></p>
+      <!-- #BeginEditable "content" --> 
+      <center>
+      </center>
+
+<br>
+<H2>Getting Started</H2>
+
+<H3>Overview</h3>
+
+TerraVision<sup><font size="-2">TM</font></sup> is a distributed,
+interactive terrain visualization
+system developed by SRI International. It allows users to navigate, in
+real time, through a 3-D graphical representation of a real landscape
+created from elevation data and aerial images of that landscape.
+
+<p>The TerraVision system is available under Windows and Silicon Graphics
+machines. It comes as a standalone application as well as a Netscape
+plugin version and an ActiveX component. This user guide is provided
+to give you help installing, running, and using the TerraVision
+system. For the latest version of all TerraVision resources, please
+refer to the web page
+<a href="http://www.tvgeo.com/">http://www.tvgeo.com/</a>.
+
+<p><br>
+<H3>Installing TerraVision<sup><font size="-2">TM</font></sup> -
+Windows</H3>
+
+<blockquote>
+You can download the full TerraVision<sup><font size="-2">TM</font></sup>
+distribution for Windows from the <a
+href="http://www.tvgeo.com/download_full.shtml">TerraVision Download
+Page</a>, or the Netscape plugin and ActiveX component from the
+<a href="http://www.tvgeo.com/download_ns.shtml">TerraVision Plugins
+Download Page</a>.
+
+In each case, there is an InstallShield executable that you
+can download and run in order to perform all of the installation
+for you. These executables are digitally signed by SRI International.
+
+<!--
+In each case, you have the option of using a
+"One Click" web-based installation process, or downloading and
+running an installer executable. If you have a problem with the
+"One Click" install, then try running the installer executable.
+-->
+
+<p><center>
+<img src="images/install.gif" alt="Windows Installer">
+</center>
+
+<H3> Running TerraVision<sup><font size="-2">TM</font></sup> - Windows</H3>
+
+<p>Once installed, you can run TerraVision by locating its menu entry
+in the Start/Programs menu, access by clicking on the "Start" button
+to the bottom-left corner of your desktop.
+
+<p>For the full version of TerraVision, you will find a menu entry
+called "TerraVision 5.1" with an option "Run TerraVision Browser".
+For the plugins version of TerraVision, you will find a menu entry
+called "TerraVision Plugin 5.1" with a number of options - try
+the "Netscape Plugin/Run TerraVision inside Netscape" example first
+(obviously, you will need to have installed the Netscape web browser
+for this to work).
+
+<H3> Viewing Terrain Datasets - Windows</H3>
+
+<P>The first thing that you will probably want to do is to look at
+some terrain. If you have downloaded the TerraVision Plugins, then
+you can just go to one of the example web pages provided with the
+distribution to see TerraVision flying round a number of terrain
+datasets served from the SRI web server.
+
+<p>For the full Tcl/Tk version, you can either go to the "File/
+Open Terrain" menu to view a specific terrain model from the 
+SRI web site, or you can use the new "File/Open DotGeo" capability
+to automatically discover all datasets in your view (only works in 
+2D mode at the current time).
+
+</blockquote>
+
+<p><br>
+<H3>Installing TerraVision<sup><font size="-2">TM</font></sup> -
+Unix</H3>
+
+<blockquote>
+You can download the full TerraVision<sup><font size="-2">TM</font></sup>
+distribution for IRIX 6.5 from the <a
+href="http://www.tvgeo.com/download_full.shtml">TerraVision Download
+Page</a>. This comes as a compressed tar archive.
+Note that there are currently two versions: a Tcl/Tk version
+and an X/Motif version. The Tcl/Tk version is recommended as it is
+the one being actively developed. Let's say you wish
+to install the Tcl/Tk distribution into the directory
+/homedir/TerraVision. You could do this as follows:
+
+<pre><font color="#004400">
+  % cd /homedir
+  % gzcat tv-tcltk-v5.tar.gz | tar xf -
+</font></pre>
+
+(N.B. the percent symbol '%' is meant to represent the shell prompt
+and is not part of the command). Note that the distribution extracts
+into a TerraVision directory by default.
+
+<H3>Configuring TerraVision<sup><font size="-2">TM</font></sup> - Unix</H3>
+
+In order for TerraVision to operate correctly, you 
+should update your login script (e.g. .cshrc for csh)
+to include the TVHOME environment variable which
+points to the directory where you have installed TerraVision, e.g.
+
+<pre><font color="#004400">
+    # csh script to setup environment for TerraVision
+    setenv TVHOME /homedir/TerraVision
+    set path = ($path $TVHOME/bin)
+</font></pre>
+
+Additionally, if you are installing the Tcl/Tk version of TerraVision
+and you do not already have Tcl/Tk 8.3 installed on your system, then
+you will need to update your LD_LIBRARY_PATH environment variable to
+point to the two Tcl/Tk shared libraries that are supplied with the
+TerraVision distribution. You should add this line to you shell start
+up script also:
+
+<pre><font color="#004400">
+     # csh syntax to add Tcl/Tk shared libs to search path
+     setenv LD_LIBRARY_PATH $TVHOME/lib:$LD_LIBRARY_PATH
+</font></pre>
+
+
+This is done to help TerraVision<sup><font size="-2">TM</font></sup>
+find a few support files such as images used in the GUI, but more 
+importantly, it is used to locate all of the Tcl/Tk scripts that are
+used to build the actual GUI.
+If you do not set a TVHOME environment variable, then
+TerraVision<sup><font size="-2">TM</font></sup> will use the current
+directory where you ran TerraVision<sup><font size="-2">TM</font></sup> from.
+
+<H3> Running TerraVision<sup><font size="-2">TM</font></sup> - Unix</H3>
+
+Once you have added the above environment variable and path update to
+your login script, you should source that file (e.g. "source
+~/.cshrc"), and then you can run the Tcl/Tk version of
+TerraVision<sup><font size="-2">TM</font></sup> by typing the following
+command:
+
+<pre><font color="#004400">
+   % TclTV
+</font></pre>
+
+<p>Or you can run the X/Motif version of TerraVision by typing
+the command.
+
+<pre><font color="#004400">
+   % TerraVision
+</font></pre>
+
+
+<H3> Viewing Terrain Datasets - Unix</H3>
+
+<p>For the full Tcl/Tk or X/Motif version of TerraVision, you can
+either load up a specific terrain database, or in the case of the
+Tcl/Tk version, you can use the new "Open DotGeo" option to
+automatically discover all datasets in your view (only works in 
+2D mode at the current time).
+
+<p>To load a specific terrain model and see something interesting
+in TerraVision, here are some steps to take:
+
+<OL>
+
+<LI> Make sure that you have some terrain data! You can browse dataset
+from SRI's http://www.tvgeo.com/TileSets web server or you can
+download a sample dataset from the <A
+HREF="http://www.tvgeo.com/download.shtml">TerraVision Download
+page</A>.
+
+<P><LI> Tell TerraVision<sup><font size="-2">TM</font></sup> to open
+the dataset. You can do this by going to the <B>File/Open Terrain</B> menu
+option. For more details, see the documentation for the
+<A HREF="tcltk/chapter_file.shtml">File Menu (Tcl/Tk)</A> or
+or <A HREF="motif/chapter_file.shtml">File Menu (Motif)</A>.
+
+<P><LI> Select a view of the dataset (this step is optional for the
+Tcl/Tk interface). You can view the terrain from a 2-D pan/zoom
+interface, or a full 3-D fly through. For more details, see the
+descriptions for the
+<A HREF="tcltk/chapter_views.shtml">View Menu (Tcl/Tk)</A> or
+<A HREF="motif/chapter_views.shtml">View Menu (Motif)</A>.
+</OL>
+</blockquote>
+
+
+
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p align="center" class="description">
+        <!--#include virtual="footer.inc" --><br>
+        Last updated: <!--#echo var="LAST_MODIFIED" -->.</p>
+      <!-- #EndEditable --></td>
+    <td width="20">&nbsp;</td>
+  </tr>
+</table>
+</body>
+<!-- #EndTemplate --></html>
